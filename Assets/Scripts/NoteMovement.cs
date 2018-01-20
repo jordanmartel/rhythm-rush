@@ -18,8 +18,8 @@ public class NoteMovement : MonoBehaviour {
 
 		if (direction == "left") {
 			transform.Translate (Vector3.left * Time.deltaTime * speed);
-		}
-		else if (direction == "right") {
+		} else if (direction == "right") {
 			transform.Translate (Vector3.right * Time.deltaTime * speed);
-    }
+		}
+	}
 }

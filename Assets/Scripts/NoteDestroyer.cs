@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class NoteDestroyer : MonoBehaviour {
 
+	public Text scoreText;
 	private int score;
+
 	private List<GameObject> colliderNotes;
 
 	public List<GameObject> getNotes(){
@@ -17,10 +19,12 @@ public class NoteDestroyer : MonoBehaviour {
 
 	public void incrementScore(int inc) {
 		score += inc;
+		scoreText.text = score.ToString();
 	}
 
 	void OnTriggerExit (Collider note) {
 		Destroy (note.gameObject);
+		colliderNotes.Remove (note.gameObject);
 	}
 
 	void OnTriggerEnter (Collider note) {

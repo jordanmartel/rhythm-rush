@@ -10,9 +10,11 @@ public class InputController : MonoBehaviour {
 	private void checkControlDestroyer (KeyCode key, NoteDestroyer destroyer)  {
 
 		List<GameObject> notes = destroyer.getNotes ();
+		Debug.Log ("Removing note");
 		foreach (GameObject note in notes) {
 			Destroy (note);
 			destroyer.incrementScore (100);
+			notes.Remove (note);
 		}
 	}
 
