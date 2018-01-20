@@ -9,12 +9,10 @@ public class InputController : MonoBehaviour {
 
 	private void checkControlDestroyer (KeyCode key, NoteDestroyer destroyer)  {
 
-		if (destroyer != null) {
-			List<GameObject> notes = destroyer.getNotes ();
-			foreach (GameObject note in notes) {
-				Destroy (note);
-				destroyer.incrementScore (100);
-			}
+		List<GameObject> notes = destroyer.getNotes ();
+		foreach (GameObject note in notes) {
+			Destroy (note);
+			destroyer.incrementScore (100);
 		}
 	}
 
