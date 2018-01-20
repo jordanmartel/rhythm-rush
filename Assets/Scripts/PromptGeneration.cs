@@ -29,7 +29,8 @@ public class PromptGeneration : MonoBehaviour {
         {
             if (elapsedTime > notes[i].time)
             {
-                GameObject newNote = Instantiate(note, new Vector3(0, 0, 0), Quaternion.identity);
+				Vector3 position = transform.position;
+				GameObject newNote = Instantiate(note, position, Quaternion.identity);
                 newNote.SetActive(true);
                 notes.Remove(notes[i]);
                 break;
