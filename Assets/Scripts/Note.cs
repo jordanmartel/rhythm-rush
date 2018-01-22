@@ -1,19 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
+using System;
 
-public class Note : MonoBehaviour {
+[Serializable]
+public class Note
+{
 
-    public double time;
-    public string key;
+    public float time;
+    public string button;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-	}
 }

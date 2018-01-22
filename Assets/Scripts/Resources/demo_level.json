@@ -1,3 +1,6 @@
 {
-	"notes_str":["10,a","20,b","30,c"]
+	"beat_map_string": "-,-,0,-,-,-,0,0",
+	"bpm": 140,
+	"beat_split": 2,
+	"offset": 5
 }
