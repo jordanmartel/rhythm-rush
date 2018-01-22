@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 54633649769691946}
   m_Layer: 0
   m_Name: note
-  m_TagString: Untagged
+  m_TagString: note
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,6 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: 
   canHit: 0
+  index: 0
 --- !u!122 &122365527149241998
 Halo:
   m_ObjectHideFlags: 1

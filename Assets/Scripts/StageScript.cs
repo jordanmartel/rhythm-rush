@@ -9,7 +9,10 @@ public class StageScript : MonoBehaviour {
     public double timer = 0;
     public GameObject noteObject;
     public List<string> notes;
+    public List<NoteScript> notesOnScreen;
     public int noteIndex;
+    public int noteCreateIndex;
+    public int noteHitIndex;
     public double nextBeatTime;
     public double playerOffset;
     public double beatInterval;
@@ -33,31 +36,74 @@ public class StageScript : MonoBehaviour {
     {
         GameObject newNote = Instantiate(noteObject, new Vector3(0,3,0), Quaternion.identity);
         newNote.GetComponent<NoteScript>().key = key;
+        newNote.GetComponent<NoteScript>().index = noteIndex;
     }
 	// Use this for initialization
 	void Awake () {
         parseJson("demo_level");
-        noteTravelSpeed = 3;
+        noteTravelSpeed = beatMapString.bpm / 20;
         noteTravelDistance = 6;
-        playerOffset = 0.1;
-        print(noteTravelDistance / noteTravelSpeed);
+        playerOffset = -.05;
         nextBeatTime = beatMapString.offset + playerOffset - noteTravelDistance / noteTravelSpeed;
         beatInterval = BeatInterval(beatMapString.bpm, beatMapString.beat_split);
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    NoteScript getNoteAtIndex(int index)
+    {
+        GameObject[] notes = GameObject.FindGameObjectsWithTag("note");
+        print(notes.Length);
+        foreach (GameObject note in notes)
+        {
+            NoteScript noteScript = note.GetComponent<NoteScript>();
+            if (noteScript.index == index)
+            {
+                return noteScript;
+            }
+        }
+        return null;
+    }
+
+    KeyCode stringToKey(string beat_string)
+    {
+        switch (beat_string)
+        {
+            case "0":
+                return KeyCode.Mouse0;
+            default:
+                return KeyCode.Mouse0;
+        }
+    }
+
+    // Update is called once per frame
+    void Update () {
         timer = Time.time;
         // Create beat
         if (timer > nextBeatTime)
         {
-            string curBeat = notes[noteIndex % notes.Count];
-            if (curBeat != "-" && nextBeatTime > 0)
+            string curBeat = notes[noteCreateIndex % notes.Count];
+            if (curBeat != "-")
             {
                 createNote(curBeat);
+                noteIndex++;
             }
-            noteIndex++;
-            nextBeatTime = beatMapString.offset + playerOffset + noteIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
+            noteCreateIndex++;
+            nextBeatTime = beatMapString.offset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
         }
-	}
+        NoteScript headNote = getNoteAtIndex(noteHitIndex);
+        if (headNote)
+        {
+            if (Input.GetKeyDown(stringToKey(headNote.key)) && headNote.canHit)
+            {
+                print("hit successfully");
+                noteHitIndex++;
+                Destroy(headNote.gameObject);
+            }
+            else if (Input.anyKeyDown)
+            {
+                print("miss");
+                noteHitIndex++;
+                Destroy(headNote.gameObject);
+            }
+        }
+    }
 }

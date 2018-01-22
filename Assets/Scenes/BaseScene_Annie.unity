@@ -571,6 +571,7 @@ MonoBehaviour:
   timer: 0
   noteObject: {fileID: 1397863479421368, guid: ce540111c7ce61b4f804c0e6b266d54a, type: 2}
   notes: []
+  notesOnScreen: []
   noteIndex: 0
   nextBeatTime: 0
   playerOffset: 0

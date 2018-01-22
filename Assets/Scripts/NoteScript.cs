@@ -6,30 +6,19 @@ public class NoteScript : MonoBehaviour {
 
     public string key;
     public bool canHit;
+    public int index;
 
 	// Use this for initialization
 	void Start () {
 		
 	}
 
-    KeyCode stringToKey(string beat_string)
-    {
-        switch (beat_string)
-        {
-            case "0":
-                return KeyCode.UpArrow;
-            default:
-                return KeyCode.DownArrow;
-        }
-    }
-
-
     void OnTriggerEnter(Collider collider)
     {
-        print("triggered");
         if (collider.tag == "miss")
         {
             print("miss");
+            FindObjectOfType<StageScript>().noteHitIndex++;
             Destroy(gameObject);
         }
         else if (collider.tag == "hit")
@@ -45,13 +34,5 @@ public class NoteScript : MonoBehaviour {
         StageScript stage = FindObjectOfType<StageScript>();
         float speed = (float) stage.noteTravelSpeed;
         transform.Translate(new Vector3(0, -speed * Time.deltaTime, 0));
-        if (canHit)
-        {
-            if (Input.GetKeyDown(stringToKey(key)))
-            {
-                print("hit successfully");
-                Destroy(gameObject);
-            }
-        }
     }
 }
