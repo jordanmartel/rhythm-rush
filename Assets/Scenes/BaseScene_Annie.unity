@@ -569,10 +569,12 @@ MonoBehaviour:
     beat_split: 0
     offset: 0
   timer: 0
-  noteObject: {fileID: 1397863479421368, guid: ce540111c7ce61b4f804c0e6b266d54a, type: 2}
+  noteObject: {fileID: 1572513937974932, guid: 91d6984dcf4c94f41b68cb44df645bd6, type: 2}
   notes: []
   notesOnScreen: []
   noteIndex: 0
+  noteCreateIndex: 0
+  noteHitIndex: 0
   nextBeatTime: 0
   playerOffset: 0
   beatInterval: 0
