@@ -5,6 +5,7 @@ using UnityEngine;
 public class NoteMovement : MonoBehaviour {
 
 	public float speed = 3.0f;
+	public string direction;
     
     // Use this for initialization
 
@@ -14,6 +15,11 @@ public class NoteMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.Translate(Vector3.right * Time.deltaTime * speed);
+
+		if (direction == "left") {
+			transform.Translate (Vector3.left * Time.deltaTime * speed);
+		}
+		else if (direction == "right") {
+			transform.Translate (Vector3.right * Time.deltaTime * speed);
     }
 }
