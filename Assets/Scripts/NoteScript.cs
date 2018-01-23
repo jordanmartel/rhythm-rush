@@ -7,6 +7,7 @@ public class NoteScript : MonoBehaviour {
     public string key;
     public bool canHit;
     public int index;
+    public string placement = "left";
 
 	// Use this for initialization
 	void Start () {
@@ -18,7 +19,14 @@ public class NoteScript : MonoBehaviour {
         if (collider.tag == "miss")
         {
             print("miss");
-            FindObjectOfType<StageScript>().noteHitIndex++;
+            if (placement == "left")
+            {
+                GameObject.FindGameObjectWithTag("stage_left").GetComponent<StageScript>().noteHitIndex++;
+            }
+            else
+            {
+                GameObject.FindGameObjectWithTag("stage_right").GetComponent<StageScript>().noteHitIndex++;
+            }
             Destroy(gameObject);
         }
         else if (collider.tag == "hit")

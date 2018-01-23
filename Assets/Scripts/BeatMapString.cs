@@ -6,7 +6,8 @@ using UnityEngine;
 [Serializable]
 public class BeatMapString{
 
-    public string beat_map_string;
+    public string beat_map_string_left;
+    public string beat_map_string_right;
     public int bpm;
     public int beat_split;
     public double offset;
