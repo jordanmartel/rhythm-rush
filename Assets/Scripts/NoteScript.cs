@@ -21,10 +21,12 @@ public class NoteScript : MonoBehaviour {
             print("miss");
             if (placement == "left")
             {
+                print("miss left");
                 GameObject.FindGameObjectWithTag("stage_left").GetComponent<StageScript>().noteHitIndex++;
             }
             else
             {
+                print("miss right");
                 GameObject.FindGameObjectWithTag("stage_right").GetComponent<StageScript>().noteHitIndex++;
             }
             Destroy(gameObject);

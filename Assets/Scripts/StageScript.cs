@@ -66,6 +66,7 @@ public class StageScript : MonoBehaviour {
         GameObject newNote = Instantiate(noteObject, new Vector3(x,3,0), new Quaternion(0,180,0,0));
         newNote.GetComponent<NoteScript>().key = key;
         newNote.GetComponent<NoteScript>().index = noteIndex;
+        newNote.GetComponent<NoteScript>().placement = placement;
         newNote.GetComponent<MeshRenderer>().material = stringToMesh(key);
     }
 	// Use this for initialization
@@ -73,7 +74,7 @@ public class StageScript : MonoBehaviour {
         parseJson("demo_level");
         noteTravelSpeed = beatMapString.bpm / 20;
         noteTravelDistance = 6;
-        playerOffset = -.0;
+        playerOffset = 0.05;
         nextBeatTime = beatMapString.offset + playerOffset - noteTravelDistance / noteTravelSpeed;
         beatInterval = BeatInterval(beatMapString.bpm, beatMapString.beat_split);
 	}
@@ -85,7 +86,7 @@ public class StageScript : MonoBehaviour {
         foreach (GameObject note in notes)
         {
             NoteScript noteScript = note.GetComponent<NoteScript>();
-            if (noteScript.index == index)
+            if (noteScript.index == index && noteScript.placement == placement)
             {
                 return noteScript;
             }
