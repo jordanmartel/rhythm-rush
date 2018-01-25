@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+// using WiimoteApi;
 
 public class StageScript : MonoBehaviour {
 
@@ -18,6 +19,8 @@ public class StageScript : MonoBehaviour {
     public double beatInterval;
     public double noteTravelSpeed;
     public double noteTravelDistance;
+
+    //private Wiimote wiimote;
 
     public Material meshW;
     public Material meshA;
@@ -77,7 +80,8 @@ public class StageScript : MonoBehaviour {
         playerOffset = 0.05;
         nextBeatTime = beatMapString.offset + playerOffset - noteTravelDistance / noteTravelSpeed;
         beatInterval = BeatInterval(beatMapString.bpm, beatMapString.beat_split);
-	}
+    }
+
 
     NoteScript getNoteAtIndex(int index)
     {
@@ -146,6 +150,7 @@ public class StageScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+
         timer = Time.time;
         // Create beat
         if (timer > nextBeatTime)
@@ -162,6 +167,22 @@ public class StageScript : MonoBehaviour {
         NoteScript headNote = getNoteAtIndex(noteHitIndex);
         if (headNote)
         {
+
+            /*float accel_x;
+            float accel_y;
+            float accel_z;
+
+            float[] accel = wiimote.Accel.GetCalibratedAccelData();
+            accel_x = accel[0];
+            accel_y = -accel[2];
+            accel_z = -accel[1];
+
+            Debug.Log("Accel x: " + accel_x);
+            Debug.Log("Accel y: " + accel_y);
+            Debug.Log("Accel z: " + accel_z);
+            */
+
+
             if (Input.GetKeyDown(stringToKey(headNote.key)) && headNote.canHit)
             {
                 print("hit successfully");
