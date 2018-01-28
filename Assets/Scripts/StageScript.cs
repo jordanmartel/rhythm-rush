@@ -17,6 +17,7 @@ public class StageScript : MonoBehaviour {
     public double beatInterval;
     public double noteTravelSpeed;
     public double noteTravelDistance;
+    public GameObject failObject;
 
     public Material triangle;
     public Material circle;
@@ -29,7 +30,16 @@ public class StageScript : MonoBehaviour {
     public int player;
 
     private float timer;
+    private float failTimer;
+    private float successTimer;
+
     private int joystick;
+
+
+    private string previousButton;
+    private float previousDpadHorizontal;
+    private float previousDpadVertical;
+
 
     public string placement = "left";
 
@@ -60,16 +70,17 @@ public class StageScript : MonoBehaviour {
         float x;
         if (placement == "left")
         {
-            x = -2;
+            x = -3;
         }
         else
         {
-            x = 2;
+            x = 3;
         }
         GameObject newNote = Instantiate(noteObject, new Vector3(x,3,0), new Quaternion(0,180,0,0));
         newNote.GetComponent<NoteScript>().key = key;
         newNote.GetComponent<NoteScript>().index = noteIndex;
         newNote.GetComponent<NoteScript>().placement = placement;
+        newNote.GetComponent<NoteScript>().failObject = failObject;
         newNote.GetComponent<MeshRenderer>().material = stringToMesh(key);
     }
 	// Use this for initialization
@@ -157,6 +168,20 @@ public class StageScript : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
+        if (failObject.activeSelf)
+        {
+            if (failTimer >= 0.2f)
+            {
+                failObject.SetActive(false);
+                failTimer = 0;
+            }
+
+            else
+            {
+                failTimer += Time.deltaTime;
+            }
+        }
+
         timer += Time.deltaTime;
         // Create beat
         if (timer > nextBeatTime)
@@ -173,23 +198,56 @@ public class StageScript : MonoBehaviour {
         NoteScript headNote = getNoteAtIndex(noteHitIndex);
         if (headNote)
         {
-            // check if any of the joystick buttons have been pressed (circle, triangle, square, cross only)
             bool buttonPressed = false;
-            for (int i = 0; i < 3; i++)
+
+
+            // get the dpad axis orientation
+            float dpadHorizontal = Input.GetAxis("Controller Axis-Joystick" + joystick + "-Axis7");
+            float dpadVertical = Input.GetAxis("Controller Axis-Joystick" + joystick + "-Axis8");
+
+            // only mark the button as pressed if there has been a change since the last frame and axis is non 0
+            if (dpadHorizontal != previousDpadHorizontal)
             {
-                if (Input.GetKeyDown("joystick " + joystick + " button " + i)) {
+                previousDpadHorizontal = dpadHorizontal;
+                if (dpadHorizontal != 0)
+                {
+                    buttonPressed = true;
+                }
+
+            }
+
+            //only mark the button as pressed if there has been a change since the last frame, and it is non 0
+            if (dpadVertical != previousDpadVertical)
+            {
+                previousDpadVertical= dpadVertical;
+                if (dpadVertical != 0)
+                {
                     buttonPressed = true;
                 }
             }
 
+            // check if any of the joystick buttons have been pressed (circle, triangle, square, cross only)
+            for (int i = 0; i < 3; i++)
+            {
+                string currentButton = "joystick " + joystick + " button " + i;
+
+                if (Input.GetKeyDown(currentButton) && previousButton != currentButton) {
+                    buttonPressed = true;
+                    previousButton = currentButton;
+                    break;
+                }
+            }
+
+            // want to know when player has stopped pressing button. Do not want to allow player to simply hold down a button
+            if (!buttonPressed)
+            {
+                previousButton = "";
+            }
+
             string keyToHit = stringToKey(headNote.key);
 
-            float dpadHorizontal = Input.GetAxis("Controller Axis-Joystick" + joystick + "-Axis7");
-            float dpadVertical = Input.GetAxis("Controller Axis-Joystick" + joystick + "-Axis8");
-
-
             if (headNote.canHit)
-            {            
+            {
                 if ((keyToHit.Equals("left") && dpadHorizontal == -1) ||
                         (keyToHit.Equals("right") && dpadHorizontal == 1) ||
                         (keyToHit.Equals("up") && dpadVertical == 1) ||
@@ -202,15 +260,23 @@ public class StageScript : MonoBehaviour {
 
                 }
 
-            }
-
-            else if (headNote.canMiss)
-            {
-                if (buttonPressed || dpadHorizontal != 0 || dpadVertical != 0)
+                else if (buttonPressed)
                 {
                     print("note missed!");
                     noteHitIndex++;
                     Destroy(headNote.gameObject);
+                    failObject.SetActive(true);
+                }
+            }
+
+            else if (headNote.canMiss)
+            {
+                if (buttonPressed)
+                {
+                    print("note missed!");
+                    noteHitIndex++;
+                    Destroy(headNote.gameObject);
+                    failObject.SetActive(true);
                 }
             }
         }
