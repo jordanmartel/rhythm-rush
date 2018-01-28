@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BaseScene_Annie.unity
     guid: b0da79f6f2752ea4d9fd04395cd117de
+  - enabled: 1
+    path: Assets/Scenes/BaseScene_Jordan.unity
+    guid: fa59652389b789a449729b3d7fd0a9e4

@@ -2,12 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// using WiimoteApi;
 
 public class StageScript : MonoBehaviour {
 
     public BeatMapString beatMapString;
-    public double timer = 0;
     public GameObject noteObject;
     public List<string> notes;
     public List<NoteScript> notesOnScreen;
@@ -20,16 +18,18 @@ public class StageScript : MonoBehaviour {
     public double noteTravelSpeed;
     public double noteTravelDistance;
 
-    //private Wiimote wiimote;
+    public Material triangle;
+    public Material circle;
+    public Material square;
+    public Material cross;
+    public Material dUp;
+    public Material dLeft;
+    public Material dRight;
+    public Material dDown;
+    public int player;
 
-    public Material meshW;
-    public Material meshA;
-    public Material meshS;
-    public Material meshD;
-    public Material meshUp;
-    public Material meshLeft;
-    public Material meshRight;
-    public Material meshDown;
+    private float timer;
+    private int joystick;
 
     public string placement = "left";
 
@@ -73,20 +73,31 @@ public class StageScript : MonoBehaviour {
         newNote.GetComponent<MeshRenderer>().material = stringToMesh(key);
     }
 	// Use this for initialization
-	void Awake () {
+	void Start () {
         parseJson("demo_level");
         noteTravelSpeed = beatMapString.bpm / 20;
         noteTravelDistance = 6;
         playerOffset = 0.05;
         nextBeatTime = beatMapString.offset + playerOffset - noteTravelDistance / noteTravelSpeed;
         beatInterval = BeatInterval(beatMapString.bpm, beatMapString.beat_split);
+
+
+        if (player == 0)
+        {
+            joystick = PlayerObject.player1Joystick;
+        }
+
+        else
+        {
+            joystick = PlayerObject.player2Joystick;
+        }
     }
 
 
     NoteScript getNoteAtIndex(int index)
     {
         GameObject[] notes = GameObject.FindGameObjectsWithTag("note");
-        print(notes.Length);
+        //print(notes.Length);
         foreach (GameObject note in notes)
         {
             NoteScript noteScript = note.GetComponent<NoteScript>();
@@ -98,28 +109,23 @@ public class StageScript : MonoBehaviour {
         return null;
     }
 
-    KeyCode stringToKey(string beat_string)
+    string stringToKey(string beat_string)
     {
         switch (beat_string)
         {
-            case "w":
-                return KeyCode.W;
-            case "a":
-                return KeyCode.A;
-            case "s":
-                return KeyCode.S;
-            case "d":
-                return KeyCode.D;
-            case "up":
-                return KeyCode.UpArrow;
-            case "left":
-                return KeyCode.LeftArrow;
-            case "down":
-                return KeyCode.DownArrow;
-            case "right":
-                return KeyCode.RightArrow;
+            case "triangle":
+                return "joystick " + joystick + " button 3";
+            case "circle":
+                return "joystick " + joystick + " button 2";
+            case "square":
+                return "joystick " + joystick + " button 0";
+            case "cross":
+                return "joystick " + joystick + " button 1";
+
+            // for dpad, use literal name to be worked with later
             default:
-                return KeyCode.W;
+                return beat_string;
+                
         }
     }
 
@@ -127,31 +133,31 @@ public class StageScript : MonoBehaviour {
     {
         switch (beat_string)
         {
-            case "w":
-                return meshW;
-            case "a":
-                return meshA;
-            case "s":
-                return meshS;
-            case "d":
-                return meshD;
+            case "triangle":
+                return triangle;
+            case "circle":
+                return circle;
+            case "square":
+                return square;
+            case "cross":
+                return cross;
             case "up":
-                return meshUp;
+                return dUp;
             case "left":
-                return meshLeft;
+                return dLeft;
             case "down":
-                return meshDown;
+                return dDown;
             case "right":
-                return meshRight;
+                return dRight;
             default:
-                return meshW;
+                return cross;
         }
     }
 
     // Update is called once per frame
     void Update () {
 
-        timer = Time.time;
+        timer += Time.deltaTime;
         // Create beat
         if (timer > nextBeatTime)
         {
@@ -167,44 +173,42 @@ public class StageScript : MonoBehaviour {
         NoteScript headNote = getNoteAtIndex(noteHitIndex);
         if (headNote)
         {
-
-            /*float accel_x;
-            float accel_y;
-            float accel_z;
-
-            float[] accel = wiimote.Accel.GetCalibratedAccelData();
-            accel_x = accel[0];
-            accel_y = -accel[2];
-            accel_z = -accel[1];
-
-            Debug.Log("Accel x: " + accel_x);
-            Debug.Log("Accel y: " + accel_y);
-            Debug.Log("Accel z: " + accel_z);
-            */
-
-
-            if (Input.GetKeyDown(stringToKey(headNote.key)) && headNote.canHit)
+            // check if any of the joystick buttons have been pressed (circle, triangle, square, cross only)
+            bool buttonPressed = false;
+            for (int i = 0; i < 3; i++)
             {
-                print("hit successfully");
-                noteHitIndex++;
-                Destroy(headNote.gameObject);
-            }
-            else if (placement == "left")
-            {
-                if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) ||
-                    Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
-                {
-                    print("wasd miss");
-                    noteHitIndex++;
-                    Destroy(headNote.gameObject);
+                if (Input.GetKeyDown("joystick " + joystick + " button " + i)) {
+                    buttonPressed = true;
                 }
             }
-            else if (placement == "right")
-            {
-                if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.LeftArrow) ||
-                    Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.RightArrow))
+
+            string keyToHit = stringToKey(headNote.key);
+
+            float dpadHorizontal = Input.GetAxis("Controller Axis-Joystick" + joystick + "-Axis7");
+            float dpadVertical = Input.GetAxis("Controller Axis-Joystick" + joystick + "-Axis8");
+
+
+            if (headNote.canHit)
+            {            
+                if ((keyToHit.Equals("left") && dpadHorizontal == -1) ||
+                        (keyToHit.Equals("right") && dpadHorizontal == 1) ||
+                        (keyToHit.Equals("up") && dpadVertical == 1) ||
+                        (keyToHit.Equals("down") && dpadVertical == -1) ||
+                        (Input.GetKeyDown(keyToHit)))
                 {
-                    print("arrow miss");
+                    print("hit successfully");
+                    noteHitIndex++;
+                    Destroy(headNote.gameObject);
+
+                }
+
+            }
+
+            else if (headNote.canMiss)
+            {
+                if (buttonPressed || dpadHorizontal != 0 || dpadVertical != 0)
+                {
+                    print("note missed!");
                     noteHitIndex++;
                     Destroy(headNote.gameObject);
                 }

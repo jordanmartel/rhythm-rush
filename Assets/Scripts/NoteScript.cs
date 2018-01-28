@@ -6,6 +6,7 @@ public class NoteScript : MonoBehaviour {
 
     public string key;
     public bool canHit;
+    public bool canMiss;
     public int index;
     public string placement = "left";
 
@@ -36,6 +37,11 @@ public class NoteScript : MonoBehaviour {
             canHit = true;
             Behaviour halo = (Behaviour)gameObject.GetComponent("Halo");
             halo.enabled = true;
+        }
+
+        else if (collider.tag == "wrong_hit")
+        {
+            canMiss = true;
         }
     }
 
