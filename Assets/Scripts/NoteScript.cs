@@ -6,8 +6,10 @@ public class NoteScript : MonoBehaviour {
 
     public string key;
     public bool canHit;
+    public bool canMiss;
     public int index;
     public string placement = "left";
+    public GameObject failObject;
 
 	// Use this for initialization
 	void Start () {
@@ -29,6 +31,7 @@ public class NoteScript : MonoBehaviour {
                 print("miss right");
                 GameObject.FindGameObjectWithTag("stage_right").GetComponent<StageScript>().noteHitIndex++;
             }
+            failObject.SetActive(true);
             Destroy(gameObject);
         }
         else if (collider.tag == "hit")
@@ -36,6 +39,11 @@ public class NoteScript : MonoBehaviour {
             canHit = true;
             Behaviour halo = (Behaviour)gameObject.GetComponent("Halo");
             halo.enabled = true;
+        }
+
+        else if (collider.tag == "wrong_hit")
+        {
+            canMiss = true;
         }
     }
 

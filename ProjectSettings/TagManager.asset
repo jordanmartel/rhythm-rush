@@ -9,6 +9,7 @@ TagManager:
   - note
   - stage_left
   - stage_right
+  - wrong_hit
   layers:
   - Default
   - TransparentFX

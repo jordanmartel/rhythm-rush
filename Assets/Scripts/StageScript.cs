@@ -6,7 +6,6 @@ using UnityEngine;
 public class StageScript : MonoBehaviour {
 
     public BeatMapString beatMapString;
-    public double timer = 0;
     public GameObject noteObject;
     public List<string> notes;
     public List<NoteScript> notesOnScreen;
@@ -18,15 +17,29 @@ public class StageScript : MonoBehaviour {
     public double beatInterval;
     public double noteTravelSpeed;
     public double noteTravelDistance;
+    public GameObject failObject;
 
-    public Material meshW;
-    public Material meshA;
-    public Material meshS;
-    public Material meshD;
-    public Material meshUp;
-    public Material meshLeft;
-    public Material meshRight;
-    public Material meshDown;
+    public Material triangle;
+    public Material circle;
+    public Material square;
+    public Material cross;
+    public Material dUp;
+    public Material dLeft;
+    public Material dRight;
+    public Material dDown;
+    public int player;
+
+    private float timer;
+    private float failTimer;
+    private float successTimer;
+
+    private int joystick;
+
+
+    private string previousButton;
+    private float previousDpadHorizontal;
+    private float previousDpadVertical;
+
 
     public string placement = "left";
 
@@ -57,32 +70,45 @@ public class StageScript : MonoBehaviour {
         float x;
         if (placement == "left")
         {
-            x = -2;
+            x = -3;
         }
         else
         {
-            x = 2;
+            x = 3;
         }
         GameObject newNote = Instantiate(noteObject, new Vector3(x,3,0), new Quaternion(0,180,0,0));
         newNote.GetComponent<NoteScript>().key = key;
         newNote.GetComponent<NoteScript>().index = noteIndex;
         newNote.GetComponent<NoteScript>().placement = placement;
+        newNote.GetComponent<NoteScript>().failObject = failObject;
         newNote.GetComponent<MeshRenderer>().material = stringToMesh(key);
     }
 	// Use this for initialization
-	void Awake () {
+	void Start () {
         parseJson("demo_level");
         noteTravelSpeed = beatMapString.bpm / 20;
         noteTravelDistance = 6;
         playerOffset = 0.05;
         nextBeatTime = beatMapString.offset + playerOffset - noteTravelDistance / noteTravelSpeed;
         beatInterval = BeatInterval(beatMapString.bpm, beatMapString.beat_split);
-	}
+
+
+        if (player == 0)
+        {
+            joystick = PlayerObject.player1Joystick;
+        }
+
+        else
+        {
+            joystick = PlayerObject.player2Joystick;
+        }
+    }
+
 
     NoteScript getNoteAtIndex(int index)
     {
         GameObject[] notes = GameObject.FindGameObjectsWithTag("note");
-        print(notes.Length);
+        //print(notes.Length);
         foreach (GameObject note in notes)
         {
             NoteScript noteScript = note.GetComponent<NoteScript>();
@@ -94,28 +120,23 @@ public class StageScript : MonoBehaviour {
         return null;
     }
 
-    KeyCode stringToKey(string beat_string)
+    string stringToKey(string beat_string)
     {
         switch (beat_string)
         {
-            case "w":
-                return KeyCode.W;
-            case "a":
-                return KeyCode.A;
-            case "s":
-                return KeyCode.S;
-            case "d":
-                return KeyCode.D;
-            case "up":
-                return KeyCode.UpArrow;
-            case "left":
-                return KeyCode.LeftArrow;
-            case "down":
-                return KeyCode.DownArrow;
-            case "right":
-                return KeyCode.RightArrow;
+            case "triangle":
+                return "joystick " + joystick + " button 3";
+            case "circle":
+                return "joystick " + joystick + " button 2";
+            case "square":
+                return "joystick " + joystick + " button 0";
+            case "cross":
+                return "joystick " + joystick + " button 1";
+
+            // for dpad, use literal name to be worked with later
             default:
-                return KeyCode.W;
+                return beat_string;
+                
         }
     }
 
@@ -123,30 +144,45 @@ public class StageScript : MonoBehaviour {
     {
         switch (beat_string)
         {
-            case "w":
-                return meshW;
-            case "a":
-                return meshA;
-            case "s":
-                return meshS;
-            case "d":
-                return meshD;
+            case "triangle":
+                return triangle;
+            case "circle":
+                return circle;
+            case "square":
+                return square;
+            case "cross":
+                return cross;
             case "up":
-                return meshUp;
+                return dUp;
             case "left":
-                return meshLeft;
+                return dLeft;
             case "down":
-                return meshDown;
+                return dDown;
             case "right":
-                return meshRight;
+                return dRight;
             default:
-                return meshW;
+                return cross;
         }
     }
 
     // Update is called once per frame
     void Update () {
-        timer = Time.time;
+
+        if (failObject.activeSelf)
+        {
+            if (failTimer >= 0.2f)
+            {
+                failObject.SetActive(false);
+                failTimer = 0;
+            }
+
+            else
+            {
+                failTimer += Time.deltaTime;
+            }
+        }
+
+        timer += Time.deltaTime;
         // Create beat
         if (timer > nextBeatTime)
         {
@@ -162,30 +198,85 @@ public class StageScript : MonoBehaviour {
         NoteScript headNote = getNoteAtIndex(noteHitIndex);
         if (headNote)
         {
-            if (Input.GetKeyDown(stringToKey(headNote.key)) && headNote.canHit)
+            bool buttonPressed = false;
+
+
+            // get the dpad axis orientation
+            float dpadHorizontal = Input.GetAxis("Controller Axis-Joystick" + joystick + "-Axis7");
+            float dpadVertical = Input.GetAxis("Controller Axis-Joystick" + joystick + "-Axis8");
+
+            // only mark the button as pressed if there has been a change since the last frame and axis is non 0
+            if (dpadHorizontal != previousDpadHorizontal)
             {
-                print("hit successfully");
-                noteHitIndex++;
-                Destroy(headNote.gameObject);
-            }
-            else if (placement == "left")
-            {
-                if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) ||
-                    Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
+                previousDpadHorizontal = dpadHorizontal;
+                if (dpadHorizontal != 0)
                 {
-                    print("wasd miss");
-                    noteHitIndex++;
-                    Destroy(headNote.gameObject);
+                    buttonPressed = true;
+                }
+
+            }
+
+            //only mark the button as pressed if there has been a change since the last frame, and it is non 0
+            if (dpadVertical != previousDpadVertical)
+            {
+                previousDpadVertical= dpadVertical;
+                if (dpadVertical != 0)
+                {
+                    buttonPressed = true;
                 }
             }
-            else if (placement == "right")
+
+            // check if any of the joystick buttons have been pressed (circle, triangle, square, cross only)
+            for (int i = 0; i < 3; i++)
             {
-                if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.LeftArrow) ||
-                    Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.RightArrow))
+                string currentButton = "joystick " + joystick + " button " + i;
+
+                if (Input.GetKeyDown(currentButton) && previousButton != currentButton) {
+                    buttonPressed = true;
+                    previousButton = currentButton;
+                    break;
+                }
+            }
+
+            // want to know when player has stopped pressing button. Do not want to allow player to simply hold down a button
+            if (!buttonPressed)
+            {
+                previousButton = "";
+            }
+
+            string keyToHit = stringToKey(headNote.key);
+
+            if (headNote.canHit)
+            {
+                if ((keyToHit.Equals("left") && dpadHorizontal == -1) ||
+                        (keyToHit.Equals("right") && dpadHorizontal == 1) ||
+                        (keyToHit.Equals("up") && dpadVertical == 1) ||
+                        (keyToHit.Equals("down") && dpadVertical == -1) ||
+                        (Input.GetKeyDown(keyToHit)))
                 {
-                    print("arrow miss");
+                    print("hit successfully");
                     noteHitIndex++;
                     Destroy(headNote.gameObject);
+
+                }
+
+                else if (buttonPressed)
+                {
+                    print("note missed!");
+                    noteHitIndex++;
+                    Destroy(headNote.gameObject);
+                    failObject.SetActive(true);
+                }
+            }
+
+            else if (headNote.canMiss)
+            {
+                if (buttonPressed)
+                {
+                    print("note missed!");
+                    noteHitIndex++;
+                    Destroy(headNote.gameObject);
+                    failObject.SetActive(true);
                 }
             }
         }

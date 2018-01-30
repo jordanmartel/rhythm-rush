@@ -1,6 +1,6 @@
 {
-	"beat_map_string_left": "d,-,a,-",
-	"beat_map_string_right": "left,-,right,-,left,-,up,up",
+	"beat_map_string_left": "triangle,-,triangle,-",
+	"beat_map_string_right": "left,-,square,-,circle,-,up,cross",
 	"bpm": 140,
 	"beat_split": 2,
 	"offset": 5
