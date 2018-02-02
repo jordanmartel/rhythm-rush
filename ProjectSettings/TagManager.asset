@@ -10,6 +10,8 @@ TagManager:
   - stage_left
   - stage_right
   - wrong_hit
+  - left_feedback
+  - right_feedback
   layers:
   - Default
   - TransparentFX

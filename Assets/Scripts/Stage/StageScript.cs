@@ -11,14 +11,18 @@ public class StageScript : MonoBehaviour {
     public List<NoteScript> notesOnScreen;
     public int noteIndex;
     public int noteCreateIndex;
-    public int noteHitIndex;
     public double nextBeatTime;
     public double playerOffset;
     public double beatInterval;
-    public double noteTravelSpeed;
     public double noteTravelDistance;
-    public GameObject failObject;
+    public int noteHitIndex;
+    public double noteTravelSpeed;
 
+    public GameObject failObject;
+    public GameObject hitBox;
+    public GameObject feedbackText; 
+
+    [Header("Input Materials")]
     public Material triangle;
     public Material circle;
     public Material square;
@@ -32,9 +36,9 @@ public class StageScript : MonoBehaviour {
     private float timer;
     private float failTimer;
     private float successTimer;
+    private float score;
 
     private int joystick;
-
 
     private string previousButton;
     private float previousDpadHorizontal;
@@ -67,21 +71,15 @@ public class StageScript : MonoBehaviour {
 
     void createNote(string key)
     {
-        float x;
-        if (placement == "left")
-        {
-            x = -3;
-        }
-        else
-        {
-            x = 3;
-        }
-        GameObject newNote = Instantiate(noteObject, new Vector3(x,3,0), new Quaternion(0,180,0,0));
+        Vector3 position = transform.position;
+        GameObject newNote = Instantiate(noteObject, new Vector3(position.x,position.y + 3,position.z), new Quaternion(0,180,0,0));
         newNote.GetComponent<NoteScript>().key = key;
         newNote.GetComponent<NoteScript>().index = noteIndex;
         newNote.GetComponent<NoteScript>().placement = placement;
         newNote.GetComponent<NoteScript>().failObject = failObject;
         newNote.GetComponent<MeshRenderer>().material = stringToMesh(key);
+        newNote.GetComponent<NoteScript>().feedback = feedbackText;
+        newNote.SetActive(true);
     }
 	// Use this for initialization
 	void Start () {
@@ -256,7 +254,7 @@ public class StageScript : MonoBehaviour {
                 {
                     print("hit successfully");
                     noteHitIndex++;
-                    Destroy(headNote.gameObject);
+                    score += headNote.destroyWithFeedback(hitBox);
 
                 }
 
@@ -264,7 +262,7 @@ public class StageScript : MonoBehaviour {
                 {
                     print("note missed!");
                     noteHitIndex++;
-                    Destroy(headNote.gameObject);
+                    score += headNote.destroyWithFeedback(hitBox);
                     failObject.SetActive(true);
                 }
             }
@@ -275,7 +273,7 @@ public class StageScript : MonoBehaviour {
                 {
                     print("note missed!");
                     noteHitIndex++;
-                    Destroy(headNote.gameObject);
+                    score += headNote.destroyWithFeedback(hitBox);
                     failObject.SetActive(true);
                 }
             }

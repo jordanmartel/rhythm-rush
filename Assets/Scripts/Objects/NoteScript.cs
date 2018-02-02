@@ -11,6 +11,8 @@ public class NoteScript : MonoBehaviour {
     public string placement = "left";
     public GameObject failObject;
 
+    public GameObject feedback;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -46,6 +48,19 @@ public class NoteScript : MonoBehaviour {
             canMiss = true;
         }
     }
+
+    public float destroyWithFeedback(GameObject hitArea)
+    {
+        float distance = Vector3.Distance(hitArea.transform.position, transform.position);
+        Debug.Log("Distance from HitBox: " + distance);
+        float score = feedback.GetComponent<PlayerFeedback>().GiveFeedback(distance);
+
+        Debug.Log(score);
+        Destroy(gameObject);
+
+        return score;
+    }
+
 
     // Update is called once per frame
     void Update () {

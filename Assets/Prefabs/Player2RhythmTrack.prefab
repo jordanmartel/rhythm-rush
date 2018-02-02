@@ -133,7 +133,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1448610843965860}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.1937048, y: 2.920457, z: -0.20666695}
+  m_LocalPosition: {x: 2, y: 2.920457, z: -0.20666695}
   m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4441696017768296}
@@ -160,7 +160,7 @@ Transform:
   m_GameObject: {fileID: 1361745595167332}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 2, y: -1.6999998, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 4441696017768296}
   m_RootOrder: 2
@@ -171,9 +171,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1560205546398408}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1, y: -1.3000002, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.29, y: 12.52, z: -68.33}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4270226223375360}
   - {fileID: 4568470257102876}
@@ -271,12 +271,12 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1171830913017112}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
   m_Materials:
   - {fileID: 2100000, guid: 6fa8545614f99c84b9f00b78aa3e3c7d, type: 2}
   m_StaticBatchInfo:
@@ -418,13 +418,14 @@ MonoBehaviour:
   notesOnScreen: []
   noteIndex: 0
   noteCreateIndex: 0
-  noteHitIndex: 0
   nextBeatTime: 0
   playerOffset: 0
   beatInterval: 0
-  noteTravelSpeed: 0
   noteTravelDistance: 0
+  noteHitIndex: 0
+  noteTravelSpeed: 0
   failObject: {fileID: 1171830913017112}
+  hitBox: {fileID: 0}
   triangle: {fileID: 2100000, guid: 3e8de286dd934734aab5df487413f488, type: 2}
   circle: {fileID: 2100000, guid: eb039c61f6170af49984d401fd54d725, type: 2}
   square: {fileID: 2100000, guid: dac99a6c6dafd6f4883d4bb0473de5a8, type: 2}
