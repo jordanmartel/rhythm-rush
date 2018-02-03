@@ -1,7 +1,16 @@
 {
-	"beat_map_string_left": "triangle,-,triangle,-",
-	"beat_map_string_right": "left,-,square,-,circle,-,up,cross",
-	"bpm": 140,
-	"beat_split": 2,
-	"offset": 5
+  "bpm": 142,
+  "beat_split": 2,
+  "offset": 5,
+  "player1Notes": {
+    "0": "triangle",
+    "2": "triangle"
+  },
+  "player2Notes": {
+    "0": "left",
+    "2": "square",
+    "4": "circle",
+    "6": "up",
+    "7": "cross"
+  }
 }
