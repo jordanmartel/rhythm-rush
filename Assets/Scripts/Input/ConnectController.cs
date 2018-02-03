@@ -16,9 +16,6 @@ public class ConnectController : MonoBehaviour {
     // unity is super gross and randomly assigns a controller to a joystick. Will have to manually 
     // keep track of which joystick buttons belong to each player
 
-    //private int player1Joystick = -1;
-    //private int player2Joystick = -1;
-
     // Use this for initialization
     void Start() {
     }
@@ -26,8 +23,8 @@ public class ConnectController : MonoBehaviour {
     // Update is called once per frame
     void Update() {
 
-
-
+        // uncomment this to see what button the player is pushing
+        /*
         for (int i = 0; i < 20; i++)
         {
 
@@ -47,10 +44,7 @@ public class ConnectController : MonoBehaviour {
                 }
 
             }
-        }
-
-
-
+        }*/
 
         if (PlayerObject.player1Joystick != -1)
         {
@@ -73,7 +67,7 @@ public class ConnectController : MonoBehaviour {
 
         if (player1Ready && player2Ready)
         {
-            SceneManager.LoadScene("BaseScene_Jordan");
+            SceneManager.LoadScene("BaseScene_Alex");
         }
 
 

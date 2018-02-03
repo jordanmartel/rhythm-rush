@@ -2,12 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using Newtonsoft.Json;
 
 public class StageScript : MonoBehaviour {
 
-    public BeatMapString beatMapString;
     public GameObject noteObject;
-    public List<string> notes;
+    public Dictionary<string, string> notes;
+    public int maxBeat;
     public List<NoteScript> notesOnScreen;
     public int noteIndex;
     public int noteCreateIndex;
@@ -44,24 +46,24 @@ public class StageScript : MonoBehaviour {
     private float previousDpadHorizontal;
     private float previousDpadVertical;
 
-
+    private Beatmap beatmap;
     public string placement = "left";
 
     void parseJson(string filePath)
     {
         string beatMapJson = Resources.Load<TextAsset>(filePath).text;
-        beatMapString = JsonUtility.FromJson<BeatMapString>(beatMapJson);
-        string[] notes_array;
+        beatmap = JsonConvert.DeserializeObject<Beatmap>(beatMapJson);
+
         if (placement == "left")
         {
-            notes_array = beatMapString.beat_map_string_left.Split(',');
+            notes = beatmap.player1Notes;
+            maxBeat = 2;
         }
         else
         {
-            notes_array = beatMapString.beat_map_string_right.Split(',');
+            notes = beatmap.player2Notes;
+            maxBeat = 8;
         }
-        
-        notes = new List<string>(notes_array);
     }
 
     double BeatInterval(int bpm, int beat_split)
@@ -84,11 +86,11 @@ public class StageScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         parseJson("demo_level");
-        noteTravelSpeed = beatMapString.bpm / 20;
+        noteTravelSpeed = beatmap.bpm / 20;
         noteTravelDistance = 6;
         playerOffset = 0.05;
-        nextBeatTime = beatMapString.offset + playerOffset - noteTravelDistance / noteTravelSpeed;
-        beatInterval = BeatInterval(beatMapString.bpm, beatMapString.beat_split);
+        nextBeatTime = beatmap.offset + playerOffset - noteTravelDistance / noteTravelSpeed;
+        beatInterval = BeatInterval(beatmap.bpm, beatmap.beat_split);
 
 
         if (player == 0)
@@ -118,9 +120,9 @@ public class StageScript : MonoBehaviour {
         return null;
     }
 
-    string stringToKey(string beat_string)
+    string stringToKey(string beat)
     {
-        switch (beat_string)
+        switch (beat)
         {
             case "triangle":
                 return "joystick " + joystick + " button 3";
@@ -133,14 +135,14 @@ public class StageScript : MonoBehaviour {
 
             // for dpad, use literal name to be worked with later
             default:
-                return beat_string;
+                return beat.ToString();
                 
         }
     }
 
-    Material stringToMesh(string beat_string)
+    Material stringToMesh(string key)
     {
-        switch (beat_string)
+        switch (key)
         {
             case "triangle":
                 return triangle;
@@ -184,14 +186,22 @@ public class StageScript : MonoBehaviour {
         // Create beat
         if (timer > nextBeatTime)
         {
-            string curBeat = notes[noteCreateIndex % notes.Count];
-            if (curBeat != "-")
-            {
+
+            if (notes.ContainsKey((noteCreateIndex % maxBeat).ToString())) {
+
+                /*if (placement.Equals("right"))
+                {
+                    Debug.Log("note index is: " + noteCreateIndex);
+                    Debug.Log("note index % count is: " + noteCreateIndex % notes.Count);
+
+                }*/
+                string curBeat = notes[(noteCreateIndex % maxBeat).ToString()];
                 createNote(curBeat);
                 noteIndex++;
             }
+
             noteCreateIndex++;
-            nextBeatTime = beatMapString.offset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
+            nextBeatTime = beatmap.offset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
         }
         NoteScript headNote = getNoteAtIndex(noteHitIndex);
         if (headNote)
@@ -252,7 +262,7 @@ public class StageScript : MonoBehaviour {
                         (keyToHit.Equals("down") && dpadVertical == -1) ||
                         (Input.GetKeyDown(keyToHit)))
                 {
-                    print("hit successfully");
+                    //print("hit successfully");
                     noteHitIndex++;
                     score += headNote.destroyWithFeedback(hitBox);
 
@@ -260,7 +270,7 @@ public class StageScript : MonoBehaviour {
 
                 else if (buttonPressed)
                 {
-                    print("note missed!");
+                    //print("note missed!");
                     noteHitIndex++;
                     score += headNote.destroyWithFeedback(hitBox);
                     failObject.SetActive(true);
@@ -271,7 +281,7 @@ public class StageScript : MonoBehaviour {
             {
                 if (buttonPressed)
                 {
-                    print("note missed!");
+                    //print("note missed!");
                     noteHitIndex++;
                     score += headNote.destroyWithFeedback(hitBox);
                     failObject.SetActive(true);

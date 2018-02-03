@@ -3,22 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
+
 [Serializable]
 public class Beatmap
 {
+    public int bpm;
+    public int beat_split;
+    public int offset;
 
-    public Note[] notes;
-
-    // go through all the notes and find the next note that has not happened yet
-    Note GetNextNote(float time)
-    {
-        for (int i = 0; i < notes.Length; i ++) {
-
-            if (notes[i].time > time)
-            {
-                return notes[i];
-            }
-        }
-        return null;
-    }
+    public Dictionary<string, string> player1Notes;
+    public Dictionary<string, string> player2Notes;
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PromptGeneration : MonoBehaviour {
 
-    public GameObject note;
+    /*public GameObject note;
     public Beatmap beatmap;
 
     private List<Note> notes = new List<Note>();
@@ -38,4 +38,5 @@ public class PromptGeneration : MonoBehaviour {
         }
 		
 	}
+    */
 }
