@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: b435adfac85550e4d9ff0365da0d2221
-timeCreated: 1517533299
+guid: 6ec826c0ec8e14a48848cf2ac431eacf
+timeCreated: 1517710930
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -9,16 +9,20 @@ ModelImporter:
     100002: default
     400000: //RootNode
     400002: default
-    2100000: defaultMat
     2300000: default
     3300000: default
     4300000: default
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: defaultMat
+    second: {fileID: 2100000, guid: aa68f7ac0209c114ba994d0fcea9f267, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
-    materialLocation: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -56,8 +60,6 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
-    preserveHierarchy: 0
-    indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
