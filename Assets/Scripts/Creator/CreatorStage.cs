@@ -49,6 +49,9 @@ public class CreatorStage : MonoBehaviour {
 
     [Header("CreatorMode")]
     public string beatmap_filePath;
+    public double offset;
+    public int bpm;
+    public int beat_split;
 
     public string placement = "left";
 
@@ -73,7 +76,7 @@ public class CreatorStage : MonoBehaviour {
 
     void createNote(string key) {
         Vector3 position = transform.position;
-        GameObject newNote = Instantiate(noteObject, new Vector3(position.x, position.y -3, position.z), new Quaternion(0, 180, 0, 0));
+        GameObject newNote = Instantiate(noteObject, new Vector3(position.x, position.y -4, position.z), new Quaternion(0, 180, 0, 0));
         newNote.GetComponent<NoteScript>().key = key;
         newNote.GetComponent<NoteScript>().index = noteIndex;
         newNote.GetComponent<NoteScript>().placement = placement;
@@ -85,15 +88,16 @@ public class CreatorStage : MonoBehaviour {
     // Use this for initialization
     void Start() {
 
-        double bmsoffset = 5;
-        int bmsbpm = 142;
-        int beat_split = 2;
+        //These variables need to be adjusted before recording
+        offset = 5;
+        bpm = 142;
+        beat_split = 2;
 
         noteTravelSpeed = 142 / 20;
         noteTravelDistance = 6;
         playerOffset = 0.05;
-        nextBeatTime = bmsoffset + playerOffset - noteTravelDistance / noteTravelSpeed;
-        beatInterval = BeatInterval(bmsbpm, beat_split);
+        nextBeatTime = offset + playerOffset - noteTravelDistance / noteTravelSpeed;
+        beatInterval = BeatInterval(bpm, beat_split);
 
 
         if (player == 0) {
@@ -104,7 +108,7 @@ public class CreatorStage : MonoBehaviour {
             joystick = PlayerObject.player2Joystick;
         }
 
-        recordedNotes = new Beatmap((int)bmsoffset, beat_split, bmsoffset);
+        recordedNotes = new Beatmap((int)bpm, beat_split, offset);
 
     }
 
@@ -154,11 +158,13 @@ public class CreatorStage : MonoBehaviour {
 
         timer += Time.deltaTime;
         // Create beat
-        if (timer > nextBeatTime) { 
+        if (timer > nextBeatTime) {
+            Debug.Log(noteIndex);
+
 
             noteIndex++;
             //5 is offset
-            nextBeatTime = 5 + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
+            nextBeatTime = 5 + playerOffset + noteIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
         }
 
 
@@ -230,9 +236,6 @@ public class CreatorStage : MonoBehaviour {
 
             //Stops time and writes notes to file 
             Time.timeScale = 0.05f;
-            foreach (KeyValuePair<string,string> entry in recordedNotes.player1Notes) {
-                Debug.Log("Found Note:" + entry.Value + "At Index " + entry.Key);
-            }
 
             WriteCreatedBeat();
             

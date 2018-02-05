@@ -18,21 +18,19 @@ public class Beatmap
         this.bpm = bpm;
         this.beat_split = beat_split;
         this.offset = offset;
+
+        player1Notes = new Dictionary<string, string>();
+        player2Notes = new Dictionary<string, string>();
     }
 
     public void addP1Note(int index, String key) {
-        if (player1Notes != null) {
-            player1Notes.Add(index.ToString(), key);
-        } else {
-            player1Notes = new Dictionary<string, string>();
-        }
+        player1Notes.Add(index.ToString(), key);
     }
 
     public void addP2Note(int index, String key) {
-        if (player2Notes != null) {
-            player2Notes.Add(index.ToString(), key);
-        } else {
-            player2Notes = new Dictionary<string, string>();
-        }
+        player2Notes.Add(index.ToString(), key);
     }
+
+    
+
 }
