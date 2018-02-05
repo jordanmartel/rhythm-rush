@@ -36,7 +36,6 @@ public class StageScript : MonoBehaviour {
 
     private float timer;
     private float successTimer;
-    private float score;
 
     [Header("Controller Values")]
     private int joystick;
@@ -46,6 +45,9 @@ public class StageScript : MonoBehaviour {
 
     private Beatmap beatmap;
     public string placement = "left";
+
+    [Header("Phase Control")]
+    public bool teamAttack = false;
 
     void parseJson(string filePath)
     {
@@ -162,109 +164,144 @@ public class StageScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-
-        timer += Time.deltaTime;
+        float score = FindObjectOfType<BossScript>().dmg;
+        int combo = FindObjectOfType<TeamAttack>().combo;
+        timer = Time.time;
         // Create beat
-        if (timer > nextBeatTime)
+        if (teamAttack)
         {
-            if (notes.ContainsKey((noteCreateIndex).ToString())) {
-
-                /*if (placement.Equals("right"))
-                {
-                    Debug.Log("note index is: " + noteCreateIndex);
-                    Debug.Log("note index % count is: " + noteCreateIndex % notes.Count);
-
-                }*/
-                string curBeat = notes[(noteCreateIndex).ToString()];
-                createNote(curBeat);
-                noteIndex++;
-            }
-
-            noteCreateIndex++;
-            nextBeatTime = beatmap.offset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
-        }
-        NoteScript headNote = getNoteAtIndex(noteHitIndex);
-        if (headNote)
-        {
-            bool buttonPressed = false;
-
-
-            // get the dpad axis orientation
-            float dpadHorizontal = Input.GetAxis("Controller Axis-Joystick" + joystick + "-Axis7");
-            float dpadVertical = Input.GetAxis("Controller Axis-Joystick" + joystick + "-Axis8");
-
-            // only mark the button as pressed if there has been a change since the last frame and axis is non 0
-            if (dpadHorizontal != previousDpadHorizontal)
+            TeamAttack teamAttackController = FindObjectOfType<TeamAttack>();
+            // Destroy all notes
+            GameObject[] allNotes = GameObject.FindGameObjectsWithTag("note");
+            foreach (GameObject note in allNotes)
             {
-                previousDpadHorizontal = dpadHorizontal;
-                if (dpadHorizontal != 0)
-                {
-                    buttonPressed = true;
-                }
-
+                Destroy(note);
             }
-
-            //only mark the button as pressed if there has been a change since the last frame, and it is non 0
-            if (dpadVertical != previousDpadVertical)
+            if (Input.anyKeyDown)
             {
-                previousDpadVertical= dpadVertical;
-                if (dpadVertical != 0)
+                int attack = teamAttackController.buildTeamAttack();
+                if (attack != 0)
                 {
-                    buttonPressed = true;
-                }
-            }
-
-            // check if any of the joystick buttons have been pressed (circle, triangle, square, cross only)
-            for (int i = 0; i < 3; i++)
-            {
-                string currentButton = "joystick " + joystick + " button " + i;
-
-                if (Input.GetKeyDown(currentButton) && previousButton != currentButton) {
-                    buttonPressed = true;
-                    previousButton = currentButton;
-                    break;
-                }
-            }
-
-            // want to know when player has stopped pressing button. Do not want to allow player to simply hold down a button
-            if (!buttonPressed)
-            {
-                previousButton = "";
-            }
-
-            string keyToHit = stringToKey(headNote.key);
-
-            if (headNote.canHit)
-            {
-                if ((keyToHit.Equals("left") && dpadHorizontal == -1) ||
-                        (keyToHit.Equals("right") && dpadHorizontal == 1) ||
-                        (keyToHit.Equals("up") && dpadVertical == 1) ||
-                        (keyToHit.Equals("down") && dpadVertical == -1) ||
-                        (Input.GetKeyDown(keyToHit)))
-                {
-                    //print("hit successfully");
-                    noteHitIndex++;
-                    score += headNote.destroyWithFeedback(hitBox, true);
-
-                }
-
-                else if (buttonPressed)
-                {
-                    //print("note missed!");
-                    noteHitIndex++;
-                    score += headNote.destroyWithFeedback(hitBox, false);
-                }
-            }
-
-            else if (headNote.canMiss)
-            {
-                if (buttonPressed)
-                {
-                    //print("note missed!");
-                    noteHitIndex++;
-                    score += headNote.destroyWithFeedback(hitBox, false);
+                    score += attack;
+                    teamAttack = false;
+                    teamAttackController.Reset();
                 }
             }
         }
+        else
+        {
+            if (timer > nextBeatTime)
+            {
+
+                if (notes.ContainsKey((noteCreateIndex).ToString()))
+                {
+
+                    /*if (placement.Equals("right"))
+                    {
+                        Debug.Log("note index is: " + noteCreateIndex);
+                        Debug.Log("note index % count is: " + noteCreateIndex % notes.Count);
+
+                    }*/
+                    string curBeat = notes[(noteCreateIndex).ToString()];
+                    createNote(curBeat);
+                    noteIndex++;
+                }
+
+                noteCreateIndex++;
+                nextBeatTime = beatmap.offset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
+            }
+            NoteScript headNote = getNoteAtIndex(noteHitIndex);
+            if (headNote)
+            {
+                bool buttonPressed = false;
+
+
+                // get the dpad axis orientation
+                float dpadHorizontal = Input.GetAxis("Controller Axis-Joystick" + joystick + "-Axis7");
+                float dpadVertical = Input.GetAxis("Controller Axis-Joystick" + joystick + "-Axis8");
+
+                // only mark the button as pressed if there has been a change since the last frame and axis is non 0
+                if (dpadHorizontal != previousDpadHorizontal)
+                {
+                    previousDpadHorizontal = dpadHorizontal;
+                    if (dpadHorizontal != 0)
+                    {
+                        buttonPressed = true;
+                    }
+
+                }
+
+                //only mark the button as pressed if there has been a change since the last frame, and it is non 0
+                if (dpadVertical != previousDpadVertical)
+                {
+                    previousDpadVertical = dpadVertical;
+                    if (dpadVertical != 0)
+                    {
+                        buttonPressed = true;
+                    }
+                }
+
+                // check if any of the joystick buttons have been pressed (circle, triangle, square, cross only)
+                for (int i = 0; i < 3; i++)
+                {
+                    string currentButton = "joystick " + joystick + " button " + i;
+
+                    if (Input.GetKeyDown(currentButton) && previousButton != currentButton)
+                    {
+                        buttonPressed = true;
+                        previousButton = currentButton;
+                        break;
+                    }
+                }
+
+                // want to know when player has stopped pressing button. Do not want to allow player to simply hold down a button
+                if (!buttonPressed)
+                {
+                    previousButton = "";
+                }
+
+                string keyToHit = stringToKey(headNote.key);
+
+                if (headNote.canHit)
+                {
+                    if ((keyToHit.Equals("left") && dpadHorizontal == -1) ||
+                            (keyToHit.Equals("right") && dpadHorizontal == 1) ||
+                            (keyToHit.Equals("up") && dpadVertical == 1) ||
+                            (keyToHit.Equals("down") && dpadVertical == -1) ||
+                            (Input.GetKeyDown(keyToHit)))
+                    {
+                        //print("hit successfully");
+                        noteHitIndex++;
+                        score += headNote.destroyWithFeedback(hitBox, true);
+                        combo += 1;
+                    }
+
+                    else if (buttonPressed)
+                    {
+                        //print("note missed!");
+                        noteHitIndex++;
+                        score += headNote.destroyWithFeedback(hitBox, false);
+                        combo = 0;
+                    }
+                }
+
+                else if (headNote.canMiss)
+                {
+
+                    if (buttonPressed)
+                    {
+                        //print("note missed!");
+                        noteHitIndex++;
+                        score += headNote.destroyWithFeedback(hitBox, false);
+                        combo = 0;
+                    }
+                }
+            }
+            if (combo >= 120)
+            {
+                teamAttack = true;
+            }
+        }
+        
     }
 }
