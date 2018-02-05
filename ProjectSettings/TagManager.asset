@@ -12,6 +12,7 @@ TagManager:
   - wrong_hit
   - left_feedback
   - right_feedback
+  - destroyer_creator
   layers:
   - Default
   - TransparentFX

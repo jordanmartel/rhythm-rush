@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 
 public class StageScript : MonoBehaviour {
 
+    [Header("Beat Info")]
     public GameObject noteObject;
     public Dictionary<string, string> notes;
     public int maxBeat;
@@ -20,7 +21,6 @@ public class StageScript : MonoBehaviour {
     public int noteHitIndex;
     public double noteTravelSpeed;
 
-    public GameObject failObject;
     public GameObject hitBox;
     public GameObject feedbackText; 
 
@@ -36,12 +36,11 @@ public class StageScript : MonoBehaviour {
     public int player;
 
     private float timer;
-    private float failTimer;
     private float successTimer;
     private float score;
 
+    [Header("Controller Values")]
     private int joystick;
-
     private string previousButton;
     private float previousDpadHorizontal;
     private float previousDpadVertical;
@@ -78,7 +77,6 @@ public class StageScript : MonoBehaviour {
         newNote.GetComponent<NoteScript>().key = key;
         newNote.GetComponent<NoteScript>().index = noteIndex;
         newNote.GetComponent<NoteScript>().placement = placement;
-        newNote.GetComponent<NoteScript>().failObject = failObject;
         newNote.GetComponent<MeshRenderer>().material = stringToMesh(key);
         newNote.GetComponent<NoteScript>().feedback = feedbackText;
         newNote.SetActive(true);
@@ -167,20 +165,6 @@ public class StageScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-
-        if (failObject.activeSelf)
-        {
-            if (failTimer >= 0.2f)
-            {
-                failObject.SetActive(false);
-                failTimer = 0;
-            }
-
-            else
-            {
-                failTimer += Time.deltaTime;
-            }
-        }
 
         timer += Time.deltaTime;
         // Create beat
@@ -273,7 +257,6 @@ public class StageScript : MonoBehaviour {
                     //print("note missed!");
                     noteHitIndex++;
                     score += headNote.destroyWithFeedback(hitBox);
-                    failObject.SetActive(true);
                 }
             }
 
@@ -284,7 +267,6 @@ public class StageScript : MonoBehaviour {
                     //print("note missed!");
                     noteHitIndex++;
                     score += headNote.destroyWithFeedback(hitBox);
-                    failObject.SetActive(true);
                 }
             }
         }

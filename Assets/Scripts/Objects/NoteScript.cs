@@ -9,6 +9,7 @@ public class NoteScript : MonoBehaviour {
     public bool canMiss;
     public int index;
     public string placement = "left";
+    public bool isCreator;
     public GameObject failObject;
 
     public GameObject feedback;
@@ -20,21 +21,21 @@ public class NoteScript : MonoBehaviour {
 
     void OnTriggerEnter(Collider collider)
     {
+
+        Debug.Log(collider.tag + isCreator);
         if (collider.tag == "miss")
         {
-            //print("miss");
+
+            //This part will throw errors in creator mode, it's okay
             if (placement == "left")
             {
-                //print("miss left");
                 GameObject.FindGameObjectWithTag("stage_left").GetComponent<StageScript>().noteHitIndex++;
             }
             else
             {
-                //print("miss right");
                 GameObject.FindGameObjectWithTag("stage_right").GetComponent<StageScript>().noteHitIndex++;
             }
-            failObject.SetActive(true);
-            Destroy(gameObject);
+            destroyWithFeedback(null);
         }
         else if (collider.tag == "hit")
         {
@@ -47,15 +48,27 @@ public class NoteScript : MonoBehaviour {
         {
             canMiss = true;
         }
+
+        if (isCreator && collider.tag == "destroyer_creator") {
+            Destroy(gameObject);
+        }
     }
 
     public float destroyWithFeedback(GameObject hitArea)
     {
-        float distance = Vector3.Distance(hitArea.transform.position, transform.position);
-        Debug.Log("Distance from HitBox: " + distance);
-        float score = feedback.GetComponent<PlayerFeedback>().GiveFeedback(distance);
 
-        Debug.Log(score);
+        float score = 0;
+
+        //Give stupid large distance so always display miss in this case
+        if (hitArea == null) {
+            feedback.GetComponent<PlayerFeedback>().GiveFeedback(100);
+
+        } else {
+            float distance = Vector3.Distance(hitArea.transform.position, transform.position);
+            Debug.Log("Distance from HitBox: " + distance);
+            score = feedback.GetComponent<PlayerFeedback>().GiveFeedback(distance);
+        }
+
         Destroy(gameObject);
 
         return score;
@@ -65,7 +78,11 @@ public class NoteScript : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         StageScript stage = FindObjectOfType<StageScript>();
-        float speed = (float) stage.noteTravelSpeed;
+        float speed;
+
+        //if stage null(like in creator mode) default to speed 3
+        speed = (stage == null) ? 3f : (float)stage.noteTravelSpeed;
+        
         transform.Translate(new Vector3(0, -speed * Time.deltaTime, 0));
     }
 }

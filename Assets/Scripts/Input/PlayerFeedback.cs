@@ -27,11 +27,11 @@ public class PlayerFeedback : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-      /*  //Reset Text to not Visible
-        if (Time.time - displayTime > 0.2f) {
-           // text.text = "";
+      //Reset Text to not Visible
+        if (Time.time - displayTime > 0.5f) {
+            text.text = "";
             text.color = Color.white;
-        }*/
+        }
 		 
 	}
 
@@ -47,7 +47,7 @@ public class PlayerFeedback : MonoBehaviour {
             text.text = "SSS";
             text.color = perfectColour;
 
-        } else  if (distance <= perfectValue) {
+        } else if (distance <= perfectValue) {
             Debug.Log("B");
             text.text = "PERFECT!";
             text.color = perfectColour;
@@ -62,9 +62,14 @@ public class PlayerFeedback : MonoBehaviour {
             text.text = "OKAY!";
             text.color = okayColour;
 
+        } else if (distance > okayValue && distance < 5) {
+            text.text = "BAD!";
+            text.color = missColour;
+     
         } else {
             Debug.Log("E");
             text.text = "MISS";
+            text.color = missColour;
         }
 
         displayTime = Time.time;
