@@ -36,42 +36,48 @@ public class PlayerFeedback : MonoBehaviour {
 	}
 
     //Sets Feedback text based on distance from perfect hit point and returns score
-    public float GiveFeedback(float distance)
+    public float GiveFeedback(float distance, bool correct)
     {
+
         float score = 0f;
-
-        distance = Mathf.Abs(distance);
-        Debug.Log(distance);
-        if (distance <= 0.25f) {
-            Debug.Log("A");
-            text.text = "SSS";
-            text.color = perfectColour;
-
-        } else if (distance <= perfectValue) {
-            Debug.Log("B");
-            text.text = "PERFECT!";
-            text.color = perfectColour;
-
-        } else if (distance < goodValue) {
-            Debug.Log("C");
-            text.text = "GOOD!";
-            text.color = goodColour;
-
-        } else if (distance < okayValue) {
-            Debug.Log("D");
-            text.text = "OKAY!";
-            text.color = okayColour;
-
-        } else if (distance > okayValue && distance < 5) {
+        if (!correct) {
             text.text = "BAD!";
             text.color = missColour;
-     
-        } else {
-            Debug.Log("E");
-            text.text = "MISS";
-            text.color = missColour;
         }
+        else {
 
+            distance = Mathf.Abs(distance);
+            Debug.Log(distance);
+            if (distance <= 0.25f) {
+                text.text = "SSS";
+                text.color = perfectColour;
+
+            }
+            else if (distance <= perfectValue) {
+                text.text = "PERFECT!";
+                text.color = perfectColour;
+
+            }
+            else if (distance < goodValue) {
+                text.text = "GOOD!";
+                text.color = goodColour;
+
+            }
+            else if (distance < okayValue) {
+                text.text = "OKAY!";
+                text.color = okayColour;
+
+            }
+            else if (distance > okayValue && distance < 5) {
+                text.text = "BAD!";
+                text.color = missColour;
+
+            }
+            else {
+                text.text = "MISS";
+                text.color = missColour;
+            }
+        }
         displayTime = Time.time;
 
 

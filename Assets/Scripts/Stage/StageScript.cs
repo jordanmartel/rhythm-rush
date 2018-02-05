@@ -10,7 +10,6 @@ public class StageScript : MonoBehaviour {
     [Header("Beat Info")]
     public GameObject noteObject;
     public Dictionary<string, string> notes;
-    public int maxBeat;
     public List<NoteScript> notesOnScreen;
     public int noteIndex;
     public int noteCreateIndex;
@@ -56,12 +55,10 @@ public class StageScript : MonoBehaviour {
         if (placement == "left")
         {
             notes = beatmap.player1Notes;
-            maxBeat = 2;
         }
         else
         {
             notes = beatmap.player2Notes;
-            maxBeat = 8;
         }
     }
 
@@ -83,7 +80,7 @@ public class StageScript : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
-        parseJson("demo_level");
+        parseJson("creator_lvl");
         noteTravelSpeed = beatmap.bpm / 20;
         noteTravelDistance = 6;
         playerOffset = 0.05;
@@ -170,8 +167,7 @@ public class StageScript : MonoBehaviour {
         // Create beat
         if (timer > nextBeatTime)
         {
-
-            if (notes.ContainsKey((noteCreateIndex % maxBeat).ToString())) {
+            if (notes.ContainsKey((noteCreateIndex).ToString())) {
 
                 /*if (placement.Equals("right"))
                 {
@@ -179,7 +175,7 @@ public class StageScript : MonoBehaviour {
                     Debug.Log("note index % count is: " + noteCreateIndex % notes.Count);
 
                 }*/
-                string curBeat = notes[(noteCreateIndex % maxBeat).ToString()];
+                string curBeat = notes[(noteCreateIndex).ToString()];
                 createNote(curBeat);
                 noteIndex++;
             }
@@ -248,7 +244,7 @@ public class StageScript : MonoBehaviour {
                 {
                     //print("hit successfully");
                     noteHitIndex++;
-                    score += headNote.destroyWithFeedback(hitBox);
+                    score += headNote.destroyWithFeedback(hitBox, true);
 
                 }
 
@@ -256,7 +252,7 @@ public class StageScript : MonoBehaviour {
                 {
                     //print("note missed!");
                     noteHitIndex++;
-                    score += headNote.destroyWithFeedback(hitBox);
+                    score += headNote.destroyWithFeedback(hitBox, false);
                 }
             }
 
@@ -266,7 +262,7 @@ public class StageScript : MonoBehaviour {
                 {
                     //print("note missed!");
                     noteHitIndex++;
-                    score += headNote.destroyWithFeedback(hitBox);
+                    score += headNote.destroyWithFeedback(hitBox, false);
                 }
             }
         }
