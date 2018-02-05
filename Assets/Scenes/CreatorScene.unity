@@ -296,7 +296,10 @@ MonoBehaviour:
   dRight: {fileID: 2100000, guid: e536de47c6103b049bf8bd8c43eda6c9, type: 2}
   dDown: {fileID: 2100000, guid: 35fa2cce0b14ef34e8eaf6178e514be0, type: 2}
   player: 1
-  beatmap_filePath: E:\Rhythm Rush\Assets\Scripts\Resources\creator_lvl.json
+  beatmap_filePath: C:\Users\jfm_m\Desktop\creator_lvl.json
+  offset: 0
+  bpm: 0
+  beat_split: 0
   placement: left
 --- !u!1 &665286382 stripped
 GameObject:
@@ -340,7 +343,10 @@ MonoBehaviour:
   dRight: {fileID: 2100000, guid: e536de47c6103b049bf8bd8c43eda6c9, type: 2}
   dDown: {fileID: 2100000, guid: 35fa2cce0b14ef34e8eaf6178e514be0, type: 2}
   player: 0
-  beatmap_filePath: E:\Rhythm Rush\Assets\Scripts\Resources\creator_lvl.json
+  beatmap_filePath: C:\Users\jfm_m\Desktop\creator_lvl.json
+  offset: 0
+  bpm: 0
+  beat_split: 0
   placement: left
 --- !u!1 &799762818
 GameObject:
