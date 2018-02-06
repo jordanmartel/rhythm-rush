@@ -46,9 +46,6 @@ public class StageScript : MonoBehaviour {
     private Beatmap beatmap;
     public string placement = "left";
 
-    [Header("Phase Control")]
-    public bool teamAttack = false;
-
     void parseJson(string filePath)
     {
         string beatMapJson = Resources.Load<TextAsset>(filePath).text;
@@ -167,10 +164,12 @@ public class StageScript : MonoBehaviour {
         int score = FindObjectOfType<BossScript>().dmg;
         int combo = FindObjectOfType<TeamAttack>().combo;
         timer = Time.time;
+        TeamAttack teamAttackController = FindObjectOfType<TeamAttack>();
+        bool teamAttack = teamAttackController.isActive;
         // Create beat
         if (teamAttack)
         {
-            TeamAttack teamAttackController = FindObjectOfType<TeamAttack>();
+            
             // Destroy all notes
             GameObject[] allNotes = GameObject.FindGameObjectsWithTag("note");
             foreach (GameObject note in allNotes)
