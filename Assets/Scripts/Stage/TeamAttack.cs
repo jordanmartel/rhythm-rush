@@ -8,7 +8,7 @@ public class TeamAttack : MonoBehaviour {
     public int combo;
     public int powerLvl;
     public int powerLvlRequirement = 10;
-    public int attackDamage = 1000;
+    public int attackDamage = 3500;
     public float timer = 0f;
     public Slider energyBar;
 
@@ -38,9 +38,10 @@ public class TeamAttack : MonoBehaviour {
 
     internal void Reset()
     {
+        combo = 0;
         powerLvl = 0;
         powerLvlRequirement += 10;
-        attackDamage += 1200;
+        attackDamage += 3500;
     }
 
 	

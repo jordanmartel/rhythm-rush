@@ -164,7 +164,7 @@ public class StageScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        float score = FindObjectOfType<BossScript>().dmg;
+        int score = FindObjectOfType<BossScript>().dmg;
         int combo = FindObjectOfType<TeamAttack>().combo;
         timer = Time.time;
         // Create beat
@@ -273,7 +273,14 @@ public class StageScript : MonoBehaviour {
                         //print("hit successfully");
                         noteHitIndex++;
                         score += headNote.destroyWithFeedback(hitBox, true);
-                        combo += 1;
+                        if (score < 100)
+                        {
+                            combo = 0;
+                        }
+                        else
+                        {
+                            combo += 1;
+                        }
                     }
 
                     else if (buttonPressed)
@@ -302,6 +309,7 @@ public class StageScript : MonoBehaviour {
                 teamAttack = true;
             }
         }
-        
+        FindObjectOfType<BossScript>().dmg = score;
+        FindObjectOfType<TeamAttack>().combo = combo;
     }
 }
