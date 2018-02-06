@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TeamAttack : MonoBehaviour {
+    public bool isActive;
     public int combo;
     public int powerLvl;
     public int powerLvlRequirement = 10;
@@ -20,6 +21,7 @@ public class TeamAttack : MonoBehaviour {
 
     internal int buildTeamAttack()
     {
+        isActive = true;
         energyBar.gameObject.SetActive(true);
         GetComponentInChildren<Text>().text = "Mash the buttons!";
         powerLvl++;
@@ -49,11 +51,16 @@ public class TeamAttack : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         GetComponentInChildren<Text>().text = combo.ToString();
-        energyBar.value = Mathf.Min(powerLvl,powerLvlRequirement);
-        timer += Time.deltaTime;
-        if (timer > 10)
+        
+        if (isActive)
         {
-            GetComponentInChildren<Text>
+            energyBar.value = Mathf.Min(powerLvl, powerLvlRequirement);
+            timer += Time.deltaTime;
+            if (timer > 10)
+            {
+                GetComponentInChildren<Text>().text = "FAILED!";
+                isActive = false;
+            }
         }
 	}
 }
