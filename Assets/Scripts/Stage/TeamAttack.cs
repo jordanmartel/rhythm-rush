@@ -29,7 +29,7 @@ public class TeamAttack : MonoBehaviour {
         }
         return 0;
     }
-
+    
     internal int unleashTeamAttack()
     {
         int damageDone = attackDamage;
@@ -42,6 +42,7 @@ public class TeamAttack : MonoBehaviour {
         powerLvl = 0;
         powerLvlRequirement += 10;
         attackDamage += 3500;
+        energyBar.gameObject.SetActive(false);
     }
 
 	
@@ -49,5 +50,10 @@ public class TeamAttack : MonoBehaviour {
 	void Update () {
         GetComponentInChildren<Text>().text = combo.ToString();
         energyBar.value = Mathf.Min(powerLvl,powerLvlRequirement);
+        timer += Time.deltaTime;
+        if (timer > 10)
+        {
+            GetComponentInChildren<Text>
+        }
 	}
 }
