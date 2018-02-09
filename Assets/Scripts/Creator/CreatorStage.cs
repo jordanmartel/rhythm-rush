@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CreatorStage : MonoBehaviour {
 
@@ -43,6 +45,7 @@ public class CreatorStage : MonoBehaviour {
     private string previousButton;
     private float previousDpadHorizontal;
     private float previousDpadVertical;
+    private double previousTime;
 
     private Beatmap recordedNotes;
     private Beatmap beatmap;
@@ -52,6 +55,8 @@ public class CreatorStage : MonoBehaviour {
     public double offset;
     public int bpm;
     public int beat_split;
+    public Text metadataBox;
+    public Text recordingSavedText;
 
     public string placement = "left";
 
@@ -88,11 +93,6 @@ public class CreatorStage : MonoBehaviour {
     // Use this for initialization
     void Start() {
 
-        //These variables need to be adjusted before recording
-        offset = 5;
-        bpm = 142;
-        beat_split = 2;
-
         noteTravelSpeed = 142 / 20;
         noteTravelDistance = 6;
         playerOffset = 0.05;
@@ -110,6 +110,14 @@ public class CreatorStage : MonoBehaviour {
 
         recordedNotes = new Beatmap((int)bpm, beat_split, offset);
 
+        // Only change text if not changed by other script already
+        if (metadataBox.text == "Beatmap Specifics:") {
+            metadataBox.text += "\nOffset:" + offset
+                + "\nbpm:" + bpm
+                + "\nBeatTravel Speed:" + noteTravelSpeed
+                + "\nBeat travel distance:" + noteTravelDistance
+                + "\nsaveLocation:" + Application.dataPath + "/Scripts/Resources/" + beatmap_filePath;
+        }
     }
 
     string stringToKey(string beat_string) {
@@ -155,20 +163,7 @@ public class CreatorStage : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
-        timer += Time.deltaTime;
-        // Create beat
-        if (timer > nextBeatTime) {
-            Debug.Log(noteIndex);
-
-
-            noteIndex++;
-            //5 is offset
-            nextBeatTime = 5 + playerOffset + noteIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
-        }
-
-
-            bool buttonPressed = false;
+        bool buttonPressed = false;
 
         // get the dpad axis orientation
         float dpadHorizontal = Input.GetAxis("Controller Axis-Joystick" + joystick + "-Axis7");
@@ -191,47 +186,64 @@ public class CreatorStage : MonoBehaviour {
             }
         }
 
-        // check if any of the joystick buttons have been pressed (circle, triangle, square, cross only)
-        for (int i = 0; i < 3; i++) {
-            string currentButton = "joystick " + joystick + " button " + i;
-
-            if (Input.GetKeyDown(currentButton) && previousButton != currentButton) {
-                buttonPressed = true;
-                previousButton = currentButton;
-                break;
-            }
-        }
-
         // want to know when player has stopped pressing button. Do not want to allow player to simply hold down a button
         if (!buttonPressed) {
             previousButton = "";
         }
 
-
-        //Triangle,Circle,Square, Cross order
         Note nwNote = new Note();
 
-        if (Input.GetKeyDown("joystick " + joystick + " button 3")) {
-            nwNote.key = "triangle";
-            recordedNotes.addP1Note(noteIndex, nwNote.key);
-            createNote(nwNote.key);
-            Debug.Log("Index:" + noteIndex);
+        //Directional buttons
+        if (buttonPressed) {
+            if (dpadHorizontal == -1) {
+                nwNote.key = "left";
+                recordedNotes.addNote(player, noteIndex - 1, nwNote.key);
+                createNote(nwNote.key);
+                Debug.Log("Index:" + noteIndex);
+            }
+            else if (dpadHorizontal == 1) {
+                nwNote.key = "right";
+                recordedNotes.addNote(player, noteIndex - 1, nwNote.key);
+                createNote(nwNote.key);
+                Debug.Log("Index:" + noteIndex);
+            }
+            else if (dpadVertical == 1) {
+                nwNote.key = "up";
+                recordedNotes.addNote(player, noteIndex - 1, nwNote.key);
+                createNote(nwNote.key);
+                Debug.Log("Index:" + noteIndex);
+            }
+            else if (dpadVertical == -1) {
+                nwNote.key = "down";
+                recordedNotes.addNote(player, noteIndex - 1, nwNote.key);
+                createNote(nwNote.key);
+                Debug.Log("Index:" + noteIndex);
+            }
+        }
 
+        //Triangle,Circle,Square, Cross order
+         if (Input.GetKeyDown("joystick " + joystick + " button 3")) {
+            nwNote.key = "triangle";
+            recordedNotes.addNote(player, noteIndex - 1, nwNote.key);
+            createNote(nwNote.key);
+            Debug.Log("Index:" + noteIndex +","+ nwNote.key);
         } else if (Input.GetKeyDown("joystick " + joystick + " button 2")) {
             nwNote.key = "circle";
-            recordedNotes.addP1Note(noteIndex, nwNote.key);
+            recordedNotes.addNote(player, noteIndex - 1, nwNote.key);
             createNote(nwNote.key);
             Debug.Log("Index:" + noteIndex);
         } else if (Input.GetKeyDown("joystick " + joystick + " button 0")) {
             nwNote.key = "square";
-            recordedNotes.addP1Note(noteIndex, nwNote.key);
+            recordedNotes.addNote(player, noteIndex - 1, nwNote.key);
             createNote(nwNote.key);
             Debug.Log("Index:" + noteIndex);
         } else if (Input.GetKeyDown("joystick " + joystick + " button 1")) {
             nwNote.key = "cross";
-            recordedNotes.addP1Note(noteIndex, nwNote.key);
+            recordedNotes.addNote(player, noteIndex - 1, nwNote.key);
             createNote(nwNote.key);
             Debug.Log("Index:" + noteIndex);
+
+        //Finalize Generated Beat
         } else if (Input.GetKeyDown(KeyCode.Space)) {
 
             //Stops time and writes notes to file 
@@ -240,19 +252,41 @@ public class CreatorStage : MonoBehaviour {
             WriteCreatedBeat();
             
         }
+
+
+        timer += Time.deltaTime;
+        // Create beat
+        if (timer > nextBeatTime) {
+
+            Debug.Log("note Index:" + noteIndex);
+
+            noteIndex++;
+            previousTime = nextBeatTime;
+            nextBeatTime = offset + playerOffset + noteIndex * beatInterval;
+        }
+
     }
 
     private void WriteCreatedBeat() {
         TextWriter writer = null;
         try {
+            recordingSavedText.text += "...";
+
             var contentsToWriteToFile = JsonConvert.SerializeObject(recordedNotes);
-            writer = new StreamWriter(beatmap_filePath);
+            writer = new StreamWriter(Application.dataPath + "/Scripts/Resources/" + beatmap_filePath);
             writer.Write(contentsToWriteToFile);
+        } catch (Exception e) {
+            recordingSavedText.text += "error";
+            Debug.Log(e.Message);
         }
         finally {
+            Debug.Log("done");
             if (writer != null)
                 writer.Close();
+
+            recordingSavedText.text += " saved!";
         }
+
     }
 
 }
