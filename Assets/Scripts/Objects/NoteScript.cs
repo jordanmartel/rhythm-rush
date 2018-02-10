@@ -54,10 +54,10 @@ public class NoteScript : MonoBehaviour {
         }
     }
 
-    public float destroyWithFeedback(GameObject hitArea, bool correct)
+    public int destroyWithFeedback(GameObject hitArea, bool correct)
     {
 
-        float score = 0;
+        int score = 0;
 
         if (hitArea == null) {
             feedback.GetComponent<PlayerFeedback>().GiveFeedback(100, correct);

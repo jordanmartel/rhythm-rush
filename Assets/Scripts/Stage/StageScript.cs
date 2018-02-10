@@ -34,9 +34,6 @@ public class StageScript : MonoBehaviour {
     public Material dDown;
     public int player;
 
-    private float timer;
-    private float successTimer;
-
     [Header("Controller Values")]
     private int joystick;
     private string previousButton;
@@ -48,6 +45,48 @@ public class StageScript : MonoBehaviour {
 
     [Header("Phase Control")]
     public bool teamAttack = false;
+
+    [Header("Damage Control")]
+    public int comboThreshold = 10;
+
+
+    // private fields not to be adjusted in the editor
+    private float timer;
+    private float successTimer;
+
+    private BossScript boss;
+    private TeamAttack teamAttackController;
+    private int playerCombo;
+    private int playerDamage;
+
+
+
+
+    // Use this for initialization
+    void Start()
+    {
+        parseJson("creator_lvl");
+        noteTravelSpeed = beatmap.bpm / 20;
+        noteTravelDistance = 6;
+        playerOffset = 0.05;
+        nextBeatTime = beatmap.offset + playerOffset - noteTravelDistance / noteTravelSpeed;
+        beatInterval = BeatInterval(beatmap.bpm, beatmap.beat_split);
+
+
+        if (player == 0)
+        {
+            joystick = PlayerObject.player1Joystick;
+        }
+
+        else
+        {
+            joystick = PlayerObject.player2Joystick;
+        }
+
+        teamAttackController = FindObjectOfType<TeamAttack>();
+        boss = FindObjectOfType<BossScript>();
+    }
+
 
     void parseJson(string filePath)
     {
@@ -86,32 +125,9 @@ public class StageScript : MonoBehaviour {
         }
     }
 
-	// Use this for initialization
-	void Start () {
-        parseJson("creator_lvl");
-        noteTravelSpeed = beatmap.bpm / 20;
-        noteTravelDistance = 6;
-        playerOffset = 0.05;
-        nextBeatTime = beatmap.offset + playerOffset - noteTravelDistance / noteTravelSpeed;
-        beatInterval = BeatInterval(beatmap.bpm, beatmap.beat_split);
-
-
-        if (player == 0)
-        {
-            joystick = PlayerObject.player1Joystick;
-        }
-
-        else
-        {
-            joystick = PlayerObject.player2Joystick;
-        }
-    }
-
-
     NoteScript getNoteAtIndex(int index)
     {
         GameObject[] notes = GameObject.FindGameObjectsWithTag("note");
-        //print(notes.Length);
         foreach (GameObject note in notes)
         {
             NoteScript noteScript = note.GetComponent<NoteScript>();
@@ -170,13 +186,11 @@ public class StageScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        float score = FindObjectOfType<BossScript>().dmg;
-        int combo = FindObjectOfType<TeamAttack>().combo;
+
         timer = timer + Time.deltaTime;
         // Create beat
         if (teamAttack)
         {
-            TeamAttack teamAttackController = FindObjectOfType<TeamAttack>();
             // Destroy all notes
             GameObject[] allNotes = GameObject.FindGameObjectsWithTag("note");
             foreach (GameObject note in allNotes)
@@ -188,7 +202,7 @@ public class StageScript : MonoBehaviour {
                 int attack = teamAttackController.buildTeamAttack();
                 if (attack != 0)
                 {
-                    score += attack;
+                    boss.giveDamage(attack);
                     teamAttack = false;
                     teamAttackController.Reset();
                 }
@@ -202,12 +216,6 @@ public class StageScript : MonoBehaviour {
                 if (notes.ContainsKey((noteCreateIndex).ToString()))
                 {
 
-                    /*if (placement.Equals("right"))
-                    {
-                        Debug.Log("note index is: " + noteCreateIndex);
-                        Debug.Log("note index % count is: " + noteCreateIndex % notes.Count);
-
-                    }*/
                     string curBeat = notes[(noteCreateIndex).ToString()];
                     createNote(curBeat);
                     noteIndex++;
@@ -278,16 +286,26 @@ public class StageScript : MonoBehaviour {
                     {
                         //print("hit successfully");
                         noteHitIndex++;
-                        score += headNote.destroyWithFeedback(hitBox, true);
-                        combo += 1;
+                        playerDamage += headNote.destroyWithFeedback(hitBox, true);
+                        playerCombo += 1;
+
+                        // every 10 hits, deal the damage accumulated over the 10 notes
+                        if (playerCombo % comboThreshold == 0)
+                        {
+
+                            // TODO: scale damage with increasing combo? Play player attack animations, play boss damaged animation 
+                            boss.giveDamage(playerDamage);
+                            playerDamage = 0;
+                        }
                     }
 
                     else if (buttonPressed)
                     {
                         //print("note missed!");
                         noteHitIndex++;
-                        score += headNote.destroyWithFeedback(hitBox, false);
-                        combo = 0;
+                        headNote.destroyWithFeedback(hitBox, false);
+                        playerDamage = 0;
+                        playerCombo = 0;
                     }
                 }
 
@@ -298,12 +316,15 @@ public class StageScript : MonoBehaviour {
                     {
                         //print("note missed!");
                         noteHitIndex++;
-                        score += headNote.destroyWithFeedback(hitBox, false);
-                        combo = 0;
+                        headNote.destroyWithFeedback(hitBox, false);
+                        playerDamage = 0;
+                        playerCombo = 0;
                     }
                 }
             }
-            if (combo >= 120)
+
+            // TODO: this will actually happen when all chain mode notes are hit, rather than by combo. 
+            if (teamAttackController.combo >= 120)
             {
                 teamAttack = true;
             }

@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class BossScript : MonoBehaviour {
 
     public int maxhp = 100000;
-    public int dmg = 0;
-
     private int hp;
 
     public Scrollbar healthBar;
@@ -20,7 +18,7 @@ public class BossScript : MonoBehaviour {
 	void Update () {
 
         //Update visual cue on boss
-		if (dmg >= hp)
+        if (hp <= 0)
         {
             //Winning scene
         }
