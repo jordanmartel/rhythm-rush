@@ -169,12 +169,11 @@ public class StageScript : MonoBehaviour {
         // Create beat
         if (teamAttack)
         {
-            
             // Destroy all notes
             GameObject[] allNotes = GameObject.FindGameObjectsWithTag("note");
             foreach (GameObject note in allNotes)
             {
-                Destroy(note);
+                note.SetActive(false);
             }
             if (Input.anyKeyDown)
             {
@@ -189,7 +188,7 @@ public class StageScript : MonoBehaviour {
         }
         else
         {
-            if (timer > nextBeatTime)
+            if (timer > nextBeatTime && timer - nextBeatTime < 0.1f)
             {
 
                 if (notes.ContainsKey((noteCreateIndex).ToString()))
