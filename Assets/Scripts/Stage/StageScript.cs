@@ -69,17 +69,23 @@ public class StageScript : MonoBehaviour {
         return 60.0 / bpm / beat_split;
     }
 
-    void createNote(string key)
-    {
-        Vector3 position = transform.position;
-        GameObject newNote = Instantiate(noteObject, new Vector3(position.x,position.y + 3,position.z), new Quaternion(0,180,0,0));
-        newNote.GetComponent<NoteScript>().key = key;
-        newNote.GetComponent<NoteScript>().index = noteIndex;
-        newNote.GetComponent<NoteScript>().placement = placement;
-        newNote.GetComponent<MeshRenderer>().material = stringToMesh(key);
-        newNote.GetComponent<NoteScript>().feedback = feedbackText;
-        newNote.SetActive(true);
+
+    void createNote(string key) {
+
+        String[] keys = key.Split(',');
+        foreach (String k in keys) {
+
+            Vector3 position = transform.position;
+            GameObject newNote = Instantiate(noteObject, new Vector3(position.x, position.y + 3, position.z), new Quaternion(0, 180, 0, 0));
+            newNote.GetComponent<NoteScript>().key = k;
+            newNote.GetComponent<NoteScript>().index = noteIndex;
+            newNote.GetComponent<NoteScript>().placement = placement;
+            newNote.GetComponent<MeshRenderer>().material = stringToMesh(k);
+            newNote.GetComponent<NoteScript>().feedback = feedbackText;
+            newNote.SetActive(true);
+        }
     }
+
 	// Use this for initialization
 	void Start () {
         parseJson("creator_lvl");

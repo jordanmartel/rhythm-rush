@@ -23,12 +23,31 @@ public class Beatmap
         player2Notes = new Dictionary<string, string>();
     }
 
+    public void addNote(int player, int index, String key) {
+        if (player == 1) {
+            addP1Note(index, key);
+        } else {
+            addP2Note(index, key);
+        }
+
+    }
+
+
     public void addP1Note(int index, String key) {
-        player1Notes.Add(index.ToString(), key);
+        if (player1Notes.ContainsKey(index.ToString())) {
+            player1Notes[index.ToString()] += "," + key;
+        } else {
+            player1Notes.Add(index.ToString(), key);
+        }
     }
 
     public void addP2Note(int index, String key) {
-        player2Notes.Add(index.ToString(), key);
+        if (player2Notes.ContainsKey(index.ToString())) {
+            player2Notes[index.ToString()] += "," + key;
+        }
+        else {
+            player2Notes.Add(index.ToString(), key);
+        }
     }
 
     
