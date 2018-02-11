@@ -32,7 +32,6 @@ public class StageScript : MonoBehaviour
     public Material dDown;
 
     private float timer;
-    private float successTimer;
 
     [Header("General Player Attributes")]
     public int comboThreshold = 10;
@@ -45,6 +44,26 @@ public class StageScript : MonoBehaviour
     private TeamAttack teamAttackController;
 
     public int teamCombo = 0;
+
+    // ==========================
+    // Use this for initialization
+    void Start()
+    {
+
+        parseJson("creator_lvl");
+        noteTravelSpeed = beatmap.bpm / 20;
+        noteTravelDistance = 6;
+        playerOffset = 0.05;
+        nextBeatTime = beatmap.offset + playerOffset - noteTravelDistance / noteTravelSpeed;
+        beatInterval = BeatInterval(beatmap.bpm, beatmap.beat_split);
+
+        player1.joystick = Joysticks.player1Joystick;
+        player2.joystick = Joysticks.player2Joystick;
+
+        boss = FindObjectOfType<BossScript>();
+        teamAttackController = FindObjectOfType<TeamAttack>();
+
+    }
 
     void parseJson(string filePath)
     {
@@ -74,24 +93,7 @@ public class StageScript : MonoBehaviour
         newNote.GetComponent<NoteScript>().stage = gameObject;
         newNote.SetActive(true);
 
-    }
-
-    // Use this for initialization
-    void Start()
-    {
-
-        parseJson("creator_lvl");
-        noteTravelSpeed = beatmap.bpm / 20;
-        noteTravelDistance = 6;
-        playerOffset = 0.05;
-        nextBeatTime = beatmap.offset + playerOffset - noteTravelDistance / noteTravelSpeed;
-        beatInterval = BeatInterval(beatmap.bpm, beatmap.beat_split);
-
-        player1.joystick = Joysticks.player1Joystick;
-        player2.joystick = Joysticks.player2Joystick;
-
-        boss = FindObjectOfType<BossScript>();
-        teamAttackController = FindObjectOfType<TeamAttack>();
+        player.activeNotes.Add(newNote);
 
     }
 
@@ -145,121 +147,121 @@ public class StageScript : MonoBehaviour
         if (player.notes.ContainsKey((noteCreateIndex).ToString()))
         {
 
-            string curBeat = player.notes[(noteCreateIndex).ToString()];
+            string curBeat = player.notes[(noteCreateIndex).ToString()].value;
             createNote(curBeat, placement, player);
             noteIndex++;
         }
     }
 
-    bool checkPlayerAction(List<NoteScript> activeNotes, Player player)
+    bool checkPlayerAction(Player player, GameObject noteObj)
     {
         bool noteSuccessfullyHit = false;
 
-        for (int i = 0; i < activeNotes.Count; i++)
+        NoteScript headNote = noteObj.GetComponent<NoteScript>();
+        bool buttonPressed = false;
+
+        // get the dpad axis orientation
+        float dpadHorizontal = Input.GetAxis("Controller Axis-Joystick" + player.joystick + "-Axis7");
+        float dpadVertical = Input.GetAxis("Controller Axis-Joystick" + player.joystick + "-Axis8");
+
+        // only mark the button as pressed if there has been a change since the last frame and axis is non 0
+        if (dpadHorizontal != player.previousDpadHorizontal)
         {
-
-            NoteScript headNote = activeNotes[i];
-            bool buttonPressed = false;
-
-            // get the dpad axis orientation
-            float dpadHorizontal = Input.GetAxis("Controller Axis-Joystick" + player.joystick + "-Axis7");
-            float dpadVertical = Input.GetAxis("Controller Axis-Joystick" + player.joystick + "-Axis8");
-
-            // only mark the button as pressed if there has been a change since the last frame and axis is non 0
-            if (dpadHorizontal != player.previousDpadHorizontal)
+            player.previousDpadHorizontal = dpadHorizontal;
+            if (dpadHorizontal != 0)
             {
-                player.previousDpadHorizontal = dpadHorizontal;
-                if (dpadHorizontal != 0)
-                {
-                    buttonPressed = true;
-                }
-
-            }
-
-            //only mark the button as pressed if there has been a change since the last frame, and it is non 0
-            if (dpadVertical != player.previousDpadVertical)
-            {
-                player.previousDpadVertical = dpadVertical;
-                if (dpadVertical != 0)
-                {
-                    buttonPressed = true;
-                }
-            }
-
-            // check if any of the joystick buttons have been pressed (circle, triangle, square, cross only)
-            for (int j = 0; j < 3; j++)
-            {
-                string currentButton = "joystick " + player.joystick + " button " + j;
-
-                if (Input.GetKeyDown(currentButton) && player.previousButton != currentButton)
-                {
-                    buttonPressed = true;
-                    player.previousButton = currentButton;
-                    break;
-                }
-            }
-
-            // want to know when player has stopped pressing button. Do not want to allow player to simply hold down a button
-            if (!buttonPressed)
-            {
-                player.previousButton = "";
-            }
-
-            string keyToHit = stringToKey(headNote.key, player.joystick);
-
-            if (headNote.canHit)
-            {
-                if ((keyToHit.Equals("left") && dpadHorizontal == -1) ||
-                        (keyToHit.Equals("right") && dpadHorizontal == 1) ||
-                        (keyToHit.Equals("up") && dpadVertical == 1) ||
-                        (keyToHit.Equals("down") && dpadVertical == -1) ||
-                        (Input.GetKeyDown(keyToHit)))
-                {
-                    //print("hit successfully");
-                    noteHitIndex++;
-                    int dealtDamage = headNote.destroyWithFeedback(player.hitArea, true);
-
-                    player.accumulatedDamage += dealtDamage;
-                    if (dealtDamage == 0)
-                    {
-                        player.combo = 0;
-                    }
-                    else
-                    {
-                        noteSuccessfullyHit = true;
-                        player.combo += 1;
-                    }
-
-                    if (player.combo % comboThreshold == 0)
-                    {
-                        // TODO: change how the damage scales
-                        boss.giveDamage(player.calculateComboDamage(comboThreshold));
-                        player.accumulatedDamage = 0;
-                    }
-                }
-
-                else if (buttonPressed)
-                {
-                    //print("note missed!");
-                    noteHitIndex++;
-                    headNote.destroyWithFeedback(player.hitArea, false);
-                    player.combo = 0;
-                }
-            }
-
-            else if (headNote.canMiss)
-            {
-
-                if (buttonPressed)
-                {
-                    //print("note missed!");
-                    noteHitIndex++;
-                    headNote.destroyWithFeedback(player.hitArea, false);
-                    player.combo = 0;
-                }
+                buttonPressed = true;
             }
 
         }
+
+        //only mark the button as pressed if there has been a change since the last frame, and it is non 0
+        if (dpadVertical != player.previousDpadVertical)
+        {
+            player.previousDpadVertical = dpadVertical;
+            if (dpadVertical != 0)
+            {
+                buttonPressed = true;
+            }
+        }
+
+        // check if any of the joystick buttons have been pressed (circle, triangle, square, cross only)
+        for (int j = 0; j < 3; j++)
+        {
+            string currentButton = "joystick " + player.joystick + " button " + j;
+
+            if (Input.GetKeyDown(currentButton) && player.previousButton != currentButton)
+            {
+                buttonPressed = true;
+                player.previousButton = currentButton;
+                break;
+            }
+        }
+
+        // want to know when player has stopped pressing button. Do not want to allow player to simply hold down a button
+        if (!buttonPressed)
+        {
+            player.previousButton = "";
+        }
+
+        string keyToHit = stringToKey(headNote.key, player.joystick);
+
+        if (headNote.canHit)
+        {
+            if ((keyToHit.Equals("left") && dpadHorizontal == -1) ||
+                    (keyToHit.Equals("right") && dpadHorizontal == 1) ||
+                    (keyToHit.Equals("up") && dpadVertical == 1) ||
+                    (keyToHit.Equals("down") && dpadVertical == -1) ||
+                    (Input.GetKeyDown(keyToHit)))
+            {
+                //print("hit successfully");
+                noteHitIndex++;
+                int dealtDamage = headNote.destroyWithFeedback(player.hitArea, true);
+
+                player.accumulatedDamage += dealtDamage;
+                if (dealtDamage == 0)
+                {
+                    player.combo = 0;
+                }
+                else
+                {
+                    noteSuccessfullyHit = true;
+                    player.combo += 1;
+                }
+
+                if (player.combo % comboThreshold == 0)
+                {
+                    // TODO: change how the damage scales
+                    boss.giveDamage(player.calculateComboDamage(comboThreshold));
+                    player.accumulatedDamage = 0;
+                }
+                player.activeNotes.Remove(noteObj);
+        }
+
+        else if (buttonPressed)
+            {
+                //print("note missed!");
+                noteHitIndex++;
+                headNote.destroyWithFeedback(player.hitArea, false);
+                player.activeNotes.Remove(noteObj);
+                player.combo = 0;
+            }
+        }
+
+        else if (headNote.canMiss)
+        {
+
+            if (buttonPressed)
+            {
+                //print("note missed!");
+                noteHitIndex++;
+                headNote.destroyWithFeedback(player.hitArea, false);
+                player.activeNotes.Remove(noteObj);
+                player.combo = 0;
+            }
+        }
+
+        
 
         // TODO: this should actually use a different combo (i.e,  a chain mode combo)
         if (teamCombo >= 120)
@@ -306,24 +308,28 @@ public class StageScript : MonoBehaviour
                 nextBeatTime = beatmap.offset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
             }
 
-            NoteScript[] notesOnTrack = FindObjectsOfType<NoteScript>();
-            List<NoteScript> currentPlayer1Notes = new List<NoteScript>();
-            List<NoteScript> currentPlayer2Notes = new List<NoteScript>();
+            List<GameObject> prunedNotes = new List<GameObject>();
 
-            foreach (NoteScript note in notesOnTrack)
+            // prune missed notes that were destroyed independently by NoteScript
+            foreach (GameObject note in player1.activeNotes)
             {
-                if (note.placement == "left")
-                {
-                    currentPlayer1Notes.Add(note);
-                }
-                else
-                {
-                    currentPlayer2Notes.Add(note);
-                }
+               if (note == null) prunedNotes.Add(note);
             }
+            player1.activeNotes.RemoveAll(i => prunedNotes.Contains(i));
+            prunedNotes.Clear();
 
-            checkPlayerAction(currentPlayer1Notes, player1);
-            checkPlayerAction(currentPlayer2Notes, player2);
+            foreach (GameObject note in player2.activeNotes)
+            {
+                if (note == null) prunedNotes.Add(note);
+            }
+            player2.activeNotes.RemoveAll(i => prunedNotes.Contains(i));
+
+
+            if (player1.activeNotes.Count > 0) checkPlayerAction(player1, player1.activeNotes[0]);
+
+            if (player2.activeNotes.Count > 0) checkPlayerAction(player2, player2.activeNotes[0]);
+        
+
         }
     }
 }

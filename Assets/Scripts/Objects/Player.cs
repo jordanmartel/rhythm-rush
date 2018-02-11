@@ -16,7 +16,8 @@ public class Player : MonoBehaviour {
     public float previousDpadVertical;
     public string previousButton;
 
-    public Dictionary<string, string> notes;
+    public Dictionary<string, Note> notes;
+    public List<GameObject> activeNotes;
 
     // Use this for initialization
     void Start () {

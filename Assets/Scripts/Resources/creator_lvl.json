@@ -1,102 +1,384 @@
 {
-  "bpm": 142,
+  "bpm": 140,
   "beat_split": 2,
-  "offset": 5.0,
+  "offset": 4.5,
   "player1Notes": {
-    "2": "cross",
-    "4": "cross",
-    "6": "cross",
-    "8": "cross",
-    "10": "cross",
-    "12": "cross",
-    "14": "cross",
-    "16": "cross",
-    "18": "cross",
-    "20": "cross",
-    "22": "cross",
-    "25": "cross",
-    "27": "cross",
-    "29": "cross",
-    "31": "cross",
-    "33": "cross",
-    "35": "cross",
-    "37": "cross",
-    "39": "cross",
-    "41": "cross",
-    "43": "cross",
-    "45": "cross",
-    "47": "cross",
-    "49": "cross",
-    "51": "cross",
-    "53": "cross",
-    "55": "cross",
-    "57": "cross",
-    "59": "cross",
-    "61": "cross",
-    "63": "cross",
-    "65": "cross",
-    "67": "cross",
-    "69": "cross",
-    "72": "cross",
-    "74": "cross",
-    "76": "cross",
-    "78": "cross",
-    "80": "cross",
-    "82": "cross",
-    "84": "cross",
-    "86": "cross",
-    "88": "cross",
-    "90": "cross",
-    "92": "cross",
-    "94": "cross",
-    "96": "cross"
+    "2": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "4": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "6": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "8": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "10": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "12": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "14": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "16": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "18": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "20": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "22": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "24": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "26": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "28": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "30": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "32": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "34": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "36": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "38": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "40": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "42": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "44": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "46": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "48": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "50": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "52": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "54": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "56": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "58": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "60": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "62": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "64": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "66": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "68": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "70": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "72": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "74": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "78": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "80": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "82": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "84": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "86": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "88": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "90": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "92": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "94": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "96": {
+      "value": "cross",
+      "type": "normal"
+    }
   },
   "player2Notes": {
-  "2": "cross",
-  "4": "cross",
-  "6": "cross",
-  "8": "cross",
-  "10": "cross",
-  "12": "cross",
-  "14": "cross",
-  "16": "cross",
-  "18": "cross",
-  "20": "cross",
-  "22": "cross",
-  "25": "cross",
-  "27": "cross",
-  "29": "cross",
-  "31": "cross",
-  "33": "cross",
-  "35": "cross",
-  "37": "cross",
-  "39": "cross",
-  "41": "cross",
-  "43": "cross",
-  "45": "cross",
-  "47": "cross",
-  "49": "cross",
-  "51": "cross",
-  "53": "cross",
-  "55": "cross",
-  "57": "cross",
-  "59": "cross",
-  "61": "cross",
-  "63": "cross",
-  "65": "cross",
-  "67": "cross",
-  "69": "cross",
-  "72": "cross",
-  "74": "cross",
-  "76": "cross",
-  "78": "cross",
-  "80": "cross",
-  "82": "cross",
-  "84": "cross",
-  "86": "cross",
-  "88": "cross",
-  "90": "cross",
-  "92": "cross",
-  "94": "cross",
-  "96": "cross"
-}}
+    "2": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "4": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "6": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "8": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "10": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "12": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "14": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "16": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "18": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "20": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "22": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "24": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "26": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "28": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "30": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "32": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "34": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "36": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "38": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "40": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "42": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "44": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "46": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "48": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "50": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "52": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "54": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "56": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "58": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "60": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "62": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "64": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "66": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "68": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "70": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "72": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "74": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "78": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "80": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "82": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "84": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "86": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "88": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "90": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "92": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "94": {
+      "value": "cross",
+      "type": "normal"
+    },
+    "96": {
+      "value": "cross",
+      "type": "normal"
+    }
+  }
