@@ -36,10 +36,10 @@ public class PlayerFeedback : MonoBehaviour {
 	}
 
     //Sets Feedback text based on distance from perfect hit point and returns score
-    public float GiveFeedback(float distance, bool correct)
+    public int GiveFeedback(float distance, bool correct)
     {
 
-        float score = 0f;
+        int score = 0;
         if (!correct) {
             text.text = "BAD!";
             text.color = missColour;
@@ -51,27 +51,27 @@ public class PlayerFeedback : MonoBehaviour {
             if (distance <= 0.25f) {
                 text.text = "SSS";
                 text.color = perfectColour;
-
+                score = 300;
             }
             else if (distance <= perfectValue) {
                 text.text = "PERFECT!";
                 text.color = perfectColour;
-
+                score = 300;
             }
             else if (distance < goodValue) {
                 text.text = "GOOD!";
                 text.color = goodColour;
-
+                score = 100;
             }
             else if (distance < okayValue) {
                 text.text = "OKAY!";
                 text.color = okayColour;
-
+                score = 50;
             }
             else if (distance > okayValue && distance < 5) {
                 text.text = "BAD!";
                 text.color = missColour;
-
+                score = 10;
             }
             else {
                 text.text = "MISS";
@@ -79,7 +79,6 @@ public class PlayerFeedback : MonoBehaviour {
             }
         }
         displayTime = Time.time;
-
 
         return score;
     }
