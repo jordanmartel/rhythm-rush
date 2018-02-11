@@ -46,6 +46,14 @@ public class StageScript : MonoBehaviour {
     private Beatmap beatmap;
     public string placement = "left";
 
+    [Header("Player Attributes")]
+    public int comboThreshold = 10;
+    private int playerDamage;
+    private int playerCombo;
+
+    private BossScript boss;
+    private TeamAttack teamAttackController;
+
     void parseJson(string filePath)
     {
         string beatMapJson = Resources.Load<TextAsset>(filePath).text;
@@ -69,18 +77,15 @@ public class StageScript : MonoBehaviour {
 
     void createNote(string key) {
 
-        String[] keys = key.Split(',');
-        foreach (String k in keys) {
-
-            Vector3 position = transform.position;
-            GameObject newNote = Instantiate(noteObject, new Vector3(position.x, position.y + 3, position.z), new Quaternion(0, 180, 0, 0));
-            newNote.GetComponent<NoteScript>().key = k;
-            newNote.GetComponent<NoteScript>().index = noteIndex;
-            newNote.GetComponent<NoteScript>().placement = placement;
-            newNote.GetComponent<MeshRenderer>().material = stringToMesh(k);
-            newNote.GetComponent<NoteScript>().feedback = feedbackText;
-            newNote.SetActive(true);
-        }
+        Vector3 position = transform.position;
+        GameObject newNote = Instantiate(noteObject, new Vector3(position.x, position.y + 3, position.z), new Quaternion(0, 180, 0, 0));
+        newNote.GetComponent<NoteScript>().key = key;
+        newNote.GetComponent<NoteScript>().index = noteIndex;
+        newNote.GetComponent<NoteScript>().placement = placement;
+        newNote.GetComponent<MeshRenderer>().material = stringToMesh(key);
+        newNote.GetComponent<NoteScript>().feedback = feedbackText;
+        newNote.SetActive(true);
+        
     }
 
 	// Use this for initialization
@@ -102,24 +107,11 @@ public class StageScript : MonoBehaviour {
         {
             joystick = PlayerObject.player2Joystick;
         }
-    }
 
-    /*
-    NoteScript getNoteAtIndex(int index)
-    {
-        GameObject[] notes = GameObject.FindGameObjectsWithTag("note");
-        //print(notes.Length);
-        foreach (GameObject note in notes)
-        {
-            NoteScript noteScript = note.GetComponent<NoteScript>();
-            if (noteScript.index == index && noteScript.placement == placement)
-            {
-                return noteScript;
-            }
-        }
-        return null;
+        boss = FindObjectOfType<BossScript>();
+        teamAttackController = FindObjectOfType<TeamAttack>();
+
     }
-    */
 
     string stringToKey(string beat)
     {
@@ -168,9 +160,7 @@ public class StageScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        int score = FindObjectOfType<BossScript>().dmg;
-        int combo = FindObjectOfType<TeamAttack>().combo;
-
+       
         timer = timer + Time.deltaTime;
         TeamAttack teamAttackController = FindObjectOfType<TeamAttack>();
         bool teamAttack = teamAttackController.isActive;
@@ -189,7 +179,7 @@ public class StageScript : MonoBehaviour {
                 int attack = teamAttackController.buildTeamAttack();
                 if (attack != 0)
                 {
-                    score += attack;
+                    //score += attack;
                     teamAttack = false;
                     teamAttackController.Reset();
                 }
@@ -203,12 +193,6 @@ public class StageScript : MonoBehaviour {
                 if (notes.ContainsKey((noteCreateIndex).ToString()))
                 {
 
-                    /*if (placement.Equals("right"))
-                    {
-                        Debug.Log("note index is: " + noteCreateIndex);
-                        Debug.Log("note index % count is: " + noteCreateIndex % notes.Count);
-
-                    }*/
                     string curBeat = notes[(noteCreateIndex).ToString()];
                     createNote(curBeat);
                     noteIndex++;
@@ -217,8 +201,10 @@ public class StageScript : MonoBehaviour {
                 noteCreateIndex++;
                 nextBeatTime = beatmap.offset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
             }
+
             NoteScript headNote;
             NoteScript[] notesOnTrack = FindObjectsOfType<NoteScript>();
+
             for (int i=0;i<notesOnTrack.Length;i++)
             {
                 headNote = notesOnTrack[i];
@@ -283,14 +269,24 @@ public class StageScript : MonoBehaviour {
                         {
                             //print("hit successfully");
                             noteHitIndex++;
-                            score += headNote.destroyWithFeedback(hitBox, true);
-                            if (score < 100)
+                            int dealtDamage = headNote.destroyWithFeedback(hitBox, true);
+
+                            playerDamage += dealtDamage;
+                            if (dealtDamage == 0)
                             {
-                                combo = 0;
+                                playerCombo = 0;
                             }
                             else
                             {
-                                combo += 1;
+                                playerCombo += 1;
+                            }
+
+                            if (playerCombo % comboThreshold == 0)
+                            {
+                                // TODO: change how the damage scales
+                                playerDamage = playerDamage + (((playerCombo / comboThreshold) - 1) * playerDamage);
+                                boss.giveDamage(playerDamage);
+                                playerDamage = 0;
                             }
                         }
 
@@ -298,8 +294,8 @@ public class StageScript : MonoBehaviour {
                         {
                             //print("note missed!");
                             noteHitIndex++;
-                            score += headNote.destroyWithFeedback(hitBox, false);
-                            combo = 0;
+                            headNote.destroyWithFeedback(hitBox, false);
+                            playerCombo = 0;
                         }
                     }
 
@@ -310,20 +306,18 @@ public class StageScript : MonoBehaviour {
                         {
                             //print("note missed!");
                             noteHitIndex++;
-                            score += headNote.destroyWithFeedback(hitBox, false);
-                            combo = 0;
+                            headNote.destroyWithFeedback(hitBox, false);
+                            playerCombo = 0;
                         }
                     }
                 }
             }
             
-            
-            if (combo >= 120)
+            // TODO: this should actually use a different combo (i.e,  a chain mode combo)
+            if (playerCombo >= 120)
             {
                 teamAttack = true;
             }
         }
-        FindObjectOfType<BossScript>().dmg = score;
-        FindObjectOfType<TeamAttack>().combo = combo;
     }
 }
