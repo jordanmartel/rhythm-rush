@@ -5,10 +5,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TeamAttack : MonoBehaviour {
+    public bool isActive;
     public int combo;
     public int powerLvl;
     public int powerLvlRequirement = 10;
-    public int attackDamage = 1000;
+    public int attackDamage = 3500;
     public float timer = 0f;
     public Slider energyBar;
 
@@ -20,6 +21,7 @@ public class TeamAttack : MonoBehaviour {
 
     internal int buildTeamAttack()
     {
+        isActive = true;
         energyBar.gameObject.SetActive(true);
         GetComponentInChildren<Text>().text = "Mash the buttons!";
         powerLvl++;
@@ -29,7 +31,7 @@ public class TeamAttack : MonoBehaviour {
         }
         return 0;
     }
-
+    
     internal int unleashTeamAttack()
     {
         int damageDone = attackDamage;
@@ -38,15 +40,27 @@ public class TeamAttack : MonoBehaviour {
 
     internal void Reset()
     {
+        combo = 0;
         powerLvl = 0;
         powerLvlRequirement += 10;
-        attackDamage += 1200;
+        attackDamage += 3500;
+        energyBar.gameObject.SetActive(false);
     }
 
 	
 	// Update is called once per frame
 	void Update () {
         GetComponentInChildren<Text>().text = combo.ToString();
-        energyBar.value = Mathf.Min(powerLvl,powerLvlRequirement);
+        
+        if (isActive)
+        {
+            energyBar.value = Mathf.Min(powerLvl, powerLvlRequirement);
+            timer += Time.deltaTime;
+            if (timer > 10)
+            {
+                GetComponentInChildren<Text>().text = "FAILED!";
+                isActive = false;
+            }
+        }
 	}
 }
