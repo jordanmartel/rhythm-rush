@@ -46,19 +46,19 @@ public class ConnectController : MonoBehaviour {
             }
         }*/
 
-        if (PlayerObject.player1Joystick != -1)
+        if (Joysticks.player1Joystick != -1)
         {
             // player1 has pressed the PS4 Options button (joystick button 9)
-            if (Input.GetKeyDown("joystick " + PlayerObject.player1Joystick + " button 9"))
+            if (Input.GetKeyDown("joystick " + Joysticks.player1Joystick + " button 9"))
             {
                 player1Ready = !player1Ready;
             }
         }
 
-        if (PlayerObject.player2Joystick != -1)
+        if (Joysticks.player2Joystick != -1)
         {
             // player2 has pressed the PS4 Options button (joystick button 9)
-            if (Input.GetKeyDown("joystick " + PlayerObject.player2Joystick + " button 9"))
+            if (Input.GetKeyDown("joystick " + Joysticks.player2Joystick + " button 9"))
             {
                 player2Ready = !player2Ready;
             }
@@ -91,30 +91,30 @@ public class ConnectController : MonoBehaviour {
             if (controllerNames[x - 1].Equals("Wireless Controller"))
             {
 
-                if (x == PlayerObject.player1Joystick)
+                if (x == Joysticks.player1Joystick)
                 {
                     player1Connected = true;
                     continue;
                 }
 
-                if (x == PlayerObject.player2Joystick)
+                if (x == Joysticks.player2Joystick)
                 {
                     player2Connected = true;
                     continue;
                 }
 
-                if (PlayerObject.player1Joystick == -1)
+                if (Joysticks.player1Joystick == -1)
                 {
                     Debug.Log("Player 1 is connected to joystick number: " + x);
                     player1Connected = true;
-                    PlayerObject.player1Joystick = x;
+                    Joysticks.player1Joystick = x;
                 }
 
-                else if (PlayerObject.player2Joystick == -1)
+                else if (Joysticks.player2Joystick == -1)
                 {
                     Debug.Log("Player 2 is connected to joystick number: " + x);
                     player2Connected = true;
-                    PlayerObject.player2Joystick = x;
+                    Joysticks.player2Joystick = x;
 
                 }
             }
@@ -125,7 +125,7 @@ public class ConnectController : MonoBehaviour {
         {
             // if not connected, cannot be ready
             player1Ready = false;
-            PlayerObject.player1Joystick = -1;
+            Joysticks.player1Joystick = -1;
             GUI.Label(new Rect(10, 10, 250, 20), "Player 1: Connect controller!");
         }
 
@@ -145,7 +145,7 @@ public class ConnectController : MonoBehaviour {
         if (!player2Connected)
         {
             player2Ready = false;
-            PlayerObject.player2Joystick = -1;
+            Joysticks.player2Joystick = -1;
             GUI.Label(new Rect(Screen.width - 210, 10, 250, 20), "Player 2: Connect controller!");
         }
 

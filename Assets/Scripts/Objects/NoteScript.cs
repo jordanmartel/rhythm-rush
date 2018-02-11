@@ -11,7 +11,7 @@ public class NoteScript : MonoBehaviour {
     public string placement = "left";
     public bool isCreator;
     public GameObject failObject;
-
+    public GameObject stage;
     public GameObject feedback;
 
 	// Use this for initialization
@@ -25,16 +25,6 @@ public class NoteScript : MonoBehaviour {
         Debug.Log(collider.tag + isCreator);
         if (collider.tag == "miss")
         {
-
-            //This part will throw errors in creator mode, it's okay
-            if (placement == "left")
-            {
-                GameObject.FindGameObjectWithTag("stage_left").GetComponent<StageScript>().noteHitIndex++;
-            }
-            else
-            {
-                GameObject.FindGameObjectWithTag("stage_right").GetComponent<StageScript>().noteHitIndex++;
-            }
             destroyWithFeedback(null, true);
         }
         else if (collider.tag == "hit")

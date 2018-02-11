@@ -101,11 +101,11 @@ public class CreatorStage : MonoBehaviour {
 
 
         if (player == 0) {
-            joystick = PlayerObject.player1Joystick;
+            joystick = Joysticks.player1Joystick;
         }
 
         else {
-            joystick = PlayerObject.player2Joystick;
+            joystick = Joysticks.player2Joystick;
         }
 
         recordedNotes = new Beatmap((int)bpm, beat_split, offset);

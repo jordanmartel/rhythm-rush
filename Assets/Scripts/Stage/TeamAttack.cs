@@ -45,6 +45,7 @@ public class TeamAttack : MonoBehaviour {
         powerLvlRequirement += 10;
         attackDamage += 3500;
         energyBar.gameObject.SetActive(false);
+        isActive = false;
     }
 
 	
