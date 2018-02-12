@@ -43,7 +43,7 @@ public class StageScript : MonoBehaviour {
     private float previousDpadHorizontal;
     private float previousDpadVertical;
 
-    private Beatmap beatmap;
+    public Beatmap beatmap;
     public string placement = "left";
 
     void parseJson(string filePath)
@@ -84,7 +84,7 @@ public class StageScript : MonoBehaviour {
     }
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         parseJson("creator_lvl");
         noteTravelSpeed = beatmap.bpm / 20;
         noteTravelDistance = 6;

@@ -13,6 +13,12 @@ TagManager:
   - left_feedback
   - right_feedback
   - destroyer_creator
+  - ranker_SS
+  - ranker_S
+  - ranker_A
+  - ranker_B
+  - ranker_C
+  - ranker_D
   layers:
   - Default
   - TransparentFX
