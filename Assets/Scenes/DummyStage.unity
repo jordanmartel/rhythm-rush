@@ -423,11 +423,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  combo: 0
-  powerLvl: 0
-  powerLvlRequirement: 20
-  attackDamage: 7000
-  timer: 0
+  numberOfHits: 0
+  maximumNumberOfHits: 50
+  damagePerHit: 100
+  allotedTime: 5
   energyBar: {fileID: 2017881600}
 --- !u!1 &260478550 stripped
 GameObject:
@@ -4834,7 +4833,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0
+  m_Text: 
 --- !u!222 &1289887902
 CanvasRenderer:
   m_ObjectHideFlags: 0

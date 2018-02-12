@@ -308,21 +308,26 @@ public class StageScript : MonoBehaviour
         // Create beat
         if (teamAttackController.isActive)
         {
-            // Destroy all notes
-            GameObject[] allNotes = GameObject.FindGameObjectsWithTag("note");
-            foreach (GameObject note in allNotes)
+
+            // even if its in team attack mode, we need to update the indexes to work correctly after team attack ends
+            if (timer > nextBeatTime && timer - nextBeatTime < 0.1f)
             {
-                note.SetActive(false);
+                noteCreateIndex++;
+                nextBeatTime = beatmap.offset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
+            }           
+
+            if (teamAttackController.timerExpired())
+            {
+                boss.giveDamage(teamAttackController.unleashTeamAttack());
             }
-            if (Input.anyKeyDown)
+
+            else
             {
-                int attack = teamAttackController.buildTeamAttack();
-                if (attack != 0)
+                if (Input.anyKeyDown)
                 {
-                    //score += attack;
-                    teamAttackController.Reset();
+                    teamAttackController.buildTeamAttack();
                 }
-            }
+            }   
         }
 
         else
@@ -331,7 +336,6 @@ public class StageScript : MonoBehaviour
             {
                 createPlayerNote("left", team.player1);
                 createPlayerNote("right", team.player2);
-
                 createChainNote();
 
                 noteCreateIndex++;
@@ -388,7 +392,14 @@ public class StageScript : MonoBehaviour
                     // all notes hit
                     if (teamCombo == 10)
                     {
-                        teamAttackController.isActive = true;
+                        teamAttackController.startTeamAttack();
+                        GameObject[] allNotes = GameObject.FindGameObjectsWithTag("note");
+                        foreach (GameObject note in allNotes)
+                        {
+                            Destroy(note); //note.SetActive(false);
+                        }
+                        team.player1.activeNotes.Clear();
+                        team.player2.activeNotes.Clear();
                     }
 
                     // boss does damage

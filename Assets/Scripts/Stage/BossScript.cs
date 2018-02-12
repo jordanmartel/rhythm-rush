@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class BossScript : MonoBehaviour {
 
-    public int maxhp = 100000;
+    public int maxhp = 150000;
     public int dmg = 0;
     public int endStatus = 0;
     private int hp;
@@ -36,7 +36,17 @@ public class BossScript : MonoBehaviour {
     }
 
     public void giveDamage(int dmg) {
-        hp -= dmg;
+
+        // plz no negative hp
+        if (dmg > hp)
+        {
+            hp = 0;
+        }
+
+        else
+        {
+            hp -= dmg;
+        }
         healthBar.size=  (1.0f * hp / maxhp);
         StartCoroutine("FlickerDamage");
     }
