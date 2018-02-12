@@ -170,11 +170,9 @@ public class StageScript : MonoBehaviour {
     void Update () {
         int score = FindObjectOfType<BossScript>().dmg;
         int combo = FindObjectOfType<TeamAttack>().combo;
-
-        timer = timer + Time.deltaTime;
+        timer = Time.time;
         TeamAttack teamAttackController = FindObjectOfType<TeamAttack>();
         bool teamAttack = teamAttackController.isActive;
-      
         // Create beat
         if (teamAttack)
         {
