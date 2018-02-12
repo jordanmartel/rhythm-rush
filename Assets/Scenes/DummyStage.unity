@@ -121,8 +121,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 16383842}
+  - component: {fileID: 16383843}
   m_Layer: 0
-  m_Name: Players
+  m_Name: Team
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -143,6 +144,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &16383843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 16383841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75370f0880b09744be2505fe2a1eab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 3
+  player1: {fileID: 1122551348}
+  player2: {fileID: 101990916}
 --- !u!1 &78524611
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,8 +425,8 @@ MonoBehaviour:
   isActive: 0
   combo: 0
   powerLvl: 0
-  powerLvlRequirement: 10
-  attackDamage: 1000
+  powerLvlRequirement: 20
+  attackDamage: 7000
   timer: 0
   energyBar: {fileID: 2017881600}
 --- !u!1 &260478550 stripped
@@ -535,9 +550,7 @@ MonoBehaviour:
   dRight: {fileID: 2100000, guid: e536de47c6103b049bf8bd8c43eda6c9, type: 2}
   dDown: {fileID: 2100000, guid: 35fa2cce0b14ef34e8eaf6178e514be0, type: 2}
   comboThreshold: 10
-  player1: {fileID: 1122551348}
-  player2: {fileID: 101990916}
-  teamCombo: 0
+  team: {fileID: 16383843}
 --- !u!1001 &429246468
 Prefab:
   m_ObjectHideFlags: 0
@@ -12413,7 +12426,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2017881599}
   - component: {fileID: 2017881600}
-  - component: {fileID: 2017881601}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -12490,24 +12502,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &2017881601
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2017881598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e38cfaf9e1c3bc84faf47bd603449c6b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isActive: 0
-  combo: 0
-  powerLvl: 0
-  powerLvlRequirement: 20
-  attackDamage: 2200
-  timer: 0
-  energyBar: {fileID: 2017881600}
 --- !u!1001 &2089741005
 Prefab:
   m_ObjectHideFlags: 0

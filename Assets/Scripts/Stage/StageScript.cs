@@ -36,14 +36,17 @@ public class StageScript : MonoBehaviour
     [Header("General Player Attributes")]
     public int comboThreshold = 10;
 
-    [Header("Players")]
-    public Player player1;
-    public Player player2;
+    public Team team;
 
     private BossScript boss;
     private TeamAttack teamAttackController;
 
-    public int teamCombo = 0;
+    private int totalChainSize;
+    private int teamCombo = 0;
+
+    Dictionary<string, string> chainNotes = new Dictionary<string, string>();
+    List<ChainNote> activeChainNotes = new List<ChainNote>();
+
 
     // ==========================
     // Use this for initialization
@@ -57,12 +60,23 @@ public class StageScript : MonoBehaviour
         nextBeatTime = beatmap.offset + playerOffset - noteTravelDistance / noteTravelSpeed;
         beatInterval = BeatInterval(beatmap.bpm, beatmap.beat_split);
 
-        player1.joystick = Joysticks.player1Joystick;
-        player2.joystick = Joysticks.player2Joystick;
+        team.player1.joystick = Joysticks.player1Joystick;
+        team.player2.joystick = Joysticks.player2Joystick;
 
         boss = FindObjectOfType<BossScript>();
         teamAttackController = FindObjectOfType<TeamAttack>();
 
+    }
+
+    public void resetChainCombo()
+    {
+        teamCombo = 0;
+    }
+
+    // the NoteScript will use this to mark chain notes as missed
+    public List<ChainNote> getActiveChainNotes()
+    {
+        return activeChainNotes;
     }
 
     void parseJson(string filePath)
@@ -70,8 +84,9 @@ public class StageScript : MonoBehaviour
         string beatMapJson = Resources.Load<TextAsset>(filePath).text;
         beatmap = JsonConvert.DeserializeObject<Beatmap>(beatMapJson);
 
-        player1.notes = beatmap.player1Notes;
-        player2.notes = beatmap.player2Notes;
+        team.player1.notes = beatmap.player1Notes;
+        team.player2.notes = beatmap.player2Notes;
+        chainNotes = beatmap.chainNotes;
     }
 
     double BeatInterval(int bpm, int beat_split)
@@ -80,20 +95,22 @@ public class StageScript : MonoBehaviour
     }
 
 
-    void createNote(string key, string placement, Player player)
+    GameObject createNote(String note, string placement, Player player)
     {
 
         Vector3 position = player.track.transform.position;
         GameObject newNote = Instantiate(noteObject, new Vector3(position.x, position.y + 3, position.z), new Quaternion(0, 180, 0, 0));
-        newNote.GetComponent<NoteScript>().key = key;
+        newNote.GetComponent<NoteScript>().key = note;
         newNote.GetComponent<NoteScript>().index = noteIndex;
-        newNote.GetComponent<NoteScript>().placement = placement;
-        newNote.GetComponent<MeshRenderer>().material = stringToMesh(key);
-        newNote.GetComponent<NoteScript>().feedback = player.feedback;
         newNote.GetComponent<NoteScript>().stage = gameObject;
+        newNote.GetComponent<MeshRenderer>().material = stringToMesh(note);
+        newNote.GetComponent<NoteScript>().feedback = player.feedback;
+        newNote.GetComponent<NoteScript>().player = player;
         newNote.SetActive(true);
 
         player.activeNotes.Add(newNote);
+
+        return newNote;
 
     }
 
@@ -147,15 +164,27 @@ public class StageScript : MonoBehaviour
         if (player.notes.ContainsKey((noteCreateIndex).ToString()))
         {
 
-            string curBeat = player.notes[(noteCreateIndex).ToString()].value;
-            createNote(curBeat, placement, player);
+            string curNote = player.notes[(noteCreateIndex).ToString()];
+            createNote(curNote, placement, player);
             noteIndex++;
         }
     }
 
-    bool checkPlayerAction(Player player, GameObject noteObj)
+    // creates two notes, one for each player
+    void createChainNote()
     {
-        bool noteSuccessfullyHit = false;
+        if (chainNotes.ContainsKey((noteCreateIndex).ToString()))
+        {
+            string curNote = chainNotes[(noteCreateIndex).ToString()];
+            activeChainNotes.Add(new ChainNote(createNote(curNote, "left", team.player1).GetComponent<NoteScript>(),
+                createNote(curNote, "right", team.player2).GetComponent<NoteScript>()));
+            noteIndex++;
+        }
+    }
+
+    string checkPlayerAction(Player player, GameObject noteObj)
+    {
+        string playerAction = "none";
 
         NoteScript headNote = noteObj.GetComponent<NoteScript>();
         bool buttonPressed = false;
@@ -221,11 +250,12 @@ public class StageScript : MonoBehaviour
                 player.accumulatedDamage += dealtDamage;
                 if (dealtDamage == 0)
                 {
+                    playerAction = "miss";
                     player.combo = 0;
                 }
                 else
                 {
-                    noteSuccessfullyHit = true;
+                    playerAction = "hit";
                     player.combo += 1;
                 }
 
@@ -240,7 +270,7 @@ public class StageScript : MonoBehaviour
 
         else if (buttonPressed)
             {
-                //print("note missed!");
+                playerAction = "miss";
                 noteHitIndex++;
                 headNote.destroyWithFeedback(player.hitArea, false);
                 player.activeNotes.Remove(noteObj);
@@ -253,7 +283,7 @@ public class StageScript : MonoBehaviour
 
             if (buttonPressed)
             {
-                //print("note missed!");
+                playerAction = "miss";
                 noteHitIndex++;
                 headNote.destroyWithFeedback(player.hitArea, false);
                 player.activeNotes.Remove(noteObj);
@@ -261,22 +291,19 @@ public class StageScript : MonoBehaviour
             }
         }
 
-        
-
-        // TODO: this should actually use a different combo (i.e,  a chain mode combo)
-        if (teamCombo >= 120)
-        {
-            teamAttackController.isActive = true;
-        }
-
-        return noteSuccessfullyHit;
+        return playerAction;
     }
 
     // Update is called once per frame
     void Update()
     {
-
         timer = timer + Time.deltaTime;
+
+        // WIN
+        if (boss.endStatus > 0)
+        {
+            //TODO: win animation. Ranking screen
+        }
 
         // Create beat
         if (teamAttackController.isActive)
@@ -302,33 +329,83 @@ public class StageScript : MonoBehaviour
         {
             if (timer > nextBeatTime && timer - nextBeatTime < 0.1f)
             {
-                createPlayerNote("left", player1);
-                createPlayerNote("right", player2);
+                createPlayerNote("left", team.player1);
+                createPlayerNote("right", team.player2);
+
+                createChainNote();
+
                 noteCreateIndex++;
                 nextBeatTime = beatmap.offset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
             }
 
-            List<GameObject> prunedNotes = new List<GameObject>();
 
-            // prune missed notes that were destroyed independently by NoteScript
-            foreach (GameObject note in player1.activeNotes)
+            string player1Action = "none";
+            string player2Action = "none";
+            GameObject nextPlayer1Note = null;
+            GameObject nextPlayer2Note = null;
+
+            if (team.player1.activeNotes.Count > 0)
             {
-               if (note == null) prunedNotes.Add(note);
+                nextPlayer1Note = team.player1.activeNotes[0];
+                player1Action = checkPlayerAction(team.player1, nextPlayer1Note);
             }
-            player1.activeNotes.RemoveAll(i => prunedNotes.Contains(i));
-            prunedNotes.Clear();
 
-            foreach (GameObject note in player2.activeNotes)
+            if (team.player2.activeNotes.Count > 0)
             {
-                if (note == null) prunedNotes.Add(note);
+                nextPlayer2Note = team.player2.activeNotes[0];
+                player2Action = checkPlayerAction(team.player2, nextPlayer2Note);
             }
-            player2.activeNotes.RemoveAll(i => prunedNotes.Contains(i));
 
+            if (activeChainNotes.Count > 0)
+            {
+                ChainNote nextChainNote = activeChainNotes[0];
 
-            if (player1.activeNotes.Count > 0) checkPlayerAction(player1, player1.activeNotes[0]);
+                if (nextChainNote.contains(nextPlayer1Note)) {
+                    nextChainNote.player1Status = player1Action;
+                }
 
-            if (player2.activeNotes.Count > 0) checkPlayerAction(player2, player2.activeNotes[0]);
-        
+                if (nextChainNote.contains(nextPlayer2Note)) {
+                    nextChainNote.player1Status = player1Action;
+                }
+
+                // both players hit the note
+                if (nextChainNote.getStatus() == "hit")
+                {
+                    teamCombo += 1;
+                    activeChainNotes.Remove(nextChainNote);
+                }
+                
+                // at least one player missed the note
+                else if (nextChainNote.getStatus() == "miss")
+                {
+                    teamCombo = 0;
+                    activeChainNotes.Remove(nextChainNote);
+                }
+
+                // last note has been played
+                if (activeChainNotes.Count == 0)
+                {
+                    // all notes hit
+                    if (teamCombo == 10)
+                    {
+                        teamAttackController.isActive = true;
+                    }
+
+                    // boss does damage
+                    else
+                    {
+                        team.attackedByBoss();
+
+                        if (team.health == 0)
+                        {
+                            // GAME OVER
+                            // TODO: death animation, ranking screen showing "F" or similar
+                        }
+                    }
+
+                    teamCombo = 0;
+                }
+            }
 
         }
     }

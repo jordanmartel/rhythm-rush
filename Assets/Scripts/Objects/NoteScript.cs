@@ -8,11 +8,11 @@ public class NoteScript : MonoBehaviour {
     public bool canHit;
     public bool canMiss;
     public int index;
-    public string placement = "left";
     public bool isCreator;
-    public GameObject failObject;
-    public GameObject stage;
+
+    public Player player;
     public GameObject feedback;
+    public GameObject stage;
 
 	// Use this for initialization
 	void Start () {
@@ -22,10 +22,26 @@ public class NoteScript : MonoBehaviour {
     void OnTriggerEnter(Collider collider)
     {
 
-        Debug.Log(collider.tag + isCreator);
         if (collider.tag == "miss")
         {
             destroyWithFeedback(null, true);
+
+            // forcefully reset the player combo when a note is missed
+            player.combo = 0;
+
+            if (stage.GetComponent<StageScript>().getActiveChainNotes().Count > 0)
+            {
+                ChainNote nextChainNote = stage.GetComponent<StageScript>().getActiveChainNotes()[0];
+
+                // does not actually matter which player has missed, so just setting them both as missed
+                if (nextChainNote.contains(gameObject)) {
+                    nextChainNote.player1Status = "miss";
+                    nextChainNote.player2Status = "miss";
+
+                }
+            }
+
+            stage.GetComponent<StageScript>().resetChainCombo();
         }
         else if (collider.tag == "hit")
         {
@@ -51,6 +67,7 @@ public class NoteScript : MonoBehaviour {
 
         if (hitArea == null) {
             feedback.GetComponent<PlayerFeedback>().GiveFeedback(100, correct);
+            player.activeNotes.Remove(gameObject);
 
         } else {
             float distance = Vector3.Distance(hitArea.transform.position, transform.position);

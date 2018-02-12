@@ -10,7 +10,7 @@ public class CreatorStage : MonoBehaviour {
 
     [Header("Beat Info")]
     public GameObject noteObject;
-    public Dictionary<string, Note> notes;
+    public Dictionary<string, string> notes;
     public List<NoteScript> notesOnScreen;
     public int noteIndex;
     public int noteCreateIndex;
@@ -81,7 +81,7 @@ public class CreatorStage : MonoBehaviour {
         GameObject newNote = Instantiate(noteObject, new Vector3(position.x, position.y -4, position.z), new Quaternion(0, 180, 0, 0));
         newNote.GetComponent<NoteScript>().key = key;
         newNote.GetComponent<NoteScript>().index = noteIndex;
-        newNote.GetComponent<NoteScript>().placement = placement;
+        newNote.GetComponent<NoteScript>().stage = gameObject;
         newNote.GetComponent<MeshRenderer>().material = stringToMesh(key);
         newNote.GetComponent<NoteScript>().feedback = feedbackText;
         newNote.GetComponent<NoteScript>().isCreator = true;

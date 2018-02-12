@@ -25,10 +25,6 @@ public class BossScript : MonoBehaviour {
             //Winning
             endStatus = 1;
         }
-        
-        // if player health <= 0, endStatus = -1
-        // then if endStatus != 0, wait until the end of the current attack/damage animations are done
-        // and show the endScene
 	}
 
     public void giveDamage(int dmg) {

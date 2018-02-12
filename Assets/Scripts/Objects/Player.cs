@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour
+{
 
     public GameObject track;
     public GameObject hitArea;
@@ -16,21 +17,25 @@ public class Player : MonoBehaviour {
     public float previousDpadVertical;
     public string previousButton;
 
-    public Dictionary<string, Note> notes;
+    public Dictionary<string, string> notes;
     public List<GameObject> activeNotes;
 
     // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     public int calculateComboDamage(int comboThreshold)
-    { 
+    {
         return accumulatedDamage + (((combo / comboThreshold) - 1) * accumulatedDamage);
     }
+
+    
 }
