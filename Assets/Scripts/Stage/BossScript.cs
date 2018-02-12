@@ -27,8 +27,17 @@ public class BossScript : MonoBehaviour {
         }
 	}
 
+
+    private IEnumerator FlickerDamage () {
+        MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
+        mesh.material.color = Color.red;
+        yield return new WaitForSeconds(0.2f);
+        mesh.material.color = Color.white;
+    }
+
     public void giveDamage(int dmg) {
         hp -= dmg;
         healthBar.size=  (1.0f * hp / maxhp);
+        StartCoroutine("FlickerDamage");
     }
 }
