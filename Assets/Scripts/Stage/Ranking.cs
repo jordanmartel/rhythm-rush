@@ -9,6 +9,7 @@ public class Ranking : MonoBehaviour {
     public Slider SS_img, S_img, A_img, B_img, C_img, D_img;
     public double time = 0;
     public Slider timeline;
+    public Slider button;
 	// Use this for initialization
 	void Start () {
         SS = GameObject.FindObjectOfType<StageScript>().beatmap.thresholds[0];
@@ -30,7 +31,8 @@ public class Ranking : MonoBehaviour {
 	void Update () {
         time += Time.deltaTime;
         timeline.value = (float) (1.0 - time / maxTime);
-	}
+        button.value = (float)(1.0 - time / maxTime);
+    }
 
     internal string rankingAtTime(double atTime)
     {
