@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -158,6 +158,8 @@ MonoBehaviour:
   health: 3
   player1: {fileID: 1122551348}
   player2: {fileID: 101990916}
+  hasEnded: 0
+  losing: {fileID: 223552882996209598, guid: 5d0610aa236e0894fbf8bd41a4bf6067, type: 2}
 --- !u!1 &51619732
 GameObject:
   m_ObjectHideFlags: 0
@@ -813,7 +815,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.97
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 1
 --- !u!222 &294681693
@@ -1189,8 +1191,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxhp: 150000
   dmg: 0
-  endStatus: 0
   healthBar: {fileID: 1277474234}
+  winning: {fileID: 223687630276745434, guid: 08fcb43f0c9b1494089a56a56da4255b, type: 2}
+  hasEnded: 0
 --- !u!1 &441274477
 GameObject:
   m_ObjectHideFlags: 0
@@ -1249,7 +1252,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.97
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

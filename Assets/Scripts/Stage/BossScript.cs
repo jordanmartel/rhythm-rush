@@ -10,7 +10,7 @@ public class BossScript : MonoBehaviour {
     private int hp;
     public Scrollbar healthBar;
     public Canvas winning;
-    public bool hasEnded;
+    public bool hasEnded = false;
 
     private bool preparingAttack = false;
 
@@ -26,6 +26,8 @@ public class BossScript : MonoBehaviour {
             //Update visual cue on boss
             if (hp <= 0)
             {
+                FindObjectOfType<Ranking>().enabled = false;
+                FindObjectOfType<StageScript>().enabled = false;
                 //Winning
                 Instantiate(winning, Vector3.zero, Quaternion.identity);
                 Ranking ranking = GameObject.FindObjectOfType<Ranking>();
@@ -33,22 +35,22 @@ public class BossScript : MonoBehaviour {
                 switch (rank)
                 {
                     case "SS":
-                        winning.transform.Find("SSRank").GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+                        winning.transform.Find("SSRank").GetComponent<Image>().color = Color.white;
                         break;
                     case "S":
-                        winning.transform.Find("SRank").GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+                        winning.transform.Find("SRank").GetComponent<Image>().color = Color.white;
                         break;
                     case "A":
-                        winning.transform.Find("ARank").GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+                        winning.transform.Find("ARank").GetComponent<Image>().color = Color.white;
                         break;
                     case "B":
-                        winning.transform.Find("BRank").GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+                        winning.transform.Find("BRank").GetComponent<Image>().color = Color.white;
                         break;
                     case "C":
-                        winning.transform.Find("CRank").GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+                        winning.transform.Find("CRank").GetComponent<Image>().color = Color.white;
                         break;
                     default:
-                        winning.transform.Find("DRank").GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+                        winning.transform.Find("DRank").GetComponent<Image>().color = Color.white;
                         break;
                 }
                 hasEnded = true;

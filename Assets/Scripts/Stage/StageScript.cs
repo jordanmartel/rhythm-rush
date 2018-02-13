@@ -298,12 +298,6 @@ public class StageScript : MonoBehaviour
     {
         timer = Time.time;
 
-        // WIN
-        if (boss.endStatus > 0)
-        {
-            //TODO: win animation. Ranking screen
-        }
-
         // Create beat
         if (teamAttackController.isActive)
         {
