@@ -13,6 +13,7 @@ public class Beatmap
 
     public Dictionary<string, string> player1Notes = null;
     public Dictionary<string, string> player2Notes = null;
+    public Dictionary<string, string> chainNotes = null;
 
     public Beatmap(int bpm, int beat_split, double offset) {
         this.bpm = bpm;
@@ -35,7 +36,7 @@ public class Beatmap
 
     public void addP1Note(int index, String key) {
         if (player1Notes.ContainsKey(index.ToString())) {
-            player1Notes[index.ToString()] += "," + key;
+            //player1Notes[index.ToString()] += "," + key;
         } else {
             player1Notes.Add(index.ToString(), key);
         }
@@ -43,7 +44,7 @@ public class Beatmap
 
     public void addP2Note(int index, String key) {
         if (player2Notes.ContainsKey(index.ToString())) {
-            player2Notes[index.ToString()] += "," + key;
+            //player2Notes[index.ToString()] += "," + key;
         }
         else {
             player2Notes.Add(index.ToString(), key);
