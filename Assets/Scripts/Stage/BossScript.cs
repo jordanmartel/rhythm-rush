@@ -9,7 +9,7 @@ public class BossScript : MonoBehaviour {
     public int dmg = 0;
     private int hp;
     public Scrollbar healthBar;
-    public Canvas winning, ssRank, sRank, aRank, bRank, cRank, dRank;
+    public Canvas winning;
 
     public bool hasEnded;
 	// Use this for initialization
@@ -31,32 +31,27 @@ public class BossScript : MonoBehaviour {
                 switch (rank)
                 {
                     case "SS":
-                        Instantiate(ssRank, Vector3.zero, Quaternion.identity);
+                        winning.transform.Find("SSRank").GetComponent<Image>().color = new Color32(255, 255, 255, 255);
                         break;
                     case "S":
-                        Instantiate(sRank, Vector3.zero, Quaternion.identity);
+                        winning.transform.Find("SRank").GetComponent<Image>().color = new Color32(255, 255, 255, 255);
                         break;
                     case "A":
-                        Instantiate(aRank, Vector3.zero, Quaternion.identity);
+                        winning.transform.Find("ARank").GetComponent<Image>().color = new Color32(255, 255, 255, 255);
                         break;
                     case "B":
-                        Instantiate(bRank, Vector3.zero, Quaternion.identity);
+                        winning.transform.Find("BRank").GetComponent<Image>().color = new Color32(255, 255, 255, 255);
                         break;
                     case "C":
-                        Instantiate(cRank, Vector3.zero, Quaternion.identity);
+                        winning.transform.Find("CRank").GetComponent<Image>().color = new Color32(255, 255, 255, 255);
                         break;
                     default:
-                        Instantiate(dRank, Vector3.zero, Quaternion.identity);
+                        winning.transform.Find("DRank").GetComponent<Image>().color = new Color32(255, 255, 255, 255);
                         break;
                 }
                 hasEnded = true;
             }
         }
-
-        
-        // if player health <= 0, endStatus = -1
-        // then if endStatus != 0, wait until the end of the current attack/damage animations are done
-        // and show the endScene
 	}
 
     public void giveDamage(int dmg) {
