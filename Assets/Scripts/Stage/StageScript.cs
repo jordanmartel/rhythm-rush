@@ -361,7 +361,9 @@ public class StageScript : MonoBehaviour
 
             if (activeChainNotes.Count > 0)
             {
+
                 ChainNote nextChainNote = activeChainNotes[0];
+                boss.setAttackState();
 
                 if (nextChainNote.contains(nextPlayer1Note)) {
                     nextChainNote.player1Status = player1Action;
@@ -391,6 +393,7 @@ public class StageScript : MonoBehaviour
                     // all notes hit
                     if (teamCombo == 10)
                     {
+                        boss.resetAttackState();
                         teamAttackController.startTeamAttack();
                         GameObject[] allNotes = GameObject.FindGameObjectsWithTag("note");
                         foreach (GameObject note in allNotes)
@@ -405,6 +408,7 @@ public class StageScript : MonoBehaviour
                     else
                     {
                         team.attackedByBoss();
+                        boss.resetAttackState();
 
                         if (team.health == 0)
                         {

@@ -7,7 +7,7 @@ public class Ranking : MonoBehaviour {
     public double SS, S, A, B, C, D;
     public double maxTime;
     public Slider SS_img, S_img, A_img, B_img, C_img, D_img;
-    public double time;
+    public double time = 0;
     public Slider timeline;
 	// Use this for initialization
 	void Start () {
@@ -28,7 +28,7 @@ public class Ranking : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        time = Time.time;
+        time += Time.deltaTime;
         timeline.value = (float) (1.0 - time / maxTime);
 	}
 
