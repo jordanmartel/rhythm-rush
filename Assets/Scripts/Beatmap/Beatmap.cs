@@ -25,7 +25,7 @@ public class Beatmap
     }
 
     public void addNote(int player, int index, String key) {
-        if (player == 1) {
+        if (player == 0) {
             addP1Note(index, key);
         } else {
             addP2Note(index, key);
