@@ -17,6 +17,7 @@ public class BossScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         hp = maxhp;
+        hp = 0;
 	}
 	
 	// Update is called once per frame

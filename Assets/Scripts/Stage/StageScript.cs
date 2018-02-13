@@ -296,7 +296,7 @@ public class StageScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer = Time.time;
+        timer += Time.deltaTime;
 
         // Create beat
         if (teamAttackController.isActive)
