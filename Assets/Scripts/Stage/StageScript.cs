@@ -9,7 +9,7 @@ public class StageScript : MonoBehaviour
 {
 
     [Header("Beat Info")]
-    private Beatmap beatmap;
+    public Beatmap beatmap;
     public GameObject noteObject;
     public List<NoteScript> notesOnScreen;
     public int noteIndex;
@@ -50,9 +50,8 @@ public class StageScript : MonoBehaviour
 
     // ==========================
     // Use this for initialization
-    void Start()
-    {
 
+    void Awake () {
         parseJson("creator_lvl");
         noteTravelSpeed = beatmap.bpm / 20;
         noteTravelDistance = 6;

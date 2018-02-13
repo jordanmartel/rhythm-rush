@@ -10,6 +10,7 @@ public class Beatmap
     public int bpm;
     public int beat_split;
     public double offset;
+    public double[] thresholds;
 
     public Dictionary<string, string> player1Notes = null;
     public Dictionary<string, string> player2Notes = null;

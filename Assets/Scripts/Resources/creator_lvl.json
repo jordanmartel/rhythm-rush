@@ -2,6 +2,7 @@
   "bpm": 140,
   "beat_split": 2,
   "offset": 4.5,
+  "thresholds":[100.0,110.0,120.0,130.0,140.0,150.0],
   "chainNotes": {
     "22": "circle",
     "24": "circle",
