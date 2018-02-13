@@ -17,6 +17,7 @@ public class BossScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         hp = maxhp;
+        hp = 0;
 	}
 	
 	// Update is called once per frame
@@ -27,28 +28,28 @@ public class BossScript : MonoBehaviour {
             if (hp <= 0)
             {
                 //Winning
-                Instantiate(winning, Vector3.zero, Quaternion.identity);
+                Canvas winningCanvas = Instantiate(winning, Vector3.zero, Quaternion.identity);
                 Ranking ranking = GameObject.FindObjectOfType<Ranking>();
                 string rank = ranking.rankingAtTime(ranking.time);
                 switch (rank)
                 {
                     case "SS":
-                        winning.transform.Find("SSRank").GetComponent<Image>().color = Color.white;
+                        winningCanvas.transform.Find("SSRank").GetComponent<Image>().color = Color.white;
                         break;
                     case "S":
-                        winning.transform.Find("SRank").GetComponent<Image>().color = Color.white;
+                        winningCanvas.transform.Find("SRank").GetComponent<Image>().color = Color.white;
                         break;
                     case "A":
-                        winning.transform.Find("ARank").GetComponent<Image>().color = Color.white;
+                        winningCanvas.transform.Find("ARank").GetComponent<Image>().color = Color.white;
                         break;
                     case "B":
-                        winning.transform.Find("BRank").GetComponent<Image>().color = Color.white;
+                        winningCanvas.transform.Find("BRank").GetComponent<Image>().color = Color.white;
                         break;
                     case "C":
-                        winning.transform.Find("CRank").GetComponent<Image>().color = Color.white;
+                        winningCanvas.transform.Find("CRank").GetComponent<Image>().color = Color.white;
                         break;
                     default:
-                        winning.transform.Find("DRank").GetComponent<Image>().color = Color.white;
+                        winningCanvas.transform.Find("DRank").GetComponent<Image>().color = Color.white;
                         break;
                 }
                 hasEnded = true;
