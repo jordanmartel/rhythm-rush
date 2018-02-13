@@ -759,8 +759,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxhp: 100000
   dmg: 0
-  endStatus: 0
   healthBar: {fileID: 1902317070}
+  winning: {fileID: 223687630276745434, guid: 08fcb43f0c9b1494089a56a56da4255b, type: 2}
+  hasEnded: 0
 --- !u!1 &480643134
 GameObject:
   m_ObjectHideFlags: 0

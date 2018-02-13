@@ -32,7 +32,7 @@ public class Ranking : MonoBehaviour {
         timeline.value = (float) (1.0 - time / maxTime);
 	}
 
-    string rankingAtTime(double atTime)
+    internal string rankingAtTime(double atTime)
     {
         if (atTime <= SS)
         {

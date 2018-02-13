@@ -296,13 +296,7 @@ public class StageScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer = timer + Time.deltaTime;
-
-        // WIN
-        if (boss.endStatus > 0)
-        {
-            //TODO: win animation. Ranking screen
-        }
+        timer = Time.time;
 
         // Create beat
         if (teamAttackController.isActive)

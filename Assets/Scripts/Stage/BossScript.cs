@@ -7,12 +7,13 @@ public class BossScript : MonoBehaviour {
 
     public int maxhp = 150000;
     public int dmg = 0;
-    public int endStatus = 0;
     private int hp;
     public Scrollbar healthBar;
+    public Canvas winning;
+    public bool hasEnded = false;
 
     private bool preparingAttack = false;
-  
+
 	// Use this for initialization
 	void Start () {
         hp = maxhp;
@@ -20,12 +21,40 @@ public class BossScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-        //Update visual cue on boss
-		if (hp <= 0)
+        if (!hasEnded)
         {
-            //Winning
-            endStatus = 1;
+            //Update visual cue on boss
+            if (hp <= 0)
+            {
+                FindObjectOfType<Ranking>().enabled = false;
+                FindObjectOfType<StageScript>().enabled = false;
+                //Winning
+                Instantiate(winning, Vector3.zero, Quaternion.identity);
+                Ranking ranking = GameObject.FindObjectOfType<Ranking>();
+                string rank = ranking.rankingAtTime(ranking.time);
+                switch (rank)
+                {
+                    case "SS":
+                        winning.transform.Find("SSRank").GetComponent<Image>().color = Color.white;
+                        break;
+                    case "S":
+                        winning.transform.Find("SRank").GetComponent<Image>().color = Color.white;
+                        break;
+                    case "A":
+                        winning.transform.Find("ARank").GetComponent<Image>().color = Color.white;
+                        break;
+                    case "B":
+                        winning.transform.Find("BRank").GetComponent<Image>().color = Color.white;
+                        break;
+                    case "C":
+                        winning.transform.Find("CRank").GetComponent<Image>().color = Color.white;
+                        break;
+                    default:
+                        winning.transform.Find("DRank").GetComponent<Image>().color = Color.white;
+                        break;
+                }
+                hasEnded = true;
+            }
         }
 	}
 
