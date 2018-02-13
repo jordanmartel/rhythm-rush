@@ -23,10 +23,10 @@ public class Team : MonoBehaviour
         {
             if (health <= 0)
             {
-                FindObjectOfType<Ranking>().enabled = false;
-                FindObjectOfType<StageScript>().enabled = false;
                 Instantiate(losing, Vector3.zero, Quaternion.identity);
                 hasEnded = true;
+                FindObjectOfType<Ranking>().enabled = false;
+                FindObjectOfType<StageScript>().enabled = false;
             }
         }
     }

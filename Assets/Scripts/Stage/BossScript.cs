@@ -17,7 +17,6 @@ public class BossScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         hp = maxhp;
-        hp = 0;
 	}
 	
 	// Update is called once per frame
@@ -27,8 +26,6 @@ public class BossScript : MonoBehaviour {
             //Update visual cue on boss
             if (hp <= 0)
             {
-                FindObjectOfType<Ranking>().enabled = false;
-                FindObjectOfType<StageScript>().enabled = false;
                 //Winning
                 Instantiate(winning, Vector3.zero, Quaternion.identity);
                 Ranking ranking = GameObject.FindObjectOfType<Ranking>();
@@ -55,6 +52,8 @@ public class BossScript : MonoBehaviour {
                         break;
                 }
                 hasEnded = true;
+                FindObjectOfType<Ranking>().enabled = false;
+                FindObjectOfType<StageScript>().enabled = false;
             }
         }
 	}
