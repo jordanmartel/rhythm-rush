@@ -67,7 +67,7 @@ public class ConnectController : MonoBehaviour {
 
         if (player1Ready && player2Ready)
         {
-            SceneManager.LoadScene("DummyStage");
+            SceneManager.LoadScene("WaterStage");
         }
 
 
