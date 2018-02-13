@@ -75,7 +75,11 @@ public class TeamAttack : MonoBehaviour {
         if (isActive)
         {
             remainingTime = remainingTime - Time.deltaTime;
-            GetComponentInChildren<Text>().text = numberOfHits.ToString();
+
+            if (numberOfHits > 0)
+            {
+                GetComponentInChildren<Text>().text = numberOfHits.ToString();
+            }
             energyBar.value = Mathf.Min(numberOfHits, maximumNumberOfHits);
         }
 	}

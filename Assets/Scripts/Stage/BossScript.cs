@@ -10,6 +10,8 @@ public class BossScript : MonoBehaviour {
     public int endStatus = 0;
     private int hp;
     public Scrollbar healthBar;
+
+    private bool preparingAttack = false;
   
 	// Use this for initialization
 	void Start () {
@@ -27,12 +29,43 @@ public class BossScript : MonoBehaviour {
         }
 	}
 
+    public void setAttackState()
+    {
+
+        // dont set this to blue if we are already in the attack state. This will allow damage
+        // to still be shown correctly as red
+        if (!preparingAttack)
+        {
+            MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
+            mesh.material.color = Color.blue;
+            preparingAttack = true;
+        }
+        
+
+    }
+
+    public void resetAttackState()
+    {
+        MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
+        mesh.material.color = Color.white;
+        preparingAttack = false;
+    }
+
 
     private IEnumerator FlickerDamage () {
         MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
         mesh.material.color = Color.red;
         yield return new WaitForSeconds(0.2f);
-        mesh.material.color = Color.white;
+
+        if (preparingAttack)
+        {
+            mesh.material.color = Color.blue;
+        }
+
+        else
+        {
+            mesh.material.color = Color.white;
+        }
     }
 
     public void giveDamage(int dmg) {
@@ -47,7 +80,9 @@ public class BossScript : MonoBehaviour {
         {
             hp -= dmg;
         }
-        healthBar.size=  (1.0f * hp / maxhp);
+        healthBar.size = (1.0f * hp / maxhp);
         StartCoroutine("FlickerDamage");
+        
+
     }
 }
