@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -139,11 +139,25 @@ Transform:
   m_LocalPosition: {x: -0.6093483, y: -40.013874, z: 75.77056}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1633512573}
   - {fileID: 1122551346}
-  - {fileID: 101990915}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &16383843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 16383841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75370f0880b09744be2505fe2a1eab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  player1: {fileID: 1633512572}
+  player2: {fileID: 1122551348}
 --- !u!1 &55077279
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,11 +480,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  combo: 0
-  powerLvl: 0
-  powerLvlRequirement: 10
-  attackDamage: 1000
-  timer: 0
+  numberOfHits: 0
+  maximumNumberOfHits: 50
+  damagePerHit: 100
+  allotedTime: 5
   energyBar: {fileID: 2017881600}
 --- !u!1 &222762280
 GameObject:
@@ -642,6 +655,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee070c6058c92fe45818c53b6378214d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  beatmap:
+    bpm: 0
+    beat_split: 0
+    offset: 0
+    thresholds: []
   noteObject: {fileID: 1572513937974932, guid: 91d6984dcf4c94f41b68cb44df645bd6, type: 2}
   notesOnScreen: []
   noteIndex: 0
@@ -4785,6 +4803,11 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!1 &812289561 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1378463009151304, guid: dbad734f842de8d4991c4deb02a57c2a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1399213443}
 --- !u!1 &842428252
 GameObject:
   m_ObjectHideFlags: 0
@@ -5151,11 +5174,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4681258885661930, guid: 45402ed6eb8ab8d4893294d3bf524eda, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1368708695467162, guid: 45402ed6eb8ab8d4893294d3bf524eda, type: 2}
       propertyPath: m_Name
-      value: Player 1
+      value: Player 2
       objectReference: {fileID: 0}
     - target: {fileID: 114099761738057240, guid: 45402ed6eb8ab8d4893294d3bf524eda,
         type: 2}
@@ -5166,7 +5189,7 @@ Prefab:
         type: 2}
       propertyPath: hitArea
       value: 
-      objectReference: {fileID: 1399213445}
+      objectReference: {fileID: 2089741007}
     - target: {fileID: 114099761738057240, guid: 45402ed6eb8ab8d4893294d3bf524eda,
         type: 2}
       propertyPath: feedback
@@ -9633,6 +9656,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1625694572}
+--- !u!114 &1633512572 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114099761738057240, guid: 45402ed6eb8ab8d4893294d3bf524eda,
+    type: 2}
+  m_PrefabInternal: {fileID: 1936859122}
+  m_Script: {fileID: 11500000, guid: 471d5aa481c780045af21dad67903911, type: 3}
+--- !u!4 &1633512573 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4681258885661930, guid: 45402ed6eb8ab8d4893294d3bf524eda,
+    type: 2}
+  m_PrefabInternal: {fileID: 1936859122}
 --- !u!1001 &1702439075
 Prefab:
   m_ObjectHideFlags: 0
@@ -13729,6 +13763,71 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1907221914}
+--- !u!1001 &1936859122
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 16383842}
+    m_Modifications:
+    - target: {fileID: 4681258885661930, guid: 45402ed6eb8ab8d4893294d3bf524eda, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -10.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681258885661930, guid: 45402ed6eb8ab8d4893294d3bf524eda, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 40.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681258885661930, guid: 45402ed6eb8ab8d4893294d3bf524eda, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -110.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681258885661930, guid: 45402ed6eb8ab8d4893294d3bf524eda, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681258885661930, guid: 45402ed6eb8ab8d4893294d3bf524eda, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681258885661930, guid: 45402ed6eb8ab8d4893294d3bf524eda, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681258885661930, guid: 45402ed6eb8ab8d4893294d3bf524eda, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681258885661930, guid: 45402ed6eb8ab8d4893294d3bf524eda, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1368708695467162, guid: 45402ed6eb8ab8d4893294d3bf524eda, type: 2}
+      propertyPath: m_Name
+      value: Player 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1368708695467162, guid: 45402ed6eb8ab8d4893294d3bf524eda, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114099761738057240, guid: 45402ed6eb8ab8d4893294d3bf524eda,
+        type: 2}
+      propertyPath: hitArea
+      value: 
+      objectReference: {fileID: 812289561}
+    - target: {fileID: 114099761738057240, guid: 45402ed6eb8ab8d4893294d3bf524eda,
+        type: 2}
+      propertyPath: track
+      value: 
+      objectReference: {fileID: 1976456531}
+    - target: {fileID: 114099761738057240, guid: 45402ed6eb8ab8d4893294d3bf524eda,
+        type: 2}
+      propertyPath: feedback
+      value: 
+      objectReference: {fileID: 1248819865}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 45402ed6eb8ab8d4893294d3bf524eda, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1938258860
 GameObject:
   m_ObjectHideFlags: 0
@@ -13771,6 +13870,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2017881599}
   - component: {fileID: 2017881600}
+  - component: {fileID: 2017881601}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -13859,11 +13959,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  combo: 0
-  powerLvl: 0
-  powerLvlRequirement: 20
-  attackDamage: 2200
-  timer: 0
+  numberOfHits: 0
+  maximumNumberOfHits: 50
+  damagePerHit: 100
+  allotedTime: 5
   energyBar: {fileID: 2017881600}
 --- !u!1 &2019786420
 GameObject:
