@@ -5,11 +5,12 @@ using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
 
-public class StageScript : MonoBehaviour {
+public class StageScript : MonoBehaviour
+{
 
     [Header("Beat Info")]
+    public Beatmap beatmap;
     public GameObject noteObject;
-    public Dictionary<string, string> notes;
     public List<NoteScript> notesOnScreen;
     public int noteIndex;
     public int noteCreateIndex;
@@ -20,9 +21,6 @@ public class StageScript : MonoBehaviour {
     public int noteHitIndex;
     public double noteTravelSpeed;
 
-    public GameObject hitBox;
-    public GameObject feedbackText; 
-
     [Header("Input Materials")]
     public Material triangle;
     public Material circle;
@@ -32,41 +30,62 @@ public class StageScript : MonoBehaviour {
     public Material dLeft;
     public Material dRight;
     public Material dDown;
-    public int player;
 
     private float timer;
-    private float successTimer;
 
-    [Header("Controller Values")]
-    private int joystick;
-    private string previousButton;
-    private float previousDpadHorizontal;
-    private float previousDpadVertical;
-
-    public Beatmap beatmap;
-    public string placement = "left";
-
-    [Header("Player Attributes")]
+    [Header("General Player Attributes")]
     public int comboThreshold = 10;
-    private int playerDamage;
-    private int playerCombo;
+
+    public Team team;
 
     private BossScript boss;
     private TeamAttack teamAttackController;
+
+    private int totalChainSize;
+    private int teamCombo = 0;
+
+    Dictionary<string, string> chainNotes = new Dictionary<string, string>();
+    List<ChainNote> activeChainNotes = new List<ChainNote>();
+
+
+    // ==========================
+    // Use this for initialization
+
+    void Awake () {
+        parseJson("creator_lvl");
+        noteTravelSpeed = beatmap.bpm / 20;
+        noteTravelDistance = 6;
+        playerOffset = 0.05;
+        nextBeatTime = beatmap.offset + playerOffset - noteTravelDistance / noteTravelSpeed;
+        beatInterval = BeatInterval(beatmap.bpm, beatmap.beat_split);
+
+        team.player1.joystick = Joysticks.player1Joystick;
+        team.player2.joystick = Joysticks.player2Joystick;
+
+        boss = FindObjectOfType<BossScript>();
+        teamAttackController = FindObjectOfType<TeamAttack>();
+
+    }
+
+    public void resetChainCombo()
+    {
+        teamCombo = 0;
+    }
+
+    // the NoteScript will use this to mark chain notes as missed
+    public List<ChainNote> getActiveChainNotes()
+    {
+        return activeChainNotes;
+    }
 
     void parseJson(string filePath)
     {
         string beatMapJson = Resources.Load<TextAsset>(filePath).text;
         beatmap = JsonConvert.DeserializeObject<Beatmap>(beatMapJson);
 
-        if (placement == "left")
-        {
-            notes = beatmap.player1Notes;
-        }
-        else
-        {
-            notes = beatmap.player2Notes;
-        }
+        team.player1.notes = beatmap.player1Notes;
+        team.player2.notes = beatmap.player2Notes;
+        chainNotes = beatmap.chainNotes;
     }
 
     double BeatInterval(int bpm, int beat_split)
@@ -75,45 +94,26 @@ public class StageScript : MonoBehaviour {
     }
 
 
-    void createNote(string key) {
+    GameObject createNote(String note, string placement, Player player)
+    {
 
-        Vector3 position = transform.position;
+        Vector3 position = player.track.transform.position;
         GameObject newNote = Instantiate(noteObject, new Vector3(position.x, position.y + 3, position.z), new Quaternion(0, 180, 0, 0));
-        newNote.GetComponent<NoteScript>().key = key;
+        newNote.GetComponent<NoteScript>().key = note;
         newNote.GetComponent<NoteScript>().index = noteIndex;
-        newNote.GetComponent<NoteScript>().placement = placement;
-        newNote.GetComponent<MeshRenderer>().material = stringToMesh(key);
-        newNote.GetComponent<NoteScript>().feedback = feedbackText;
+        newNote.GetComponent<NoteScript>().stage = gameObject;
+        newNote.GetComponent<MeshRenderer>().material = stringToMesh(note);
+        newNote.GetComponent<NoteScript>().feedback = player.feedback;
+        newNote.GetComponent<NoteScript>().player = player;
         newNote.SetActive(true);
-        
-    }
 
-	// Use this for initialization
-	void Awake () {
-        parseJson("creator_lvl");
-        noteTravelSpeed = beatmap.bpm / 20;
-        noteTravelDistance = 6;
-        playerOffset = 0.05;
-        nextBeatTime = beatmap.offset + playerOffset - noteTravelDistance / noteTravelSpeed;
-        beatInterval = BeatInterval(beatmap.bpm, beatmap.beat_split);
+        player.activeNotes.Add(newNote);
 
-
-        if (player == 0)
-        {
-            joystick = PlayerObject.player1Joystick;
-        }
-
-        else
-        {
-            joystick = PlayerObject.player2Joystick;
-        }
-
-        boss = FindObjectOfType<BossScript>();
-        teamAttackController = FindObjectOfType<TeamAttack>();
+        return newNote;
 
     }
 
-    string stringToKey(string beat)
+    string stringToKey(string beat, int joystick)
     {
         switch (beat)
         {
@@ -129,7 +129,7 @@ public class StageScript : MonoBehaviour {
             // for dpad, use literal name to be worked with later
             default:
                 return beat.ToString();
-                
+
         }
     }
 
@@ -158,164 +158,269 @@ public class StageScript : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
-    void Update () {
-        timer = Time.time;
-        TeamAttack teamAttackController = FindObjectOfType<TeamAttack>();
-        bool teamAttack = teamAttackController.isActive;
-        // Create beat
-        if (teamAttack)
+    void createPlayerNote(string placement, Player player)
+    {
+        if (player.notes.ContainsKey((noteCreateIndex).ToString()))
         {
-            // Destroy all notes
-            GameObject[] allNotes = GameObject.FindGameObjectsWithTag("note");
-            foreach (GameObject note in allNotes)
+
+            string curNote = player.notes[(noteCreateIndex).ToString()];
+            createNote(curNote, placement, player);
+            noteIndex++;
+        }
+    }
+
+    // creates two notes, one for each player
+    void createChainNote()
+    {
+        if (chainNotes.ContainsKey((noteCreateIndex).ToString()))
+        {
+            string curNote = chainNotes[(noteCreateIndex).ToString()];
+            activeChainNotes.Add(new ChainNote(createNote(curNote, "left", team.player1).GetComponent<NoteScript>(),
+                createNote(curNote, "right", team.player2).GetComponent<NoteScript>()));
+            noteIndex++;
+        }
+    }
+
+    string checkPlayerAction(Player player, GameObject noteObj)
+    {
+        string playerAction = "none";
+
+        NoteScript headNote = noteObj.GetComponent<NoteScript>();
+        bool buttonPressed = false;
+
+        // get the dpad axis orientation
+        float dpadHorizontal = Input.GetAxis("Controller Axis-Joystick" + player.joystick + "-Axis7");
+        float dpadVertical = Input.GetAxis("Controller Axis-Joystick" + player.joystick + "-Axis8");
+
+        // only mark the button as pressed if there has been a change since the last frame and axis is non 0
+        if (dpadHorizontal != player.previousDpadHorizontal)
+        {
+            player.previousDpadHorizontal = dpadHorizontal;
+            if (dpadHorizontal != 0)
             {
-                note.SetActive(false);
+                buttonPressed = true;
             }
-            if (Input.anyKeyDown)
+
+        }
+
+        //only mark the button as pressed if there has been a change since the last frame, and it is non 0
+        if (dpadVertical != player.previousDpadVertical)
+        {
+            player.previousDpadVertical = dpadVertical;
+            if (dpadVertical != 0)
             {
-                int attack = teamAttackController.buildTeamAttack();
-                if (attack != 0)
-                {
-                    //score += attack;
-                    teamAttack = false;
-                    teamAttackController.Reset();
-                }
+                buttonPressed = true;
             }
         }
+
+        // check if any of the joystick buttons have been pressed (circle, triangle, square, cross only)
+        for (int j = 0; j < 3; j++)
+        {
+            string currentButton = "joystick " + player.joystick + " button " + j;
+
+            if (Input.GetKeyDown(currentButton) && player.previousButton != currentButton)
+            {
+                buttonPressed = true;
+                player.previousButton = currentButton;
+                break;
+            }
+        }
+
+        // want to know when player has stopped pressing button. Do not want to allow player to simply hold down a button
+        if (!buttonPressed)
+        {
+            player.previousButton = "";
+        }
+
+        string keyToHit = stringToKey(headNote.key, player.joystick);
+
+        if (headNote.canHit)
+        {
+            if ((keyToHit.Equals("left") && dpadHorizontal == -1) ||
+                    (keyToHit.Equals("right") && dpadHorizontal == 1) ||
+                    (keyToHit.Equals("up") && dpadVertical == 1) ||
+                    (keyToHit.Equals("down") && dpadVertical == -1) ||
+                    (Input.GetKeyDown(keyToHit)))
+            {
+                //print("hit successfully");
+                noteHitIndex++;
+                int dealtDamage = headNote.destroyWithFeedback(player.hitArea, true);
+
+                player.accumulatedDamage += dealtDamage;
+                if (dealtDamage == 0)
+                {
+                    playerAction = "miss";
+                    player.combo = 0;
+                }
+                else
+                {
+                    playerAction = "hit";
+                    player.combo += 1;
+                }
+
+                if (player.combo % comboThreshold == 0)
+                {
+                    // TODO: change how the damage scales
+                    boss.giveDamage(player.calculateComboDamage(comboThreshold));
+                    player.accumulatedDamage = 0;
+                }
+                player.activeNotes.Remove(noteObj);
+        }
+
+        else if (buttonPressed)
+            {
+                playerAction = "miss";
+                noteHitIndex++;
+                headNote.destroyWithFeedback(player.hitArea, false);
+                player.activeNotes.Remove(noteObj);
+                player.combo = 0;
+            }
+        }
+
+        else if (headNote.canMiss)
+        {
+
+            if (buttonPressed)
+            {
+                playerAction = "miss";
+                noteHitIndex++;
+                headNote.destroyWithFeedback(player.hitArea, false);
+                player.activeNotes.Remove(noteObj);
+                player.combo = 0;
+            }
+        }
+
+        return playerAction;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        timer = Time.time;
+
+        // WIN
+        if (boss.endStatus > 0)
+        {
+            //TODO: win animation. Ranking screen
+        }
+
+        // Create beat
+        if (teamAttackController.isActive)
+        {
+
+            // even if its in team attack mode, we need to update the indexes to work correctly after team attack ends
+            if (timer > nextBeatTime && timer - nextBeatTime < 0.1f)
+            {
+                noteCreateIndex++;
+                nextBeatTime = beatmap.offset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
+            }           
+
+            if (teamAttackController.timerExpired())
+            {
+                boss.giveDamage(teamAttackController.unleashTeamAttack());
+            }
+
+            else
+            {
+                if (Input.anyKeyDown)
+                {
+                    teamAttackController.buildTeamAttack();
+                }
+            }   
+        }
+
         else
         {
             if (timer > nextBeatTime && timer - nextBeatTime < 0.1f)
             {
-
-                if (notes.ContainsKey((noteCreateIndex).ToString()))
-                {
-
-                    string curBeat = notes[(noteCreateIndex).ToString()];
-                    createNote(curBeat);
-                    noteIndex++;
-                }
+                createPlayerNote("left", team.player1);
+                createPlayerNote("right", team.player2);
+                createChainNote();
 
                 noteCreateIndex++;
                 nextBeatTime = beatmap.offset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
             }
 
-            NoteScript headNote;
-            NoteScript[] notesOnTrack = FindObjectsOfType<NoteScript>();
 
-            for (int i=0;i<notesOnTrack.Length;i++)
+            string player1Action = "none";
+            string player2Action = "none";
+            GameObject nextPlayer1Note = null;
+            GameObject nextPlayer2Note = null;
+
+            if (team.player1.activeNotes.Count > 0)
             {
-                headNote = notesOnTrack[i];
-                if (headNote.placement == placement)
+                nextPlayer1Note = team.player1.activeNotes[0];
+                player1Action = checkPlayerAction(team.player1, nextPlayer1Note);
+            }
+
+            if (team.player2.activeNotes.Count > 0)
+            {
+                nextPlayer2Note = team.player2.activeNotes[0];
+                player2Action = checkPlayerAction(team.player2, nextPlayer2Note);
+            }
+
+            if (activeChainNotes.Count > 0)
+            {
+
+                ChainNote nextChainNote = activeChainNotes[0];
+                boss.setAttackState();
+
+                if (nextChainNote.contains(nextPlayer1Note)) {
+                    nextChainNote.player1Status = player1Action;
+                }
+
+                if (nextChainNote.contains(nextPlayer2Note)) {
+                    nextChainNote.player1Status = player1Action;
+                }
+
+                // both players hit the note
+                if (nextChainNote.getStatus() == "hit")
                 {
-                    bool buttonPressed = false;
+                    teamCombo += 1;
+                    activeChainNotes.Remove(nextChainNote);
+                }
+                
+                // at least one player missed the note
+                else if (nextChainNote.getStatus() == "miss")
+                {
+                    teamCombo = 0;
+                    activeChainNotes.Remove(nextChainNote);
+                }
 
-
-                    // get the dpad axis orientation
-                    float dpadHorizontal = Input.GetAxis("Controller Axis-Joystick" + joystick + "-Axis7");
-                    float dpadVertical = Input.GetAxis("Controller Axis-Joystick" + joystick + "-Axis8");
-
-                    // only mark the button as pressed if there has been a change since the last frame and axis is non 0
-                    if (dpadHorizontal != previousDpadHorizontal)
+                // last note has been played
+                if (activeChainNotes.Count == 0)
+                {
+                    // all notes hit
+                    if (teamCombo == 10)
                     {
-                        previousDpadHorizontal = dpadHorizontal;
-                        if (dpadHorizontal != 0)
+                        boss.resetAttackState();
+                        teamAttackController.startTeamAttack();
+                        GameObject[] allNotes = GameObject.FindGameObjectsWithTag("note");
+                        foreach (GameObject note in allNotes)
                         {
-                            buttonPressed = true;
+                            Destroy(note); //note.SetActive(false);
                         }
-
+                        team.player1.activeNotes.Clear();
+                        team.player2.activeNotes.Clear();
                     }
 
-                    //only mark the button as pressed if there has been a change since the last frame, and it is non 0
-                    if (dpadVertical != previousDpadVertical)
+                    // boss does damage
+                    else
                     {
-                        previousDpadVertical = dpadVertical;
-                        if (dpadVertical != 0)
+                        team.attackedByBoss();
+                        boss.resetAttackState();
+
+                        if (team.health == 0)
                         {
-                            buttonPressed = true;
-                        }
-                    }
-
-                    // check if any of the joystick buttons have been pressed (circle, triangle, square, cross only)
-                    for (int j = 0; j < 3; j++)
-                    {
-                        string currentButton = "joystick " + joystick + " button " + j;
-
-                        if (Input.GetKeyDown(currentButton) && previousButton != currentButton)
-                        {
-                            buttonPressed = true;
-                            previousButton = currentButton;
-                            break;
-                        }
-                    }
-
-                    // want to know when player has stopped pressing button. Do not want to allow player to simply hold down a button
-                    if (!buttonPressed)
-                    {
-                        previousButton = "";
-                    }
-
-                    string keyToHit = stringToKey(headNote.key);
-
-                    if (headNote.canHit)
-                    {
-                        if ((keyToHit.Equals("left") && dpadHorizontal == -1) ||
-                                (keyToHit.Equals("right") && dpadHorizontal == 1) ||
-                                (keyToHit.Equals("up") && dpadVertical == 1) ||
-                                (keyToHit.Equals("down") && dpadVertical == -1) ||
-                                (Input.GetKeyDown(keyToHit)))
-                        {
-                            //print("hit successfully");
-                            noteHitIndex++;
-                            int dealtDamage = headNote.destroyWithFeedback(hitBox, true);
-
-                            playerDamage += dealtDamage;
-                            if (dealtDamage == 0)
-                            {
-                                playerCombo = 0;
-                            }
-                            else
-                            {
-                                playerCombo += 1;
-                            }
-
-                            if (playerCombo % comboThreshold == 0)
-                            {
-                                // TODO: change how the damage scales
-                                playerDamage = playerDamage + (((playerCombo / comboThreshold) - 1) * playerDamage);
-                                boss.giveDamage(playerDamage);
-                                playerDamage = 0;
-                            }
-                        }
-
-                        else if (buttonPressed)
-                        {
-                            //print("note missed!");
-                            noteHitIndex++;
-                            headNote.destroyWithFeedback(hitBox, false);
-                            playerCombo = 0;
+                            // GAME OVER
+                            // TODO: death animation, ranking screen showing "F" or similar
                         }
                     }
 
-                    else if (headNote.canMiss)
-                    {
-
-                        if (buttonPressed)
-                        {
-                            //print("note missed!");
-                            noteHitIndex++;
-                            headNote.destroyWithFeedback(hitBox, false);
-                            playerCombo = 0;
-                        }
-                    }
+                    teamCombo = 0;
                 }
             }
-            
-            // TODO: this should actually use a different combo (i.e,  a chain mode combo)
-            if (playerCombo >= 120)
-            {
-                teamAttack = true;
-            }
+
         }
     }
 }

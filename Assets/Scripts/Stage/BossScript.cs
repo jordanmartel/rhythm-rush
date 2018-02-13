@@ -5,13 +5,15 @@ using UnityEngine.UI;
 
 public class BossScript : MonoBehaviour {
 
-    public int maxhp = 100000;
+    public int maxhp = 150000;
     public int dmg = 0;
     private int hp;
     public Scrollbar healthBar;
     public Canvas winning;
-
     public bool hasEnded;
+
+    private bool preparingAttack = false;
+
 	// Use this for initialization
 	void Start () {
         hp = maxhp;
@@ -54,8 +56,60 @@ public class BossScript : MonoBehaviour {
         }
 	}
 
+    public void setAttackState()
+    {
+
+        // dont set this to blue if we are already in the attack state. This will allow damage
+        // to still be shown correctly as red
+        if (!preparingAttack)
+        {
+            MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
+            mesh.material.color = Color.blue;
+            preparingAttack = true;
+        }
+        
+
+    }
+
+    public void resetAttackState()
+    {
+        MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
+        mesh.material.color = Color.white;
+        preparingAttack = false;
+    }
+
+
+    private IEnumerator FlickerDamage () {
+        MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
+        mesh.material.color = Color.red;
+        yield return new WaitForSeconds(0.2f);
+
+        if (preparingAttack)
+        {
+            mesh.material.color = Color.blue;
+        }
+
+        else
+        {
+            mesh.material.color = Color.white;
+        }
+    }
+
     public void giveDamage(int dmg) {
-        hp -= dmg;
-        healthBar.size=  (1.0f * hp / maxhp);
+
+        // plz no negative hp
+        if (dmg > hp)
+        {
+            hp = 0;
+        }
+
+        else
+        {
+            hp -= dmg;
+        }
+        healthBar.size = (1.0f * hp / maxhp);
+        StartCoroutine("FlickerDamage");
+        
+
     }
 }

@@ -13,6 +13,7 @@ TagManager:
   - left_feedback
   - right_feedback
   - destroyer_creator
+  - stage
   - ranker_SS
   - ranker_S
   - ranker_A

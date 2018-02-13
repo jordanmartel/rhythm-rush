@@ -48,7 +48,7 @@ public class PlayerFeedback : MonoBehaviour {
         else {
 
             distance = Mathf.Abs(distance);
-            Debug.Log(distance);
+            //Debug.Log(distance);
             /*
             if (distance <= 0.25f) {
                 text.text = "SSS";

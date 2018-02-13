@@ -540,8 +540,8 @@ MonoBehaviour:
   dDown: {fileID: 2100000, guid: 35fa2cce0b14ef34e8eaf6178e514be0, type: 2}
   player: 1
   beatmap_filePath: creator_lvl.json
-  offset: 5
-  bpm: 142
+  offset: 4.5
+  bpm: 140
   beat_split: 2
   metadataBox: {fileID: 76934225}
   recordingSavedText: {fileID: 151103640}
@@ -589,8 +589,8 @@ MonoBehaviour:
   dDown: {fileID: 2100000, guid: 35fa2cce0b14ef34e8eaf6178e514be0, type: 2}
   player: 0
   beatmap_filePath: creator_lvl.json
-  offset: 5
-  bpm: 142
+  offset: 4.5
+  bpm: 140
   beat_split: 2
   metadataBox: {fileID: 76934225}
   recordingSavedText: {fileID: 151103640}
@@ -678,7 +678,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:

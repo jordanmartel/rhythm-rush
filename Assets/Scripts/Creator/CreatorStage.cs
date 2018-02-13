@@ -11,7 +11,6 @@ public class CreatorStage : MonoBehaviour {
     [Header("Beat Info")]
     public GameObject noteObject;
     public Dictionary<string, string> notes;
-    private int maxBeat;
     public List<NoteScript> notesOnScreen;
     public int noteIndex;
     public int noteCreateIndex;
@@ -67,11 +66,9 @@ public class CreatorStage : MonoBehaviour {
 
         if (placement == "left") {
             notes = beatmap.player1Notes;
-            maxBeat = 2;
         }
         else {
             notes = beatmap.player2Notes;
-            maxBeat = 8;
         }
     }
 
@@ -84,7 +81,7 @@ public class CreatorStage : MonoBehaviour {
         GameObject newNote = Instantiate(noteObject, new Vector3(position.x, position.y -4, position.z), new Quaternion(0, 180, 0, 0));
         newNote.GetComponent<NoteScript>().key = key;
         newNote.GetComponent<NoteScript>().index = noteIndex;
-        newNote.GetComponent<NoteScript>().placement = placement;
+        newNote.GetComponent<NoteScript>().stage = gameObject;
         newNote.GetComponent<MeshRenderer>().material = stringToMesh(key);
         newNote.GetComponent<NoteScript>().feedback = feedbackText;
         newNote.GetComponent<NoteScript>().isCreator = true;
@@ -93,7 +90,7 @@ public class CreatorStage : MonoBehaviour {
     // Use this for initialization
     void Start() {
 
-        noteTravelSpeed = 142 / 20;
+        noteTravelSpeed = 140 / 20;
         noteTravelDistance = 6;
         playerOffset = 0.05;
         nextBeatTime = offset + playerOffset - noteTravelDistance / noteTravelSpeed;
@@ -101,11 +98,11 @@ public class CreatorStage : MonoBehaviour {
 
 
         if (player == 0) {
-            joystick = PlayerObject.player1Joystick;
+            joystick = Joysticks.player1Joystick;
         }
 
         else {
-            joystick = PlayerObject.player2Joystick;
+            joystick = Joysticks.player2Joystick;
         }
 
         recordedNotes = new Beatmap((int)bpm, beat_split, offset);
@@ -191,56 +188,46 @@ public class CreatorStage : MonoBehaviour {
             previousButton = "";
         }
 
-        Note nwNote = new Note();
-
         //Directional buttons
         if (buttonPressed) {
             if (dpadHorizontal == -1) {
-                nwNote.key = "left";
-                recordedNotes.addNote(player, noteIndex - 1, nwNote.key);
-                createNote(nwNote.key);
+                recordedNotes.addNote(player, noteIndex - 1, "left");
+                createNote("left");
                 Debug.Log("Index:" + noteIndex);
             }
             else if (dpadHorizontal == 1) {
-                nwNote.key = "right";
-                recordedNotes.addNote(player, noteIndex - 1, nwNote.key);
-                createNote(nwNote.key);
+                recordedNotes.addNote(player, noteIndex - 1, "right");
+                createNote("right");
                 Debug.Log("Index:" + noteIndex);
             }
             else if (dpadVertical == 1) {
-                nwNote.key = "up";
-                recordedNotes.addNote(player, noteIndex - 1, nwNote.key);
-                createNote(nwNote.key);
+                recordedNotes.addNote(player, noteIndex - 1, "up");
+                createNote("up");
                 Debug.Log("Index:" + noteIndex);
             }
             else if (dpadVertical == -1) {
-                nwNote.key = "down";
-                recordedNotes.addNote(player, noteIndex - 1, nwNote.key);
-                createNote(nwNote.key);
+                recordedNotes.addNote(player, noteIndex - 1, "down");
+                createNote("down");
                 Debug.Log("Index:" + noteIndex);
             }
         }
 
         //Triangle,Circle,Square, Cross order
          if (Input.GetKeyDown("joystick " + joystick + " button 3")) {
-            nwNote.key = "triangle";
-            recordedNotes.addNote(player, noteIndex - 1, nwNote.key);
-            createNote(nwNote.key);
-            Debug.Log("Index:" + noteIndex +","+ nwNote.key);
+            recordedNotes.addNote(player, noteIndex - 1, "triangle");
+            createNote("triangle");
+            Debug.Log("Index:" + noteIndex +","+ "triangle");
         } else if (Input.GetKeyDown("joystick " + joystick + " button 2")) {
-            nwNote.key = "circle";
-            recordedNotes.addNote(player, noteIndex - 1, nwNote.key);
-            createNote(nwNote.key);
+            recordedNotes.addNote(player, noteIndex - 1, "circle");
+            createNote("circle");
             Debug.Log("Index:" + noteIndex);
         } else if (Input.GetKeyDown("joystick " + joystick + " button 0")) {
-            nwNote.key = "square";
-            recordedNotes.addNote(player, noteIndex - 1, nwNote.key);
-            createNote(nwNote.key);
+            recordedNotes.addNote(player, noteIndex - 1, "square");
+            createNote("square");
             Debug.Log("Index:" + noteIndex);
         } else if (Input.GetKeyDown("joystick " + joystick + " button 1")) {
-            nwNote.key = "cross";
-            recordedNotes.addNote(player, noteIndex - 1, nwNote.key);
-            createNote(nwNote.key);
+            recordedNotes.addNote(player, noteIndex - 1, "cross");
+            createNote("cross");
             Debug.Log("Index:" + noteIndex);
 
         //Finalize Generated Beat
