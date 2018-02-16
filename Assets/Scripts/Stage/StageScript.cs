@@ -31,6 +31,10 @@ public class StageScript : MonoBehaviour
     public Material dRight;
     public Material dDown;
 
+    private int currentSection;
+    private int currentPhase;
+    private BeatmapPhase beatmapPhase;
+
     private float timer;
 
     [Header("General Player Attributes")]
@@ -83,9 +87,11 @@ public class StageScript : MonoBehaviour
         string beatMapJson = Resources.Load<TextAsset>(filePath).text;
         beatmap = JsonConvert.DeserializeObject<Beatmap>(beatMapJson);
 
-        team.player1.notes = beatmap.player1Notes;
-        team.player2.notes = beatmap.player2Notes;
-        chainNotes = beatmap.chainNotes;
+        beatmapPhase = beatmap.getPhase(currentSection, currentPhase);
+
+        team.player1.notes = beatmapPhase.player1Notes;
+        team.player2.notes = beatmapPhase.player2Notes;
+        chainNotes = beatmapPhase.bothPlayerNotes;
     }
 
     double BeatInterval(int bpm, int beat_split)
