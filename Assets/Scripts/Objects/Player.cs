@@ -5,8 +5,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    public GameObject track;
+    public GameObject directionalTrack;
+    public GameObject faceTrack;
     public GameObject hitArea;
+    public GameObject directionalMissBox;
+    public GameObject faceMissBox;
     public GameObject feedback;
 
     public int accumulatedDamage;

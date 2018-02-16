@@ -13,20 +13,50 @@ public class TeamAttack : MonoBehaviour {
 
     public float allotedTime = 5f;
     private float remainingTime = 0f;
+    private Vector3 startSize;
 
+    [Header("UI Elements")]
     public Slider energyBar;
+    public GameObject textPrompts;
+
+    [Header("AttackChildren")]
+    private GameObject mainAttractor;
+    private GameObject sideAttractor1;
+    private GameObject sideAttractor2;
+    private GameObject fireball;
 
 	// Use this for initialization
 	void Start () {
         energyBar.maxValue = maximumNumberOfHits;
         energyBar.gameObject.SetActive(false);
-	}
+        startSize = transform.localScale;
+
+        //Child Indexes {0 = particle revolver, 1 = attractor 1, 2 = attractor 2, 3 = fireball}
+        mainAttractor = transform.GetChild(0).gameObject;
+        sideAttractor1 = transform.GetChild(1).gameObject;
+        sideAttractor2 = transform.GetChild(2).gameObject;
+        fireball = transform.GetChild(3).gameObject;
+    }
 
     public void startTeamAttack()
     {
         isActive = true;
-        energyBar.gameObject.SetActive(true);
-        GetComponentInChildren<Text>().text = "Mash the buttons!";
+        GetComponent<MeshRenderer>().enabled = true;
+
+        //Child Indexes {0 = particle revolver, 1 = attractor 1, 2 = attractor 2, 3 = fireball}
+        mainAttractor = transform.GetChild(0).gameObject;
+        sideAttractor1 = transform.GetChild(1).gameObject;
+        sideAttractor2 = transform.GetChild(2).gameObject;
+        mainAttractor.SetActive(true);
+        sideAttractor1.SetActive(true);
+        sideAttractor2.SetActive(true);
+
+
+        textPrompts.SetActive(true);
+        textPrompts.GetComponent<Animation>().Play();
+
+        //energyBar.gameObject.SetActive(true);
+        //GetComponentInChildren<Text>().text = "Mash the buttons!";
         remainingTime = allotedTime;
     }
 
@@ -34,7 +64,7 @@ public class TeamAttack : MonoBehaviour {
     {
         numberOfHits++;
     }
-    
+
     public int unleashTeamAttack()
     {
         // return team attack damage
@@ -58,8 +88,9 @@ public class TeamAttack : MonoBehaviour {
         energyBar.gameObject.SetActive(false);
         isActive = false;
         numberOfHits = 0;
-        GetComponentInChildren<Text>().text = "";
+       // GetComponentInChildren<Text>().text = "";
         Debug.Log("Dealt Team Attack Damage to the boss: " + damageDone);
+        ActivateLazer();
 
         return damageDone;
     }
@@ -69,18 +100,28 @@ public class TeamAttack : MonoBehaviour {
         return remainingTime <= 0;
     }
 
+    private void ActivateLazer() {
+
+        fireball.SetActive(true);
+
+        //Destroy/hide the things
+        mainAttractor.SetActive(false);
+        sideAttractor1.SetActive(false);
+        sideAttractor2.SetActive(false);
+        GetComponent<MeshRenderer>().enabled = false;
+        textPrompts.SetActive(false);
+    }
+
 	// Update is called once per frame
 	void Update () {
-
-        if (isActive)
-        {
+        if (isActive) {
             remainingTime = remainingTime - Time.deltaTime;
 
-            if (numberOfHits > 0)
-            {
-                GetComponentInChildren<Text>().text = numberOfHits.ToString();
+            if (numberOfHits > 0) {
+                transform.localScale = new Vector3(startSize.x + numberOfHits / 10.0f, startSize.y + numberOfHits / 10.0f, startSize.z + numberOfHits / 10.0f);
+                //GetComponentInChildren<Text>().text = numberOfHits.ToString();
             }
-            energyBar.value = Mathf.Min(numberOfHits, maximumNumberOfHits);
         }
-	}
+        //energyBar.value = Mathf.Min(numberOfHits, maximumNumberOfHits);
+    }
 }
