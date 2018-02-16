@@ -13,6 +13,7 @@ public class NoteScript : MonoBehaviour {
     public Player player;
     public GameObject feedback;
     public GameObject stage;
+    public GameObject destination;
 
 	// Use this for initialization
 	void Start () {
@@ -89,6 +90,6 @@ public class NoteScript : MonoBehaviour {
         //if stage null(like in creator mode) default to speed 3
         speed = (stage == null) ? 3f : (float)stage.noteTravelSpeed;
         
-        transform.Translate(new Vector3(0, -speed * Time.deltaTime, 0));
+        transform.position = Vector3.MoveTowards(transform.position, destination.transform.position, speed * Time.deltaTime);
     }
 }

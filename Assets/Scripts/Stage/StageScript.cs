@@ -96,12 +96,15 @@ public class StageScript : MonoBehaviour
 
     GameObject createNote(String note, string placement, Player player)
     {
+        bool isFace = isFaceNote(note);
 
-        Vector3 position = player.track.transform.position;
+        Vector3 position = (isFace) ? player.faceTrack.transform.position : player.directionalTrack.transform.position;
+
         GameObject newNote = Instantiate(noteObject, new Vector3(position.x, position.y + 3, position.z), new Quaternion(0, 180, 0, 0));
         newNote.GetComponent<NoteScript>().key = note;
         newNote.GetComponent<NoteScript>().index = noteIndex;
         newNote.GetComponent<NoteScript>().stage = gameObject;
+        newNote.GetComponent<NoteScript>().destination = (isFace) ? player.faceMissBox : player.directionalMissBox; 
         newNote.GetComponent<MeshRenderer>().material = stringToMesh(note);
         newNote.GetComponent<NoteScript>().feedback = player.feedback;
         newNote.GetComponent<NoteScript>().player = player;
@@ -111,6 +114,11 @@ public class StageScript : MonoBehaviour
 
         return newNote;
 
+    }
+
+    bool isFaceNote(String note) {
+        return note == "triangle" || note == "circle" || 
+            note == "cross" || note == "square";
     }
 
     string stringToKey(string beat, int joystick)
@@ -234,41 +242,35 @@ public class StageScript : MonoBehaviour
 
         string keyToHit = stringToKey(headNote.key, player.joystick);
 
-        if (headNote.canHit)
-        {
+        if (headNote.canHit || headNote.canMiss) {
             if ((keyToHit.Equals("left") && dpadHorizontal == -1) ||
                     (keyToHit.Equals("right") && dpadHorizontal == 1) ||
                     (keyToHit.Equals("up") && dpadVertical == 1) ||
                     (keyToHit.Equals("down") && dpadVertical == -1) ||
-                    (Input.GetKeyDown(keyToHit)))
-            {
+                    (Input.GetKeyDown(keyToHit))) {
                 //print("hit successfully");
                 noteHitIndex++;
                 int dealtDamage = headNote.destroyWithFeedback(player.hitArea, true);
 
                 player.accumulatedDamage += dealtDamage;
-                if (dealtDamage == 0)
-                {
+                if (dealtDamage == 0) {
                     playerAction = "miss";
                     player.combo = 0;
                 }
-                else
-                {
+                else {
                     playerAction = "hit";
                     player.combo += 1;
                 }
 
-                if (player.combo % comboThreshold == 0)
-                {
+                if (player.combo % comboThreshold == 0) {
                     // TODO: change how the damage scales
                     boss.giveDamage(player.calculateComboDamage(comboThreshold));
                     player.accumulatedDamage = 0;
                 }
                 player.activeNotes.Remove(noteObj);
-        }
 
-        else if (buttonPressed)
-            {
+            }
+            else if (buttonPressed) {
                 playerAction = "miss";
                 noteHitIndex++;
                 headNote.destroyWithFeedback(player.hitArea, false);
@@ -276,20 +278,7 @@ public class StageScript : MonoBehaviour
                 player.combo = 0;
             }
         }
-
-        else if (headNote.canMiss)
-        {
-
-            if (buttonPressed)
-            {
-                playerAction = "miss";
-                noteHitIndex++;
-                headNote.destroyWithFeedback(player.hitArea, false);
-                player.activeNotes.Remove(noteObj);
-                player.combo = 0;
-            }
-        }
-
+           
         return playerAction;
     }
 

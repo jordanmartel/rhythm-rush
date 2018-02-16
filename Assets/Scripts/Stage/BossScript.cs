@@ -111,7 +111,11 @@ public class BossScript : MonoBehaviour {
         }
         healthBar.size = (1.0f * hp / maxhp);
         StartCoroutine("FlickerDamage");
-        
+    }
 
+    private void OnTriggerEnter(Collider other) {
+        if (other.tag == "laser") {
+            StartCoroutine("FlickerDamage");
+        }
     }
 }
