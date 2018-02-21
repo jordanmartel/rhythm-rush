@@ -43,10 +43,6 @@ public class TeamAttack : MonoBehaviour {
         isActive = true;
         GetComponent<MeshRenderer>().enabled = true;
 
-        //Child Indexes {0 = particle revolver, 1 = attractor 1, 2 = attractor 2, 3 = fireball}
-        mainAttractor = transform.GetChild(0).gameObject;
-        sideAttractor1 = transform.GetChild(1).gameObject;
-        sideAttractor2 = transform.GetChild(2).gameObject;
         mainAttractor.SetActive(true);
         sideAttractor1.SetActive(true);
         sideAttractor2.SetActive(true);
@@ -105,7 +101,8 @@ public class TeamAttack : MonoBehaviour {
 
     private void ActivateLazer() {
 
-        fireball.SetActive(true);
+        GameObject fireballIns = Instantiate(fireball, mainAttractor.transform);
+        fireballIns.SetActive(true);
 
         //Destroy/hide the things
         mainAttractor.SetActive(false);

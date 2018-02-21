@@ -193,13 +193,13 @@ public class StageScript : MonoBehaviour
     {
         bool isFace = isFaceNote(note);
 
-        Vector3 position = (isFace) ? player.faceTrack.transform.position : player.directionalTrack.transform.position;
+        Vector3 position = player.getNoteStart(note);
 
-        GameObject newNote = Instantiate(noteObject, new Vector3(position.x, position.y + 3, position.z), new Quaternion(0, 180, 0, 0));
+        GameObject newNote = Instantiate(noteObject, new Vector3(position.x, position.y, position.z), new Quaternion(0, 180, 0, 0));
         newNote.GetComponent<NoteScript>().key = note;
         newNote.GetComponent<NoteScript>().index = noteIndex;
         newNote.GetComponent<NoteScript>().stage = gameObject;
-        newNote.GetComponent<NoteScript>().destination = (isFace) ? player.faceMissBox : player.directionalMissBox; 
+        newNote.GetComponent<NoteScript>().destination = player.getNoteDestination(note);
         newNote.GetComponent<MeshRenderer>().material = stringToMesh(note);
         newNote.GetComponent<NoteScript>().feedback = player.feedback;
         newNote.GetComponent<NoteScript>().player = player;
