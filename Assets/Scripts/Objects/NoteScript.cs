@@ -25,24 +25,13 @@ public class NoteScript : MonoBehaviour {
 
         if (collider.tag == "miss")
         {
+            // note was missed, so this player has failed the phase
+            player.failedPhase = true;
+
             destroyWithFeedback(null, true);
 
             // forcefully reset the player combo when a note is missed
             player.combo = 0;
-
-            if (stage.GetComponent<StageScript>().getActiveChainNotes().Count > 0)
-            {
-                ChainNote nextChainNote = stage.GetComponent<StageScript>().getActiveChainNotes()[0];
-
-                // does not actually matter which player has missed, so just setting them both as missed
-                if (nextChainNote.contains(gameObject)) {
-                    nextChainNote.player1Status = "miss";
-                    nextChainNote.player2Status = "miss";
-
-                }
-            }
-
-            stage.GetComponent<StageScript>().resetChainCombo();
         }
         else if (collider.tag == "hit")
         {

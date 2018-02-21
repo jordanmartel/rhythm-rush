@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class BossScript : MonoBehaviour {
 
-    public int maxhp = 150000;
+    public int maxhp = 12;
     public int dmg = 0;
     private int hp;
     public Scrollbar healthBar;
@@ -60,6 +60,7 @@ public class BossScript : MonoBehaviour {
 
     public void setAttackState()
     {
+        // TODO: some sort of attack preparation animation
 
         // dont set this to blue if we are already in the attack state. This will allow damage
         // to still be shown correctly as red

@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
     public float previousDpadVertical;
     public string previousButton;
 
+    public bool failedPhase = false;
+
     public Dictionary<string, string> notes;
     public List<GameObject> activeNotes;
 

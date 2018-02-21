@@ -77,14 +77,17 @@ public class TeamAttack : MonoBehaviour {
         // 40 hits: 100 * 40 * 2^4-1 = 100 * 40 * 8 = 32,000
         // 50 hits: 100 * 50 * 2^5-1 = 100 * 50 * 16 = 80,000
 
-        int damageDone = Mathf.Min(numberOfHits, maximumNumberOfHits) * damagePerHit * 
-            (int) Math.Pow(2, (Mathf.Min(numberOfHits, maximumNumberOfHits) / 10) - 1);
+        //int damageDone = Mathf.Min(numberOfHits, maximumNumberOfHits) * damagePerHit * 
+        //    (int) Math.Pow(2, (Mathf.Min(numberOfHits, maximumNumberOfHits) / 10) - 1);
 
         //Debug.Log("num hits: " + (Mathf.Min(numberOfHits, maximumNumberOfHits)));
         //Debug.Log("damage per hit: " + damagePerHit);
         //Debug.Log("pow: " + Math.Pow(2, (Mathf.Min(numberOfHits, maximumNumberOfHits) / 10) - 1));
 
         // reset
+
+        int damageDone = 2;
+
         energyBar.gameObject.SetActive(false);
         isActive = false;
         numberOfHits = 0;
