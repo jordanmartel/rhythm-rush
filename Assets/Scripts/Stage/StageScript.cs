@@ -45,7 +45,6 @@ public class StageScript : MonoBehaviour
     private BossScript boss;
     private TeamAttack teamAttackController;
 
-
     // ==========================
     // Use this for initialization
 
@@ -337,13 +336,15 @@ public class StageScript : MonoBehaviour
                     (Input.GetKeyDown(keyToHit))) {
                 //print("hit successfully");
                 noteHitIndex++;
-                int dealtDamage = headNote.destroyWithFeedback(player.hitArea, true);
+                int dealtDamage = headNote.destroyWithFeedback(player.getHitArea(headNote.key), true);
+                player.updateComboCount(true);
 
                 if (dealtDamage == 0) {
                     player.combo = 0;
 
                     // fail phase on miss
                     player.failedPhase = true;
+                    player.updateComboCount(false);
                 }
                 else {
                     player.combo += 1;
@@ -354,7 +355,8 @@ public class StageScript : MonoBehaviour
             }
             else if (buttonPressed) {
                 noteHitIndex++;
-                headNote.destroyWithFeedback(player.hitArea, false);
+                headNote.destroyWithFeedback(player.getHitArea(headNote.key), false);
+                player.updateComboCount(false);
                 player.activeNotes.Remove(noteObj);
                 player.combo = 0;
 

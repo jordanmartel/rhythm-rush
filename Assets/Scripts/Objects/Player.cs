@@ -1,19 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
 
+    [Header("Music Staff References")]
     public GameObject leftTrack;
     public GameObject centreTrack;
     public GameObject rightTrack;
-    public GameObject hitArea;
     public GameObject leftMissBox;
     public GameObject centreMissBox;
     public GameObject rightMissBox;
     public GameObject feedback;
+    public GameObject leftHitArea;
+    public GameObject centreHitArea;
+    public GameObject rightHitArea;
 
+
+    [Header("UI Elements")]
+    public Text comboText;
+
+    [Header("Other")]
     public int accumulatedDamage;
     public int combo;
     public int joystick;
@@ -26,6 +35,9 @@ public class Player : MonoBehaviour
 
     public Dictionary<string, string> notes;
     public List<GameObject> activeNotes;
+
+    private int comboCount = 0;
+
 
     // Use this for initialization
     void Start()
@@ -70,6 +82,24 @@ public class Player : MonoBehaviour
         }
     }
 
+    //Success indicates correct hit, if false then reset combo counter
+    public void updateComboCount (bool success) {
 
+        comboCount = (success) ? comboCount+ 1 : 0;
+        comboText.text = "x" + comboCount;
+    }
 
+    public GameObject getHitArea(string key) {
+
+        if ("leftsquare".Contains(key)) {
+            return leftHitArea;
+
+        }
+        else if ("rightcircle".Contains(key)) {
+            return rightHitArea;
+        }
+        else {
+            return centreHitArea;
+        }
+    }
 }

@@ -18,6 +18,8 @@ public class TeamAttack : MonoBehaviour {
     [Header("UI Elements")]
     public Slider energyBar;
     public GameObject textPrompts;
+    public PlayerFeedback player1Feedback;
+    public PlayerFeedback player2Feedback;
 
     [Header("AttackChildren")]
     private GameObject mainAttractor;
@@ -83,7 +85,7 @@ public class TeamAttack : MonoBehaviour {
         // reset
 
         int damageDone = 2;
-
+        displayFeedback();
         energyBar.gameObject.SetActive(false);
         isActive = false;
         numberOfHits = 0;
@@ -92,6 +94,12 @@ public class TeamAttack : MonoBehaviour {
         ActivateLazer();
 
         return damageDone;
+    }
+
+    private void displayFeedback() {
+        Debug.Log("NumHits" + numberOfHits);
+        player1Feedback.giveTeamAttackFeedback(numberOfHits);
+        player2Feedback.giveTeamAttackFeedback(numberOfHits);
     }
 
     public bool timerExpired()

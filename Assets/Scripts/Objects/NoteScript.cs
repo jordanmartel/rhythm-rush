@@ -28,6 +28,7 @@ public class NoteScript : MonoBehaviour {
             // note was missed, so this player has failed the phase
             player.failedPhase = true;
 
+            player.updateComboCount(false);
             destroyWithFeedback(null, true);
 
             // forcefully reset the player combo when a note is missed
