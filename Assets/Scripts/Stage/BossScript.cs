@@ -80,20 +80,23 @@ public class BossScript : MonoBehaviour {
         preparingAttack = false;
     }
 
+    private void flickerHelper(MeshRenderer[] bossMesh, Color color) {
+        foreach (MeshRenderer mesh in bossMesh) {
+            mesh.material.color = color;
+        }
+    }
 
     private IEnumerator FlickerDamage () {
-        MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
-        mesh.material.color = Color.red;
+        MeshRenderer[] bossMesh = GetComponentsInChildren<MeshRenderer>();
+        flickerHelper(bossMesh, Color.red);
         yield return new WaitForSeconds(0.2f);
 
-        if (preparingAttack)
-        {
-            mesh.material.color = Color.blue;
+        if (preparingAttack) {
+            flickerHelper(bossMesh, Color.blue);
         }
 
-        else
-        {
-            mesh.material.color = Color.white;
+        else {
+            flickerHelper(bossMesh, Color.white);
         }
     }
 

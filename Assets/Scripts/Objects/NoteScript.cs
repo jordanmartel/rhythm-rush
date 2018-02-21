@@ -63,7 +63,6 @@ public class NoteScript : MonoBehaviour {
 
     public int destroyWithFeedback(GameObject hitArea, bool correct)
     {
-
         int score = 0;
 
         if (hitArea == null) {
