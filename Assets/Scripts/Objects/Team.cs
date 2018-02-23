@@ -36,4 +36,40 @@ public class Team : MonoBehaviour
     {
         health = health - 1;
     }
+
+    // returns true if any notes are in play or any notes in phase remain to be played
+    public bool hasNotesLeft()
+    {
+        return ((player1.notes.Count > 0) || 
+            (player2.notes.Count > 0) || 
+            (player1.activeNotes.Count > 0) || 
+            (player2.activeNotes.Count > 0));
+    }
+
+    public bool hasFailedPhase()
+    {
+        return player1.failedPhase || player2.failedPhase;
+    }
+
+    public void nextPhaseBegin()
+    {
+        player1.failedPhase = false;
+        player2.failedPhase = false;
+    }
+
+    public void KnockDownPlayer(Player player) {
+        player.GetComponent<Animation>().Play("hurt_player");
+        player.IsDown = true;
+    }
+
+    public void revivePlayer() {
+        //Plays revive animation when player is fine 
+        Debug.Log("Reviving: ");
+
+        if (player1.IsDown)
+        player1.GetComponent<Animation>().Play("revived_player");
+
+        if (player2.IsDown)
+        player2.GetComponent<Animation>().Play("revived_player");
+    }
 }

@@ -9,6 +9,7 @@ public class StageScript : MonoBehaviour
 {
 
     [Header("Beat Info")]
+    public string stageName = "creator_lvl";
     public Beatmap beatmap;
     public GameObject noteObject;
     public List<NoteScript> notesOnScreen;
@@ -31,28 +32,28 @@ public class StageScript : MonoBehaviour
     public Material dRight;
     public Material dDown;
 
+    private int currentSection;
+    private int currentPhase;
+    private BeatmapPhase beatmapPhase;
+    private bool isRevival = false;
+    private int currentRevivalSection = -1;
+    private Player revivingPlayer;
+
     private float timer;
+    private float phaseTimer;
 
     [Header("General Player Attributes")]
-    public int comboThreshold = 10;
-
     public Team team;
 
     private BossScript boss;
     private TeamAttack teamAttackController;
 
-    private int totalChainSize;
-    private int teamCombo = 0;
-
-    Dictionary<string, string> chainNotes = new Dictionary<string, string>();
-    List<ChainNote> activeChainNotes = new List<ChainNote>();
-
-
     // ==========================
     // Use this for initialization
 
     void Awake () {
-        parseJson("creator_lvl");
+
+        parseJson(stageName);
         noteTravelSpeed = beatmap.bpm / 20;
         noteTravelDistance = 6;
         playerOffset = 0.05;
@@ -67,25 +68,25 @@ public class StageScript : MonoBehaviour
 
     }
 
-    public void resetChainCombo()
-    {
-        teamCombo = 0;
-    }
-
-    // the NoteScript will use this to mark chain notes as missed
-    public List<ChainNote> getActiveChainNotes()
-    {
-        return activeChainNotes;
-    }
-
     void parseJson(string filePath)
     {
         string beatMapJson = Resources.Load<TextAsset>(filePath).text;
         beatmap = JsonConvert.DeserializeObject<Beatmap>(beatMapJson);
 
-        team.player1.notes = beatmap.player1Notes;
-        team.player2.notes = beatmap.player2Notes;
-        chainNotes = beatmap.chainNotes;
+        beatmapPhase = beatmap.getPhase(currentSection, currentPhase);
+
+        // Create new copies of the dictionaries. This way we can delete values from the player dictionary when 
+        // spawning notes and still have access to the original notes in the beatmap dictionary when phases are repeated
+        team.player1.notes = new Dictionary<string, string>(beatmapPhase.player1Notes);
+        team.player2.notes = new Dictionary<string, string>(beatmapPhase.player2Notes);
+
+        if (beatmapPhase.bothPlayerNotes.Count > 0)
+        {
+            team.player1.notes = new Dictionary<string, string>(beatmapPhase.bothPlayerNotes);
+            team.player2.notes = new Dictionary<string, string>(beatmapPhase.bothPlayerNotes);
+        }
+
+        Debug.Log(beatmap.sections.Count);
     }
 
     double BeatInterval(int bpm, int beat_split)
@@ -93,18 +94,154 @@ public class StageScript : MonoBehaviour
         return 60.0 / bpm / beat_split;
     }
 
+    void moveToNextPhase(bool teamAttack)
+    {
+        
+        Debug.Log("Old section and phase: " + currentSection + " " + currentPhase);
+        Debug.Log("Phase was failed: " + team.hasFailedPhase());
+
+        if (teamAttack)
+        {
+            currentSection++;
+            currentPhase = 0;
+        }
+
+        else
+        {
+            // only move to the next phase if the phase has been failed
+
+            if(isRevival && team.hasFailedPhase()) {
+                    team.health--;
+
+            }
+
+            Debug.Log("HP:" + team.health);
+            if (!team.hasFailedPhase() && !isRevival)
+            {
+                // boss attack phase that has been successful
+                if (currentPhase + 1 == beatmap.sections[currentSection].Count)
+                {
+                    Debug.Log("Boss attack phase successful");
+
+                    boss.resetAttackState();
+                    teamAttackController.startTeamAttack();
+                    GameObject[] allNotes = GameObject.FindGameObjectsWithTag("note");
+                    foreach (GameObject note in allNotes)
+                    {
+                        Destroy(note); //note.SetActive(false);
+                    }
+                    team.player1.activeNotes.Clear();
+                    team.player2.activeNotes.Clear();
+                }
+
+                // regular phase
+                else { 
+           
+                    if (!isRevival) {
+                        boss.giveDamage(1);
+                        currentPhase++;
+                    }
+                }
+            }
+
+            // this is a boss attack phase that has been failed
+            else if (currentPhase + 1 == beatmap.sections[currentSection].Count)
+            {
+                if (!isRevival) {
+                    team.attackedByBoss();
+                    boss.resetAttackState();
+                }
+
+                if (team.health == 0)
+                {
+                    // GAME OVER
+                    // Press [F] to pay respects
+
+                }
+
+                if (team.player1.failedPhase && team.player2.failedPhase)
+                {
+                    // Go back a phase when both players "stunned" by boss attack
+                    currentPhase--;
+                }
+
+                else
+                {
+                    if (isRevival) {
+                        isRevival = false;
+                        
+                    } else { 
+                        isRevival = true;
+                        //REVIVE Phase
+                        Debug.Log("player Fails: " + team.player1.failedPhase + "<" + team.player2.failedPhase);
+                        //I have NO idea why the player are backwards but this is way it works ¯\_(ツ)_/¯
+                        if (team.player1.failedPhase) {
+                            team.KnockDownPlayer(team.player2);
+
+                        } else {
+                            team.KnockDownPlayer(team.player1);
+                        }
+                        currentRevivalSection = currentSection;
+                        currentSection = beatmap.sections.Count - 1;
+                        currentPhase = 0;
+                    }
+                }
+            }
+        }
+        
+        // retrieve the next phase, and corresponding notes
+        beatmapPhase = beatmap.getPhase(currentSection, currentPhase);
+
+        // entering a boss attack phase should show the boss as preparing for an attack
+        if (!isRevival && currentPhase + 1 == beatmap.sections[currentSection].Count)
+        {
+            Debug.Log("Entering Boss Attack Phase");
+            boss.setAttackState();
+        }
+
+        if (isRevival) {
+            if (team.player1.IsDown) {
+                team.player1.notes = new Dictionary<string, string>(beatmapPhase.revivalNotes);
+                team.player2.notes = new Dictionary<string, string>();
+            }
+            else {
+                team.player2.notes = new Dictionary<string, string>(beatmapPhase.revivalNotes);
+                team.player1.notes = new Dictionary<string, string>();
+            }
+
+        }
+        else {
+            // get the values from the beatmap
+            team.player1.notes = new Dictionary<string, string>(beatmapPhase.player1Notes);
+            team.player2.notes = new Dictionary<string, string>(beatmapPhase.player2Notes);
+
+            if (beatmapPhase.bothPlayerNotes.Count > 0) {
+                team.player1.notes = new Dictionary<string, string>(beatmapPhase.bothPlayerNotes);
+                team.player2.notes = new Dictionary<string, string>(beatmapPhase.bothPlayerNotes);
+            }
+        }
+
+        // the beat time is phase dependent, so reset these
+        nextBeatTime = beatmap.offset + playerOffset - noteTravelDistance / noteTravelSpeed;
+        noteCreateIndex = 0;
+        phaseTimer = 0;
+
+        // resets the failed phase status for both players
+        team.nextPhaseBegin();
+
+        Debug.Log("New section and phase: " + currentSection + " " + currentPhase);
+
+    }
 
     GameObject createNote(String note, string placement, Player player)
     {
-        bool isFace = isFaceNote(note);
+        Vector3 position = player.getNoteStart(note);
 
-        Vector3 position = (isFace) ? player.faceTrack.transform.position : player.directionalTrack.transform.position;
-
-        GameObject newNote = Instantiate(noteObject, new Vector3(position.x, position.y + 3, position.z), new Quaternion(0, 180, 0, 0));
+        GameObject newNote = Instantiate(noteObject, new Vector3(position.x, position.y, position.z), new Quaternion(0, 180, 0, 0));
         newNote.GetComponent<NoteScript>().key = note;
         newNote.GetComponent<NoteScript>().index = noteIndex;
         newNote.GetComponent<NoteScript>().stage = gameObject;
-        newNote.GetComponent<NoteScript>().destination = (isFace) ? player.faceMissBox : player.directionalMissBox; 
+        newNote.GetComponent<NoteScript>().destination = player.getNoteDestination(note);
         newNote.GetComponent<MeshRenderer>().material = stringToMesh(note);
         newNote.GetComponent<NoteScript>().feedback = player.feedback;
         newNote.GetComponent<NoteScript>().player = player;
@@ -173,26 +310,18 @@ public class StageScript : MonoBehaviour
 
             string curNote = player.notes[(noteCreateIndex).ToString()];
             createNote(curNote, placement, player);
+
+            // remove notes from the player notes list after they have been spawned. This way, we can check for the case where 
+            // the player has no more notes to play, and where there are no more active notes in play. This would be for the end
+            // of a phase
+            player.notes.Remove((noteCreateIndex).ToString());
+
             noteIndex++;
         }
     }
 
-    // creates two notes, one for each player
-    void createChainNote()
+    void checkPlayerAction(Player player, GameObject noteObj)
     {
-        if (chainNotes.ContainsKey((noteCreateIndex).ToString()))
-        {
-            string curNote = chainNotes[(noteCreateIndex).ToString()];
-            activeChainNotes.Add(new ChainNote(createNote(curNote, "left", team.player1).GetComponent<NoteScript>(),
-                createNote(curNote, "right", team.player2).GetComponent<NoteScript>()));
-            noteIndex++;
-        }
-    }
-
-    string checkPlayerAction(Player player, GameObject noteObj)
-    {
-        string playerAction = "none";
-
         NoteScript headNote = noteObj.GetComponent<NoteScript>();
         bool buttonPressed = false;
 
@@ -250,49 +379,50 @@ public class StageScript : MonoBehaviour
                     (Input.GetKeyDown(keyToHit))) {
                 //print("hit successfully");
                 noteHitIndex++;
-                int dealtDamage = headNote.destroyWithFeedback(player.hitArea, true);
+                int dealtDamage = headNote.destroyWithFeedback(player.getHitArea(headNote.key), true);
+                player.updateComboCount(true);
 
-                player.accumulatedDamage += dealtDamage;
                 if (dealtDamage == 0) {
-                    playerAction = "miss";
                     player.combo = 0;
+
+                    // fail phase on miss
+                    player.failedPhase = true;
+                    player.updateComboCount(false);
                 }
                 else {
-                    playerAction = "hit";
                     player.combo += 1;
                 }
 
-                if (player.combo % comboThreshold == 0) {
-                    // TODO: change how the damage scales
-                    boss.giveDamage(player.calculateComboDamage(comboThreshold));
-                    player.accumulatedDamage = 0;
-                }
                 player.activeNotes.Remove(noteObj);
 
             }
             else if (buttonPressed) {
-                playerAction = "miss";
                 noteHitIndex++;
-                headNote.destroyWithFeedback(player.hitArea, false);
+                headNote.destroyWithFeedback(player.getHitArea(headNote.key), false);
+                player.updateComboCount(false);
                 player.activeNotes.Remove(noteObj);
                 player.combo = 0;
+
+                // fail phase on miss
+                player.failedPhase = true;
+
+
             }
         }
-           
-        return playerAction;
     }
 
     // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;
+        phaseTimer += Time.deltaTime;
 
         // Create beat
         if (teamAttackController.isActive)
         {
 
             // even if its in team attack mode, we need to update the indexes to work correctly after team attack ends
-            if (timer > nextBeatTime && timer - nextBeatTime < 0.1f)
+            if (phaseTimer > nextBeatTime && phaseTimer - nextBeatTime < 0.1f)
             {
                 noteCreateIndex++;
                 nextBeatTime = beatmap.offset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
@@ -301,6 +431,7 @@ public class StageScript : MonoBehaviour
             if (teamAttackController.timerExpired())
             {
                 boss.giveDamage(teamAttackController.unleashTeamAttack());
+                moveToNextPhase(true);
             }
 
             else
@@ -314,96 +445,37 @@ public class StageScript : MonoBehaviour
 
         else
         {
-            if (timer > nextBeatTime && timer - nextBeatTime < 0.1f)
+            // start of the next phase
+            if (!team.hasNotesLeft())
+            {
+                //Revival Complete. IsRevival is set to false inside MovetoNextPhase
+                if (isRevival && !team.hasFailedPhase()) {
+                    currentSection = currentRevivalSection;
+                    currentPhase = beatmap.sections[currentSection].Count - 1;
+                    team.revivePlayer();
+                }
+                moveToNextPhase(false);
+            }
+
+
+            if (phaseTimer > nextBeatTime && phaseTimer - nextBeatTime < 0.1f)
             {
                 createPlayerNote("left", team.player1);
                 createPlayerNote("right", team.player2);
-                createChainNote();
 
                 noteCreateIndex++;
                 nextBeatTime = beatmap.offset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
             }
 
-
-            string player1Action = "none";
-            string player2Action = "none";
-            GameObject nextPlayer1Note = null;
-            GameObject nextPlayer2Note = null;
-
             if (team.player1.activeNotes.Count > 0)
             {
-                nextPlayer1Note = team.player1.activeNotes[0];
-                player1Action = checkPlayerAction(team.player1, nextPlayer1Note);
+                checkPlayerAction(team.player1, team.player1.activeNotes[0]);
             }
 
             if (team.player2.activeNotes.Count > 0)
             {
-                nextPlayer2Note = team.player2.activeNotes[0];
-                player2Action = checkPlayerAction(team.player2, nextPlayer2Note);
+                checkPlayerAction(team.player2, team.player2.activeNotes[0]);
             }
-
-            if (activeChainNotes.Count > 0)
-            {
-
-                ChainNote nextChainNote = activeChainNotes[0];
-                boss.setAttackState();
-
-                if (nextChainNote.contains(nextPlayer1Note)) {
-                    nextChainNote.player1Status = player1Action;
-                }
-
-                if (nextChainNote.contains(nextPlayer2Note)) {
-                    nextChainNote.player1Status = player1Action;
-                }
-
-                // both players hit the note
-                if (nextChainNote.getStatus() == "hit")
-                {
-                    teamCombo += 1;
-                    activeChainNotes.Remove(nextChainNote);
-                }
-                
-                // at least one player missed the note
-                else if (nextChainNote.getStatus() == "miss")
-                {
-                    teamCombo = 0;
-                    activeChainNotes.Remove(nextChainNote);
-                }
-
-                // last note has been played
-                if (activeChainNotes.Count == 0)
-                {
-                    // all notes hit
-                    if (teamCombo == 10)
-                    {
-                        boss.resetAttackState();
-                        teamAttackController.startTeamAttack();
-                        GameObject[] allNotes = GameObject.FindGameObjectsWithTag("note");
-                        foreach (GameObject note in allNotes)
-                        {
-                            Destroy(note); //note.SetActive(false);
-                        }
-                        team.player1.activeNotes.Clear();
-                        team.player2.activeNotes.Clear();
-                    }
-
-                    // boss does damage
-                    else
-                    {
-                        team.attackedByBoss();
-                        boss.resetAttackState();
-
-                        if (team.health == 0)
-                        {
-                            // GAME OVER
-                            // TODO: death animation, ranking screen showing "F" or similar
-                        }
-                    }
-
-                    teamCombo = 0;
-                }
-            }
-
         }
     }
 }

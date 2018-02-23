@@ -71,19 +71,19 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 508
+        value: 230
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
         time: 0.6666667
-        value: 260
+        value: -20
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
         time: 1
-        value: 275
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -99,19 +99,19 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: -508
+        value: -230
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
         time: 0.6666667
-        value: -260
+        value: 20
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
         time: 1
-        value: -274
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -239,19 +239,19 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 508
+        value: 230
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
         time: 0.6666667
-        value: 260
+        value: -20
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
         time: 1
-        value: 275
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -267,19 +267,19 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: -508
+        value: -230
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
         time: 0.6666667
-        value: -260
+        value: 20
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
         time: 1
-        value: -274
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -326,11 +326,4 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_GenerateMotionCurves: 0
-  m_Events:
-  - time: 0.8
-    functionName: 
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []

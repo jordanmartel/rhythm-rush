@@ -59,19 +59,6 @@ public class CreatorStage : MonoBehaviour {
 
     public string placement = "left";
 
-
-    void parseJson(string filePath) {
-        string beatMapJson = Resources.Load<TextAsset>(filePath).text;
-        beatmap = JsonConvert.DeserializeObject<Beatmap>(beatMapJson);
-
-        if (placement == "left") {
-            notes = beatmap.player1Notes;
-        }
-        else {
-            notes = beatmap.player2Notes;
-        }
-    }
-
     double BeatInterval(int bpm, int beat_split) {
         return 60.0 / bpm / beat_split;
     }

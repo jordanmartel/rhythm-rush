@@ -18,6 +18,8 @@ public class TeamAttack : MonoBehaviour {
     [Header("UI Elements")]
     public Slider energyBar;
     public GameObject textPrompts;
+    public PlayerFeedback player1Feedback;
+    public PlayerFeedback player2Feedback;
 
     [Header("AttackChildren")]
     private GameObject mainAttractor;
@@ -43,10 +45,6 @@ public class TeamAttack : MonoBehaviour {
         isActive = true;
         GetComponent<MeshRenderer>().enabled = true;
 
-        //Child Indexes {0 = particle revolver, 1 = attractor 1, 2 = attractor 2, 3 = fireball}
-        mainAttractor = transform.GetChild(0).gameObject;
-        sideAttractor1 = transform.GetChild(1).gameObject;
-        sideAttractor2 = transform.GetChild(2).gameObject;
         mainAttractor.SetActive(true);
         sideAttractor1.SetActive(true);
         sideAttractor2.SetActive(true);
@@ -77,14 +75,17 @@ public class TeamAttack : MonoBehaviour {
         // 40 hits: 100 * 40 * 2^4-1 = 100 * 40 * 8 = 32,000
         // 50 hits: 100 * 50 * 2^5-1 = 100 * 50 * 16 = 80,000
 
-        int damageDone = Mathf.Min(numberOfHits, maximumNumberOfHits) * damagePerHit * 
-            (int) Math.Pow(2, (Mathf.Min(numberOfHits, maximumNumberOfHits) / 10) - 1);
+        //int damageDone = Mathf.Min(numberOfHits, maximumNumberOfHits) * damagePerHit * 
+        //    (int) Math.Pow(2, (Mathf.Min(numberOfHits, maximumNumberOfHits) / 10) - 1);
 
         //Debug.Log("num hits: " + (Mathf.Min(numberOfHits, maximumNumberOfHits)));
         //Debug.Log("damage per hit: " + damagePerHit);
         //Debug.Log("pow: " + Math.Pow(2, (Mathf.Min(numberOfHits, maximumNumberOfHits) / 10) - 1));
 
         // reset
+
+        int damageDone = 2;
+        displayFeedback();
         energyBar.gameObject.SetActive(false);
         isActive = false;
         numberOfHits = 0;
@@ -95,6 +96,12 @@ public class TeamAttack : MonoBehaviour {
         return damageDone;
     }
 
+    private void displayFeedback() {
+        Debug.Log("NumHits" + numberOfHits);
+        player1Feedback.giveTeamAttackFeedback(numberOfHits);
+        player2Feedback.giveTeamAttackFeedback(numberOfHits);
+    }
+
     public bool timerExpired()
     {
         return remainingTime <= 0;
@@ -102,7 +109,8 @@ public class TeamAttack : MonoBehaviour {
 
     private void ActivateLazer() {
 
-        fireball.SetActive(true);
+        GameObject fireballIns = Instantiate(fireball, mainAttractor.transform);
+        fireballIns.SetActive(true);
 
         //Destroy/hide the things
         mainAttractor.SetActive(false);

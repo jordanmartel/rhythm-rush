@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class BossScript : MonoBehaviour {
 
-    public int maxhp = 150000;
+    public int maxhp = 12;
     public int dmg = 0;
     private int hp;
     public Scrollbar healthBar;
@@ -60,13 +60,14 @@ public class BossScript : MonoBehaviour {
 
     public void setAttackState()
     {
+        // TODO: some sort of attack preparation animation
 
         // dont set this to blue if we are already in the attack state. This will allow damage
         // to still be shown correctly as red
         if (!preparingAttack)
         {
-            MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
-            mesh.material.color = Color.blue;
+            MeshRenderer[] mesh = GetComponentsInChildren<MeshRenderer>();
+            flickerHelper(mesh, Color.blue);
             preparingAttack = true;
         }
         
@@ -75,25 +76,28 @@ public class BossScript : MonoBehaviour {
 
     public void resetAttackState()
     {
-        MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
-        mesh.material.color = Color.white;
+        MeshRenderer[] mesh = GetComponentsInChildren<MeshRenderer>();
+        flickerHelper(mesh, Color.white);
         preparingAttack = false;
     }
 
+    private void flickerHelper(MeshRenderer[] bossMesh, Color color) {
+        foreach (MeshRenderer mesh in bossMesh) {
+            mesh.material.color = color;
+        }
+    }
 
     private IEnumerator FlickerDamage () {
-        MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
-        mesh.material.color = Color.red;
+        MeshRenderer[] bossMesh = GetComponentsInChildren<MeshRenderer>();
+        flickerHelper(bossMesh, Color.red);
         yield return new WaitForSeconds(0.2f);
 
-        if (preparingAttack)
-        {
-            mesh.material.color = Color.blue;
+        if (preparingAttack) {
+            flickerHelper(bossMesh, Color.blue);
         }
 
-        else
-        {
-            mesh.material.color = Color.white;
+        else {
+            flickerHelper(bossMesh, Color.white);
         }
     }
 
@@ -114,8 +118,8 @@ public class BossScript : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.tag == "laser") {
-            StartCoroutine("FlickerDamage");
-        }
+       // if (other.tag == "laser") {
+       //     StartCoroutine("FlickerDamage");
+      //  }
     }
 }
