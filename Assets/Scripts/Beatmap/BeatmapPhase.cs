@@ -10,5 +10,4 @@ public class BeatmapPhase
     public Dictionary<string, string> player2Notes;
     public Dictionary<string, string> bothPlayerNotes;
     public Dictionary<string, string> revivalNotes;
-
 }

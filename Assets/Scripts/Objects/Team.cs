@@ -5,6 +5,7 @@ using UnityEngine;
 public class Team : MonoBehaviour
 {
     public int health;
+    public int maxHealth = 3;
     public Player player1;
     public Player player2;
     public bool hasEnded = false;
@@ -13,7 +14,7 @@ public class Team : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        health = 3;
+        health = maxHealth;
     }
 
     // Update is called once per frame
@@ -35,6 +36,11 @@ public class Team : MonoBehaviour
     public void attackedByBoss()
     {
         health = health - 1;
+    }
+
+    public void recoverHealth()
+    {
+        health = Mathf.Min(maxHealth, health + 1);
     }
 
     // returns true if any notes are in play or any notes in phase remain to be played
