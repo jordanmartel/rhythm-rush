@@ -97,8 +97,11 @@ public class StageScript : MonoBehaviour
 
         if (teamAttack)
         {
-            currentSection++;
-            currentPhase = 0;
+            if (!team.hasFailedPhase())
+            {
+                currentSection++;
+                currentPhase = 0;
+            }
         }
 
         else
@@ -386,8 +389,19 @@ public class StageScript : MonoBehaviour
 
             if (teamAttackController.timerExpired())
             {
-                boss.giveDamage(teamAttackController.unleashTeamAttack());
-                moveToNextPhase(true);
+                int damage = teamAttackController.unleashTeamAttack();
+                if (damage == 0)
+                {
+                    team.player1.failedPhase = true;
+                    team.player2.failedPhase = true;
+                    moveToNextPhase(true);
+                }
+                else
+                {
+                    boss.giveDamage(teamAttackController.unleashTeamAttack());
+                    moveToNextPhase(true);
+                }
+                
             }
 
             else

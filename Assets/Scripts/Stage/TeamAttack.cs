@@ -8,8 +8,9 @@ public class TeamAttack : MonoBehaviour {
 
     public bool isActive;
     public int numberOfHits;
-    public int maximumNumberOfHits = 50;
-    public int damagePerHit = 100;
+    public int maximumNumberOfHits = 60;
+    public int attackHits = 50;
+    public int recoverHits = 60;
 
     public float allotedTime = 5f;
     private float remainingTime = 0f;
@@ -85,13 +86,22 @@ public class TeamAttack : MonoBehaviour {
         // reset
 
         int damageDone = 2;
+        if (numberOfHits >= recoverHits)
+        {
+            FindObjectOfType<Team>().recoverHealth();
+        }
+        if (numberOfHits < attackHits)
+        {
+            damageDone = 0;
+        }
+        ActivateLazer();
         displayFeedback();
+        Debug.Log("Dealt Team Attack Damage to the boss: " + damageDone);
         energyBar.gameObject.SetActive(false);
         isActive = false;
         numberOfHits = 0;
        // GetComponentInChildren<Text>().text = "";
-        Debug.Log("Dealt Team Attack Damage to the boss: " + damageDone);
-        ActivateLazer();
+        
 
         return damageDone;
     }
