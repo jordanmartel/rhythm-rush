@@ -56,4 +56,20 @@ public class Team : MonoBehaviour
         player1.failedPhase = false;
         player2.failedPhase = false;
     }
+
+    public void KnockDownPlayer(Player player) {
+        player.GetComponent<Animation>().Play("hurt_player");
+        player.IsDown = true;
+    }
+
+    public void revivePlayer() {
+        //Plays revive animation when player is fine 
+        Debug.Log("Reviving: ");
+
+        if (player1.IsDown)
+        player1.GetComponent<Animation>().Play("revived_player");
+
+        if (player2.IsDown)
+        player2.GetComponent<Animation>().Play("revived_player");
+    }
 }

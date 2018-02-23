@@ -66,8 +66,8 @@ public class BossScript : MonoBehaviour {
         // to still be shown correctly as red
         if (!preparingAttack)
         {
-            MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
-            mesh.material.color = Color.blue;
+            MeshRenderer[] mesh = GetComponentsInChildren<MeshRenderer>();
+            flickerHelper(mesh, Color.blue);
             preparingAttack = true;
         }
         
@@ -76,8 +76,8 @@ public class BossScript : MonoBehaviour {
 
     public void resetAttackState()
     {
-        MeshRenderer mesh = GetComponentInChildren<MeshRenderer>();
-        mesh.material.color = Color.white;
+        MeshRenderer[] mesh = GetComponentsInChildren<MeshRenderer>();
+        flickerHelper(mesh, Color.white);
         preparingAttack = false;
     }
 
@@ -118,8 +118,8 @@ public class BossScript : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.tag == "laser") {
-            StartCoroutine("FlickerDamage");
-        }
+       // if (other.tag == "laser") {
+       //     StartCoroutine("FlickerDamage");
+      //  }
     }
 }
