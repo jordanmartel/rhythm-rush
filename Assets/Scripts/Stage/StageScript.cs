@@ -166,6 +166,7 @@ public class StageScript : MonoBehaviour
                 {
                     // Go back a phase when both players "stunned" by boss attack
                     currentPhase--;
+                    boss.recoverHealth(1);
                 }
 
                 else
@@ -442,7 +443,7 @@ public class StageScript : MonoBehaviour
                 }
                 else
                 {
-                    boss.giveDamage(teamAttackController.unleashTeamAttack());
+                    boss.giveDamage(damage);
                     moveToNextPhase(true);
                 }
                 

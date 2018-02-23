@@ -117,6 +117,11 @@ public class BossScript : MonoBehaviour {
         StartCoroutine("FlickerDamage");
     }
 
+    public void recoverHealth(int heal)
+    {
+        hp = Mathf.Min(maxhp, hp + heal);
+    }
+
     private void OnTriggerEnter(Collider other) {
        // if (other.tag == "laser") {
        //     StartCoroutine("FlickerDamage");

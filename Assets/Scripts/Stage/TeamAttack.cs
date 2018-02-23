@@ -94,14 +94,13 @@ public class TeamAttack : MonoBehaviour {
         {
             damageDone = 0;
         }
-        ActivateLazer();
-        displayFeedback();
-        Debug.Log("Dealt Team Attack Damage to the boss: " + damageDone);
+        displayFeedback();        
         energyBar.gameObject.SetActive(false);
         isActive = false;
         numberOfHits = 0;
-       // GetComponentInChildren<Text>().text = "";
-        
+        // GetComponentInChildren<Text>().text = "";
+        Debug.Log("Dealt Team Attack Damage to the boss: " + damageDone);
+        ActivateLazer();
 
         return damageDone;
     }
@@ -138,6 +137,10 @@ public class TeamAttack : MonoBehaviour {
             if (numberOfHits > 0) {
                 transform.localScale = new Vector3(startSize.x + numberOfHits / 10.0f, startSize.y + numberOfHits / 10.0f, startSize.z + numberOfHits / 10.0f);
                 //GetComponentInChildren<Text>().text = numberOfHits.ToString();
+            }
+            else
+            {
+                transform.localScale = new Vector3(startSize.x, startSize.y, startSize.z);
             }
         }
         //energyBar.value = Mathf.Min(numberOfHits, maximumNumberOfHits);
