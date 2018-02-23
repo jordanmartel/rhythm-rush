@@ -204,6 +204,19 @@
         "player1Notes": {},
         "player2Notes": {}
       }
+	], 
+	[{
+		"revivalNotes": {
+			"0": "square",
+			"2": "square",
+			"6": "square",
+			"10": "square",
+			"12": "square",
+			"16": "square",
+			"20": "square"
+			
+		} }, 
+		{}
     ]
   ]
 }

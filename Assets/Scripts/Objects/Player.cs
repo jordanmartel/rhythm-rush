@@ -37,7 +37,17 @@ public class Player : MonoBehaviour
     public List<GameObject> activeNotes;
 
     private int comboCount = 0;
+    private bool isDown = false;
 
+    public bool IsDown {
+        get {
+            return isDown;
+        }
+
+        set {
+            isDown = value;
+        }
+    }
 
     // Use this for initialization
     void Start()

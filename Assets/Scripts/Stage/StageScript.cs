@@ -35,6 +35,9 @@ public class StageScript : MonoBehaviour
     private int currentSection;
     private int currentPhase;
     private BeatmapPhase beatmapPhase;
+    private bool isRevival = false;
+    private int currentRevivalSection = -1;
+    private Player revivingPlayer;
 
     private float timer;
     private float phaseTimer;
@@ -82,6 +85,8 @@ public class StageScript : MonoBehaviour
             team.player1.notes = new Dictionary<string, string>(beatmapPhase.bothPlayerNotes);
             team.player2.notes = new Dictionary<string, string>(beatmapPhase.bothPlayerNotes);
         }
+
+        Debug.Log(beatmap.sections.Count);
     }
 
     double BeatInterval(int bpm, int beat_split)
@@ -107,7 +112,14 @@ public class StageScript : MonoBehaviour
         else
         {
             // only move to the next phase if the phase has been failed
-            if (!team.hasFailedPhase())
+
+            if(isRevival && team.hasFailedPhase()) {
+                    team.health--;
+
+            }
+
+            Debug.Log("HP:" + team.health);
+            if (!team.hasFailedPhase() && !isRevival)
             {
                 // boss attack phase that has been successful
                 if (currentPhase + 1 == beatmap.sections[currentSection].Count)
@@ -126,24 +138,28 @@ public class StageScript : MonoBehaviour
                 }
 
                 // regular phase
-                else
-                {
-                    currentPhase++;
-                    boss.giveDamage(1);
+                else { 
+           
+                    if (!isRevival) {
+                        boss.giveDamage(1);
+                        currentPhase++;
+                    }
                 }
             }
 
             // this is a boss attack phase that has been failed
             else if (currentPhase + 1 == beatmap.sections[currentSection].Count)
             {
-
-                team.attackedByBoss();
-                boss.resetAttackState();
+                if (!isRevival) {
+                    team.attackedByBoss();
+                    boss.resetAttackState();
+                }
 
                 if (team.health == 0)
                 {
                     // GAME OVER
                     // Press [F] to pay respects
+
                 }
 
                 if (team.player1.failedPhase && team.player2.failedPhase)
@@ -154,7 +170,24 @@ public class StageScript : MonoBehaviour
 
                 else
                 {
-                    // REVIVE PHASE
+                    if (isRevival) {
+                        isRevival = false;
+                        
+                    } else { 
+                        isRevival = true;
+                        //REVIVE Phase
+                        Debug.Log("player Fails: " + team.player1.failedPhase + "<" + team.player2.failedPhase);
+                        //I have NO idea why the player are backwards but this is way it works ¯\_(ツ)_/¯
+                        if (team.player1.failedPhase) {
+                            team.KnockDownPlayer(team.player2);
+
+                        } else {
+                            team.KnockDownPlayer(team.player1);
+                        }
+                        currentRevivalSection = currentSection;
+                        currentSection = beatmap.sections.Count - 1;
+                        currentPhase = 0;
+                    }
                 }
             }
         }
@@ -163,20 +196,32 @@ public class StageScript : MonoBehaviour
         beatmapPhase = beatmap.getPhase(currentSection, currentPhase);
 
         // entering a boss attack phase should show the boss as preparing for an attack
-        if (currentPhase + 1 == beatmap.sections[currentSection].Count)
+        if (!isRevival && currentPhase + 1 == beatmap.sections[currentSection].Count)
         {
             Debug.Log("Entering Boss Attack Phase");
             boss.setAttackState();
         }
 
-        // get the values from the beatmap
-        team.player1.notes = new Dictionary<string, string>(beatmapPhase.player1Notes);
-        team.player2.notes = new Dictionary<string, string>(beatmapPhase.player2Notes);
+        if (isRevival) {
+            if (team.player1.IsDown) {
+                team.player1.notes = new Dictionary<string, string>(beatmapPhase.revivalNotes);
+                team.player2.notes = new Dictionary<string, string>();
+            }
+            else {
+                team.player2.notes = new Dictionary<string, string>(beatmapPhase.revivalNotes);
+                team.player1.notes = new Dictionary<string, string>();
+            }
 
-        if (beatmapPhase.bothPlayerNotes.Count > 0)
-        {
-            team.player1.notes = new Dictionary<string, string>(beatmapPhase.bothPlayerNotes);
-            team.player2.notes = new Dictionary<string, string>(beatmapPhase.bothPlayerNotes);
+        }
+        else {
+            // get the values from the beatmap
+            team.player1.notes = new Dictionary<string, string>(beatmapPhase.player1Notes);
+            team.player2.notes = new Dictionary<string, string>(beatmapPhase.player2Notes);
+
+            if (beatmapPhase.bothPlayerNotes.Count > 0) {
+                team.player1.notes = new Dictionary<string, string>(beatmapPhase.bothPlayerNotes);
+                team.player2.notes = new Dictionary<string, string>(beatmapPhase.bothPlayerNotes);
+            }
         }
 
         // the beat time is phase dependent, so reset these
@@ -193,8 +238,6 @@ public class StageScript : MonoBehaviour
 
     GameObject createNote(String note, string placement, Player player)
     {
-        bool isFace = isFaceNote(note);
-
         Vector3 position = player.getNoteStart(note);
 
         GameObject newNote = Instantiate(noteObject, new Vector3(position.x, position.y, position.z), new Quaternion(0, 180, 0, 0));
@@ -366,6 +409,7 @@ public class StageScript : MonoBehaviour
                 // fail phase on miss
                 player.failedPhase = true;
 
+
             }
         }
     }
@@ -418,6 +462,12 @@ public class StageScript : MonoBehaviour
             // start of the next phase
             if (!team.hasNotesLeft())
             {
+                //Revival Complete. IsRevival is set to false inside MovetoNextPhase
+                if (isRevival && !team.hasFailedPhase()) {
+                    currentSection = currentRevivalSection;
+                    currentPhase = beatmap.sections[currentSection].Count - 1;
+                    team.revivePlayer();
+                }
                 moveToNextPhase(false);
             }
 
