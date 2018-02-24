@@ -16,6 +16,7 @@ public class StageScript : MonoBehaviour
     public int noteIndex;
     public int noteCreateIndex;
     public double nextBeatTime;
+    public double countDownOffset;
     public double playerOffset;
     public double beatInterval;
     public double noteTravelDistance;
@@ -55,9 +56,10 @@ public class StageScript : MonoBehaviour
 
         parseJson(stageName);
         noteTravelSpeed = beatmap.bpm / 20;
-        noteTravelDistance = 6;
-        playerOffset = 0.05;
-        nextBeatTime = beatmap.offset + playerOffset - noteTravelDistance / noteTravelSpeed;
+        noteTravelDistance = 11.1;
+        countDownOffset = 4;
+        playerOffset = 0.1;
+        nextBeatTime = beatmap.offset + countDownOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
         beatInterval = BeatInterval(beatmap.bpm, beatmap.beat_split);
 
         team.player1.joystick = Joysticks.player1Joystick;
@@ -226,7 +228,7 @@ public class StageScript : MonoBehaviour
         }
 
         // the beat time is phase dependent, so reset these
-        nextBeatTime = beatmap.offset + playerOffset - noteTravelDistance / noteTravelSpeed;
+        nextBeatTime = beatmap.offset + countDownOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
         noteCreateIndex = 0;
         phaseTimer = 0;
 
@@ -429,7 +431,7 @@ public class StageScript : MonoBehaviour
             if (phaseTimer > nextBeatTime && phaseTimer - nextBeatTime < 0.1f)
             {
                 noteCreateIndex++;
-                nextBeatTime = beatmap.offset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
+                nextBeatTime = beatmap.offset + countDownOffset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
             }           
 
             if (teamAttackController.timerExpired())
@@ -479,7 +481,7 @@ public class StageScript : MonoBehaviour
                 createPlayerNote("right", team.player2);
 
                 noteCreateIndex++;
-                nextBeatTime = beatmap.offset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
+                nextBeatTime = beatmap.offset + countDownOffset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
             }
 
             if (team.player1.activeNotes.Count > 0)
