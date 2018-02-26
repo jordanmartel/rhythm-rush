@@ -29,7 +29,8 @@ public class BossScript : MonoBehaviour {
                 //Winning
                 Canvas winningCanvas = Instantiate(winning, Vector3.zero, Quaternion.identity);
                 Ranking ranking = GameObject.FindObjectOfType<Ranking>();
-                string rank = ranking.rankingAtTime(ranking.time);
+                double time = ranking.time;
+                string rank = ranking.rankingAtTime(time);
                 switch (rank)
                 {
                     case "SS":
@@ -52,6 +53,7 @@ public class BossScript : MonoBehaviour {
                         break;
                 }
                 hasEnded = true;
+                FindObjectOfType<TeamStats>().updateRanking(rank, time);
                 FindObjectOfType<Ranking>().enabled = false;
                 FindObjectOfType<StageScript>().enabled = false;
             }

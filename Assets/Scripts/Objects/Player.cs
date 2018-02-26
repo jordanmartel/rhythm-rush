@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     public Text comboText;
 
     [Header("Other")]
+    public PlayerStats stats;
     public int accumulatedDamage;
     public int combo;
     public int joystick;
@@ -97,6 +98,7 @@ public class Player : MonoBehaviour
 
         comboCount = (success) ? comboCount+ 1 : 0;
         comboText.text = "x" + comboCount;
+        stats.updateMaxCombo(comboCount);
     }
 
     public GameObject getHitArea(string key) {

@@ -101,6 +101,23 @@ public class StageScript : MonoBehaviour
         
         Debug.Log("Old section and phase: " + currentSection + " " + currentPhase);
         Debug.Log("Phase was failed: " + team.hasFailedPhase());
+        if (team.player1.failedPhase)
+        {
+            team.player1.stats.incrementFail();
+        }
+        else
+        {
+            team.player1.stats.incrementPerfect();
+        }
+
+        if (team.player2.failedPhase)
+        {
+            team.player2.stats.incrementFail();
+        }
+        else
+        {
+            team.player2.stats.incrementPerfect();
+        }
 
         if (teamAttack)
         {
@@ -169,6 +186,8 @@ public class StageScript : MonoBehaviour
                     // Go back a phase when both players "stunned" by boss attack
                     currentPhase--;
                     boss.recoverHealth(1);
+                    team.player1.stats.incrementFail();
+                    team.player2.stats.incrementFail();
                 }
 
                 else
@@ -441,6 +460,8 @@ public class StageScript : MonoBehaviour
                 {
                     team.player1.failedPhase = true;
                     team.player2.failedPhase = true;
+                    team.player1.updateComboCount(false);
+                    team.player2.updateComboCount(false);
                     moveToNextPhase(true);
                 }
                 else

@@ -190,6 +190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 16383842}
   - component: {fileID: 16383843}
+  - component: {fileID: 16383844}
   m_Layer: 0
   m_Name: Team
   m_TagString: Untagged
@@ -229,6 +230,21 @@ MonoBehaviour:
   player2: {fileID: 101990916}
   hasEnded: 0
   losing: {fileID: 223552882996209598, guid: 5d0610aa236e0894fbf8bd41a4bf6067, type: 2}
+  stats: {fileID: 16383844}
+--- !u!114 &16383844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 16383841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c2c823e08617044db3d37f3e9caf184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  completionTime: 0
+  heartsRemaining: 0
+  ranking: 
 --- !u!1 &51619732
 GameObject:
   m_ObjectHideFlags: 0
@@ -5713,6 +5729,11 @@ Prefab:
       propertyPath: rightHitArea
       value: 
       objectReference: {fileID: 2089741007}
+    - target: {fileID: 114099761738057240, guid: 45402ed6eb8ab8d4893294d3bf524eda,
+        type: 2}
+      propertyPath: stats
+      value: 
+      objectReference: {fileID: 1730190253}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 45402ed6eb8ab8d4893294d3bf524eda, type: 2}
   m_IsPrefabParent: 0
@@ -13569,6 +13590,27 @@ GameObject:
   m_PrefabParentObject: {fileID: 1378463009151304, guid: dbad734f842de8d4991c4deb02a57c2a,
     type: 2}
   m_PrefabInternal: {fileID: 143014932}
+--- !u!1 &991241723 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1368708695467162, guid: 45402ed6eb8ab8d4893294d3bf524eda,
+    type: 2}
+  m_PrefabInternal: {fileID: 1122551345}
+--- !u!114 &991241724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 991241723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbe03b751f670fb499c6fd737e16413a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCombo: 0
+  failCount: 0
+  perfectCount: 0
+  stunCount: 0
+  reviveCount: 0
 --- !u!1001 &993640534
 Prefab:
   m_ObjectHideFlags: 0
@@ -14083,6 +14125,11 @@ Prefab:
       propertyPath: leftHitArea
       value: 
       objectReference: {fileID: 1357652391}
+    - target: {fileID: 114099761738057240, guid: 45402ed6eb8ab8d4893294d3bf524eda,
+        type: 2}
+      propertyPath: stats
+      value: 
+      objectReference: {fileID: 991241724}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 45402ed6eb8ab8d4893294d3bf524eda, type: 2}
   m_IsPrefabParent: 0
@@ -23217,6 +23264,27 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a9d9f5165469f5141b3a55acd718ce68, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1730190252 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1368708695467162, guid: 45402ed6eb8ab8d4893294d3bf524eda,
+    type: 2}
+  m_PrefabInternal: {fileID: 521188076}
+--- !u!114 &1730190253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1730190252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbe03b751f670fb499c6fd737e16413a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCombo: 0
+  failCount: 0
+  perfectCount: 0
+  stunCount: 0
+  reviveCount: 0
 --- !u!1 &1736067047
 GameObject:
   m_ObjectHideFlags: 0
