@@ -5252,7 +5252,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: b62e9af80b59545489eb3b81d4b805a7, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 64b76aeab8da4014d8bf99e585355af2, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -13559,7 +13559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee070c6058c92fe45818c53b6378214d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageName: creator_lvl
+  stageName: electric_stage
   beatmap:
     bpm: 0
     beat_split: 0
