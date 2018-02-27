@@ -1,7 +1,7 @@
 {
   "bpm": 140,
   "beat_split": 2,
-  "offset": 4.5,
+  "offset": 0,
   "thresholds": [ 20.0, 25.0, 30.0, 35.0, 40.0, 46.1 ],
   "sections": [
     [

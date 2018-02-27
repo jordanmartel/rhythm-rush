@@ -10,6 +10,7 @@ public class Team : MonoBehaviour
     public Player player2;
     public bool hasEnded = false;
     public Canvas losing;
+    public TeamStats stats;
 
     // Use this for initialization
     void Start()
@@ -66,6 +67,7 @@ public class Team : MonoBehaviour
     public void KnockDownPlayer(Player player) {
         player.GetComponent<Animation>().Play("hurt_player");
         player.IsDown = true;
+        player.stats.incrementStun();
     }
 
     public void revivePlayer() {
@@ -73,9 +75,17 @@ public class Team : MonoBehaviour
         Debug.Log("Reviving: ");
 
         if (player1.IsDown)
-        player1.GetComponent<Animation>().Play("revived_player");
+        {
+            player1.GetComponent<Animation>().Play("revived_player");
+            player2.stats.incrementRevive();
+        }
+        
 
         if (player2.IsDown)
-        player2.GetComponent<Animation>().Play("revived_player");
+        {
+            player2.GetComponent<Animation>().Play("revived_player");
+            player1.stats.incrementRevive();
+        }
+        
     }
 }
