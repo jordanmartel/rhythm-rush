@@ -58,7 +58,7 @@ public class StageScript : MonoBehaviour
     void Awake () {
 
         parseJson(stageName);
-        noteTravelSpeed = beatmap.bpm / 20;
+        noteTravelSpeed = beatmap.bpm / 10;
         noteTravelDistance = 11.1;
         countDownOffset = 0;
         playerOffset = 0.1;
@@ -458,7 +458,7 @@ public class StageScript : MonoBehaviour
         {
             phaseTimer += Time.deltaTime;
         }
-        if (repeatFlag && timer >= repeatTime)
+        if (repeatFlag && phaseTimer >= repeatTime)
         {
             // the beat time is phase dependent, so reset these
             nextBeatTime = phaseOffset + countDownOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
