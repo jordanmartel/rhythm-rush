@@ -361,8 +361,9 @@ public class StageScript : MonoBehaviour
         }
     }
 
-    void checkPlayerAction(Player player, GameObject noteObj)
+    void checkPlayerAction(Player player)
     {
+        GameObject noteObj = player.activeNotes[0];
         NoteScript headNote = noteObj.GetComponent<NoteScript>();
         bool buttonPressed = false;
 
@@ -413,10 +414,10 @@ public class StageScript : MonoBehaviour
         string keyToHit = stringToKey(headNote.key, player.joystick);
 
         if (headNote.canHit || headNote.canMiss) {
-            if ((keyToHit.Equals("left") && dpadHorizontal == -1) ||
-                    (keyToHit.Equals("right") && dpadHorizontal == 1) ||
-                    (keyToHit.Equals("up") && dpadVertical == 1) ||
-                    (keyToHit.Equals("down") && dpadVertical == -1) ||
+            if ((headNote.key.Equals("square") && dpadHorizontal == -1) ||
+                    (headNote.key.Equals("circle") && dpadHorizontal == 1) ||
+                    (headNote.key.Equals("triangle") && dpadVertical == 1) ||
+                    (headNote.key.Equals("cross") && dpadVertical == -1) ||
                     (Input.GetKeyDown(keyToHit))) {
                 //print("hit successfully");
                 noteHitIndex++;
@@ -537,12 +538,12 @@ public class StageScript : MonoBehaviour
 
             if (team.player1.activeNotes.Count > 0)
             {
-                checkPlayerAction(team.player1, team.player1.activeNotes[0]);
+                checkPlayerAction(team.player1);
             }
 
             if (team.player2.activeNotes.Count > 0)
             {
-                checkPlayerAction(team.player2, team.player2.activeNotes[0]);
+                checkPlayerAction(team.player2);
             }
         }
     }
