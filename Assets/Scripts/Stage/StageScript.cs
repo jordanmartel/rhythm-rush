@@ -190,6 +190,8 @@ public class StageScript : MonoBehaviour
                     // Go back a phase when both players "stunned" by boss attack
                     currentPhase--;
                     boss.recoverHealth(1);
+                    repeatFlag = true;
+                    repeatTime = repeatTime = (float)beatmap.getPhase(currentSection, currentPhase).getEndTime();
                     team.player1.stats.incrementFail();
                     team.player2.stats.incrementFail();
                 }
