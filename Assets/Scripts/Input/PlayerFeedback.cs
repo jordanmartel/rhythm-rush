@@ -49,6 +49,13 @@ public class PlayerFeedback : MonoBehaviour {
             text.color = okayColour;
         }
 
+        else
+        {
+            text.text = "BAD";
+            text.color = missColour;
+
+        }
+
         StartCoroutine(waitforFeedback());
     }
 

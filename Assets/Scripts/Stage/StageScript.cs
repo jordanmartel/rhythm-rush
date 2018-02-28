@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
+using UnityEngine.SceneManagement;
+
 
 public class StageScript : MonoBehaviour
 {
 
     [Header("Beat Info")]
     public string stageName = "creator_lvl";
+    public string nextStage = "";
     public Beatmap beatmap;
     public GameObject noteObject;
     public List<NoteScript> notesOnScreen;
@@ -22,6 +25,7 @@ public class StageScript : MonoBehaviour
     public double noteTravelDistance;
     public int noteHitIndex;
     public double noteTravelSpeed;
+    public double noteSpeedQuotient = 20;
 
     [Header("Input Materials")]
     public Material triangle;
@@ -42,6 +46,7 @@ public class StageScript : MonoBehaviour
 
     public float timer;
     public float phaseTimer;
+    public float stageCompleteTimer;
 
     [Header("General Player Attributes")]
     public Team team;
@@ -58,7 +63,7 @@ public class StageScript : MonoBehaviour
     void Awake () {
 
         parseJson(stageName);
-        noteTravelSpeed = beatmap.bpm / 20;
+        noteTravelSpeed = beatmap.bpm / noteSpeedQuotient;
         noteTravelDistance = 11.1;
         countDownOffset = 4;
         playerOffset = 0.1;
@@ -91,8 +96,6 @@ public class StageScript : MonoBehaviour
             team.player1.notes = new Dictionary<string, string>(beatmapPhase.bothPlayerNotes);
             team.player2.notes = new Dictionary<string, string>(beatmapPhase.bothPlayerNotes);
         }
-
-        Debug.Log(beatmap.sections.Count);
     }
 
     double BeatInterval(int bpm, int beat_split)
@@ -371,7 +374,7 @@ public class StageScript : MonoBehaviour
         float dpadHorizontal = Input.GetAxis("Controller Axis-Joystick" + player.joystick + "-Axis7");
         float dpadVertical = Input.GetAxis("Controller Axis-Joystick" + player.joystick + "-Axis8");
 
-        // only mark the button as pressed if there has been a change since the last frame and axis is non 0
+        // player has pressed or released dpad horizontally
         if (dpadHorizontal != player.previousDpadHorizontal)
         {
             player.previousDpadHorizontal = dpadHorizontal;
@@ -382,7 +385,7 @@ public class StageScript : MonoBehaviour
 
         }
 
-        //only mark the button as pressed if there has been a change since the last frame, and it is non 0
+        // player has pressed or released dpad vertically
         if (dpadVertical != player.previousDpadVertical)
         {
             player.previousDpadVertical = dpadVertical;
@@ -392,11 +395,10 @@ public class StageScript : MonoBehaviour
             }
         }
 
-        // check if any of the joystick buttons have been pressed (circle, triangle, square, cross only)
-        for (int j = 0; j < 3; j++)
-        {
-            string currentButton = "joystick " + player.joystick + " button " + j;
 
+        for (int j = 0; j < 3; j++) {
+
+            string currentButton = "joystick " + player.joystick + " button " + j;    
             if (Input.GetKeyDown(currentButton) && player.previousButton != currentButton)
             {
                 buttonPressed = true;
@@ -405,20 +407,13 @@ public class StageScript : MonoBehaviour
             }
         }
 
-        // want to know when player has stopped pressing button. Do not want to allow player to simply hold down a button
-        if (!buttonPressed)
-        {
-            player.previousButton = "";
-        }
-
         string keyToHit = stringToKey(headNote.key, player.joystick);
-
         if (headNote.canHit || headNote.canMiss) {
-            if ((headNote.key.Equals("square") && dpadHorizontal == -1) ||
-                    (headNote.key.Equals("circle") && dpadHorizontal == 1) ||
-                    (headNote.key.Equals("triangle") && dpadVertical == 1) ||
-                    (headNote.key.Equals("cross") && dpadVertical == -1) ||
-                    (Input.GetKeyDown(keyToHit))) {
+            if (Input.GetKeyDown(keyToHit) || (((headNote.key.Equals("square") && dpadHorizontal == -1) ||
+                   (headNote.key.Equals("circle") && dpadHorizontal == 1) ||
+                   (headNote.key.Equals("triangle") && dpadVertical == 1) ||
+                   (headNote.key.Equals("cross") && dpadVertical == -1)) && (buttonPressed))) { 
+
                 //print("hit successfully");
                 noteHitIndex++;
                 int dealtDamage = headNote.destroyWithFeedback(player.getHitArea(headNote.key), true);
@@ -456,6 +451,29 @@ public class StageScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        // boss is dead, time to move to next stage!
+        if (boss.hasEnded)
+        {
+
+            if (stageCompleteTimer > 5)
+            {
+                if (nextStage != "")
+                {
+                    SceneManager.LoadScene(nextStage);
+                }
+
+                else
+                {
+                    SceneManager.LoadScene("ConnectController");
+
+                }
+            }
+            stageCompleteTimer += Time.deltaTime;
+
+        }
+
+
         timer += Time.deltaTime;
         if (timer >= countDownOffset)
         {

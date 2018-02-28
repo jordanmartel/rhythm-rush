@@ -9,6 +9,8 @@ public class ConnectController : MonoBehaviour {
 
     private int connectedControllers = 0;
 
+    public string firstStage;
+
     private bool player1Ready = false;
     private bool player2Ready = false;
 
@@ -67,7 +69,7 @@ public class ConnectController : MonoBehaviour {
 
         if (player1Ready && player2Ready)
         {
-            SceneManager.LoadScene("WaterStage");
+            SceneManager.LoadScene(firstStage);
         }
 
 
