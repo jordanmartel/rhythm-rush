@@ -14,6 +14,7 @@ public class NoteScript : MonoBehaviour {
     public GameObject feedback;
     public GameObject stage;
     public GameObject destination;
+    public GameObject shockwave;
 
 	// Use this for initialization
 	void Start () {
@@ -62,6 +63,7 @@ public class NoteScript : MonoBehaviour {
         } else {
             float distance = Vector3.Distance(hitArea.transform.position, transform.position);
             score = feedback.GetComponent<PlayerFeedback>().GiveFeedback(distance, correct);
+            DestroyWithShockwave();
         }
 
         Destroy(gameObject);
@@ -69,6 +71,11 @@ public class NoteScript : MonoBehaviour {
         return score;
     }
 
+    private void DestroyWithShockwave() {
+        GameObject shockwaveInst = Instantiate(shockwave, this.transform.localPosition, Quaternion.identity);
+        Destroy(shockwaveInst, 1f);
+        Destroy(gameObject);
+    }
 
     // Update is called once per frame
     void Update () {
