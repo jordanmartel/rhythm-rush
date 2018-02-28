@@ -263,6 +263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   background: {fileID: 2800000, guid: c46e64c64a8bfe245a6a1335bcfd50a3, type: 3}
+  firstStage: WaterStage
 --- !u!1 &1915103102
 GameObject:
   m_ObjectHideFlags: 0
