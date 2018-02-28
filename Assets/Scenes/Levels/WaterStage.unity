@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -167,6 +167,7 @@ MonoBehaviour:
   player2: {fileID: 101990916}
   hasEnded: 0
   losing: {fileID: 223552882996209598, guid: 5d0610aa236e0894fbf8bd41a4bf6067, type: 2}
+  stats: {fileID: 0}
 --- !u!1 &51619732
 GameObject:
   m_ObjectHideFlags: 0
@@ -5124,6 +5125,7 @@ MonoBehaviour:
   noteIndex: 0
   noteCreateIndex: 0
   nextBeatTime: 0
+  countDownOffset: 0
   playerOffset: 0
   beatInterval: 0
   noteTravelDistance: 0
@@ -5137,7 +5139,10 @@ MonoBehaviour:
   dLeft: {fileID: 2100000, guid: 2acdc3c043deca8498c1a19274dfef1c, type: 2}
   dRight: {fileID: 2100000, guid: e536de47c6103b049bf8bd8c43eda6c9, type: 2}
   dDown: {fileID: 2100000, guid: 35fa2cce0b14ef34e8eaf6178e514be0, type: 2}
+  timer: 0
+  phaseTimer: 0
   team: {fileID: 16383843}
+  phaseOffset: 0
 --- !u!1 &403901379 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1231652856388906, guid: dbad734f842de8d4991c4deb02a57c2a,
@@ -5565,6 +5570,11 @@ Prefab:
       propertyPath: m_Name
       value: Player 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114099761738057240, guid: 45402ed6eb8ab8d4893294d3bf524eda,
+        type: 2}
+      propertyPath: stats
+      value: 
+      objectReference: {fileID: 1989472929}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 45402ed6eb8ab8d4893294d3bf524eda, type: 2}
   m_IsPrefabParent: 0
@@ -13912,6 +13922,11 @@ Prefab:
       propertyPath: comboText
       value: 
       objectReference: {fileID: 1764150549}
+    - target: {fileID: 114099761738057240, guid: 45402ed6eb8ab8d4893294d3bf524eda,
+        type: 2}
+      propertyPath: stats
+      value: 
+      objectReference: {fileID: 1218589292}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 45402ed6eb8ab8d4893294d3bf524eda, type: 2}
   m_IsPrefabParent: 0
@@ -14404,6 +14419,27 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1195854197}
+--- !u!1 &1218589291 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1368708695467162, guid: 45402ed6eb8ab8d4893294d3bf524eda,
+    type: 2}
+  m_PrefabInternal: {fileID: 1122551345}
+--- !u!114 &1218589292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1218589291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbe03b751f670fb499c6fd737e16413a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCombo: 0
+  failCount: 0
+  perfectCount: 0
+  stunCount: 0
+  reviveCount: 0
 --- !u!1 &1233195574
 GameObject:
   m_ObjectHideFlags: 0
@@ -26818,7 +26854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee070c6058c92fe45818c53b6378214d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageName: creator_lvl
+  stageName: electric_stage
   beatmap:
     bpm: 0
     beat_split: 0
@@ -26829,6 +26865,7 @@ MonoBehaviour:
   noteIndex: 0
   noteCreateIndex: 0
   nextBeatTime: 0
+  countDownOffset: 0
   playerOffset: 0
   beatInterval: 0
   noteTravelDistance: 0
@@ -26842,7 +26879,10 @@ MonoBehaviour:
   dLeft: {fileID: 2100000, guid: 2acdc3c043deca8498c1a19274dfef1c, type: 2}
   dRight: {fileID: 2100000, guid: e536de47c6103b049bf8bd8c43eda6c9, type: 2}
   dDown: {fileID: 2100000, guid: 35fa2cce0b14ef34e8eaf6178e514be0, type: 2}
+  timer: 0
+  phaseTimer: 0
   team: {fileID: 16383843}
+  phaseOffset: 0
 --- !u!1 &1883036834 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1575840912309366, guid: b8f4db79b15497b4bb8b337f357b02d8,
@@ -27033,6 +27073,27 @@ GameObject:
   m_PrefabParentObject: {fileID: 1996022106455270, guid: dbad734f842de8d4991c4deb02a57c2a,
     type: 2}
   m_PrefabInternal: {fileID: 1399213443}
+--- !u!1 &1989472928 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1368708695467162, guid: 45402ed6eb8ab8d4893294d3bf524eda,
+    type: 2}
+  m_PrefabInternal: {fileID: 521188076}
+--- !u!114 &1989472929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1989472928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbe03b751f670fb499c6fd737e16413a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCombo: 0
+  failCount: 0
+  perfectCount: 0
+  stunCount: 0
+  reviveCount: 0
 --- !u!1 &2008308234
 GameObject:
   m_ObjectHideFlags: 0
