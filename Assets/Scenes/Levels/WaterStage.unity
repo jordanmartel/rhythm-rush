@@ -26778,7 +26778,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageName: creator_lvl
-  nextStage: GrassStage
+  nextStage: FireStage
   beatmap:
     bpm: 0
     beat_split: 0
