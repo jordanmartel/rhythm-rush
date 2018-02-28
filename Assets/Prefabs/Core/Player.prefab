@@ -123,12 +123,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 471d5aa481c780045af21dad67903911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  track: {fileID: 0}
-  hitArea: {fileID: 0}
+  leftTrack: {fileID: 0}
+  centreTrack: {fileID: 0}
+  rightTrack: {fileID: 0}
+  leftMissBox: {fileID: 0}
+  centreMissBox: {fileID: 0}
+  rightMissBox: {fileID: 0}
   feedback: {fileID: 0}
+  leftHitArea: {fileID: 0}
+  centreHitArea: {fileID: 0}
+  rightHitArea: {fileID: 0}
+  comboText: {fileID: 0}
+  stats: {fileID: 0}
   accumulatedDamage: 0
   combo: 0
   joystick: 0
   previousDpadHorizontal: 0
   previousDpadVertical: 0
   previousButton: 
+  failedPhase: 0
+  activeNotes: []
