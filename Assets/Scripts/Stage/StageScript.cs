@@ -365,60 +365,42 @@ public class StageScript : MonoBehaviour
     {
         GameObject noteObj = player.activeNotes[0];
         NoteScript headNote = noteObj.GetComponent<NoteScript>();
-        bool buttonPressed = false;
+        bool dpadPressed = false;
 
         // get the dpad axis orientation
         float dpadHorizontal = Input.GetAxis("Controller Axis-Joystick" + player.joystick + "-Axis7");
         float dpadVertical = Input.GetAxis("Controller Axis-Joystick" + player.joystick + "-Axis8");
 
-        // only mark the button as pressed if there has been a change since the last frame and axis is non 0
+        // player has pressed or released dpad horizontally
         if (dpadHorizontal != player.previousDpadHorizontal)
         {
             player.previousDpadHorizontal = dpadHorizontal;
             if (dpadHorizontal != 0)
             {
-                buttonPressed = true;
+                dpadPressed = true;
             }
 
         }
 
-        //only mark the button as pressed if there has been a change since the last frame, and it is non 0
+        // player has pressed or released dpad vertically
         if (dpadVertical != player.previousDpadVertical)
         {
             player.previousDpadVertical = dpadVertical;
             if (dpadVertical != 0)
             {
-                buttonPressed = true;
+                dpadPressed = true;
             }
-        }
-
-        // check if any of the joystick buttons have been pressed (circle, triangle, square, cross only)
-        for (int j = 0; j < 3; j++)
-        {
-            string currentButton = "joystick " + player.joystick + " button " + j;
-
-            if (Input.GetKeyDown(currentButton) && player.previousButton != currentButton)
-            {
-                buttonPressed = true;
-                player.previousButton = currentButton;
-                break;
-            }
-        }
-
-        // want to know when player has stopped pressing button. Do not want to allow player to simply hold down a button
-        if (!buttonPressed)
-        {
-            player.previousButton = "";
         }
 
         string keyToHit = stringToKey(headNote.key, player.joystick);
-
         if (headNote.canHit || headNote.canMiss) {
-            if ((headNote.key.Equals("square") && dpadHorizontal == -1) ||
-                    (headNote.key.Equals("circle") && dpadHorizontal == 1) ||
-                    (headNote.key.Equals("triangle") && dpadVertical == 1) ||
-                    (headNote.key.Equals("cross") && dpadVertical == -1) ||
-                    (Input.GetKeyDown(keyToHit))) {
+
+
+            if (Input.GetKeyDown(keyToHit) || (((headNote.key.Equals("square") && dpadHorizontal == -1) ||
+                   (headNote.key.Equals("circle") && dpadHorizontal == 1) ||
+                   (headNote.key.Equals("triangle") && dpadVertical == 1) ||
+                   (headNote.key.Equals("cross") && dpadVertical == -1)) && (dpadPressed))) { 
+
                 //print("hit successfully");
                 noteHitIndex++;
                 int dealtDamage = headNote.destroyWithFeedback(player.getHitArea(headNote.key), true);
@@ -438,7 +420,7 @@ public class StageScript : MonoBehaviour
                 player.activeNotes.Remove(noteObj);
 
             }
-            else if (buttonPressed) {
+            else if (dpadPressed || Input.anyKeyDown) {
                 noteHitIndex++;
                 headNote.destroyWithFeedback(player.getHitArea(headNote.key), false);
                 player.updateComboCount(false);
