@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
+using UnityEngine.SceneManagement;
+
 
 public class StageScript : MonoBehaviour
 {
 
     [Header("Beat Info")]
     public string stageName = "creator_lvl";
+    public string nextStage = "";
     public Beatmap beatmap;
     public GameObject noteObject;
     public List<NoteScript> notesOnScreen;
@@ -22,6 +25,7 @@ public class StageScript : MonoBehaviour
     public double noteTravelDistance;
     public int noteHitIndex;
     public double noteTravelSpeed;
+    public double noteSpeedQuotient = 10;
 
     [Header("Input Materials")]
     public Material triangle;
@@ -42,6 +46,7 @@ public class StageScript : MonoBehaviour
 
     public float timer;
     public float phaseTimer;
+    public float stageCompleteTimer;
 
     [Header("General Player Attributes")]
     public Team team;
@@ -58,7 +63,7 @@ public class StageScript : MonoBehaviour
     void Awake () {
 
         parseJson(stageName);
-        noteTravelSpeed = beatmap.bpm / 10;
+        noteTravelSpeed = beatmap.bpm / noteSpeedQuotient;
         noteTravelDistance = 11.1;
         countDownOffset = 0;
         playerOffset = 0.1;
@@ -91,8 +96,6 @@ public class StageScript : MonoBehaviour
             team.player1.notes = new Dictionary<string, string>(beatmapPhase.bothPlayerNotes);
             team.player2.notes = new Dictionary<string, string>(beatmapPhase.bothPlayerNotes);
         }
-
-        Debug.Log(beatmap.sections.Count);
     }
 
     double BeatInterval(int bpm, int beat_split)
@@ -365,7 +368,7 @@ public class StageScript : MonoBehaviour
     {
         GameObject noteObj = player.activeNotes[0];
         NoteScript headNote = noteObj.GetComponent<NoteScript>();
-        bool dpadPressed = false;
+        bool buttonPressed = false;
 
         // get the dpad axis orientation
         float dpadHorizontal = Input.GetAxis("Controller Axis-Joystick" + player.joystick + "-Axis7");
@@ -377,7 +380,7 @@ public class StageScript : MonoBehaviour
             player.previousDpadHorizontal = dpadHorizontal;
             if (dpadHorizontal != 0)
             {
-                dpadPressed = true;
+                buttonPressed = true;
             }
 
         }
@@ -388,18 +391,28 @@ public class StageScript : MonoBehaviour
             player.previousDpadVertical = dpadVertical;
             if (dpadVertical != 0)
             {
-                dpadPressed = true;
+                buttonPressed = true;
+            }
+        }
+
+
+        for (int j = 0; j < 3; j++) {
+
+            string currentButton = "joystick " + player.joystick + " button " + j;    
+            if (Input.GetKeyDown(currentButton) && player.previousButton != currentButton)
+            {
+                buttonPressed = true;
+                player.previousButton = currentButton;
+                break;
             }
         }
 
         string keyToHit = stringToKey(headNote.key, player.joystick);
         if (headNote.canHit || headNote.canMiss) {
-
-
             if (Input.GetKeyDown(keyToHit) || (((headNote.key.Equals("square") && dpadHorizontal == -1) ||
                    (headNote.key.Equals("circle") && dpadHorizontal == 1) ||
                    (headNote.key.Equals("triangle") && dpadVertical == 1) ||
-                   (headNote.key.Equals("cross") && dpadVertical == -1)) && (dpadPressed))) { 
+                   (headNote.key.Equals("cross") && dpadVertical == -1)) && (buttonPressed))) { 
 
                 //print("hit successfully");
                 noteHitIndex++;
@@ -420,7 +433,7 @@ public class StageScript : MonoBehaviour
                 player.activeNotes.Remove(noteObj);
 
             }
-            else if (dpadPressed || Input.anyKeyDown) {
+            else if (buttonPressed) {
                 noteHitIndex++;
                 headNote.destroyWithFeedback(player.getHitArea(headNote.key), false);
                 player.updateComboCount(false);
@@ -438,6 +451,29 @@ public class StageScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        // boss is dead, time to move to next stage!
+        if (boss.hasEnded)
+        {
+
+            if (stageCompleteTimer > 5)
+            {
+                if (nextStage != "")
+                {
+                    SceneManager.LoadScene(nextStage);
+                }
+
+                else
+                {
+                    SceneManager.LoadScene("ConnectController");
+
+                }
+            }
+            stageCompleteTimer += Time.deltaTime;
+
+        }
+
+
         timer += Time.deltaTime;
         if (timer >= beatmap.getPhase(currentSection, currentPhase).getStartTime())
         {
