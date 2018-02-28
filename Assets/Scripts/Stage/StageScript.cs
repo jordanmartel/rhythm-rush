@@ -58,12 +58,12 @@ public class StageScript : MonoBehaviour
     void Awake () {
 
         parseJson(stageName);
-        noteTravelSpeed = beatmap.bpm / 10;
+        noteTravelSpeed = beatmap.bpm / 20;
         noteTravelDistance = 11.1;
-        countDownOffset = 0;
+        countDownOffset = 4;
         playerOffset = 0.1;
         phaseOffset = beatmap.getPhase(currentSection, currentPhase).offset;
-        nextBeatTime = countDownOffset + phaseOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
+        nextBeatTime = phaseOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
         beatInterval = BeatInterval(beatmap.bpm, beatmap.beat_split);
 
         team.player1.joystick = Joysticks.player1Joystick;
@@ -191,7 +191,7 @@ public class StageScript : MonoBehaviour
                     currentPhase--;
                     boss.recoverHealth(1);
                     repeatFlag = true;
-                    repeatTime = repeatTime = (float)beatmap.getPhase(currentSection, currentPhase).getEndTime();
+                    repeatTime = (float)beatmap.getPhase(currentSection, currentPhase).getEndTime() - (float)beatmap.getPhase(currentSection, currentPhase).getStartTime();
                     team.player1.stats.incrementFail();
                     team.player2.stats.incrementFail();
                 }
@@ -222,7 +222,7 @@ public class StageScript : MonoBehaviour
             else if (!isRevival && team.hasFailedPhase())
             {
                 repeatFlag = true;
-                repeatTime = (float) beatmap.getPhase(currentSection, currentPhase).getEndTime();
+                repeatTime = (float) beatmap.getPhase(currentSection, currentPhase).getEndTime() - (float)beatmap.getPhase(currentSection, currentPhase).getStartTime();
 
             }
         }
@@ -262,7 +262,7 @@ public class StageScript : MonoBehaviour
         if (!repeatFlag)
         {
             // the beat time is phase dependent, so reset these
-            nextBeatTime = phaseOffset + countDownOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
+            nextBeatTime = phaseOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
             noteCreateIndex = 0;
             phaseTimer = 0;
 
@@ -457,14 +457,14 @@ public class StageScript : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer >= beatmap.getPhase(currentSection, currentPhase).getStartTime())
+        if (timer >= countDownOffset)
         {
             phaseTimer += Time.deltaTime;
         }
         if (repeatFlag && phaseTimer >= repeatTime)
         {
             // the beat time is phase dependent, so reset these
-            nextBeatTime = phaseOffset + countDownOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
+            nextBeatTime = phaseOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
             noteCreateIndex = 0;
             phaseTimer = 0;
 
@@ -481,7 +481,7 @@ public class StageScript : MonoBehaviour
             if (phaseTimer > nextBeatTime && phaseTimer - nextBeatTime < 0.1f)
             {
                 noteCreateIndex++;
-                nextBeatTime = countDownOffset + phaseOffset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
+                nextBeatTime = phaseOffset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
             }           
 
             if (teamAttackController.timerExpired())
@@ -533,7 +533,7 @@ public class StageScript : MonoBehaviour
                 createPlayerNote("right", team.player2);
 
                 noteCreateIndex++;
-                nextBeatTime = phaseOffset + countDownOffset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
+                nextBeatTime = phaseOffset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
             }
 
             if (team.player1.activeNotes.Count > 0)
