@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -5252,7 +5252,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 64b76aeab8da4014d8bf99e585355af2, type: 3}
+  m_audioClip: {fileID: 8300000, guid: eb17d74c5f904054f9f606f0da7babf7, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -13560,6 +13560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageName: electric_stage
+  nextStage: 
   beatmap:
     bpm: 0
     beat_split: 0
@@ -13576,6 +13577,7 @@ MonoBehaviour:
   noteTravelDistance: 0
   noteHitIndex: 0
   noteTravelSpeed: 0
+  noteSpeedQuotient: 10
   triangle: {fileID: 2100000, guid: 583a49da45b0fcf448a5bd4563ccd4d2, type: 2}
   circle: {fileID: 2100000, guid: 5d1a40688e40ede4eab0e3e70d38ad28, type: 2}
   square: {fileID: 2100000, guid: 190aeb80037968844b8a2bd0eb621db0, type: 2}
@@ -13584,7 +13586,11 @@ MonoBehaviour:
   dLeft: {fileID: 2100000, guid: 2acdc3c043deca8498c1a19274dfef1c, type: 2}
   dRight: {fileID: 2100000, guid: e536de47c6103b049bf8bd8c43eda6c9, type: 2}
   dDown: {fileID: 2100000, guid: 35fa2cce0b14ef34e8eaf6178e514be0, type: 2}
+  timer: 0
+  phaseTimer: 0
+  stageCompleteTimer: 0
   team: {fileID: 16383843}
+  phaseOffset: 0
 --- !u!1 &982675913 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1378463009151304, guid: dbad734f842de8d4991c4deb02a57c2a,
@@ -23224,32 +23230,32 @@ Prefab:
     - target: {fileID: 114147930248521576, guid: a9d9f5165469f5141b3a55acd718ce68,
         type: 2}
       propertyPath: perfectValue
-      value: 40
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 114147930248521576, guid: a9d9f5165469f5141b3a55acd718ce68,
         type: 2}
       propertyPath: goodValue
-      value: 30
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 114147930248521576, guid: a9d9f5165469f5141b3a55acd718ce68,
         type: 2}
       propertyPath: okayValue
-      value: 20
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 114788332884227368, guid: a9d9f5165469f5141b3a55acd718ce68,
         type: 2}
       propertyPath: perfectValue
-      value: 40
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 114788332884227368, guid: a9d9f5165469f5141b3a55acd718ce68,
         type: 2}
       propertyPath: goodValue
-      value: 30
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 114788332884227368, guid: a9d9f5165469f5141b3a55acd718ce68,
         type: 2}
       propertyPath: okayValue
-      value: 20
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 114267611199229696, guid: a9d9f5165469f5141b3a55acd718ce68,
         type: 2}
