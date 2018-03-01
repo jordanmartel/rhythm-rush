@@ -5,6 +5,7 @@ using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class StageScript : MonoBehaviour
@@ -47,6 +48,11 @@ public class StageScript : MonoBehaviour
     public float timer;
     public float phaseTimer;
     public float stageCompleteTimer;
+    public Canvas countDownCanvas;
+    public Sprite countDown3;
+    public Sprite countDown2;
+    public Sprite countDown1;
+    public Sprite countDownGo;
 
     [Header("General Player Attributes")]
     public Team team;
@@ -66,7 +72,7 @@ public class StageScript : MonoBehaviour
         noteTravelSpeed = beatmap.bpm / noteSpeedQuotient;
         noteTravelDistance = 11.1;
         countDownOffset = 4;
-        playerOffset = -0.1;
+        playerOffset = -0.2;
         phaseOffset = beatmap.getPhase(currentSection, currentPhase).offset;
         nextBeatTime = phaseOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
         beatInterval = BeatInterval(beatmap.bpm, beatmap.beat_split);
@@ -477,9 +483,23 @@ public class StageScript : MonoBehaviour
 
 
         timer += Time.deltaTime;
+        if (timer >= 3)
+        {
+            countDownCanvas.GetComponentInChildren<Image>().sprite = countDownGo;
+        }
+        else if (timer >= 2)
+        {
+            countDownCanvas.GetComponentInChildren<Image>().sprite = countDown1;
+        }
+        else if (timer >= 1)
+        {
+            countDownCanvas.GetComponentInChildren<Image>().sprite = countDown2;
+        }
+
         if (timer >= countDownOffset)
         {
             phaseTimer += Time.deltaTime;
+            countDownCanvas.enabled = false;
         }
         if (repeatFlag && phaseTimer >= repeatTime)
         {
