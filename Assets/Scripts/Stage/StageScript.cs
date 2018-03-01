@@ -4,15 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
-using UnityEngine.SceneManagement;
 
 
 public class StageScript : MonoBehaviour
 {
-
     [Header("Beat Info")]
     public string stageName = "creator_lvl";
-    public string nextStage = "";
     public Beatmap beatmap;
     public GameObject noteObject;
     public List<NoteScript> notesOnScreen;
@@ -24,8 +21,15 @@ public class StageScript : MonoBehaviour
     public double beatInterval;
     public double noteTravelDistance;
     public int noteHitIndex;
+    public double phaseOffset;
+    public int currentSection;
+    public int currentPhase;
+    private BeatmapPhase beatmapPhase;
+    private bool isRevival = false;
+    private int currentRevivalSection = -1;
     public double noteTravelSpeed;
     public double noteSpeedQuotient = 10;
+    public bool autoPlay = false;
 
     [Header("Input Materials")]
     public Material triangle;
@@ -37,25 +41,18 @@ public class StageScript : MonoBehaviour
     public Material dRight;
     public Material dDown;
 
-    private int currentSection;
-    private int currentPhase;
-    private BeatmapPhase beatmapPhase;
-    private bool isRevival = false;
-    private int currentRevivalSection = -1;
+
     private Player revivingPlayer;
 
     public float timer;
     public float phaseTimer;
-    public float stageCompleteTimer;
 
     [Header("General Player Attributes")]
     public Team team;
-
     private BossScript boss;
     private TeamAttack teamAttackController;
     private bool repeatFlag = false;
     private float repeatTime;
-    public double phaseOffset;
 
     // ==========================
     // Use this for initialization
@@ -68,14 +65,20 @@ public class StageScript : MonoBehaviour
         countDownOffset = 0;
         playerOffset = 0.1;
         phaseOffset = beatmap.getPhase(currentSection, currentPhase).offset;
+        Debug.Log(phaseOffset);
         nextBeatTime = countDownOffset + phaseOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
         beatInterval = BeatInterval(beatmap.bpm, beatmap.beat_split);
+
 
         team.player1.joystick = Joysticks.player1Joystick;
         team.player2.joystick = Joysticks.player2Joystick;
 
         boss = FindObjectOfType<BossScript>();
         teamAttackController = FindObjectOfType<TeamAttack>();
+
+        // for testing, we may start the audio at a different phase
+        FindObjectOfType<AudioControl>().GetComponent<AudioSource>().time = (float)beatmap.getPhase(currentSection, currentPhase).getStartTime();
+        timer = (float) beatmap.getPhase(currentSection, currentPhase).getStartTime();
 
     }
 
@@ -88,13 +91,17 @@ public class StageScript : MonoBehaviour
 
         // Create new copies of the dictionaries. This way we can delete values from the player dictionary when 
         // spawning notes and still have access to the original notes in the beatmap dictionary when phases are repeated
-        team.player1.notes = new Dictionary<string, string>(beatmapPhase.player1Notes);
-        team.player2.notes = new Dictionary<string, string>(beatmapPhase.player2Notes);
 
         if (beatmapPhase.bothPlayerNotes.Count > 0)
         {
             team.player1.notes = new Dictionary<string, string>(beatmapPhase.bothPlayerNotes);
             team.player2.notes = new Dictionary<string, string>(beatmapPhase.bothPlayerNotes);
+        }
+
+        else
+        {
+            team.player1.notes = new Dictionary<string, string>(beatmapPhase.player1Notes);
+            team.player2.notes = new Dictionary<string, string>(beatmapPhase.player2Notes);
         }
     }
 
@@ -139,9 +146,8 @@ public class StageScript : MonoBehaviour
         {
             // only move to the next phase if the phase has been failed
 
-            if(isRevival && team.hasFailedPhase()) {
-                    team.health--;
-
+            if (isRevival && team.hasFailedPhase()) {
+                team.health--;
             }
 
             Debug.Log("HP:" + team.health);
@@ -203,8 +209,8 @@ public class StageScript : MonoBehaviour
                 {
                     if (isRevival) {
                         isRevival = false;
-                        
-                    } else { 
+                    }
+                    else { 
                         isRevival = true;
                         //REVIVE Phase
                         Debug.Log("player Fails: " + team.player1.failedPhase + "<" + team.player2.failedPhase);
@@ -215,6 +221,9 @@ public class StageScript : MonoBehaviour
                         } else {
                             team.KnockDownPlayer(team.player1);
                         }
+
+                        FindObjectOfType<AudioControl>().GetComponent<AudioSource>().Pause();
+
                         currentRevivalSection = currentSection;
                         currentSection = beatmap.sections.Count - 1;
                         currentPhase = 0;
@@ -232,6 +241,7 @@ public class StageScript : MonoBehaviour
         
         // retrieve the next phase, and corresponding notes
         beatmapPhase = beatmap.getPhase(currentSection, currentPhase);
+        phaseOffset = beatmapPhase.offset;
 
         // entering a boss attack phase should show the boss as preparing for an attack
         if (!isRevival && currentPhase + 1 == beatmap.sections[currentSection].Count)
@@ -253,12 +263,16 @@ public class StageScript : MonoBehaviour
         }
         else {
             // get the values from the beatmap
-            team.player1.notes = new Dictionary<string, string>(beatmapPhase.player1Notes);
-            team.player2.notes = new Dictionary<string, string>(beatmapPhase.player2Notes);
-
-            if (beatmapPhase.bothPlayerNotes.Count > 0) {
+            if (beatmapPhase.bothPlayerNotes.Count > 0)
+            {
                 team.player1.notes = new Dictionary<string, string>(beatmapPhase.bothPlayerNotes);
                 team.player2.notes = new Dictionary<string, string>(beatmapPhase.bothPlayerNotes);
+            }
+
+            else
+            {
+                team.player1.notes = new Dictionary<string, string>(beatmapPhase.player1Notes);
+                team.player2.notes = new Dictionary<string, string>(beatmapPhase.player2Notes);
             }
         }
 
@@ -412,8 +426,14 @@ public class StageScript : MonoBehaviour
             if (Input.GetKeyDown(keyToHit) || (((headNote.key.Equals("square") && dpadHorizontal == -1) ||
                    (headNote.key.Equals("circle") && dpadHorizontal == 1) ||
                    (headNote.key.Equals("triangle") && dpadVertical == 1) ||
-                   (headNote.key.Equals("cross") && dpadVertical == -1)) && (buttonPressed))) { 
+                   (headNote.key.Equals("cross") && dpadVertical == -1)) && (buttonPressed)) || autoPlay) { 
 
+                
+                if (autoPlay && !headNote.canHit)
+                {
+                    return;
+                }
+                
                 //print("hit successfully");
                 noteHitIndex++;
                 int dealtDamage = headNote.destroyWithFeedback(player.getHitArea(headNote.key), true);
@@ -451,28 +471,11 @@ public class StageScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        // boss is dead, time to move to next stage!
-        if (boss.hasEnded)
+        // press space to toggle autoplay
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-
-            if (stageCompleteTimer > 5)
-            {
-                if (nextStage != "")
-                {
-                    SceneManager.LoadScene(nextStage);
-                }
-
-                else
-                {
-                    SceneManager.LoadScene("ConnectController");
-
-                }
-            }
-            stageCompleteTimer += Time.deltaTime;
-
+            autoPlay = !autoPlay;
         }
-
 
         timer += Time.deltaTime;
         if (timer >= beatmap.getPhase(currentSection, currentPhase).getStartTime())
@@ -523,7 +526,7 @@ public class StageScript : MonoBehaviour
 
             else
             {
-                if (Input.anyKeyDown)
+                if (Input.anyKeyDown || autoPlay)
                 {
                     teamAttackController.buildTeamAttack();
                 }
@@ -540,6 +543,10 @@ public class StageScript : MonoBehaviour
                     currentSection = currentRevivalSection;
                     currentPhase = beatmap.sections[currentSection].Count - 1;
                     team.revivePlayer();
+
+                    FindObjectOfType<AudioControl>().GetComponent<AudioSource>().time = (float) beatmap.getPhase(currentSection, currentPhase).startTime;
+                    FindObjectOfType<AudioControl>().GetComponent<AudioSource>().Play();
+
                 }
                 moveToNextPhase(false);
             }

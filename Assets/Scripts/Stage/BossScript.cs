@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class BossScript : MonoBehaviour {
 
@@ -11,6 +13,9 @@ public class BossScript : MonoBehaviour {
     public Scrollbar healthBar;
     public Canvas winning;
     public bool hasEnded = false;
+
+    private double stageCompleteTimer = 0;
+    public string nextStage = "";
 
     private bool preparingAttack = false;
 
@@ -58,7 +63,26 @@ public class BossScript : MonoBehaviour {
                 FindObjectOfType<StageScript>().enabled = false;
             }
         }
-	}
+
+        // boss is dead, time to move to next stage!
+        else {
+
+            if (stageCompleteTimer > 5)
+            {
+                if (nextStage != "")
+                {
+                    SceneManager.LoadScene(nextStage);
+                }
+
+                else
+                {
+                    SceneManager.LoadScene("ConnectController");
+
+                }
+            }
+            stageCompleteTimer += Time.deltaTime;
+        }
+    }
 
     public void setAttackState()
     {
