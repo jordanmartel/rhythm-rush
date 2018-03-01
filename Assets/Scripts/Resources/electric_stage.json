@@ -581,11 +581,7 @@
 					"104": "square",
 					"105": "square",
 					"106": "square",
-					"107": "square",
-					"108": "cross",
-					"109": "cross",
-					"110": "cross",
-					"111": "cross"
+					"107": "square"
         },
         "player1Notes": {},
         "player2Notes": {}
