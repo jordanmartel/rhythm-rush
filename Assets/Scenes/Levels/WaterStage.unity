@@ -1294,8 +1294,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee070c6058c92fe45818c53b6378214d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageName: electric_stage
-  nextStage: 
+  stageName: water_stage
+  nextStage: FireStage
   beatmap:
     bpm: 0
     beat_split: 0
@@ -1321,6 +1321,8 @@ MonoBehaviour:
   dLeft: {fileID: 2100000, guid: 2acdc3c043deca8498c1a19274dfef1c, type: 2}
   dRight: {fileID: 2100000, guid: e536de47c6103b049bf8bd8c43eda6c9, type: 2}
   dDown: {fileID: 2100000, guid: 35fa2cce0b14ef34e8eaf6178e514be0, type: 2}
+  currentSection: 0
+  currentPhase: 0
   timer: 0
   phaseTimer: 0
   stageCompleteTimer: 0
