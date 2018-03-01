@@ -25,7 +25,7 @@ public class StageScript : MonoBehaviour
     public double noteTravelDistance;
     public int noteHitIndex;
     public double noteTravelSpeed;
-    public double noteSpeedQuotient = 20;
+    public double noteSpeedQuotient = 30;
 
     [Header("Input Materials")]
     public Material triangle;
@@ -66,7 +66,7 @@ public class StageScript : MonoBehaviour
         noteTravelSpeed = beatmap.bpm / noteSpeedQuotient;
         noteTravelDistance = 11.1;
         countDownOffset = 4;
-        playerOffset = 0.1;
+        playerOffset = -0.1;
         phaseOffset = beatmap.getPhase(currentSection, currentPhase).offset;
         nextBeatTime = phaseOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
         beatInterval = BeatInterval(beatmap.bpm, beatmap.beat_split);
@@ -132,6 +132,11 @@ public class StageScript : MonoBehaviour
             {
                 currentSection++;
                 currentPhase = 0;
+            }
+            else
+            {
+                repeatFlag = true;
+                repeatTime = (float)beatmap.getPhase(currentSection, currentPhase).getEndTime() - (float)beatmap.getPhase(currentSection, currentPhase).getStartTime();
             }
         }
 
