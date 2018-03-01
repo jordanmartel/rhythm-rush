@@ -7,7 +7,7 @@
     [
       {
 		"startTime": 0,
-		"endTime": 6.87,
+		"endTime": 12,
 		"offset": 3.130,
         "bothPlayerNotes": {},
         "player1Notes": {
@@ -34,8 +34,8 @@
         }
       },
       {
-		"startTime": 0,
-		"endTime": 6.87,
+		"startTime": 12,
+		"endTime": 24,
 		"offset": 3.130,
         "bothPlayerNotes": {},
         "player1Notes": {
@@ -62,8 +62,8 @@
         }
       },
       {
-	  	"startTime": 0,
-		"endTime": 6.87,
+	  	"startTime": 24,
+		"endTime": 36,
 		"offset": 3.130,
         "bothPlayerNotes": {
           "0": "circle",

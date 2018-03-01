@@ -5,7 +5,7 @@ using UnityEngine;
 public class Team : MonoBehaviour
 {
     public int health;
-    public int maxHealth = 3;
+    public int maxHealth = 1000000;
     public Player player1;
     public Player player2;
     public bool hasEnded = false;
