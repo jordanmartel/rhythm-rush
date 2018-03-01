@@ -1,0 +1,247 @@
+{
+  "bpm": 140,
+  "beat_split": 2,
+  "offset": 0,
+  "thresholds": [ 20.0, 25.0, 30.0, 35.0, 40.0, 46.1 ],
+  "sections": [
+    [
+      {
+		"startTime": 0,
+		"endTime": 6.87,
+		"offset": 3.130,
+        "bothPlayerNotes": {},
+        "player1Notes": {
+          "0": "cross",
+          "2": "cross",
+          "4": "cross",
+          "6": "cross",
+          "8": "cross",
+          "10": "cross",
+          "12": "cross",
+          "14": "cross",
+          "16": "cross"
+        },
+        "player2Notes": {
+          "0": "triangle",
+          "2": "triangle",
+          "4": "triangle",
+          "6": "triangle",
+          "8": "triangle",
+          "10": "triangle",
+          "12": "triangle",
+          "14": "triangle",
+          "16": "triangle"
+        }
+      },
+      {
+		"startTime": 0,
+		"endTime": 6.87,
+		"offset": 3.130,
+        "bothPlayerNotes": {},
+        "player1Notes": {
+          "0": "circle",
+          "2": "circle",
+          "4": "circle",
+          "6": "circle",
+          "8": "circle",
+          "10": "circle",
+          "12": "circle",
+          "14": "circle",
+          "16": "circle"
+        },
+        "player2Notes": {
+          "0": "cross",
+          "2": "cross",
+          "4": "cross",
+          "6": "cross",
+          "8": "cross",
+          "10": "cross",
+          "12": "cross",
+          "14": "cross",
+          "16": "cross"
+        }
+      },
+      {
+	  	"startTime": 0,
+		"endTime": 6.87,
+		"offset": 3.130,
+        "bothPlayerNotes": {
+          "0": "circle",
+          "2": "circle",
+          "4": "circle",
+          "6": "circle",
+          "8": "circle",
+          "10": "circle",
+          "12": "circle",
+          "14": "circle",
+          "16": "circle"
+        },
+        "player1Notes": {},
+        "player2Notes": {}
+      }
+    ],
+    [
+      {
+		"startTime": 0,
+		"endTime": 6.87,
+		"offset": 3.130,
+        "bothPlayerNotes": {},
+        "player1Notes": {
+          "0": "cross",
+          "2": "cross",
+          "4": "cross",
+          "6": "cross",
+          "8": "cross",
+          "10": "cross",
+          "12": "cross",
+          "14": "cross",
+          "16": "cross"
+        },
+        "player2Notes": {
+          "0": "triangle",
+          "2": "triangle",
+          "4": "triangle",
+          "6": "triangle",
+          "8": "triangle",
+          "10": "triangle",
+          "12": "triangle",
+          "14": "triangle",
+          "16": "triangle"
+        }
+      },
+      {
+	  	"startTime": 0,
+		"endTime": 6.87,
+		"offset": 3.130,
+        "bothPlayerNotes": {},
+        "player1Notes": {
+          "0": "circle",
+          "2": "circle",
+          "4": "circle",
+          "6": "circle",
+          "8": "circle",
+          "10": "circle",
+          "12": "circle",
+          "14": "circle",
+          "16": "circle"
+        },
+        "player2Notes": {
+          "0": "cross",
+          "2": "cross",
+          "4": "cross",
+          "6": "cross",
+          "8": "cross",
+          "10": "cross",
+          "12": "cross",
+          "14": "cross",
+          "16": "cross"
+        }
+      },
+      {
+	  	"startTime": 0,
+		"endTime": 6.87,
+		"offset": 3.130,
+        "bothPlayerNotes": {
+          "0": "circle",
+          "2": "circle",
+          "4": "circle",
+          "6": "circle",
+          "8": "circle",
+          "10": "circle",
+          "12": "circle",
+          "14": "circle",
+          "16": "circle"
+        },
+        "player1Notes": {},
+        "player2Notes": {}
+      }
+    ],
+    [
+      {
+	  	"startTime": 0,
+		"endTime": 6.87,
+		"offset": 3.130,
+        "bothPlayerNotes": {},
+        "player1Notes": {
+          "0": "cross",
+          "2": "cross",
+          "4": "cross",
+          "6": "cross",
+          "8": "cross",
+          "10": "cross",
+          "12": "cross",
+          "14": "cross",
+          "16": "cross"
+        },
+        "player2Notes": {
+          "0": "triangle",
+          "2": "triangle",
+          "4": "triangle",
+          "6": "triangle",
+          "8": "triangle",
+          "10": "triangle",
+          "12": "triangle",
+          "14": "triangle",
+          "16": "triangle"
+        }
+      },
+      {
+	  	"startTime": 0,
+		"endTime": 6.87,
+		"offset": 3.130,
+        "bothPlayerNotes": {},
+        "player1Notes": {
+          "0": "circle",
+          "2": "circle",
+          "4": "circle",
+          "6": "circle",
+          "8": "circle",
+          "10": "circle",
+          "12": "circle",
+          "14": "circle",
+          "16": "circle"
+        },
+        "player2Notes": {
+          "0": "cross",
+          "2": "cross",
+          "4": "cross",
+          "6": "cross",
+          "8": "cross",
+          "10": "cross",
+          "12": "cross",
+          "14": "cross",
+          "16": "cross"
+        }
+      },
+      {
+
+        "bothPlayerNotes": {
+          "0": "circle",
+          "2": "circle",
+          "4": "circle",
+          "6": "circle",
+          "8": "circle",
+          "10": "circle",
+          "12": "circle",
+          "14": "circle",
+          "16": "circle"
+        },
+        "player1Notes": {},
+        "player2Notes": {}
+      }
+	], 
+	[{
+		"revivalNotes": {
+			"0": "square",
+			"2": "square",
+			"6": "square",
+			"10": "square",
+			"12": "square",
+			"16": "square",
+			"20": "square"
+			
+		} }, 
+		{}
+    ]
+  ]
+}

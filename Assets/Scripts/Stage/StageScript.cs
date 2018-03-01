@@ -37,8 +37,8 @@ public class StageScript : MonoBehaviour
     public Material dRight;
     public Material dDown;
 
-    private int currentSection;
-    private int currentPhase;
+    public int currentSection;
+    public int currentPhase;
     private BeatmapPhase beatmapPhase;
     private bool isRevival = false;
     private int currentRevivalSection = -1;
@@ -76,6 +76,10 @@ public class StageScript : MonoBehaviour
 
         boss = FindObjectOfType<BossScript>();
         teamAttackController = FindObjectOfType<TeamAttack>();
+
+        // for testing, we may start the audio at a different phase
+        FindObjectOfType<AudioControl>().GetComponent<AudioSource>().time = (float)beatmap.getPhase(currentSection, currentPhase).getStartTime();
+        timer = (float) beatmap.getPhase(currentSection, currentPhase).getStartTime();
 
     }
 
