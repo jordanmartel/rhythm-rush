@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 4484961515324410}
   - component: {fileID: 114443891517125712}
   - component: {fileID: 114690949539829646}
+  - component: {fileID: 111769233312603710}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Untagged
@@ -198,6 +199,7 @@ GameObject:
   - component: {fileID: 4966959926860258}
   - component: {fileID: 114629052282248322}
   - component: {fileID: 114211563756293618}
+  - component: {fileID: 111477995225523430}
   m_Layer: 0
   m_Name: Player 2
   m_TagString: Untagged
@@ -1094,6 +1096,38 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!111 &111477995225523430
+Animation:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1637514611532342}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 546700a249e1da842b17e860341a9140, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 546700a249e1da842b17e860341a9140, type: 2}
+  - {fileID: 7400000, guid: 0646fbb9076a2fd4cb3890759775f949, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!111 &111769233312603710
+Animation:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1448252774098774}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 0646fbb9076a2fd4cb3890759775f949, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 546700a249e1da842b17e860341a9140, type: 2}
+  - {fileID: 7400000, guid: 0646fbb9076a2fd4cb3890759775f949, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!114 &114054004981541408
 MonoBehaviour:
   m_ObjectHideFlags: 1
