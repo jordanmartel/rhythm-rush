@@ -253,6 +253,9 @@
       }
 	], 
 	[{
+		"startTime": 0,
+		"endTime": 10.0,
+		"offset": 3,
 		"revivalNotes": {
 			"0": "square",
 			"2": "square",

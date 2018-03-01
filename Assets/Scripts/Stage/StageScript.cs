@@ -144,9 +144,8 @@ public class StageScript : MonoBehaviour
         {
             // only move to the next phase if the phase has been failed
 
-            if(isRevival && team.hasFailedPhase()) {
-                    team.health--;
-
+            if (isRevival && team.hasFailedPhase()) {
+                team.health--;
             }
 
             Debug.Log("HP:" + team.health);
@@ -208,8 +207,8 @@ public class StageScript : MonoBehaviour
                 {
                     if (isRevival) {
                         isRevival = false;
-                        
-                    } else { 
+                    }
+                    else { 
                         isRevival = true;
                         //REVIVE Phase
                         Debug.Log("player Fails: " + team.player1.failedPhase + "<" + team.player2.failedPhase);
@@ -220,6 +219,9 @@ public class StageScript : MonoBehaviour
                         } else {
                             team.KnockDownPlayer(team.player1);
                         }
+
+                        FindObjectOfType<AudioControl>().GetComponent<AudioSource>().Pause();
+
                         currentRevivalSection = currentSection;
                         currentSection = beatmap.sections.Count - 1;
                         currentPhase = 0;
@@ -557,6 +559,10 @@ public class StageScript : MonoBehaviour
                     currentSection = currentRevivalSection;
                     currentPhase = beatmap.sections[currentSection].Count - 1;
                     team.revivePlayer();
+
+                    FindObjectOfType<AudioControl>().GetComponent<AudioSource>().time = (float) beatmap.getPhase(currentSection, currentPhase).startTime;
+                    FindObjectOfType<AudioControl>().GetComponent<AudioSource>().Play();
+
                 }
                 moveToNextPhase(false);
             }

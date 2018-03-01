@@ -1209,7 +1209,7 @@ MonoBehaviour:
   currentPhase: 0
   noteTravelSpeed: 0
   noteSpeedQuotient: 20
-  autoPlay: 1
+  autoPlay: 0
   triangle: {fileID: 2100000, guid: 583a49da45b0fcf448a5bd4563ccd4d2, type: 2}
   circle: {fileID: 2100000, guid: 5d1a40688e40ede4eab0e3e70d38ad28, type: 2}
   square: {fileID: 2100000, guid: 190aeb80037968844b8a2bd0eb621db0, type: 2}
@@ -5452,6 +5452,27 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cd47197a1169089488aa798c8d02f96c, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1345762712 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1448252774098774, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8,
+    type: 2}
+  m_PrefabInternal: {fileID: 204258044}
+--- !u!111 &1345762716
+Animation:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1345762712}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 0646fbb9076a2fd4cb3890759775f949, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 0646fbb9076a2fd4cb3890759775f949, type: 2}
+  - {fileID: 7400000, guid: 546700a249e1da842b17e860341a9140, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1355460878
 GameObject:
   m_ObjectHideFlags: 0
@@ -13151,6 +13172,27 @@ GameObject:
   m_PrefabParentObject: {fileID: 1168427630153208, guid: cd47197a1169089488aa798c8d02f96c,
     type: 2}
   m_PrefabInternal: {fileID: 1306796516}
+--- !u!1 &1885097877 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1637514611532342, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8,
+    type: 2}
+  m_PrefabInternal: {fileID: 204258044}
+--- !u!111 &1885097881
+Animation:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1885097877}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 0646fbb9076a2fd4cb3890759775f949, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 0646fbb9076a2fd4cb3890759775f949, type: 2}
+  - {fileID: 7400000, guid: 546700a249e1da842b17e860341a9140, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1898690046
 GameObject:
   m_ObjectHideFlags: 0
