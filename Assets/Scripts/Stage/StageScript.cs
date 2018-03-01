@@ -24,8 +24,15 @@ public class StageScript : MonoBehaviour
     public double beatInterval;
     public double noteTravelDistance;
     public int noteHitIndex;
+    public double phaseOffset;
+    public int currentSection;
+    public int currentPhase;
+    private BeatmapPhase beatmapPhase;
+    private bool isRevival = false;
+    private int currentRevivalSection = -1;
     public double noteTravelSpeed;
     public double noteSpeedQuotient = 10;
+    public bool autoPlay = false;
 
     [Header("Input Materials")]
     public Material triangle;
@@ -37,11 +44,7 @@ public class StageScript : MonoBehaviour
     public Material dRight;
     public Material dDown;
 
-    public int currentSection;
-    public int currentPhase;
-    private BeatmapPhase beatmapPhase;
-    private bool isRevival = false;
-    private int currentRevivalSection = -1;
+
     private Player revivingPlayer;
 
     public float timer;
@@ -50,12 +53,10 @@ public class StageScript : MonoBehaviour
 
     [Header("General Player Attributes")]
     public Team team;
-
     private BossScript boss;
     private TeamAttack teamAttackController;
     private bool repeatFlag = false;
     private float repeatTime;
-    public double phaseOffset;
 
     // ==========================
     // Use this for initialization
@@ -236,6 +237,7 @@ public class StageScript : MonoBehaviour
         
         // retrieve the next phase, and corresponding notes
         beatmapPhase = beatmap.getPhase(currentSection, currentPhase);
+        phaseOffset = beatmapPhase.offset;
 
         // entering a boss attack phase should show the boss as preparing for an attack
         if (!isRevival && currentPhase + 1 == beatmap.sections[currentSection].Count)
@@ -416,8 +418,14 @@ public class StageScript : MonoBehaviour
             if (Input.GetKeyDown(keyToHit) || (((headNote.key.Equals("square") && dpadHorizontal == -1) ||
                    (headNote.key.Equals("circle") && dpadHorizontal == 1) ||
                    (headNote.key.Equals("triangle") && dpadVertical == 1) ||
-                   (headNote.key.Equals("cross") && dpadVertical == -1)) && (buttonPressed))) { 
+                   (headNote.key.Equals("cross") && dpadVertical == -1)) && (buttonPressed)) || autoPlay) { 
 
+                
+                if (autoPlay && !headNote.canHit)
+                {
+                    return;
+                }
+                
                 //print("hit successfully");
                 noteHitIndex++;
                 int dealtDamage = headNote.destroyWithFeedback(player.getHitArea(headNote.key), true);
@@ -455,6 +463,11 @@ public class StageScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // press space to toggle autoplay
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            autoPlay = !autoPlay;
+        }
 
         // boss is dead, time to move to next stage!
         if (boss.hasEnded)
@@ -527,7 +540,7 @@ public class StageScript : MonoBehaviour
 
             else
             {
-                if (Input.anyKeyDown)
+                if (Input.anyKeyDown || autoPlay)
                 {
                     teamAttackController.buildTeamAttack();
                 }
