@@ -53,8 +53,8 @@ public class StageScript : MonoBehaviour
 
     private BossScript boss;
     private TeamAttack teamAttackController;
-    private bool repeatFlag = false;
-    private float repeatTime;
+    public bool repeatFlag = false;
+    public float repeatTime;
     public double phaseOffset;
 
     // ==========================
@@ -103,6 +103,12 @@ public class StageScript : MonoBehaviour
         return 60.0 / bpm / beat_split;
     }
 
+    void setRepeat()
+    {
+        repeatFlag = true;
+        repeatTime = (float)beatmap.getPhase(currentSection, currentPhase).getEndTime() - (float)beatmap.getPhase(currentSection, currentPhase).getStartTime();
+    }
+
     void moveToNextPhase(bool teamAttack)
     {
         
@@ -135,8 +141,7 @@ public class StageScript : MonoBehaviour
             }
             else
             {
-                repeatFlag = true;
-                repeatTime = (float)beatmap.getPhase(currentSection, currentPhase).getEndTime() - (float)beatmap.getPhase(currentSection, currentPhase).getStartTime();
+                setRepeat();
             }
         }
 
@@ -179,8 +184,7 @@ public class StageScript : MonoBehaviour
                 if (!isRevival) {
                     team.attackedByBoss();
                     boss.resetAttackState();
-                    repeatFlag = true;
-                    repeatTime = (float)beatmap.getPhase(currentSection, currentPhase).getEndTime() - (float)beatmap.getPhase(currentSection, currentPhase).getStartTime();
+                    setRepeat();
                 }
 
                 if (team.health == 0)
@@ -193,8 +197,7 @@ public class StageScript : MonoBehaviour
                 if (team.player1.failedPhase && team.player2.failedPhase)
                 {
                     // Go back a phase when both players "stunned" by boss attack
-                    repeatFlag = true;
-                    repeatTime = (float)beatmap.getPhase(currentSection, currentPhase).getEndTime() - (float)beatmap.getPhase(currentSection, currentPhase).getStartTime();
+                    setRepeat();
                     currentPhase--;
                     boss.recoverHealth(1);
                     team.player1.stats.incrementFail();
@@ -226,9 +229,7 @@ public class StageScript : MonoBehaviour
             // A regular phase that is failed
             else if (!isRevival && team.hasFailedPhase())
             {
-                repeatFlag = true;
-                repeatTime = (float) beatmap.getPhase(currentSection, currentPhase).getEndTime() - (float)beatmap.getPhase(currentSection, currentPhase).getStartTime();
-
+                setRepeat();
             }
         }
         
@@ -264,12 +265,11 @@ public class StageScript : MonoBehaviour
             }
         }
 
-        if (!repeatFlag)
+        if (!repeatFlag && currentPhase != beatmap.sections[currentSection].Count)
         {
             // the beat time is phase dependent, so reset these
             nextBeatTime = phaseOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
             noteCreateIndex = 0;
-            phaseTimer = 0;
 
             // resets the failed phase status for both players
             team.nextPhaseBegin();
@@ -483,26 +483,36 @@ public class StageScript : MonoBehaviour
         }
         if (repeatFlag && phaseTimer >= repeatTime)
         {
-            // the beat time is phase dependent, so reset these
-            nextBeatTime = phaseOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
-            noteCreateIndex = 0;
-            phaseTimer = 0;
+            if (currentPhase != beatmap.sections[currentSection].Count)
+            {
+                // the beat time is phase dependent, so reset these
+                nextBeatTime = phaseOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
+                noteCreateIndex = 0;
+                phaseTimer = 0;
+            }
 
             // resets the failed phase status for both players
             team.nextPhaseBegin();
             FindObjectOfType<AudioControl>().GetComponent<AudioSource>().time = (float)beatmap.getPhase(currentSection, currentPhase).getStartTime();
             repeatFlag = false;
         }
+        else
+        {
+            if (phaseTimer >= (float)beatmap.getPhase(currentSection, currentPhase).getEndTime() - (float)beatmap.getPhase(currentSection, currentPhase).getStartTime())
+            {
+                phaseTimer = 0;
+            }
+        }
         // Create beat
         if (teamAttackController.isActive)
         {
 
             // even if its in team attack mode, we need to update the indexes to work correctly after team attack ends
-            if (phaseTimer > nextBeatTime && phaseTimer - nextBeatTime < 0.1f)
+            /*if (phaseTimer > nextBeatTime && phaseTimer - nextBeatTime < 0.1f)
             {
                 noteCreateIndex++;
                 nextBeatTime = phaseOffset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
-            }           
+            } */          
 
             if (teamAttackController.timerExpired())
             {
