@@ -210,6 +210,7 @@ GameObject:
   - component: {fileID: 140371943}
   - component: {fileID: 140371942}
   - component: {fileID: 140371941}
+  - component: {fileID: 140371945}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -280,6 +281,14 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!45 &140371945
+Skybox:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 140371940}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: 28cef3962708ca640aad0abe4690c3d2, type: 2}
 --- !u!1 &141911969
 GameObject:
   m_ObjectHideFlags: 0
@@ -1008,6 +1017,10 @@ Prefab:
     - target: {fileID: 224003034196962872, guid: 5f690624218540f42bb60daa61e41b2d,
         type: 2}
       propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1632448432410528, guid: 5f690624218540f42bb60daa61e41b2d, type: 2}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -5333,7 +5346,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
