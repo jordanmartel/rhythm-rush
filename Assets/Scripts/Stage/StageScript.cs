@@ -12,7 +12,6 @@ public class StageScript : MonoBehaviour
 
     [Header("Beat Info")]
     public string stageName = "creator_lvl";
-    public string nextStage = "";
     public Beatmap beatmap;
     public GameObject noteObject;
     public List<NoteScript> notesOnScreen;
@@ -49,7 +48,6 @@ public class StageScript : MonoBehaviour
 
     public float timer;
     public float phaseTimer;
-    public float stageCompleteTimer;
 
     [Header("General Player Attributes")]
     public Team team;
@@ -470,28 +468,6 @@ public class StageScript : MonoBehaviour
         {
             autoPlay = !autoPlay;
         }
-
-        // boss is dead, time to move to next stage!
-        if (boss.hasEnded)
-        {
-
-            if (stageCompleteTimer > 5)
-            {
-                if (nextStage != "")
-                {
-                    SceneManager.LoadScene(nextStage);
-                }
-
-                else
-                {
-                    SceneManager.LoadScene("ConnectController");
-
-                }
-            }
-            stageCompleteTimer += Time.deltaTime;
-
-        }
-
 
         timer += Time.deltaTime;
         if (timer >= beatmap.getPhase(currentSection, currentPhase).getStartTime())
