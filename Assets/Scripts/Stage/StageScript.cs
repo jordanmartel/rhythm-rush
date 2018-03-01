@@ -30,7 +30,7 @@ public class StageScript : MonoBehaviour
     private bool isRevival = false;
     private int currentRevivalSection = -1;
     public double noteTravelSpeed;
-    public double noteSpeedQuotient = 30;
+    public double noteSpeedQuotient = 20;
     public bool autoPlay = false;
 
     [Header("Input Materials")]
