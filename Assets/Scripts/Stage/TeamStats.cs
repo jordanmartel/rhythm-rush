@@ -11,7 +11,7 @@ public class TeamStats : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         completionTime = 0;
-        heartsRemaining = 3;
+        heartsRemaining = 100000;
         ranking = "SS";
 	}
 	

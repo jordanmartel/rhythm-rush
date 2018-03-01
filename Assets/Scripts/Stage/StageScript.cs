@@ -139,11 +139,6 @@ public class StageScript : MonoBehaviour
         {
             // only move to the next phase if the phase has been failed
 
-            if(isRevival && team.hasFailedPhase()) {
-                    team.health--;
-
-            }
-
             Debug.Log("HP:" + team.health);
             if (!team.hasFailedPhase() && !isRevival)
             {
@@ -179,6 +174,8 @@ public class StageScript : MonoBehaviour
                 if (!isRevival) {
                     team.attackedByBoss();
                     boss.resetAttackState();
+                    repeatFlag = true;
+                    repeatTime = (float)beatmap.getPhase(currentSection, currentPhase).getEndTime() - (float)beatmap.getPhase(currentSection, currentPhase).getStartTime();
                 }
 
                 if (team.health == 0)
@@ -191,10 +188,10 @@ public class StageScript : MonoBehaviour
                 if (team.player1.failedPhase && team.player2.failedPhase)
                 {
                     // Go back a phase when both players "stunned" by boss attack
-                    currentPhase--;
-                    boss.recoverHealth(1);
                     repeatFlag = true;
                     repeatTime = (float)beatmap.getPhase(currentSection, currentPhase).getEndTime() - (float)beatmap.getPhase(currentSection, currentPhase).getStartTime();
+                    currentPhase--;
+                    boss.recoverHealth(1);
                     team.player1.stats.incrementFail();
                     team.player2.stats.incrementFail();
                 }
