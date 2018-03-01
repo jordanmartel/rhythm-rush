@@ -77,8 +77,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 114267611199229696}
-  perfectValue: 0.5
-  goodValue: 0.75
+  perfectValue: 0
+  goodValue: 0
   okayValue: 1
   perfectColour: {r: 0.08469757, g: 0.4611939, b: 0.8161765, a: 1}
   goodColour: {r: 0.14509805, g: 0.39607844, b: 0, a: 1}
@@ -145,8 +145,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 114835794792969384}
-  perfectValue: 0.5
-  goodValue: 0.75
+  perfectValue: 0
+  goodValue: 0
   okayValue: 1
   perfectColour: {r: 0.08469757, g: 0.4611939, b: 0.8161765, a: 1}
   goodColour: {r: 0.14509805, g: 0.39607844, b: 0, a: 1}
