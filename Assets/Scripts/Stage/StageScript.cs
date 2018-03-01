@@ -4,12 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
-using UnityEngine.SceneManagement;
 
 
 public class StageScript : MonoBehaviour
 {
-
     [Header("Beat Info")]
     public string stageName = "creator_lvl";
     public Beatmap beatmap;
@@ -67,8 +65,10 @@ public class StageScript : MonoBehaviour
         countDownOffset = 0;
         playerOffset = 0.1;
         phaseOffset = beatmap.getPhase(currentSection, currentPhase).offset;
+        Debug.Log(phaseOffset);
         nextBeatTime = countDownOffset + phaseOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
         beatInterval = BeatInterval(beatmap.bpm, beatmap.beat_split);
+
 
         team.player1.joystick = Joysticks.player1Joystick;
         team.player2.joystick = Joysticks.player2Joystick;
@@ -91,13 +91,17 @@ public class StageScript : MonoBehaviour
 
         // Create new copies of the dictionaries. This way we can delete values from the player dictionary when 
         // spawning notes and still have access to the original notes in the beatmap dictionary when phases are repeated
-        team.player1.notes = new Dictionary<string, string>(beatmapPhase.player1Notes);
-        team.player2.notes = new Dictionary<string, string>(beatmapPhase.player2Notes);
 
         if (beatmapPhase.bothPlayerNotes.Count > 0)
         {
             team.player1.notes = new Dictionary<string, string>(beatmapPhase.bothPlayerNotes);
             team.player2.notes = new Dictionary<string, string>(beatmapPhase.bothPlayerNotes);
+        }
+
+        else
+        {
+            team.player1.notes = new Dictionary<string, string>(beatmapPhase.player1Notes);
+            team.player2.notes = new Dictionary<string, string>(beatmapPhase.player2Notes);
         }
     }
 
@@ -259,12 +263,16 @@ public class StageScript : MonoBehaviour
         }
         else {
             // get the values from the beatmap
-            team.player1.notes = new Dictionary<string, string>(beatmapPhase.player1Notes);
-            team.player2.notes = new Dictionary<string, string>(beatmapPhase.player2Notes);
-
-            if (beatmapPhase.bothPlayerNotes.Count > 0) {
+            if (beatmapPhase.bothPlayerNotes.Count > 0)
+            {
                 team.player1.notes = new Dictionary<string, string>(beatmapPhase.bothPlayerNotes);
                 team.player2.notes = new Dictionary<string, string>(beatmapPhase.bothPlayerNotes);
+            }
+
+            else
+            {
+                team.player1.notes = new Dictionary<string, string>(beatmapPhase.player1Notes);
+                team.player2.notes = new Dictionary<string, string>(beatmapPhase.player2Notes);
             }
         }
 

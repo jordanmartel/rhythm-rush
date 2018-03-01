@@ -581,7 +581,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: eb17d74c5f904054f9f606f0da7babf7, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 2563a387b347bba4ebebc10c13de710e, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1212,7 +1212,7 @@ MonoBehaviour:
   currentSection: 0
   currentPhase: 0
   noteTravelSpeed: 0
-  noteSpeedQuotient: 10
+  noteSpeedQuotient: 20
   autoPlay: 0
   triangle: {fileID: 2100000, guid: 583a49da45b0fcf448a5bd4563ccd4d2, type: 2}
   circle: {fileID: 2100000, guid: 5d1a40688e40ede4eab0e3e70d38ad28, type: 2}
