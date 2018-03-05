@@ -35,10 +35,8 @@ public class CreatorStage : MonoBehaviour {
     public Material dDown;
     public int player;
 
-    private float timer;
-    private float successTimer;
-    private float score;
-
+    public float timer;
+    public float phaseTimer;
     private int joystick;
 
     private string previousButton;
@@ -47,11 +45,16 @@ public class CreatorStage : MonoBehaviour {
     private double previousTime;
 
     private Beatmap recordedNotes;
-    private Beatmap beatmap;
+    private BeatmapPhase currentPhase;
+
+    public int section;
+    public int phase;
 
     [Header("CreatorMode")]
     public string beatmap_filePath;
     public double offset;
+    public double noteSpeedQuotient = 20;
+    public double phaseOffset = 3;
     public int bpm;
     public int beat_split;
     public Text metadataBox;
@@ -77,12 +80,11 @@ public class CreatorStage : MonoBehaviour {
     // Use this for initialization
     void Start() {
 
-        noteTravelSpeed = 140 / 20;
-        noteTravelDistance = 6;
-        playerOffset = 0.05;
-        nextBeatTime = offset + playerOffset - noteTravelDistance / noteTravelSpeed;
+        noteTravelSpeed = bpm / noteSpeedQuotient;
+        noteTravelDistance = 11.1;
+        playerOffset = -0.2;
+        nextBeatTime = 0;
         beatInterval = BeatInterval(bpm, beat_split);
-
 
         if (player == 0) {
             joystick = Joysticks.player1Joystick;
@@ -93,6 +95,9 @@ public class CreatorStage : MonoBehaviour {
         }
 
         recordedNotes = new Beatmap((int)bpm, beat_split, offset);
+        currentPhase = new BeatmapPhase();
+        currentPhase.offset = phaseOffset;
+        currentPhase.startTime = timer;
 
         // Only change text if not changed by other script already
         if (metadataBox.text == "Beatmap Specifics:") {
@@ -148,6 +153,8 @@ public class CreatorStage : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         bool buttonPressed = false;
+        timer += Time.deltaTime;
+        phaseTimer += Time.deltaTime;
 
         // get the dpad axis orientation
         float dpadHorizontal = Input.GetAxis("Controller Axis-Joystick" + joystick + "-Axis7");
@@ -178,47 +185,70 @@ public class CreatorStage : MonoBehaviour {
         //Directional buttons
         if (buttonPressed) {
             if (dpadHorizontal == -1) {
-                recordedNotes.addNote(player, noteIndex - 1, "left");
-                createNote("left");
+                currentPhase.addNote(0, noteIndex, "square");
+                createNote("circle");
                 Debug.Log("Index:" + noteIndex);
             }
             else if (dpadHorizontal == 1) {
-                recordedNotes.addNote(player, noteIndex - 1, "right");
-                createNote("right");
+                currentPhase.addNote(0, noteIndex, "circle");
+                createNote("square");
                 Debug.Log("Index:" + noteIndex);
             }
             else if (dpadVertical == 1) {
-                recordedNotes.addNote(player, noteIndex - 1, "up");
-                createNote("up");
+                currentPhase.addNote(0, noteIndex, "triangle");
+                createNote("triangle");
                 Debug.Log("Index:" + noteIndex);
             }
             else if (dpadVertical == -1) {
-                recordedNotes.addNote(player, noteIndex - 1, "down");
-                createNote("down");
+                currentPhase.addNote(0, noteIndex, "cross");
+                createNote("cross");
                 Debug.Log("Index:" + noteIndex);
             }
         }
 
         //Triangle,Circle,Square, Cross order
          if (Input.GetKeyDown("joystick " + joystick + " button 3")) {
-            recordedNotes.addNote(player, noteIndex - 1, "triangle");
+            currentPhase.addNote(1, noteIndex, "triangle");
             createNote("triangle");
             Debug.Log("Index:" + noteIndex +","+ "triangle");
         } else if (Input.GetKeyDown("joystick " + joystick + " button 2")) {
-            recordedNotes.addNote(player, noteIndex - 1, "circle");
+            currentPhase.addNote(1, noteIndex, "circle");
             createNote("circle");
             Debug.Log("Index:" + noteIndex);
         } else if (Input.GetKeyDown("joystick " + joystick + " button 0")) {
-            recordedNotes.addNote(player, noteIndex - 1, "square");
+            currentPhase.addNote(1, noteIndex, "square");
             createNote("square");
             Debug.Log("Index:" + noteIndex);
         } else if (Input.GetKeyDown("joystick " + joystick + " button 1")) {
-            recordedNotes.addNote(player, noteIndex - 1, "cross");
+            currentPhase.addNote(1, noteIndex, "cross");
             createNote("cross");
             Debug.Log("Index:" + noteIndex);
 
         //Finalize Generated Beat
-        } else if (Input.GetKeyDown(KeyCode.Space)) {
+        }
+
+         // next phase
+        else if (Input.GetKeyDown("joystick " + joystick + " button 7"))
+        {
+            currentPhase.endTime = timer;
+            recordedNotes.sections[section].Insert(phase, currentPhase);
+            currentPhase = new BeatmapPhase();
+            currentPhase.offset = phaseOffset;
+            currentPhase.startTime = timer;
+            phase++;
+
+            noteIndex = 0;
+            phaseTimer = 0;
+            nextBeatTime = beatInterval;
+
+            Debug.Log("next phase: note index is now reset " + noteIndex);
+        }
+
+        // done
+        else if (Input.GetKeyDown(KeyCode.Space)) {
+
+            currentPhase.endTime = timer;
+            recordedNotes.sections[section].Insert(phase, currentPhase);
 
             //Stops time and writes notes to file 
             Time.timeScale = 0.05f;
@@ -228,15 +258,16 @@ public class CreatorStage : MonoBehaviour {
         }
 
 
-        timer += Time.deltaTime;
         // Create beat
-        if (timer > nextBeatTime) {
+        if (phaseTimer > nextBeatTime) {
 
-            Debug.Log("note Index:" + noteIndex);
-
-            noteIndex++;
+            //Debug.Log("note Index:" + noteIndex);
+            if (phaseTimer > phaseOffset)
+            {
+                noteIndex++;
+            }
             previousTime = nextBeatTime;
-            nextBeatTime = offset + playerOffset + noteIndex * beatInterval;
+            nextBeatTime = nextBeatTime + beatInterval;
         }
 
     }

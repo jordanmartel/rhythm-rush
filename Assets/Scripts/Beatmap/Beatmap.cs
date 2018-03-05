@@ -25,49 +25,14 @@ public class Beatmap
         this.beat_split = beat_split;
         this.offset = offset;
 
-        sections = new List<List<BeatmapPhase>>();
+        this.thresholds = new double[] { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };
 
-        sections.Add(new List<BeatmapPhase>());
-        sections.Add(new List<BeatmapPhase>());
-        sections.Add(new List<BeatmapPhase>());
-
-    }
-
-
-
-    public void addNote(int player, int index, String key) {
-        /*
-        if (player == 0) {
-            addP1Note(index, key);
-        } else {
-            addP2Note(index, key);
-        }
-
+        sections = new List<List<BeatmapPhase>>
+        {
+            new List<BeatmapPhase>(),
+            new List<BeatmapPhase>(),
+            new List<BeatmapPhase>()
+        };
 
     }
-
-  
-    public void addP1Note(int index, String key) {
-        /*
-        if (player1Notes.ContainsKey(index.ToString())) {
-            //player1Notes[index.ToString()] += "," + key;
-        } else {
-            player1Notes.Add(index.ToString(), key);
-        }
-        */
-    }
-
-    public void addP2Note(int index, String key) {
-        /*
-        if (player2Notes.ContainsKey(index.ToString())) {
-            //player2Notes[index.ToString()] += "," + key;
-        }
-        else {
-            player2Notes.Add(index.ToString(), key);
-        }
-        */
-    }
-    
-
-
 }

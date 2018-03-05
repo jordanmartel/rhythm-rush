@@ -43,7 +43,6 @@ public class StageScript : MonoBehaviour
     public Material dRight;
     public Material dDown;
 
-
     private Player revivingPlayer;
 
     public float timer;

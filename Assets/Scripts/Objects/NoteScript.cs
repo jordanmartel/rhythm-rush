@@ -86,6 +86,15 @@ public class NoteScript : MonoBehaviour {
         //if stage null(like in creator mode) default to speed 3
         speed = (stage == null) ? 3f : (float)stage.noteTravelSpeed;
         
-        transform.position = Vector3.MoveTowards(transform.position, destination.transform.position, speed * Time.deltaTime);
+        if (destination == null)
+        {
+            transform.Translate(new Vector3(0, -speed * Time.deltaTime, 0));
+        }
+
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, destination.transform.position, speed * Time.deltaTime);
+        }
+
     }
 }
