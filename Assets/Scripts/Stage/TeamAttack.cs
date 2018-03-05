@@ -38,7 +38,6 @@ public class TeamAttack : MonoBehaviour {
         mainAttractor = transform.GetChild(0).gameObject;
         sideAttractor1 = transform.GetChild(1).gameObject;
         sideAttractor2 = transform.GetChild(2).gameObject;
-        fireball = transform.GetChild(3).gameObject;
     }
 
     public void startTeamAttack()
@@ -117,9 +116,6 @@ public class TeamAttack : MonoBehaviour {
     }
 
     private void ActivateLazer() {
-
-        GameObject fireballIns = Instantiate(fireball, mainAttractor.transform);
-        fireballIns.SetActive(true);
 
         //Destroy/hide the things
         mainAttractor.SetActive(false);

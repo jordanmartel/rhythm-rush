@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AudioControl : MonoBehaviour {
     double startTimer = 0;
-    double startTime = 0;
+    double startTime = 4;
     bool started = false;
 
 	// Use this for initialization
