@@ -35,10 +35,11 @@ public class CreatorStage : MonoBehaviour {
     public Material dDown;
     public int player;
 
-    public float timer;
-    public float phaseTimer;
+    public double timer;
+    public double phaseTimer;
     private int joystick;
 
+    private double globalBeatTime = 0;
     private string previousButton;
     private float previousDpadHorizontal;
     private float previousDpadVertical;
@@ -85,14 +86,7 @@ public class CreatorStage : MonoBehaviour {
         playerOffset = -0.2;
         nextBeatTime = 0;
         beatInterval = BeatInterval(bpm, beat_split);
-
-        if (player == 0) {
-            joystick = Joysticks.player1Joystick;
-        }
-
-        else {
-            joystick = Joysticks.player2Joystick;
-        }
+        joystick = Joysticks.player1Joystick;
 
         recordedNotes = new Beatmap((int)bpm, beat_split, offset);
         currentPhase = new BeatmapPhase();
@@ -157,8 +151,8 @@ public class CreatorStage : MonoBehaviour {
         phaseTimer += Time.deltaTime;
 
         // get the dpad axis orientation
-        float dpadHorizontal = Input.GetAxis("Controller Axis-Joystick" + joystick + "-Axis7");
-        float dpadVertical = Input.GetAxis("Controller Axis-Joystick" + joystick + "-Axis8");
+        float dpadHorizontal = Input.GetAxis("Controller Axis-All-Axis7");
+        float dpadVertical = Input.GetAxis("Controller Axis-All-Axis8");
 
         // only mark the button as pressed if there has been a change since the last frame and axis is non 0
         if (dpadHorizontal != previousDpadHorizontal) {
@@ -207,19 +201,19 @@ public class CreatorStage : MonoBehaviour {
         }
 
         //Triangle,Circle,Square, Cross order
-         if (Input.GetKeyDown("joystick " + joystick + " button 3")) {
+         if (Input.GetKeyDown("joystick button 3")) {
             currentPhase.addNote(1, noteIndex, "triangle");
             createNote("triangle");
             Debug.Log("Index:" + noteIndex +","+ "triangle");
-        } else if (Input.GetKeyDown("joystick " + joystick + " button 2")) {
+        } else if (Input.GetKeyDown("joystick button 2")) {
             currentPhase.addNote(1, noteIndex, "circle");
             createNote("circle");
             Debug.Log("Index:" + noteIndex);
-        } else if (Input.GetKeyDown("joystick " + joystick + " button 0")) {
+        } else if (Input.GetKeyDown("joystick button 0")) {
             currentPhase.addNote(1, noteIndex, "square");
             createNote("square");
             Debug.Log("Index:" + noteIndex);
-        } else if (Input.GetKeyDown("joystick " + joystick + " button 1")) {
+        } else if (Input.GetKeyDown("joystick button 1")) {
             currentPhase.addNote(1, noteIndex, "cross");
             createNote("cross");
             Debug.Log("Index:" + noteIndex);
@@ -228,17 +222,21 @@ public class CreatorStage : MonoBehaviour {
         }
 
          // next phase
-        else if (Input.GetKeyDown("joystick " + joystick + " button 7"))
+        else if (Input.GetKeyDown("joystick button 7"))
         {
             currentPhase.endTime = timer;
             recordedNotes.sections[section].Insert(phase, currentPhase);
             currentPhase = new BeatmapPhase();
             currentPhase.offset = phaseOffset;
-            currentPhase.startTime = timer;
+
+            // the next start time should be on a beat (essentially, snap it to the next valid beat)
+            currentPhase.startTime = globalBeatTime += beatInterval;
             phase++;
 
             noteIndex = 0;
-            phaseTimer = 0;
+
+            // phase timer starts below 0, so that it will start at the next beat
+            phaseTimer = timer - (currentPhase.startTime);
             nextBeatTime = beatInterval;
 
             Debug.Log("next phase: note index is now reset " + noteIndex);
@@ -268,6 +266,7 @@ public class CreatorStage : MonoBehaviour {
             }
             previousTime = nextBeatTime;
             nextBeatTime = nextBeatTime + beatInterval;
+            globalBeatTime += beatInterval;
         }
 
     }
