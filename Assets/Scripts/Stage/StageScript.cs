@@ -299,12 +299,12 @@ public class StageScript : MonoBehaviour
             }
         }
 
-        if (!repeatFlag && currentPhase != beatmap.sections[currentSection].Count)
+        if (!repeatFlag)
         {
             // the beat time is phase dependent, so reset these
             nextBeatTime = phaseOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
             noteCreateIndex = 0;
-
+            phaseTimer = 0;
             // resets the failed phase status for both players
             team.nextPhaseBegin();
         }
@@ -525,27 +525,20 @@ public class StageScript : MonoBehaviour
             phaseTimer += Time.deltaTime;
             countDownCanvas.enabled = false;
         }
-        if (repeatFlag && phaseTimer >= repeatTime)
+        if (repeatFlag)
         {
-            if (currentPhase != beatmap.sections[currentSection].Count)
-            {
+            //if (currentPhase != beatmap.sections[currentSection].Count)
+            //{
                 // the beat time is phase dependent, so reset these
                 nextBeatTime = phaseOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
                 noteCreateIndex = 0;
                 phaseTimer = 0;
-            }
+            //}
 
             // resets the failed phase status for both players
             team.nextPhaseBegin();
             FindObjectOfType<AudioControl>().GetComponent<AudioSource>().time = (float)beatmap.getPhase(currentSection, currentPhase).getStartTime();
             repeatFlag = false;
-        }
-        else
-        {
-            if (phaseTimer >= (float)beatmap.getPhase(currentSection, currentPhase).getEndTime() - (float)beatmap.getPhase(currentSection, currentPhase).getStartTime())
-            {
-                phaseTimer = 0;
-            }
         }
         // Create beat
         if (teamAttackController.isActive)

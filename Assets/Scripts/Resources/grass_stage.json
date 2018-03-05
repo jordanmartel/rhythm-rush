@@ -50,7 +50,7 @@
       },
       {
 	  	"startTime": 30.2,
-		"endTime": 12,
+		"endTime": 42.2,
 		"offset": 3,
         "bothPlayerNotes": {
           "0": "circle",
@@ -77,7 +77,7 @@
     [
       {
 		"startTime": 40.5,
-		"endTime": 13.2,
+		"endTime": 53.2,
 		"offset": 3,
         "bothPlayerNotes": {},
         "player1Notes": {
@@ -115,7 +115,7 @@
       },
       {
 	  	"startTime": 56,
-		"endTime": 11.5,
+		"endTime": 67.5,
 		"offset": 3,
         "bothPlayerNotes": {},
         "player1Notes": {
@@ -157,7 +157,7 @@
       },
       {
 	  	"startTime": 66,
-		"endTime": 12.2,
+		"endTime": 78.2,
 		"offset": 3,
         "bothPlayerNotes": {
           "0": "circle",
@@ -176,7 +176,7 @@
     [
       {
 	  	"startTime": 80,
-		"endTime": 10.0,
+		"endTime": 90.0,
 		"offset": 3,
         "bothPlayerNotes": {},
         "player1Notes": {
@@ -212,7 +212,7 @@
       },
       {
 	  	"startTime": 90,
-		"endTime": 10.0,
+		"endTime": 100.0,
 		"offset": 3,
         "bothPlayerNotes": {},
         "player1Notes": {
@@ -236,7 +236,7 @@
       },
       {
 		"startTime": 95,
-		"endTime": 10.0,
+		"endTime": 105.0,
 		"offset": 3,
         "bothPlayerNotes": {
           "0": "circle",
