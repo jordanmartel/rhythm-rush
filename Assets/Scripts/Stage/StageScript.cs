@@ -146,9 +146,6 @@ public class StageScript : MonoBehaviour
 
     void moveToNextPhase(bool teamAttack)
     {
-
-        //Debug.Log("Old section and phase: " + currentSection + " " + currentPhase);
-        //Debug.Log("Phase was failed: " + team.hasFailedPhase());
         if (team.player1.failedPhase)
         {
             team.player1.stats.incrementFail();
@@ -167,7 +164,7 @@ public class StageScript : MonoBehaviour
             team.player2.stats.incrementPerfect();
         }
 
-        if (teamAttack)
+        if (teamAttackEnding)
         {
             if (!team.hasFailedPhase())
             {
@@ -178,20 +175,19 @@ public class StageScript : MonoBehaviour
             {
                 setRepeat();
             }
+
+            teamAttackEnding = false;
+            //return;
         }
 
         else
         {
             // only move to the next phase if the phase has been failed
-
-            //Debug.Log("HP:" + team.health);
             if (!team.hasFailedPhase() && !isRevival)
             {
                 // boss attack phase that has been successful
                 if (currentPhase + 1 == beatmap.sections[currentSection].Count)
                 {
-                    //Debug.Log("Boss attack phase successful");
-
                     boss.resetAttackState();
                     teamAttackController.startTeamAttack();
 
@@ -577,12 +573,10 @@ public class StageScript : MonoBehaviour
             FindObjectOfType<AudioControl>().GetComponent<AudioSource>().time = (float)beatmap.getPhase(currentSection, currentPhase).getStartTime();
             repeatFlag = false;
         }
-        // Create beat
         if (teamAttackController.isActive)
         {
             if (teamAttackController.timerExpired())
             {
-                teamAttackEnding = true;
                 int damage = teamAttackController.unleashTeamAttack();
                 if (damage == 0)
                 {
@@ -590,14 +584,15 @@ public class StageScript : MonoBehaviour
                     team.player2.failedPhase = true;
                     team.player1.updateComboCount(false);
                     team.player2.updateComboCount(false);
-                    moveToNextPhase(true);
+                    //moveToNextPhase(true);
                 }
                 else
                 {
                     boss.giveDamage(damage);
-                    moveToNextPhase(true);
-                    //Debug.Log(team.hasNotesLeft());
+                    //moveToNextPhase(true);
                 }
+
+                teamAttackEnding = true;
 
             }
             else
@@ -616,7 +611,6 @@ public class StageScript : MonoBehaviour
             {
                 if (positionInSongTimer >= nextPhaseStartTime) {
 
-                    //Debug.Log(beatmap.sections[currentSection][currentPhase].startTime);
                     //Revival Complete. IsRevival is set to false inside MovetoNextPhase
                     if (isRevival && !team.hasFailedPhase())
                     {
@@ -632,7 +626,8 @@ public class StageScript : MonoBehaviour
                     moveToNextPhase(false);
                 }
 
-                else if (currentPhase + 1 == beatmap.sections[currentSection].Count)
+                // in a boss phase, start the team attack phase immediately.
+                else if (currentPhase + 1 == beatmap.sections[currentSection].Count && !teamAttackEnding)
                 {
                     moveToNextPhase(false);
                 }
