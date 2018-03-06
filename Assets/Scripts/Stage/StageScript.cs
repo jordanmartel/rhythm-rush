@@ -88,6 +88,15 @@ public class StageScript : MonoBehaviour
         boss = FindObjectOfType<BossScript>();
         teamAttackController = FindObjectOfType<TeamAttack>();
 
+        // for testing, we may start the audio at a different phase
+        if (currentSection > 0 || currentPhase > 0)
+        {
+            FindObjectOfType<AudioControl>().GetComponent<AudioSource>().time = (float)beatmap.getPhase(currentSection, currentPhase).getStartTime();
+            FindObjectOfType<AudioControl>().GetComponent<AudioSource>().enabled = true;
+            timer = (float)beatmap.getPhase(currentSection, currentPhase).getStartTime();
+            positionInSongTimer = (float)beatmap.getPhase(currentSection, currentPhase).getStartTime();
+            countDownOffset = 0;
+        }
 
         int nextSection = currentSection;
         int nextPhase = currentPhase + 1;
@@ -104,11 +113,6 @@ public class StageScript : MonoBehaviour
         }
 
         nextPhaseStartTime = beatmap.getPhase(nextSection, nextPhase).startTime;
-
-        // for testing, we may start the audio at a different phase
-        FindObjectOfType<AudioControl>().GetComponent<AudioSource>().time = (float)beatmap.getPhase(currentSection, currentPhase).getStartTime();
-        timer = (float)beatmap.getPhase(currentSection, currentPhase).getStartTime();
-
     }
 
     void parseJson(string filePath)

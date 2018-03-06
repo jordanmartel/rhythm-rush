@@ -1294,7 +1294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee070c6058c92fe45818c53b6378214d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageName: creator_lvl
+  stageName: grass_stage_new
   beatmap:
     bpm: 0
     beat_split: 0
@@ -1315,7 +1315,7 @@ MonoBehaviour:
   currentPhase: 0
   noteTravelSpeed: 0
   noteSpeedQuotient: 20
-  autoPlay: 1
+  autoPlay: 0
   triangle: {fileID: 2100000, guid: 583a49da45b0fcf448a5bd4563ccd4d2, type: 2}
   circle: {fileID: 2100000, guid: 5d1a40688e40ede4eab0e3e70d38ad28, type: 2}
   square: {fileID: 2100000, guid: 190aeb80037968844b8a2bd0eb621db0, type: 2}

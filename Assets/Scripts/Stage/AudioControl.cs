@@ -8,7 +8,7 @@ public class AudioControl : MonoBehaviour {
     bool started = false;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         GetComponent<AudioSource>().enabled = false;
 	}
 	
