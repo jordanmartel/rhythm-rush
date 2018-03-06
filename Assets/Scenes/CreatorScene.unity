@@ -491,11 +491,11 @@ MonoBehaviour:
   phaseTimer: 0
   section: 0
   phase: 0
-  beatmap_filePath: creator_lvl.json
+  beatmap_filePath: water_stage_new.json
   offset: 0
   noteSpeedQuotient: 20
   phaseOffset: 3
-  bpm: 95
+  bpm: 125
   beat_split: 4
   metadataBox: {fileID: 76934225}
   recordingSavedText: {fileID: 151103640}
@@ -525,7 +525,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 04f1fa48f1e2ad1429dfc663534b0a5a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 9848c822d84bc7c428ac7d42c63a9c3e, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
