@@ -149,7 +149,7 @@ public class StageScript : MonoBehaviour
         repeatTime = (float)beatmap.getPhase(currentSection, currentPhase).getEndTime() - (float)beatmap.getPhase(currentSection, currentPhase).getStartTime();
     }
 
-    void moveToNextPhase(bool teamAttack)
+    void moveToNextPhase()
     {
         if (team.player1.failedPhase)
         {
@@ -628,13 +628,13 @@ public class StageScript : MonoBehaviour
 
                     }
 
-                    moveToNextPhase(false);
+                    moveToNextPhase();
                 }
 
                 // after a boss phase, start the next phase immediately (team attack)
                 else if (currentPhase + 1 == beatmap.sections[currentSection].Count && !teamAttackEnding)
                 {
-                    moveToNextPhase(false);
+                    moveToNextPhase();
                 }
             }
 
