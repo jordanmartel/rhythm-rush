@@ -63,6 +63,7 @@ public class StageScript : MonoBehaviour
     public bool repeatFlag = false;
     public float repeatTime;
 
+    // this is used to know that a team attack just ended, even though teamAttackController.isActive is false
     private bool teamAttackEnding = false;
 
     // ==========================
@@ -584,14 +585,14 @@ public class StageScript : MonoBehaviour
                     team.player2.failedPhase = true;
                     team.player1.updateComboCount(false);
                     team.player2.updateComboCount(false);
-                    //moveToNextPhase(true);
                 }
                 else
                 {
                     boss.giveDamage(damage);
-                    //moveToNextPhase(true);
                 }
 
+                // team attack is over, but this variable lets us know later that a team attack just finished. This is used
+                // to correctly spawn notes at the right time after a team attack (prevents the next phase from starting early)
                 teamAttackEnding = true;
 
             }
@@ -626,7 +627,7 @@ public class StageScript : MonoBehaviour
                     moveToNextPhase(false);
                 }
 
-                // in a boss phase, start the team attack phase immediately.
+                // after a boss phase, start the next phase immediately (team attack)
                 else if (currentPhase + 1 == beatmap.sections[currentSection].Count && !teamAttackEnding)
                 {
                     moveToNextPhase(false);
