@@ -566,15 +566,11 @@ public class StageScript : MonoBehaviour
         }
         if (repeatFlag)
         {
-            //if (currentPhase != beatmap.sections[currentSection].Count)
-            //{
-                // the beat time is phase dependent, so reset these
             nextBeatTime = phaseOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
             noteCreateIndex = 0;
 
             positionInSongTimer = positionInSongTimer - phaseTimer;
             phaseTimer = 0;
-            //}
 
             // resets the failed phase status for both players
             team.nextPhaseBegin();
