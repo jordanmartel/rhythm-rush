@@ -89,6 +89,7 @@ public class CreatorStage : MonoBehaviour {
         joystick = Joysticks.player1Joystick;
 
         recordedNotes = new Beatmap((int)bpm, beat_split, offset);
+        recordedNotes.sections.Add(new List<BeatmapPhase>());
         currentPhase = new BeatmapPhase();
         currentPhase.offset = phaseOffset;
         currentPhase.startTime = timer;
@@ -221,7 +222,7 @@ public class CreatorStage : MonoBehaviour {
         //Finalize Generated Beat
         }
 
-         // next phase
+        // next phase
         else if (Input.GetKeyDown("joystick button 7"))
         {
             currentPhase.endTime = timer;

@@ -1,1 +1,199 @@
-{"bpm":95,"beat_split":4,"offset":0.0,"thresholds":[1.0,2.0,3.0,4.0,5.0,6.0],"sections":[[{"startTime":0.0,"endTime":9.2434352189302444,"offset":3.0,"player1Notes":{},"player2Notes":{"1":"cross","8":"square","19":"triangle","36":"circle"},"bothPlayerNotes":{},"revivalNotes":{}},{"startTime":9.47368421052631,"endTime":20.93702700547874,"offset":3.0,"player1Notes":{},"player2Notes":{"0":"cross","2":"circle","4":"circle","6":"cross","8":"cross","10":"square","12":"square","14":"triangle","16":"triangle","18":"circle","20":"circle","22":"cross","24":"cross","26":"square","28":"square","30":"triangle","32":"triangle","34":"circle","36":"circle","38":"cross","40":"cross","42":"square","44":"square","46":"triangle","48":"triangle","50":"circle","52":"circle"},"bothPlayerNotes":{},"revivalNotes":{}},{"startTime":20.999999999999989,"endTime":30.742952266708016,"offset":3.0,"player1Notes":{},"player2Notes":{"0":"square","3":"square","7":"square","11":"square","15":"square","19":"square","23":"square","27":"square","31":"square","35":"square","39":"square"},"bothPlayerNotes":{},"revivalNotes":{}},{"startTime":30.789473684210574,"endTime":43.379816044121981,"offset":3.0,"player1Notes":{},"player2Notes":{"0":"cross","1":"square","3":"square","5":"triangle","7":"triangle","9":"circle","11":"circle","13":"cross","15":"cross","17":"square","19":"square","21":"triangle","23":"triangle","25":"circle","27":"circle","29":"cross","31":"cross","33":"square","35":"square","37":"triangle","39":"triangle","41":"circle","43":"circle","45":"cross","47":"cross","49":"square","51":"square","53":"triangle","55":"triangle","57":"circle","59":"circle"},"bothPlayerNotes":{},"revivalNotes":{}},{"startTime":43.42105263157881,"endTime":53.472458362579346,"offset":3.0,"player1Notes":{},"player2Notes":{"0":"triangle","1":"triangle","3":"square","5":"square","7":"cross","9":"cross","11":"circle","13":"circle","15":"triangle","17":"triangle","19":"square","21":"square","23":"cross","25":"cross","27":"circle","29":"circle","31":"triangle","33":"square","35":"cross","37":"circle","39":"triangle","41":"square","43":"cross"},"bothPlayerNotes":{},"revivalNotes":{}},{"startTime":53.526315789473379,"endTime":70.136271616443992,"offset":3.0,"player1Notes":{},"player2Notes":{"0":"square","15":"square","19":"square","23":"square","27":"square","31":"square","35":"square","39":"square","43":"square","47":"square","51":"square","55":"square","59":"square","63":"square","67":"square","71":"square","75":"square","79":"square","83":"square"},"bothPlayerNotes":{},"revivalNotes":{}},{"startTime":70.263157894736537,"endTime":96.169706812128425,"offset":3.0,"player1Notes":{},"player2Notes":{"0":"cross","3":"circle","6":"circle","19":"triangle","22":"triangle","35":"square","38":"square","51":"triangle","54":"triangle","67":"circle","70":"circle","83":"cross","86":"cross","99":"square","102":"square","115":"triangle","118":"triangle","131":"circle","134":"circle"},"bothPlayerNotes":{},"revivalNotes":{}},{"startTime":96.157894736842536,"endTime":113.92871430516243,"offset":3.0,"player1Notes":{},"player2Notes":{"0":"cross","1":"cross","3":"square","5":"square","7":"triangle","9":"triangle","11":"circle","13":"circle","15":"cross","17":"cross","19":"square","21":"square","23":"triangle","25":"triangle","27":"circle","29":"circle","31":"cross","33":"cross","35":"square","37":"square","39":"triangle","41":"triangle","43":"circle","45":"circle","47":"cross","49":"cross","51":"square","53":"square","55":"triangle","57":"triangle","59":"circle","61":"circle","79":"triangle"},"bothPlayerNotes":{},"revivalNotes":{}}],[],[]]}
+{
+   "bpm":95,
+   "beat_split":4,
+   "offset":0.0,
+   "thresholds":[
+      1.0,
+      2.0,
+      3.0,
+      4.0,
+      5.0,
+      6.0
+   ],
+   "sections":[
+      [
+         {
+            "startTime":0.0,
+            "endTime":8.98044647462666,
+            "offset":3.0,
+            "player1Notes":{
+
+            },
+            "player2Notes":{
+               "1":"cross",
+               "8":"square",
+               "20":"circle",
+               "35":"triangle"
+            },
+            "bothPlayerNotes":{
+
+            },
+            "revivalNotes":{
+
+            }
+         },
+         {
+            "startTime":9.1578947368421,
+            "endTime":32.990488067269325,
+            "offset":3.0,
+            "player1Notes":{
+
+            },
+            "player2Notes":{
+               "6":"cross",
+               "8":"cross",
+               "22":"square",
+               "24":"square",
+               "38":"circle",
+               "40":"circle",
+               "54":"triangle",
+               "56":"triangle",
+               "70":"square",
+               "72":"square",
+               "86":"cross",
+               "88":"cross",
+               "102":"circle",
+               "104":"circle",
+               "118":"square",
+               "122":"triangle",
+               "126":"circle",
+               "129":"cross"
+            },
+            "bothPlayerNotes":{
+
+            },
+            "revivalNotes":{
+
+            }
+         },
+         {
+            "startTime":33.000000000000036,
+            "endTime":48.660342680290341,
+            "offset":3.0,
+            "player1Notes":{
+
+            },
+            "player2Notes":{
+               "0":"square",
+               "15":"triangle",
+               "17":"triangle",
+               "31":"circle",
+               "33":"circle"
+            },
+            "bothPlayerNotes":{
+
+            },
+            "revivalNotes":{
+
+            }
+         }],
+         [{
+            "startTime":48.7894736842103,
+            "endTime":70.164716133847833,
+            "offset":3.0,
+            "player1Notes":{
+
+            },
+            "player2Notes":{
+               "11":"square",
+               "13":"square",
+               "27":"circle",
+               "29":"circle",
+               "43":"cross",
+               "47":"cross",
+               "51":"cross",
+               "55":"cross",
+               "59":"cross",
+               "63":"cross",
+               "67":"cross",
+               "71":"cross",
+               "75":"cross",
+               "79":"cross",
+               "83":"cross",
+               "87":"cross",
+               "91":"cross",
+               "95":"cross",
+               "99":"cross",
+               "103":"cross",
+               "107":"cross",
+               "110":"cross",
+               "114":"cross"
+            },
+            "bothPlayerNotes":{
+
+            },
+            "revivalNotes":{
+
+            }
+         },
+         {
+            "startTime":70.263157894736537,
+            "endTime":97.881570894271135,
+            "offset":3.0,
+            "player1Notes":{
+
+            },
+            "player2Notes":{
+               "3":"square",
+               "6":"square",
+               "9":"square",
+               "19":"cross",
+               "22":"cross",
+               "35":"circle",
+               "37":"circle",
+               "51":"triangle",
+               "54":"triangle",
+               "67":"square",
+               "70":"square",
+               "83":"triangle",
+               "86":"triangle",
+               "99":"circle",
+               "102":"circle",
+               "115":"cross",
+               "118":"cross",
+               "131":"square",
+               "134":"square",
+               "147":"triangle",
+               "151":"triangle",
+               "155":"triangle"
+            },
+            "bothPlayerNotes":{
+
+            },
+            "revivalNotes":{
+
+            }
+         },
+         {
+            "startTime":97.894736842105743,
+            "endTime":112.95007481239736,
+            "offset":3.0,
+            "player1Notes":{
+
+            },
+            "player2Notes":{
+               "4":"square",
+               "8":"triangle",
+               "12":"circle",
+               "15":"cross",
+               "20":"square",
+               "24":"triangle",
+               "28":"circle",
+               "32":"cross",
+               "36":"square",
+               "40":"triangle",
+               "44":"circle",
+               "48":"cross",
+               "52":"square",
+               "68":"triangle"
+            },
+            "bothPlayerNotes":{
+
+            },
+            "revivalNotes":{
+
+            }
+         }
+      ]
+   ]
+}
