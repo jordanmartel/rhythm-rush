@@ -491,7 +491,7 @@ MonoBehaviour:
   phaseTimer: 0
   section: 0
   phase: 0
-  beatmap_filePath: water_stage_new.json
+  beatmap_filePath: fire_stage_new.json
   offset: 0
   noteSpeedQuotient: 20
   phaseOffset: 3
@@ -525,7 +525,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 9848c822d84bc7c428ac7d42c63a9c3e, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 2563a387b347bba4ebebc10c13de710e, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
