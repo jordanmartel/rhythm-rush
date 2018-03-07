@@ -3,12 +3,12 @@
    "beat_split":4,
    "offset":0.0,
    "thresholds":[
-      1.0,
-      2.0,
-      3.0,
-      4.0,
-      5.0,
-      6.0
+      175.0,
+      195.0,
+      215.0,
+      235.0,
+      255.0,
+      275.0
    ],
    "sections":[
       [
@@ -17,6 +17,13 @@
             "endTime":11.953649813309312,
             "offset":3.0,
             "player1Notes":{
+               "47":"square",
+               "50":"square",
+               "53":"square",
+               "56":"square",
+               "59":"square",
+               "63":"square",
+               "67":"square"
 
             },
             "player2Notes":{
@@ -28,14 +35,7 @@
                "17":"square",
                "19":"square",
                "22":"square",
-               "25":"cross",
-               "47":"square",
-               "50":"square",
-               "53":"square",
-               "56":"square",
-               "59":"square",
-               "63":"square",
-               "67":"square"
+               "25":"cross"
             },
             "bothPlayerNotes":{
 
@@ -49,25 +49,26 @@
             "endTime":24.0513421818614,
             "offset":3.0,
             "player1Notes":{
+               "38":"cross",
+               "43":"cross",
+               "50":"square",
+               "53":"square",
+               "56":"square",
+               "61":"triangle",
+               "65":"circle",
+               "68":"cross",
+               "71":"square"
 
             },
             "player2Notes":{
+			   "5":"square",
                "9":"cross",
                "12":"cross",
                "15":"circle",
                "19":"cross",
                "22":"square",
                "25":"square",
-               "38":"cross",
-               "43":"cross",
-               "50":"square",
-               "53":"square",
-               "56":"square",
-               "5":"square",
-               "61":"triangle",
-               "65":"circle",
-               "68":"cross",
-               "71":"square"
+               
             },
             "bothPlayerNotes":{
 
@@ -81,6 +82,22 @@
             "endTime":38.794349554926157,
             "offset":3.0,
             "player1Notes":{
+               "6":"cross",
+               "12":"circle",
+               "18":"cross",
+               "24":"circle",
+               "30":"cross",
+               "35":"circle",
+               "41":"triangle",
+               "47":"circle",
+               "52":"triangle",
+               "58":"square",
+               "64":"triangle",
+               "69":"square",
+               "75":"cross",
+               "81":"square",
+               "87":"cross",
+               "92":"square"
 
             },
             "player2Notes":{
@@ -116,6 +133,9 @@
 
             },
             "player2Notes":{
+
+            },
+            "bothPlayerNotes":{
                "38":"square",
                "43":"square",
                "49":"square",
@@ -163,8 +183,6 @@
                "268":"circle",
                "272":"triangle",
                "274":"triangle"
-            },
-            "bothPlayerNotes":{
 
             },
             "revivalNotes":{
@@ -176,9 +194,6 @@
             "endTime":104.59053934551775,
             "offset":3.0,
             "player1Notes":{
-
-            },
-            "player2Notes":{
                "19":"square",
                "25":"cross",
                "28":"circle",
@@ -188,15 +203,6 @@
                "36":"square",
                "39":"triangle",
 
-               "65":"square",
-               "71":"cross",
-               "74":"circle",
-               "75":"cross",
-               "78":"circle",
-               "79":"cross",
-               "82":"square",
-               "85":"triangle",
-
                "110":"cross",
               
                "116":"circle",
@@ -205,7 +211,18 @@
                "123":"cross",
                "124":"circle",
                "128":"cross",
-               "131":"triangle",
+               "131":"triangle"
+
+            },
+            "player2Notes":{
+               "65":"square",
+               "71":"cross",
+               "74":"circle",
+               "75":"cross",
+               "78":"circle",
+               "79":"cross",
+               "82":"square",
+               "85":"triangle",
 
                "156":"cross",
               
@@ -232,6 +249,8 @@
 
             },
             "player2Notes":{
+            },
+            "bothPlayerNotes":{
                "3":"square",
                "9":"square",
                "15":"square",
@@ -264,9 +283,6 @@
                "129":"cross",
                "132":"circle"
             },
-            "bothPlayerNotes":{
-
-            },
             "revivalNotes":{
 
             }
@@ -276,6 +292,21 @@
             "endTime":148.8027153108269,
             "offset":3.0,
             "player1Notes":{
+			   
+			   "26":"square",
+               "32":"square",
+               "38":"square",
+               "44":"square",
+
+               "72":"circle",
+               "78":"circle",
+               "84":"circle",
+               "90":"circle",
+
+               "115":"triangle",
+               "133":"circle",
+               "147":"square",
+               "161":"circle"
 
             },
             "player2Notes":{
@@ -283,36 +314,21 @@
                "10":"triangle",
                "15":"triangle",
                "21":"triangle",
-               "26":"triangle",
-               "33":"square",
-               "38":"square",
-               "44":"square",
-               "50":"square",
+               
+               "50":"cross",
                "55":"cross",
                "61":"cross",
                "66":"cross",
-               "72":"cross",
-               "78":"circle",
-               "84":"circle",
-               "90":"circle",
-               "95":"circle",
+              
+               "95":"triangle",
                "101":"triangle",
                "107":"triangle",
                "112":"triangle",
                
-               "115":"triangle",
-               
                "124":"square",
-               
-               "133":"circle",
-
                "138": "cross",
-               
-               "147":"square",
-               
-               "156":"triangle",
+               "156":"triangle"
 
-               "162":"circle"
             },
             "bothPlayerNotes":{
 
@@ -329,6 +345,9 @@
 
             },
             "player2Notes":{
+
+            },
+            "bothPlayerNotes":{
                "23":"circle",
                "25":"cross",
                "29":"circle",
@@ -356,8 +375,6 @@
                "104":"circle",
                "114":"square",
                "117":"triangle"
-            },
-            "bothPlayerNotes":{
 
             },
             "revivalNotes":{
