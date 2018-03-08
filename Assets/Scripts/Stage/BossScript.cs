@@ -11,7 +11,7 @@ public class BossScript : MonoBehaviour {
     public int dmg = 0;
     private int hp;
     public Slider healthBar;
-    public Canvas winning;
+    public Canvas winningCanvas;
     public bool hasEnded = false;
 
     private double stageCompleteTimer = 0;
@@ -32,7 +32,7 @@ public class BossScript : MonoBehaviour {
             if (hp <= 0)
             {
                 //Winning
-                //Canvas winningCanvas = Instantiate(winning, Vector3.zero, Quaternion.identity);
+                Canvas winning = Instantiate(winningCanvas, Vector3.zero, Quaternion.identity);
                 winning.transform.Find("Status").gameObject.SetActive(true);
 
                 Ranking ranking = GameObject.FindObjectOfType<Ranking>();
