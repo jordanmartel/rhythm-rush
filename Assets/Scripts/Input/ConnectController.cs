@@ -13,13 +13,17 @@ public class ConnectController : MonoBehaviour {
 
     private bool player1Ready = false;
     private bool player2Ready = false;
-
+    GUIStyle guiStyle = new GUIStyle();
 
     // unity is super gross and randomly assigns a controller to a joystick. Will have to manually 
     // keep track of which joystick buttons belong to each player
 
     // Use this for initialization
     void Start() {
+
+        guiStyle.fontSize = 20;
+        guiStyle.normal.textColor = Color.white;
+
     }
 
     // Update is called once per frame
@@ -67,7 +71,7 @@ public class ConnectController : MonoBehaviour {
 
         }
 
-        if (player1Ready && player2Ready)
+        if (player1Ready && player2Ready || Input.GetKeyDown(KeyCode.Return))
         {
             SceneManager.LoadScene(firstStage);
         }
@@ -128,19 +132,19 @@ public class ConnectController : MonoBehaviour {
             // if not connected, cannot be ready
             player1Ready = false;
             Joysticks.player1Joystick = -1;
-            GUI.Label(new Rect(10, 10, 250, 20), "Player 1: Connect controller!");
+            GUI.Label(new Rect(10, 10, 250, 20), "Player 1: Connect controller!", guiStyle);
         }
 
         else 
         {
             if (!player1Ready)
             {
-                GUI.Label(new Rect(10, 10, 250, 20), "Player 1: Press OPTIONS to start");
+                GUI.Label(new Rect(10, 10, 250, 20), "Player 1: Press OPTIONS to start", guiStyle);
             }
 
             else
             {
-                GUI.Label(new Rect(10, 10, 250, 20), "Player 1: Ready!");
+                GUI.Label(new Rect(10, 10, 250, 20), "Player 1: Ready!", guiStyle);
             }
         }
 
@@ -148,19 +152,19 @@ public class ConnectController : MonoBehaviour {
         {
             player2Ready = false;
             Joysticks.player2Joystick = -1;
-            GUI.Label(new Rect(Screen.width - 210, 10, 250, 20), "Player 2: Connect controller!");
+            GUI.Label(new Rect(Screen.width - 320, 10, 250, 20), "Player 2: Connect controller!", guiStyle);
         }
 
         else
         {
             if (!player2Ready)
             {
-                GUI.Label(new Rect(Screen.width - 210, 10, 250, 20), "Player 2: Press OPTIONS to start");
+                GUI.Label(new Rect(Screen.width - 320, 10, 250, 20), "Player 2: Press OPTIONS to start", guiStyle);
             }
 
             else
             {
-                GUI.Label(new Rect(Screen.width - 210, 10, 250, 20), "Player 2: Ready!");
+                GUI.Label(new Rect(Screen.width - 320, 10, 250, 20), "Player 2: Ready!", guiStyle);
             }
         }
 
