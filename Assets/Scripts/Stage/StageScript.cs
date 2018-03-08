@@ -76,7 +76,7 @@ public class StageScript : MonoBehaviour
         noteTravelSpeed = beatmap.bpm / noteSpeedQuotient;
         noteTravelDistance = 11.1;
         countDownOffset = 4;
-        playerOffset = 0.05;
+        //playerOffset = 0.05;
         phaseOffset = beatmap.getPhase(currentSection, currentPhase).offset;
         nextBeatTime = phaseOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
         beatInterval = BeatInterval(beatmap.bpm, beatmap.beat_split);
