@@ -5434,7 +5434,7 @@ MonoBehaviour:
   noteCreateIndex: 0
   nextBeatTime: 0
   countDownOffset: 0
-  playerOffset: 0
+  playerOffset: -0.2
   beatInterval: 0
   noteTravelDistance: 0
   noteHitIndex: 0
