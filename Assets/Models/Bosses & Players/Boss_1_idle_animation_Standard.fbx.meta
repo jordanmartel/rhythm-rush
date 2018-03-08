@@ -1,0 +1,207 @@
+fileFormatVersion: 2
+guid: 14e8499c16ac107458b170586463f83f
+timeCreated: 1520537032
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Armature
+    100002: back IK.L
+    100004: back IK.L_end
+    100006: back IK.R.001
+    100008: back IK.R.001_end
+    100010: back lower arm.L
+    100012: back lower arm.L_end
+    100014: back lower arm.R.001
+    100016: back lower arm.R.001_end
+    100018: back upper arm.L
+    100020: back upper arm.R.001
+    100022: Bone
+    100024: Bone.001
+    100026: Bone.002
+    100028: Bone.003
+    100030: Bone.004
+    100032: Bone.005
+    100034: Bone.005_end
+    100036: Bone.006
+    100038: Bone.007
+    100040: Bone.008
+    100042: Bone.009
+    100044: Bone.009_end
+    100046: //RootNode
+    100048: Camera
+    100050: front IK.L
+    100052: front IK.L_end
+    100054: front IK.R.001
+    100056: front IK.R.001_end
+    100058: front lower arm.L
+    100060: front lower arm.L_end
+    100062: front lower arm.R.001
+    100064: front lower arm.R.001_end
+    100066: front upper arm.L
+    100068: front upper arm.R.001
+    100070: Lamp
+    100072: Plane
+    100074: Torus
+    100076: Torus.001
+    100078: Torus.002
+    400000: Armature
+    400002: back IK.L
+    400004: back IK.L_end
+    400006: back IK.R.001
+    400008: back IK.R.001_end
+    400010: back lower arm.L
+    400012: back lower arm.L_end
+    400014: back lower arm.R.001
+    400016: back lower arm.R.001_end
+    400018: back upper arm.L
+    400020: back upper arm.R.001
+    400022: Bone
+    400024: Bone.001
+    400026: Bone.002
+    400028: Bone.003
+    400030: Bone.004
+    400032: Bone.005
+    400034: Bone.005_end
+    400036: Bone.006
+    400038: Bone.007
+    400040: Bone.008
+    400042: Bone.009
+    400044: Bone.009_end
+    400046: //RootNode
+    400048: Camera
+    400050: front IK.L
+    400052: front IK.L_end
+    400054: front IK.R.001
+    400056: front IK.R.001_end
+    400058: front lower arm.L
+    400060: front lower arm.L_end
+    400062: front lower arm.R.001
+    400064: front lower arm.R.001_end
+    400066: front upper arm.L
+    400068: front upper arm.R.001
+    400070: Lamp
+    400072: Plane
+    400074: Torus
+    400076: Torus.001
+    400078: Torus.002
+    2000000: Camera
+    2100000: blue grey.001
+    2100002: green
+    2100004: black
+    2100006: grey.001
+    2100008: purple 2
+    2100010: purple
+    2100012: purple.002
+    2100014: purple.003
+    2100016: blue grey
+    2100018: grey
+    2100020: light purple
+    2100022: purple.001
+    2100024: green.001
+    2300000: Torus
+    2300002: Torus.001
+    2300004: Torus.002
+    3300000: Torus
+    3300002: Torus.001
+    3300004: Torus.002
+    4300000: Plane
+    4300002: Torus.001
+    4300004: Torus.002
+    4300006: Torus
+    7400000: Armature|ArmatureAction.001
+    7400002: Armature|Torus.001Action.001
+    7400004: Armature|Torus.002Action.001
+    7400006: Armature|TorusAction.001
+    7400008: Torus.001|Torus.001Action.001
+    7400010: Torus.001|Torus.002Action.001
+    7400012: Torus.001|TorusAction.001
+    7400014: Torus.002|Torus.001Action.001
+    7400016: Torus.002|Torus.002Action.001
+    7400018: Torus.002|TorusAction.001
+    7400020: Torus|Torus.001Action.001
+    7400022: Torus|Torus.002Action.001
+    7400024: Torus|TorusAction.001
+    9500000: //RootNode
+    10800000: Lamp
+    13700000: Plane
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
