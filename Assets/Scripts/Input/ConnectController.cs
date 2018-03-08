@@ -71,7 +71,7 @@ public class ConnectController : MonoBehaviour {
 
         }
 
-        if (player1Ready && player2Ready)
+        if (player1Ready && player2Ready || Input.GetKeyDown(KeyCode.Return))
         {
             SceneManager.LoadScene(firstStage);
         }
