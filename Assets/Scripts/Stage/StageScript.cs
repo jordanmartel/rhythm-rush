@@ -63,6 +63,8 @@ public class StageScript : MonoBehaviour
     public bool repeatFlag = false;
     public float repeatTime;
 
+    public Animator bossAnimator;    
+    
     // this is used to know that a team attack just ended, even though teamAttackController.isActive is false
     private bool teamAttackEnding = false;
 
@@ -87,6 +89,7 @@ public class StageScript : MonoBehaviour
 
         boss = FindObjectOfType<BossScript>();
         teamAttackController = FindObjectOfType<TeamAttack>();
+
 
         // for testing, we may start the audio at a different phase
         if (currentSection > 0 || currentPhase > 0)
@@ -193,7 +196,7 @@ public class StageScript : MonoBehaviour
                 // boss attack phase that has been successful
                 if (currentPhase + 1 == beatmap.sections[currentSection].Count)
                 {
-                    boss.resetAttackState();
+                    bossAnimator.SetBool("PreparingAttack", false);
                     teamAttackController.startTeamAttack();
 
                     team.player1.activeNotes.Clear();
@@ -212,6 +215,7 @@ public class StageScript : MonoBehaviour
                     {
                         boss.giveDamage(1);
                         currentPhase++;
+                        bossAnimator.SetBool("Damaged", true);
                     }
                 }
             }
@@ -222,7 +226,8 @@ public class StageScript : MonoBehaviour
                 if (!isRevival)
                 {
                     team.attackedByBoss();
-                    boss.resetAttackState();
+                    bossAnimator.SetBool("Attacking", true);
+                    bossAnimator.SetBool("PreparingAttack", false);
                     setRepeat();
                 }
 
@@ -288,7 +293,7 @@ public class StageScript : MonoBehaviour
         if (!isRevival && currentPhase + 1 == beatmap.sections[currentSection].Count)
         {
             //Debug.Log("Entering Boss Attack Phase");
-            boss.setAttackState();
+            bossAnimator.SetBool("PreparingAttack", true);
         }
 
         if (isRevival)
@@ -346,7 +351,7 @@ public class StageScript : MonoBehaviour
             }
 
             nextPhaseStartTime = beatmap.getPhase(nextSection, nextPhase).startTime;
-            Debug.Log(nextPhaseStartTime);
+            //Debug.Log(nextPhaseStartTime);
 
         }        
     }
@@ -537,7 +542,7 @@ public class StageScript : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    { 
         // press space to toggle autoplay
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -593,6 +598,7 @@ public class StageScript : MonoBehaviour
                 else
                 {
                     boss.giveDamage(damage);
+                    bossAnimator.SetBool("Damaged", true);
                 }
 
                 // team attack is over, but this variable lets us know later that a team attack just finished. This is used
