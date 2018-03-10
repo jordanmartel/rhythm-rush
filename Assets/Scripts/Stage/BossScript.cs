@@ -10,8 +10,8 @@ public class BossScript : MonoBehaviour {
     public int maxhp = 12;
     public int dmg = 0;
     private int hp;
-    public Scrollbar healthBar;
-    public Canvas winning;
+    public Slider healthBar;
+    public Canvas winningCanvas;
     public bool hasEnded = false;
 
     private double stageCompleteTimer = 0;
@@ -32,29 +32,31 @@ public class BossScript : MonoBehaviour {
             if (hp <= 0)
             {
                 //Winning
-                Canvas winningCanvas = Instantiate(winning, Vector3.zero, Quaternion.identity);
+                Canvas winning = Instantiate(winningCanvas, Vector3.zero, Quaternion.identity);
+                winning.transform.Find("Status").gameObject.SetActive(true);
+
                 Ranking ranking = GameObject.FindObjectOfType<Ranking>();
                 double time = ranking.time;
                 string rank = ranking.rankingAtTime(time);
                 switch (rank)
                 {
                     case "SS":
-                        winningCanvas.transform.Find("SSRank").GetComponent<Image>().color = Color.white;
+                        winning.transform.Find("SSRank").gameObject.SetActive(true);
                         break;
                     case "S":
-                        winningCanvas.transform.Find("SRank").GetComponent<Image>().color = Color.white;
+                        winning.transform.Find("SRank").gameObject.SetActive(true);
                         break;
                     case "A":
-                        winningCanvas.transform.Find("ARank").GetComponent<Image>().color = Color.white;
+                        winning.transform.Find("ARank").gameObject.SetActive(true);
                         break;
                     case "B":
-                        winningCanvas.transform.Find("BRank").GetComponent<Image>().color = Color.white;
+                        winning.transform.Find("BRank").gameObject.SetActive(true);
                         break;
                     case "C":
-                        winningCanvas.transform.Find("CRank").GetComponent<Image>().color = Color.white;
+                        winning.transform.Find("CRank").gameObject.SetActive(true);
                         break;
                     default:
-                        winningCanvas.transform.Find("DRank").GetComponent<Image>().color = Color.white;
+                        winning.transform.Find("DRank").gameObject.SetActive(true);
                         break;
                 }
                 hasEnded = true;
@@ -139,7 +141,7 @@ public class BossScript : MonoBehaviour {
         {
             hp -= dmg;
         }
-        healthBar.size = (1.0f * hp / maxhp);
+        healthBar.value = (1.0f * hp / maxhp);
         StartCoroutine("FlickerDamage");
     }
 
