@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
 
     [Header("Other")]
     public PlayerStats stats;
+    public PowerUpHandler.powerUp powerUp;
     public int accumulatedDamage;
     public int combo;
     public int joystick;
@@ -38,7 +39,10 @@ public class Player : MonoBehaviour
     public List<GameObject> activeNotes;
 
     private int comboCount = 0;
+    private int pUpCombo = 0;
+    private bool pUpAvailable = false;
     private bool isDown = false;
+
 
     public bool IsDown {
         get {
@@ -61,6 +65,19 @@ public class Player : MonoBehaviour
     {
 
     }
+
+    public void resetCombo() {
+        combo = 0;
+        pUpCombo = 0;
+
+    }
+
+    public void updateCombo() {
+        combo++;
+        if (!pUpAvailable)  pUpCombo++;
+        pUpAvailable = PowerUpHandler.checkAvailablePower(powerUp, combo);
+    } 
+
 
     public int calculateComboDamage(int comboThreshold)
     {

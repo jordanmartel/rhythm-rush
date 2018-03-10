@@ -82,8 +82,8 @@ public class StageScript : MonoBehaviour
         beatInterval = BeatInterval(beatmap.bpm, beatmap.beat_split);
 
 
-        team.player1.joystick = Joysticks.player1Joystick;
-        team.player2.joystick = Joysticks.player2Joystick;
+        team.player1.joystick = Metadata.player1Joystick;
+        team.player2.joystick = Metadata.player2Joystick;
 
         boss = FindObjectOfType<BossScript>();
         teamAttackController = FindObjectOfType<TeamAttack>();
@@ -505,7 +505,7 @@ public class StageScript : MonoBehaviour
 
                 if (dealtDamage == 0)
                 {
-                    player.combo = 0;
+                    player.resetCombo();
 
                     // fail phase on miss
                     player.failedPhase = true;
@@ -513,19 +513,26 @@ public class StageScript : MonoBehaviour
                 }
                 else
                 {
-                    player.combo += 1;
+                    player.updateCombo();
                 }
 
                 player.activeNotes.Remove(noteObj);
 
             }
+
+            //powerup used // Note: R1 button
+            else if (Input.GetKeyDown("joystick " + player.joystick + " button 5")) {
+                PowerUpHandler.powerUp pUp = player.powerUp;
+
+            }
+
             else if (buttonPressed)
             {
                 noteHitIndex++;
                 headNote.destroyWithFeedback(player.getHitArea(headNote.key), false);
                 player.updateComboCount(false);
                 player.activeNotes.Remove(noteObj);
-                player.combo = 0;
+                player.resetCombo();
 
                 // fail phase on miss
                 player.failedPhase = true;
