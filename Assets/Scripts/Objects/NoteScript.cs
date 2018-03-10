@@ -33,7 +33,7 @@ public class NoteScript : MonoBehaviour {
             destroyWithFeedback(null, true);
 
             // forcefully reset the player combo when a note is missed
-            player.combo = 0;
+            player.resetCombo();
         }
         else if (collider.tag == "hit")
         {

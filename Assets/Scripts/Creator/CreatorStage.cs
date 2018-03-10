@@ -86,7 +86,7 @@ public class CreatorStage : MonoBehaviour {
         playerOffset = -0.2;
         nextBeatTime = 0;
         beatInterval = BeatInterval(bpm, beat_split);
-        joystick = Joysticks.player1Joystick;
+        joystick = Metadata.player1Joystick;
 
         recordedNotes = new Beatmap((int)bpm, beat_split, offset);
         recordedNotes.sections.Add(new List<BeatmapPhase>());
