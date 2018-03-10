@@ -98,14 +98,14 @@ public class TeamAttack : MonoBehaviour {
         isActive = false;
         numberOfHits = 0;
         // GetComponentInChildren<Text>().text = "";
-        Debug.Log("Dealt Team Attack Damage to the boss: " + damageDone);
+        //Debug.Log("Dealt Team Attack Damage to the boss: " + damageDone);
         ActivateLazer();
 
         return damageDone;
     }
 
     private void displayFeedback() {
-        Debug.Log("NumHits" + numberOfHits);
+        //Debug.Log("NumHits" + numberOfHits);
         player1Feedback.giveTeamAttackFeedback(numberOfHits);
         player2Feedback.giveTeamAttackFeedback(numberOfHits);
     }

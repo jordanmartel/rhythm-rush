@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1310,6 +1310,7 @@ MonoBehaviour:
     type: 2}
   hasEnded: 0
   nextStage: WaterStage
+  animator: {fileID: 600310982}
 --- !u!136 &600310981
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1323,6 +1324,11 @@ CapsuleCollider:
   m_Height: 0.5710302
   m_Direction: 1
   m_Center: {x: 0, y: 0.2144847, z: 0.10841303}
+--- !u!95 &600310982 stripped
+Animator:
+  m_PrefabParentObject: {fileID: 9500000, guid: 613455449398e234488c4fa2879684fc,
+    type: 3}
+  m_PrefabInternal: {fileID: 207615162}
 --- !u!1 &625163343
 GameObject:
   m_ObjectHideFlags: 0
@@ -1457,6 +1463,7 @@ MonoBehaviour:
   team: {fileID: 16383843}
   repeatFlag: 0
   repeatTime: 0
+  bossAnimator: {fileID: 600310982}
 --- !u!1 &751753931
 GameObject:
   m_ObjectHideFlags: 0

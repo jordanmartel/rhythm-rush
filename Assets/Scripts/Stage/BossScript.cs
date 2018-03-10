@@ -15,9 +15,11 @@ public class BossScript : MonoBehaviour {
     public bool hasEnded = false;
 
     private double stageCompleteTimer = 0;
+    private double idleChangeTimer = 0;
     public string nextStage = "";
 
     private bool preparingAttack = false;
+    public Animator animator;
 
 	// Use this for initialization
 	void Start () {
@@ -26,6 +28,26 @@ public class BossScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        if (animator != null)
+        {
+            // every 4 seconds, there is a chance to play a random idle animation
+            if (idleChangeTimer > 4)
+            {
+                idleChangeTimer = 0;
+                int num = UnityEngine.Random.Range(0, 21);
+                // decide whether to switch boss idle animation
+                Debug.Log(num);
+
+                if (num > 15)
+                {
+                    Debug.Log("Idle 2");
+                    animator.SetBool("Idle 2", true);
+                }
+            }
+            idleChangeTimer += Time.deltaTime;
+        }
+
         if (!hasEnded)
         {
             //Update visual cue on boss
@@ -86,7 +108,7 @@ public class BossScript : MonoBehaviour {
         }
     }
 
-    public void setAttackState()
+    /*public void setAttackState()
     {
         // TODO: some sort of attack preparation animation
 
@@ -94,27 +116,29 @@ public class BossScript : MonoBehaviour {
         // to still be shown correctly as red
         if (!preparingAttack)
         {
-            MeshRenderer[] mesh = GetComponentsInChildren<MeshRenderer>();
-            flickerHelper(mesh, Color.blue);
+            //MeshRenderer[] mesh = GetComponentsInChildren<MeshRenderer>();
+            //flickerHelper(mesh, Color.blue);
             preparingAttack = true;
         }
         
 
     }
+    */
 
-    public void resetAttackState()
+    /*public void resetAttackState()
     {
-        MeshRenderer[] mesh = GetComponentsInChildren<MeshRenderer>();
-        flickerHelper(mesh, Color.white);
+        //MeshRenderer[] mesh = GetComponentsInChildren<MeshRenderer>();
+        //flickerHelper(mesh, Color.white);
         preparingAttack = false;
     }
 
-    private void flickerHelper(MeshRenderer[] bossMesh, Color color) {
-        foreach (MeshRenderer mesh in bossMesh) {
-            mesh.material.color = color;
-        }
-    }
+    //private void flickerHelper(MeshRenderer[] bossMesh, Color color) {
+        //foreach (MeshRenderer mesh in bossMesh) {
+            //mesh.material.color = color;
+        //}
+    //}
 
+    /*
     private IEnumerator FlickerDamage () {
         MeshRenderer[] bossMesh = GetComponentsInChildren<MeshRenderer>();
         flickerHelper(bossMesh, Color.red);
@@ -128,6 +152,7 @@ public class BossScript : MonoBehaviour {
             flickerHelper(bossMesh, Color.white);
         }
     }
+    */
 
     public void giveDamage(int dmg) {
 
@@ -142,7 +167,7 @@ public class BossScript : MonoBehaviour {
             hp -= dmg;
         }
         healthBar.value = (1.0f * hp / maxhp);
-        StartCoroutine("FlickerDamage");
+        //StartCoroutine("FlickerDamage");
     }
 
     public void recoverHealth(int heal)
