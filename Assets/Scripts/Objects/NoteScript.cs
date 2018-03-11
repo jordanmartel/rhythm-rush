@@ -28,14 +28,21 @@ public class NoteScript : MonoBehaviour {
 
         if (collider.tag == "miss")
         {
-            // note was missed, so this player has failed the phase
-            player.failedPhase = true;
+            if (player.skillController.petActive)
+            {
+                player.skillController.petHelp();
+            }
+            else
+            {
+                // note was missed, so this player has failed the phase
+                player.failedPhase = true;
 
-            player.updateComboCount(false);
-            destroyWithFeedback(null, true);
+                player.updateComboCount(false);
+                destroyWithFeedback(null, true);
 
-            // forcefully reset the player combo when a note is missed
-            player.resetCombo();
+                // forcefully reset the player combo when a note is missed
+                player.resetCombo();
+            }
         }
         else if (collider.tag == "hit")
         {

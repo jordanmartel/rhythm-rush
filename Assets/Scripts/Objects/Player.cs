@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     public void resetCombo() {
@@ -77,6 +77,7 @@ public class Player : MonoBehaviour
         combo++;
         if (!pUpAvailable)  pUpCombo++;
         pUpAvailable = PowerUpHandler.checkAvailablePower(powerUp, combo);
+        skillController.triggerSkill(pUpAvailable);
     } 
 
 

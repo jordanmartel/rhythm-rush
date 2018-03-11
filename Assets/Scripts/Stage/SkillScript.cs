@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class SkillScript : MonoBehaviour {
@@ -8,23 +9,42 @@ public class SkillScript : MonoBehaviour {
     public Player player;
 
     [Header("AnyKey")]
+    public bool anyKeyUsed = false;
     public bool anyKeyActive = false;
     public double anyKeyTimer = 0;
     public double anyKeyMaxTime = 5;
 
     [Header("Pet")]
+    public bool petUsed = false;
     public bool petActive = false;
     public int petHelpCount = 3;
 
     [Header("HitArea")]
-    public bool hitAreaActive = false;
+    public bool hitAreaUsed = false;
 
     [Header("Bomb")]
-    public bool bombActive = false;
+    public bool bombUsed = false;
 
 	// Use this for initialization
 	void Start () {
-		
+        string powerUpName = Enum.GetName(typeof(PowerUpHandler.powerUp), player.powerUp);
+        switch (powerUpName)
+        {
+            case "HitArea":
+                hitAreaUsed = true;
+                break;
+            case "Pet":
+                petUsed = true;
+                break;
+            case "Bomb":
+                bombUsed = true;
+                break;
+            case "AnyKey":
+                anyKeyUsed = true;
+                break;
+            default:
+                break;
+        }
 	}
 	
 	// Update is called once per frame
@@ -32,10 +52,6 @@ public class SkillScript : MonoBehaviour {
 		if (anyKeyActive)
         {
             anyKeyTimer += Time.deltaTime;
-        }
-        if (petHelpCount <= 0)
-        {
-            petLeave();
         }
 	}
 
@@ -49,6 +65,33 @@ public class SkillScript : MonoBehaviour {
             if (player == note.GetComponent<NoteScript>().player)
             {
                 note.GetComponent<NoteScript>().anyKey = true;
+            }
+        }
+    }
+
+    internal void triggerSkill(bool pUpAvailable)
+    {
+        if (pUpAvailable)
+        {
+            if (anyKeyUsed)
+            {
+                anyKeyOn();
+            }
+            else if (petUsed)
+            {
+                petSummon();
+            }
+            else if (bombUsed)
+            {
+                throwBomb();
+            }
+            else if (hitAreaUsed)
+            {
+                print("WARNING: something went wrong (hit area skill is triggered)");
+            }
+            else
+            {
+                print("WARNING: something went wrong (no skill selected)");
             }
         }
     }
@@ -76,10 +119,21 @@ public class SkillScript : MonoBehaviour {
     internal void petHelp()
     {
         petHelpCount -= 1;
+        if (petHelpCount <= 0)
+        {
+            petLeave();
+        }
     }
 
     internal void throwBomb()
     {
-
+        GameObject[] notes = GameObject.FindGameObjectsWithTag("note");
+        foreach (GameObject note in notes)
+        {
+            if (player == note.GetComponent<NoteScript>().player)
+            {
+                note.SetActive(false);
+            }
+        }
     }
 }
