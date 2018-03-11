@@ -84,8 +84,12 @@ public class Player : MonoBehaviour
     public void updateCombo() {
         combo++;
         if (!pUpAvailable)  pUpCombo++;
-        pUpAvailable = PowerUpHandler.checkAvailablePower(powerUp, combo);
+        pUpAvailable = PowerUpHandler.checkAvailablePower(powerUp, pUpCombo);
         skillController.triggerSkill(pUpAvailable);
+        if (pUpAvailable)
+        {
+            pUpCombo = 0;
+        }
     } 
 
 
