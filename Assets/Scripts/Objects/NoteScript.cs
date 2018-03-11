@@ -16,6 +16,8 @@ public class NoteScript : MonoBehaviour {
     public GameObject destination;
     public GameObject shockwave;
 
+    public bool anyKey = false;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -94,6 +96,11 @@ public class NoteScript : MonoBehaviour {
         else
         {
             transform.position = Vector3.MoveTowards(transform.position, destination.transform.position, speed * Time.deltaTime);
+        }
+
+        if (anyKey)
+        {
+            // change material
         }
 
     }

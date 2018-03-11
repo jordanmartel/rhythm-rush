@@ -16,6 +16,8 @@ public class Team : MonoBehaviour
     void Start()
     {
         health = maxHealth;
+        player1.powerUp = Metadata.P1PowerUp;
+        player2.powerUp = Metadata.P2PowerUp;
     }
 
     // Update is called once per frame

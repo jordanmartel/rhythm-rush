@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     [Header("Other")]
     public PlayerStats stats;
     public PowerUpHandler.powerUp powerUp;
+    public SkillScript skillController;
     public int accumulatedDamage;
     public int combo;
     public int joystick;
