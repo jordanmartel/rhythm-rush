@@ -369,6 +369,10 @@ public class StageScript : MonoBehaviour
         newNote.GetComponent<NoteScript>().feedback = player.feedback;
         newNote.GetComponent<NoteScript>().player = player;
         newNote.SetActive(true);
+        if (player.skillController.anyKeyActive)
+        {
+            newNote.GetComponent<NoteScript>().anyKey = true;
+        }
 
         player.activeNotes.Add(newNote);
 
@@ -491,7 +495,8 @@ public class StageScript : MonoBehaviour
         string keyToHit = stringToKey(headNote.key, player.joystick);
         if (headNote.canHit || headNote.canMiss)
         {
-            if (Input.GetKeyDown(keyToHit) || (((headNote.key.Equals("square") && dpadHorizontal == -1) ||
+            if (player.skillController.anyKeyActive || Input.GetKeyDown(keyToHit) || 
+                (((headNote.key.Equals("square") && dpadHorizontal == -1) ||
                    (headNote.key.Equals("circle") && dpadHorizontal == 1) ||
                    (headNote.key.Equals("triangle") && dpadVertical == 1) ||
                    (headNote.key.Equals("cross") && dpadVertical == -1)) && (buttonPressed)) || autoPlay)
@@ -513,7 +518,14 @@ public class StageScript : MonoBehaviour
                     player.resetCombo();
 
                     // fail phase on miss
-                    player.failedPhase = true;
+                    if (!player.skillController.petActive)
+                    {
+                        player.failedPhase = true;
+                    }
+                    else
+                    {
+                        player.skillController.petHelp();
+                    }
                     player.updateComboCount(false);
                 }
                 else
@@ -540,8 +552,14 @@ public class StageScript : MonoBehaviour
                 player.resetCombo();
 
                 // fail phase on miss
-                player.failedPhase = true;
-
+                if (!player.skillController.petActive)
+                {
+                    player.failedPhase = true;
+                }
+                else
+                {
+                    player.skillController.petHelp();
+                }
 
             }
         }

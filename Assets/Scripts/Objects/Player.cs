@@ -58,7 +58,15 @@ public class Player : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        if (skillController.hitAreaUsed)
+        {
+            leftHitArea.transform.localScale = new Vector3((float) leftHitArea.transform.localScale.x * 1.25f,
+                (float) leftHitArea.transform.localScale.y * 1.25f, (float) leftHitArea.transform.localScale.z * 1.25f);
+            centreHitArea.transform.localScale = new Vector3((float)centreHitArea.transform.localScale.x * 1.25f,
+                (float)centreHitArea.transform.localScale.y * 1.25f, (float)centreHitArea.transform.localScale.z * 1.25f);
+            rightHitArea.transform.localScale = new Vector3((float)rightHitArea.transform.localScale.x * 1.25f,
+                (float)rightHitArea.transform.localScale.y * 1.25f, (float)rightHitArea.transform.localScale.z * 1.25f);
+        }
     }
 
     // Update is called once per frame

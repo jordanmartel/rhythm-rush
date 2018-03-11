@@ -16,6 +16,8 @@ public class NoteScript : MonoBehaviour {
     public GameObject destination;
     public GameObject shockwave;
 
+    public Material originalMaterial;
+
     public bool anyKey = false;
 
 	// Use this for initialization
@@ -107,7 +109,11 @@ public class NoteScript : MonoBehaviour {
 
         if (anyKey)
         {
-            // change material
+            GetComponent<Light>().enabled = true;
+        }
+        else
+        {
+            GetComponent<Light>().enabled = false;
         }
 
     }
