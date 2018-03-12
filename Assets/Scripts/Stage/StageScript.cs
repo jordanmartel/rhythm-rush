@@ -196,7 +196,11 @@ public class StageScript : MonoBehaviour
                 // boss attack phase that has been successful
                 if (currentPhase + 1 == beatmap.sections[currentSection].Count)
                 {
-                    bossAnimator.SetBool("PreparingAttack", false);
+
+                    if (bossAnimator != null)
+                    {
+                        bossAnimator.SetBool("PreparingAttack", false);
+                    }
                     teamAttackController.startTeamAttack();
 
                     team.player1.activeNotes.Clear();
@@ -215,7 +219,11 @@ public class StageScript : MonoBehaviour
                     {
                         boss.giveDamage(1);
                         currentPhase++;
-                        bossAnimator.SetBool("Damaged", true);
+                        if (bossAnimator != null)
+                        {
+
+                            bossAnimator.SetBool("Damaged", true);
+                        }
                     }
                 }
             }
@@ -226,8 +234,11 @@ public class StageScript : MonoBehaviour
                 if (!isRevival)
                 {
                     team.attackedByBoss();
-                    bossAnimator.SetBool("Attacking", true);
-                    bossAnimator.SetBool("PreparingAttack", false);
+                    if (bossAnimator != null)
+                    {
+                        bossAnimator.SetBool("Attacking", true);
+                        bossAnimator.SetBool("PreparingAttack", false);
+                    }
                     setRepeat();
                 }
 
@@ -293,7 +304,10 @@ public class StageScript : MonoBehaviour
         if (!isRevival && currentPhase + 1 == beatmap.sections[currentSection].Count)
         {
             //Debug.Log("Entering Boss Attack Phase");
-            bossAnimator.SetBool("PreparingAttack", true);
+            if (bossAnimator != null)
+            {
+                bossAnimator.SetBool("PreparingAttack", true);
+            }
         }
 
         if (isRevival)
@@ -605,7 +619,10 @@ public class StageScript : MonoBehaviour
                 else
                 {
                     boss.giveDamage(damage);
-                    bossAnimator.SetBool("Damaged", true);
+                    if (bossAnimator != null)
+                    {
+                        bossAnimator.SetBool("Damaged", true);
+                    }
                 }
 
                 // team attack is over, but this variable lets us know later that a team attack just finished. This is used
