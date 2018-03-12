@@ -60,12 +60,15 @@ public class Player : MonoBehaviour
     {
         if (skillController.hitAreaUsed)
         {
-            leftHitArea.transform.localScale = new Vector3((float) leftHitArea.transform.localScale.x * 1.25f,
-                (float) leftHitArea.transform.localScale.y * 1.25f, (float) leftHitArea.transform.localScale.z * 1.25f);
-            centreHitArea.transform.localScale = new Vector3((float)centreHitArea.transform.localScale.x * 1.25f,
-                (float)centreHitArea.transform.localScale.y * 1.25f, (float)centreHitArea.transform.localScale.z * 1.25f);
-            rightHitArea.transform.localScale = new Vector3((float)rightHitArea.transform.localScale.x * 1.25f,
-                (float)rightHitArea.transform.localScale.y * 1.25f, (float)rightHitArea.transform.localScale.z * 1.25f);
+            BoxCollider leftHitCollider = leftHitArea.gameObject.GetComponent<BoxCollider>();
+            BoxCollider centreHitCollider = centreHitArea.gameObject.GetComponent<BoxCollider>();
+            BoxCollider rightHitCollider = rightHitArea.gameObject.GetComponent<BoxCollider>();
+            leftHitCollider.transform.localScale = new Vector3((float) leftHitCollider.transform.localScale.x * 1.5f,
+                (float)leftHitCollider.transform.localScale.y * 1.5f, (float)leftHitCollider.transform.localScale.z * 1.5f);
+            centreHitCollider.transform.localScale = new Vector3((float)centreHitCollider.transform.localScale.x * 1.5f,
+                (float)centreHitCollider.transform.localScale.y * 1.5f, (float)centreHitCollider.transform.localScale.z * 1.5f);
+            rightHitCollider.transform.localScale = new Vector3((float)rightHitCollider.transform.localScale.x * 1.5f,
+                (float)rightHitCollider.transform.localScale.y * 1.5f, (float)rightHitCollider.transform.localScale.z * 1.5f);
         }
     }
 
