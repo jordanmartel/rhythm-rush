@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 114443891517125712}
   - component: {fileID: 114690949539829646}
   - component: {fileID: 111769233312603710}
+  - component: {fileID: 114850122901673240}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Untagged
@@ -200,6 +201,7 @@ GameObject:
   - component: {fileID: 114629052282248322}
   - component: {fileID: 114211563756293618}
   - component: {fileID: 111477995225523430}
+  - component: {fileID: 114203118542834728}
   m_Layer: 0
   m_Name: Player 2
   m_TagString: Untagged
@@ -1160,6 +1162,27 @@ MonoBehaviour:
   completionTime: 0
   heartsRemaining: 0
   ranking: 
+--- !u!114 &114203118542834728
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1637514611532342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f25a3921b6ef4ee4884d8189ff11c1b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 114629052282248322}
+  anyKeyUsed: 0
+  anyKeyActive: 0
+  anyKeyTimer: 0
+  anyKeyMaxTime: 5
+  petUsed: 0
+  petActive: 0
+  petHelpCount: 3
+  hitAreaUsed: 0
+  bombUsed: 0
 --- !u!114 &114211563756293618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1199,6 +1222,8 @@ MonoBehaviour:
   rightHitArea: {fileID: 0}
   comboText: {fileID: 0}
   stats: {fileID: 114690949539829646}
+  powerUp: 0
+  skillController: {fileID: 114850122901673240}
   accumulatedDamage: 0
   combo: 0
   joystick: 0
@@ -1230,6 +1255,8 @@ MonoBehaviour:
   rightHitArea: {fileID: 0}
   comboText: {fileID: 0}
   stats: {fileID: 114211563756293618}
+  powerUp: 0
+  skillController: {fileID: 114203118542834728}
   accumulatedDamage: 0
   combo: 0
   joystick: 0
@@ -1254,3 +1281,24 @@ MonoBehaviour:
   perfectCount: 0
   stunCount: 0
   reviveCount: 0
+--- !u!114 &114850122901673240
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1448252774098774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f25a3921b6ef4ee4884d8189ff11c1b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 114443891517125712}
+  anyKeyUsed: 0
+  anyKeyActive: 0
+  anyKeyTimer: 0
+  anyKeyMaxTime: 5
+  petUsed: 0
+  petActive: 0
+  petHelpCount: 3
+  hitAreaUsed: 0
+  bombUsed: 0
