@@ -16,6 +16,10 @@ public class NoteScript : MonoBehaviour {
     public GameObject destination;
     public GameObject shockwave;
 
+    public Material originalMaterial;
+
+    public bool anyKey = false;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -26,14 +30,27 @@ public class NoteScript : MonoBehaviour {
 
         if (collider.tag == "miss")
         {
-            // note was missed, so this player has failed the phase
-            player.failedPhase = true;
-
             player.updateComboCount(false);
-            destroyWithFeedback(null, true);
-
             // forcefully reset the player combo when a note is missed
             player.resetCombo();
+
+            if (player.skillController.petActive)
+            {
+                player.skillController.petHelp();
+                player.updateComboCount(false);
+
+                player.resetCombo();
+                // destroy with a shockwave so that the player knows their pet saved them
+                DestroyWithShockwave();
+
+            }
+            else
+            {
+                // note was missed, so this player has failed the phase
+                player.failedPhase = true;
+                destroyWithFeedback(null, true);
+            }
+            
         }
         else if (collider.tag == "hit")
         {
@@ -94,6 +111,15 @@ public class NoteScript : MonoBehaviour {
         else
         {
             transform.position = Vector3.MoveTowards(transform.position, destination.transform.position, speed * Time.deltaTime);
+        }
+
+        if (anyKey)
+        {
+            GetComponent<Light>().enabled = true;
+        }
+        else
+        {
+            GetComponent<Light>().enabled = false;
         }
 
     }

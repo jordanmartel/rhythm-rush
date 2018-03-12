@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     [Header("Other")]
     public PlayerStats stats;
     public PowerUpHandler.powerUp powerUp;
+    public SkillScript skillController;
     public int accumulatedDamage;
     public int combo;
     public int joystick;
@@ -57,13 +58,24 @@ public class Player : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        if (skillController.hitAreaUsed)
+        {
+            BoxCollider leftHitCollider = leftHitArea.gameObject.GetComponent<BoxCollider>();
+            BoxCollider centreHitCollider = centreHitArea.gameObject.GetComponent<BoxCollider>();
+            BoxCollider rightHitCollider = rightHitArea.gameObject.GetComponent<BoxCollider>();
+            leftHitCollider.size = new Vector3((float) leftHitCollider.size.x * 1.5f,
+                (float)leftHitCollider.size.y * 1.5f, (float)leftHitCollider.size.z * 1.5f);
+            centreHitCollider.size = new Vector3((float)centreHitCollider.size.x * 1.5f,
+                (float)centreHitCollider.size.y * 1.5f, (float)centreHitCollider.size.z * 1.5f);
+            rightHitCollider.size = new Vector3((float)rightHitCollider.size.x * 1.5f,
+                (float)rightHitCollider.size.y * 1.5f, (float)rightHitCollider.size.z * 1.5f);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     public void resetCombo() {
@@ -75,7 +87,12 @@ public class Player : MonoBehaviour
     public void updateCombo() {
         combo++;
         if (!pUpAvailable)  pUpCombo++;
-        pUpAvailable = PowerUpHandler.checkAvailablePower(powerUp, combo);
+        pUpAvailable = PowerUpHandler.checkAvailablePower(powerUp, pUpCombo);
+        skillController.triggerSkill(pUpAvailable);
+        if (pUpAvailable)
+        {
+            pUpCombo = 0;
+        }
     } 
 
 

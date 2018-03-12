@@ -13,9 +13,11 @@ public class Team : MonoBehaviour
     public TeamStats stats;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         health = maxHealth;
+        player1.powerUp = Metadata.P1PowerUp;
+        player2.powerUp = Metadata.P2PowerUp;
     }
 
     // Update is called once per frame
