@@ -499,7 +499,7 @@ public class StageScript : MonoBehaviour
                 (((headNote.key.Equals("square") && dpadHorizontal == -1) ||
                    (headNote.key.Equals("circle") && dpadHorizontal == 1) ||
                    (headNote.key.Equals("triangle") && dpadVertical == 1) ||
-                   (headNote.key.Equals("cross") && dpadVertical == -1)) && (buttonPressed)) || autoPlay)
+                   (headNote.key.Equals("cross") && dpadVertical == -1)) && buttonPressed) || autoPlay)
             {
 
 

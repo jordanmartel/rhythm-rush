@@ -63,12 +63,12 @@ public class Player : MonoBehaviour
             BoxCollider leftHitCollider = leftHitArea.gameObject.GetComponent<BoxCollider>();
             BoxCollider centreHitCollider = centreHitArea.gameObject.GetComponent<BoxCollider>();
             BoxCollider rightHitCollider = rightHitArea.gameObject.GetComponent<BoxCollider>();
-            leftHitCollider.transform.localScale = new Vector3((float) leftHitCollider.transform.localScale.x * 1.5f,
-                (float)leftHitCollider.transform.localScale.y * 1.5f, (float)leftHitCollider.transform.localScale.z * 1.5f);
-            centreHitCollider.transform.localScale = new Vector3((float)centreHitCollider.transform.localScale.x * 1.5f,
-                (float)centreHitCollider.transform.localScale.y * 1.5f, (float)centreHitCollider.transform.localScale.z * 1.5f);
-            rightHitCollider.transform.localScale = new Vector3((float)rightHitCollider.transform.localScale.x * 1.5f,
-                (float)rightHitCollider.transform.localScale.y * 1.5f, (float)rightHitCollider.transform.localScale.z * 1.5f);
+            leftHitCollider.size = new Vector3((float) leftHitCollider.size.x * 1.5f,
+                (float)leftHitCollider.size.y * 1.5f, (float)leftHitCollider.size.z * 1.5f);
+            centreHitCollider.size = new Vector3((float)centreHitCollider.size.x * 1.5f,
+                (float)centreHitCollider.size.y * 1.5f, (float)centreHitCollider.size.z * 1.5f);
+            rightHitCollider.size = new Vector3((float)rightHitCollider.size.x * 1.5f,
+                (float)rightHitCollider.size.y * 1.5f, (float)rightHitCollider.size.z * 1.5f);
         }
     }
 

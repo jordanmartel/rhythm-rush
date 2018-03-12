@@ -52,6 +52,10 @@ public class SkillScript : MonoBehaviour {
 		if (anyKeyActive)
         {
             anyKeyTimer += Time.deltaTime;
+            if (anyKeyTimer > anyKeyMaxTime)
+            {
+                anyKeyEnd();
+            }
         }
 	}
 
@@ -99,6 +103,7 @@ public class SkillScript : MonoBehaviour {
     internal void anyKeyEnd()
     {
         anyKeyActive = false;
+        anyKeyTimer = 0;
     }
 
     internal void petSummon()

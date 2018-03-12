@@ -5,7 +5,7 @@ using UnityEngine;
 public class PowerUpHandler : MonoBehaviour {
 
     //The number is the combo count needed for power excecution
-    public enum powerUp : int { HitArea = 0, Pet = 50, Bomb = 40, AnyKey = 40, None=-1 };
+    public enum powerUp : int { HitArea = 0, Pet = 50, Bomb = 40, AnyKey = 35, None=-1 };
 
 
     // Use this for initialization

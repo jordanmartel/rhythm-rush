@@ -30,20 +30,27 @@ public class NoteScript : MonoBehaviour {
 
         if (collider.tag == "miss")
         {
+            player.updateComboCount(false);
+            // forcefully reset the player combo when a note is missed
+            player.resetCombo();
+
             if (player.skillController.petActive)
             {
                 player.skillController.petHelp();
+                player.updateComboCount(false);
+
+                player.resetCombo();
+                // destroy with a shockwave so that the player knows their pet saved them
+                DestroyWithShockwave();
+
             }
             else
             {
                 // note was missed, so this player has failed the phase
                 player.failedPhase = true;
+                destroyWithFeedback(null, true);
             }
-            player.updateComboCount(false);
-
-            // forcefully reset the player combo when a note is missed
-            player.resetCombo();
-            destroyWithFeedback(null, true);
+            
         }
         else if (collider.tag == "hit")
         {
