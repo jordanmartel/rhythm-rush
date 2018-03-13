@@ -35,13 +35,12 @@ public class BossScript : MonoBehaviour {
             if (idleChangeTimer > 4)
             {
                 idleChangeTimer = 0;
-                int num = UnityEngine.Random.Range(0, 21);
+                int num = UnityEngine.Random.Range(1, 5);
+                
                 // decide whether to switch boss idle animation
-                Debug.Log(num);
-
-                if (num > 15)
+                // 25% chance of entering the second idle stage
+                if (num > 3)
                 {
-                    Debug.Log("Idle 2");
                     animator.SetBool("Idle 2", true);
                 }
             }
