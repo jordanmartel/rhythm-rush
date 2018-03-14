@@ -35,13 +35,12 @@ public class BossScript : MonoBehaviour {
             if (idleChangeTimer > 4)
             {
                 idleChangeTimer = 0;
-                int num = UnityEngine.Random.Range(0, 21);
+                int num = UnityEngine.Random.Range(1, 5);
+                
                 // decide whether to switch boss idle animation
-                Debug.Log(num);
-
-                if (num > 15)
+                // 25% chance of entering the second idle stage
+                if (num > 3)
                 {
-                    Debug.Log("Idle 2");
                     animator.SetBool("Idle 2", true);
                 }
             }
@@ -57,7 +56,7 @@ public class BossScript : MonoBehaviour {
                 Canvas winning = Instantiate(winningCanvas, Vector3.zero, Quaternion.identity);
                 winning.transform.Find("Status").gameObject.SetActive(true);
 
-                Ranking ranking = GameObject.FindObjectOfType<Ranking>();
+                /*Ranking ranking = GameObject.FindObjectOfType<Ranking>();
                 double time = ranking.time;
                 string rank = ranking.rankingAtTime(time);
                 switch (rank)
@@ -81,9 +80,10 @@ public class BossScript : MonoBehaviour {
                         winning.transform.Find("DRank").gameObject.SetActive(true);
                         break;
                 }
+                */
                 hasEnded = true;
-                FindObjectOfType<TeamStats>().updateRanking(rank, time);
-                FindObjectOfType<Ranking>().enabled = false;
+                //FindObjectOfType<TeamStats>().updateRanking(rank, time);
+                //FindObjectOfType<Ranking>().enabled = false;
                 FindObjectOfType<StageScript>().enabled = false;
             }
         }
