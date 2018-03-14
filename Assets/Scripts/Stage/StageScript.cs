@@ -569,8 +569,8 @@ public class StageScript : MonoBehaviour
             noteCreateIndex = 0;
             phaseTimer = 0;
 
-
-            if (team.player1.IsDown)
+            // set up notes for the player still alive
+            if (team.player2.IsDown)
             {
                 team.player1.notes = new Dictionary<string, string>(beatmapPhase.revivalNotes);
                 team.player2.notes = new Dictionary<string, string>();
