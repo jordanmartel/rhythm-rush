@@ -19,7 +19,7 @@ public class PowerUpHandler : MonoBehaviour {
 	}
 
     public static bool checkAvailablePower(powerUp power, int combo) {
-        return (int)power == combo;
+        return (int) power == combo;
     }
 
 }

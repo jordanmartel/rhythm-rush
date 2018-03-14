@@ -145,7 +145,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -16.15}
+  m_AnchoredPosition: {x: 0, y: -16.150024}
   m_SizeDelta: {x: 812, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &69446008
@@ -2083,6 +2083,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   P1Indicator: {fileID: 424734591}
   P2Indicator: {fileID: 1893595627}
+  firstLevel: GrassStage
 --- !u!1 &2045896255
 GameObject:
   m_ObjectHideFlags: 0
