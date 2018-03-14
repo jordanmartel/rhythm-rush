@@ -35,6 +35,10 @@ public class StageScript : MonoBehaviour
     public bool autoPlay = false;
     public bool bossAttackInProgress = false;
 
+    [Header("Audio")]
+    public AudioSource musicPlayer;
+    public AudioSource revivalSoundPlayer;
+
     [Header("Input Materials")]
     public Material triangle;
     public Material circle;
@@ -95,8 +99,8 @@ public class StageScript : MonoBehaviour
         // for testing, we may start the audio at a different phase
         if (currentSection > 0 || currentPhase > 0)
         {
-            FindObjectOfType<AudioControl>().GetComponent<AudioSource>().time = (float)beatmap.getPhase(currentSection, currentPhase).getStartTime();
-            FindObjectOfType<AudioControl>().GetComponent<AudioSource>().enabled = true;
+            musicPlayer.time = (float)beatmap.getPhase(currentSection, currentPhase).getStartTime();
+            musicPlayer.enabled = true;
             timer = (float)beatmap.getPhase(currentSection, currentPhase).getStartTime();
             positionInSongTimer = (float)beatmap.getPhase(currentSection, currentPhase).getStartTime();
             countDownOffset = 0;
@@ -569,8 +573,8 @@ public class StageScript : MonoBehaviour
             noteCreateIndex = 0;
             phaseTimer = 0;
 
-
-            if (team.player1.IsDown)
+            // set up notes for the player still alive
+            if (team.player2.IsDown)
             {
                 team.player1.notes = new Dictionary<string, string>(beatmapPhase.revivalNotes);
                 team.player2.notes = new Dictionary<string, string>();
@@ -582,10 +586,8 @@ public class StageScript : MonoBehaviour
             }
 
 
-            FindObjectOfType<AudioControl>().GetComponent<AudioSource>().Pause();
-           
-
-            Debug.Log(team.hasNotesLeft());
+            musicPlayer.Pause();
+            revivalSoundPlayer.Play();
     
             isRevival = false;
             revivalInProgress = true;
@@ -627,7 +629,6 @@ public class StageScript : MonoBehaviour
             {
                 noteCreateIndex++;
                 nextBeatTime = phaseOffset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
-                Debug.Log(nextBeatTime);
             }
 
             if (teamAttackController.timerExpired())
@@ -669,8 +670,10 @@ public class StageScript : MonoBehaviour
                     moveToNextPhase();
                     revivalInProgress = false;
 
-                    FindObjectOfType<AudioControl>().GetComponent<AudioSource>().time = (float)beatmap.getPhase(currentSection, currentPhase).startTime;
-                    FindObjectOfType<AudioControl>().GetComponent<AudioSource>().Play();
+                    musicPlayer.time = (float)beatmap.getPhase(currentSection, currentPhase).startTime;
+                    musicPlayer.Play();
+
+                    revivalSoundPlayer.Stop();
 
                     positionInSongTimer = (float) beatmap.getPhase(currentSection, currentPhase).startTime;
 
