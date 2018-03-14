@@ -93,7 +93,7 @@ public class TeamAttack : MonoBehaviour {
         {
             damageDone = 0;
         }
-        displayFeedback();        
+        //displayFeedback();        
         energyBar.gameObject.SetActive(false);
         isActive = false;
         numberOfHits = 0;

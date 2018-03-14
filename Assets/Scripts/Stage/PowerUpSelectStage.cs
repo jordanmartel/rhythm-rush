@@ -93,9 +93,12 @@ public class PowerUpSelectStage : MonoBehaviour {
         float dpadVertical = Input.GetAxis("Controller Axis-Joystick" + joystick + "-Axis8");
         float vertMvmnt = 0;
 
+        int mult = 1;
+        if (Screen.height > 900) mult = 2;
+
         if (dpadVertical == 1) {
             if (position != 0) {
-                vertMvmnt += 100;
+                vertMvmnt += 90 * mult;
                 if (indicator == P1Indicator) { p1InputReset = false; currP1Pos--; }
                 if (indicator == P2Indicator) { p2InputReset = false; currP2Pos--; }
             }
@@ -103,7 +106,7 @@ public class PowerUpSelectStage : MonoBehaviour {
 
         } else if (dpadVertical == -1) {
             if (position != powers.Length - 1) {
-                vertMvmnt -= 100;
+                vertMvmnt -= 90 * mult;
                 if (indicator == P1Indicator) { p1InputReset = false; currP1Pos++; }
                 if (indicator == P2Indicator) { p2InputReset = false; currP2Pos++; }
             }

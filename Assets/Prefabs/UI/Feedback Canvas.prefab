@@ -77,9 +77,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 114267611199229696}
-  perfectValue: 0
-  goodValue: 0
-  okayValue: 1
+  perfectValue: 0.5
+  goodValue: 1
+  okayValue: 1.5
+  perfectScore: 50
+  goodScore: 30
+  okayScore: 10
   perfectColour: {r: 0.08469757, g: 0.4611939, b: 0.8161765, a: 1}
   goodColour: {r: 0.14509805, g: 0.39607844, b: 0, a: 1}
   okayColour: {r: 0.8156863, g: 0.43137255, b: 0, a: 1}
@@ -116,7 +119,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1
+  m_Text: 
 --- !u!114 &114476484446063674
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -145,9 +148,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 114835794792969384}
-  perfectValue: 0
-  goodValue: 0
-  okayValue: 1
+  perfectValue: 0.5
+  goodValue: 1
+  okayValue: 1.5
+  perfectScore: 50
+  goodScore: 30
+  okayScore: 10
   perfectColour: {r: 0.08469757, g: 0.4611939, b: 0.8161765, a: 1}
   goodColour: {r: 0.14509805, g: 0.39607844, b: 0, a: 1}
   okayColour: {r: 0.8156863, g: 0.43137255, b: 0, a: 1}
@@ -184,7 +190,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: o
+  m_Text: 
 --- !u!114 &114870157160179194
 MonoBehaviour:
   m_ObjectHideFlags: 1

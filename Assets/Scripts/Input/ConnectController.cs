@@ -94,7 +94,7 @@ public class ConnectController : MonoBehaviour {
         string[] controllerNames = Input.GetJoystickNames();
         for (int x = 1; x < Input.GetJoystickNames().Length + 1; x++)
         {
-            if (controllerNames[x - 1].Equals("Wireless Controller"))
+            if (controllerNames[x - 1].Equals("Wireless Controller") || controllerNames[x-1].Contains("Xbox One"))
             {
 
                 if (x == Metadata.player1Joystick)
