@@ -7,6 +7,7 @@ public class ManaBar : MonoBehaviour
 {
     public Slider manabar;
     public Image manabarFill;
+    public GameObject launchIndicator;
     public Player player;
 
     public Color manaColor;
@@ -44,11 +45,14 @@ public class ManaBar : MonoBehaviour
         if (manabar.value != 1)
         {
             manabarFill.color = manaColor;
+            launchIndicator.SetActive(false);
+
         }
 
         else
         {
             manabarFill.color = fullColor;
+            launchIndicator.SetActive(true);
         }
     }
 }
