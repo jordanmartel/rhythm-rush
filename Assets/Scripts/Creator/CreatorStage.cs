@@ -72,7 +72,7 @@ public class CreatorStage : MonoBehaviour {
         GameObject newNote = Instantiate(noteObject, new Vector3(position.x, position.y -4, position.z), new Quaternion(0, 180, 0, 0));
         newNote.GetComponent<NoteScript>().key = key;
         newNote.GetComponent<NoteScript>().index = noteIndex;
-        newNote.GetComponent<NoteScript>().stage = gameObject;
+        newNote.GetComponent<NoteScript>().stage = gameObject.GetComponent<StageScript>();
         newNote.GetComponent<MeshRenderer>().material = stringToMesh(key);
         newNote.GetComponent<NoteScript>().feedback = feedbackText;
         newNote.GetComponent<NoteScript>().isCreator = true;

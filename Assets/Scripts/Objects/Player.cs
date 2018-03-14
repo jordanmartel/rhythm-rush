@@ -6,6 +6,10 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
 
+    [Header("Player Health")]
+    public int health;
+    public int maxHealth;
+
     [Header("Music Staff References")]
     public GameObject leftTrack;
     public GameObject centreTrack;
@@ -45,6 +49,15 @@ public class Player : MonoBehaviour
     private bool isDown = false;
 
 
+    public void attackedByBoss()
+    {
+        health = health - 1;
+    }
+    public void recoverHealth()
+    {
+        health = Mathf.Min(maxHealth, health + 1);
+    }
+
     public bool IsDown {
         get {
             return isDown;
@@ -53,6 +66,13 @@ public class Player : MonoBehaviour
         set {
             isDown = value;
         }
+    }
+
+    public void KnockDownPlayer()
+    {
+        gameObject.GetComponent<Animation>().Play("hurt_player");
+        IsDown = true;
+        stats.incrementStun();
     }
 
     // Use this for initialization

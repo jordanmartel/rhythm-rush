@@ -56,7 +56,7 @@ public class BossScript : MonoBehaviour {
                 Canvas winning = Instantiate(winningCanvas, Vector3.zero, Quaternion.identity);
                 winning.transform.Find("Status").gameObject.SetActive(true);
 
-                Ranking ranking = GameObject.FindObjectOfType<Ranking>();
+                /*Ranking ranking = GameObject.FindObjectOfType<Ranking>();
                 double time = ranking.time;
                 string rank = ranking.rankingAtTime(time);
                 switch (rank)
@@ -80,9 +80,10 @@ public class BossScript : MonoBehaviour {
                         winning.transform.Find("DRank").gameObject.SetActive(true);
                         break;
                 }
+                */
                 hasEnded = true;
-                FindObjectOfType<TeamStats>().updateRanking(rank, time);
-                FindObjectOfType<Ranking>().enabled = false;
+                //FindObjectOfType<TeamStats>().updateRanking(rank, time);
+                //FindObjectOfType<Ranking>().enabled = false;
                 FindObjectOfType<StageScript>().enabled = false;
             }
         }

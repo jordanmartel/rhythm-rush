@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Team : MonoBehaviour
 {
-    public int health;
-    public int maxHealth = 3;
+    //public int health;
+    //public int maxHealth = 3;
     public Player player1;
     public Player player2;
     public bool hasEnded = false;
@@ -15,7 +15,7 @@ public class Team : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
-        health = maxHealth;
+        //health = maxHealth;
         player1.powerUp = Metadata.P1PowerUp;
         player2.powerUp = Metadata.P2PowerUp;
     }
@@ -25,25 +25,26 @@ public class Team : MonoBehaviour
     {
         if (!hasEnded)
         {
-            if (health <= 0)
+            if (player1.health <= 0 || player2.health <=0)
             {
                 Instantiate(losing, Vector3.zero, Quaternion.identity);
                 hasEnded = true;
-                FindObjectOfType<Ranking>().enabled = false;
+                //FindObjectOfType<Ranking>().enabled = false;
                 FindObjectOfType<StageScript>().enabled = false;
             }
         }
     }
 
     // TODO: should disable hearts in UI as well
-    public void attackedByBoss()
-    {
-        health = health - 1;
-    }
+    //public void attackedByBoss()
+    //{
+    //    health = health - 1;
+    //}
 
     public void recoverHealth()
     {
-        health = Mathf.Min(maxHealth, health + 1);
+        player1.recoverHealth();
+        player2.recoverHealth();
     }
 
     // returns true if any notes are in play or any notes in phase remain to be played
@@ -64,12 +65,6 @@ public class Team : MonoBehaviour
     {
         player1.failedPhase = false;
         player2.failedPhase = false;
-    }
-
-    public void KnockDownPlayer(Player player) {
-        player.GetComponent<Animation>().Play("hurt_player");
-        player.IsDown = true;
-        player.stats.incrementStun();
     }
 
     public void revivePlayer() {

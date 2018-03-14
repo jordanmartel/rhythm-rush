@@ -12,7 +12,7 @@ public class NoteScript : MonoBehaviour {
 
     public Player player;
     public GameObject feedback;
-    public GameObject stage;
+    public StageScript stage;
     public GameObject destination;
     public GameObject shockwave;
 
@@ -47,7 +47,42 @@ public class NoteScript : MonoBehaviour {
             else
             {
                 // note was missed, so this player has failed the phase
-                player.failedPhase = true;
+
+                // if a player misses a note and the boss attack is in progress, enable the revive phase
+                if (stage.bossAttackInProgress)
+                {
+                    stage.isRevival = true;
+                    player.KnockDownPlayer();
+                    if (stage.bossAnimator != null)
+                    {
+                        stage.bossAnimator.SetBool("Attacking", true);
+                        stage.bossAnimator.SetBool("PreparingAttack", false);
+                    }
+                    stage.bossAttackInProgress = false;
+                }
+                
+                // failed a revive
+                else if (stage.revivalInProgress)
+                {
+                    stage.isRevival = true;
+
+                    // attack the opposite player that is stunned (bleeding out)
+                    if (stage.team.player1 == player)
+                    {
+                        stage.team.player2.attackedByBoss();
+                    }
+
+                    else
+                    {
+                        stage.team.player1.attackedByBoss();
+                    }
+                }
+
+                else
+                {
+                    player.attackedByBoss();
+                }
+
                 destroyWithFeedback(null, true);
             }
             
