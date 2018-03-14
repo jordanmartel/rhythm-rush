@@ -506,7 +506,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4149768845930272}
   m_Layer: 0
-  m_Name: Player1Track
+  m_Name: Player2Track
   m_TagString: stage_left
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -572,7 +572,7 @@ GameObject:
   - component: {fileID: 65870232365718052}
   - component: {fileID: 23688265351234330}
   m_Layer: 0
-  m_Name: miss_left
+  m_Name: miss_right
   m_TagString: miss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
