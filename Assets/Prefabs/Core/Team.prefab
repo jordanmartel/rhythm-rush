@@ -853,7 +853,7 @@ GameObject:
   - component: {fileID: 114187782555644686}
   - component: {fileID: 111470772631502436}
   m_Layer: 0
-  m_Name: Player 1
+  m_Name: Player 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1217,7 +1217,7 @@ GameObject:
   - component: {fileID: 114074446968541978}
   - component: {fileID: 111290694843981374}
   m_Layer: 0
-  m_Name: Player 2
+  m_Name: Player 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2912,7 +2912,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1191757310931038}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.6093483, y: -40.013874, z: 67.77056}
+  m_LocalPosition: {x: 0.06, y: -40.013874, z: 67.77056}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4555056213312804}
@@ -3036,7 +3036,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1421635681445800}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10, y: 40.01, z: -105.74}
+  m_LocalPosition: {x: -8.8, y: 40.01, z: -105.74}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 4012978386475356}
@@ -3913,7 +3913,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1640065576698932}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.104, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 4236289483302660}
@@ -5660,6 +5660,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 471d5aa481c780045af21dad67903911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 5
+  maxHealth: 5
   leftTrack: {fileID: 0}
   centreTrack: {fileID: 0}
   rightTrack: {fileID: 0}
@@ -5693,6 +5695,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 471d5aa481c780045af21dad67903911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 5
+  maxHealth: 5
   leftTrack: {fileID: 0}
   centreTrack: {fileID: 0}
   rightTrack: {fileID: 0}
@@ -5726,8 +5730,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75370f0880b09744be2505fe2a1eab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
-  maxHealth: 3
   player1: {fileID: 114240217008952556}
   player2: {fileID: 114468231344970944}
   hasEnded: 0
@@ -5745,7 +5747,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   completionTime: 0
-  heartsRemaining: 0
   ranking: 
 --- !u!114 &114959063282323368
 MonoBehaviour:
