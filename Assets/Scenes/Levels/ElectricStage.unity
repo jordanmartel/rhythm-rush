@@ -2011,7 +2011,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb974950162f430498e089e7cdd4845c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxhp: 12
+  maxhp: 23900
   dmg: 0
   healthBar: {fileID: 1089445313}
   winningCanvas: {fileID: 223999834810342052, guid: 08fcb43f0c9b1494089a56a56da4255b,
