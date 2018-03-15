@@ -39,6 +39,7 @@ public class ManaBar : MonoBehaviour
 
         else
         {
+            Debug.Log(player.pUpCombo);
             Metadata.playerManaLevels[player.joystick] = player.pUpCombo;
         }
 

@@ -85,6 +85,13 @@ public class BossScript : MonoBehaviour {
                 //FindObjectOfType<TeamStats>().updateRanking(rank, time);
                 //FindObjectOfType<Ranking>().enabled = false;
                 FindObjectOfType<StageScript>().enabled = false;
+
+
+                GameObject[] notes = GameObject.FindGameObjectsWithTag("note");
+                foreach (GameObject note in notes)
+                {
+                    Destroy(note);
+                }
             }
         }
 
