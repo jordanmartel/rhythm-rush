@@ -85,6 +85,13 @@ public class BossScript : MonoBehaviour {
                 //FindObjectOfType<TeamStats>().updateRanking(rank, time);
                 //FindObjectOfType<Ranking>().enabled = false;
                 FindObjectOfType<StageScript>().enabled = false;
+
+
+                GameObject[] notes = GameObject.FindGameObjectsWithTag("note");
+                foreach (GameObject note in notes)
+                {
+                    Destroy(note);
+                }
             }
         }
 
@@ -174,6 +181,10 @@ public class BossScript : MonoBehaviour {
         }
         healthBar.value = (1.0f * hp / maxhp);
         Animator animator = GetComponent<Animator>();
+        if (animator != null)
+        {
+            animator.SetBool("Damaged", true);
+        }
         //StartCoroutine("FlickerDamage");
     }
 

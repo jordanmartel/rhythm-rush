@@ -29,7 +29,7 @@ public class StageScript : MonoBehaviour
     private BeatmapPhase beatmapPhase;
     public bool isRevival = false;
     public bool revivalInProgress = false;
-    private int currentRevivalSection = -1;
+    //private int currentRevivalSection = -1;
     public double noteTravelSpeed;
     public double noteSpeedQuotient = 20;
     public bool autoPlay = false;
@@ -232,6 +232,15 @@ public class StageScript : MonoBehaviour
             }
         }
         
+
+        // no more phases
+        if (beatmap.sections.Count <= currentSection)
+        {
+            team.player1.health = 0;
+            team.player2.health = 0;
+            return;
+        }
+
 
         // retrieve the next phase, and corresponding notes
         beatmapPhase = beatmap.getPhase(currentSection, currentPhase);
