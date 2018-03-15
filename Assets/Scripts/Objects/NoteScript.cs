@@ -11,10 +11,14 @@ public class NoteScript : MonoBehaviour {
     public bool isCreator;
 
     public Player player;
+
+    [Header("Object References")]
     public GameObject feedback;
     public StageScript stage;
     public GameObject destination;
     public GameObject shockwave;
+    public GameObject particlesObj;
+
 
     public Material originalMaterial;
 
@@ -30,14 +34,14 @@ public class NoteScript : MonoBehaviour {
 
         if (collider.tag == "miss")
         {
-            player.updateComboCount(false);
+            player.updateComboCount(false, 0);
             // forcefully reset the player combo when a note is missed
             player.resetCombo();
 
             if (player.skillController.petActive)
             {
                 player.skillController.petHelp();
-                player.updateComboCount(false);
+                player.updateComboCount(false, 0);
 
                 player.resetCombo();
                 // destroy with a shockwave so that the player knows their pet saved them
@@ -116,11 +120,28 @@ public class NoteScript : MonoBehaviour {
             float distance = Vector3.Distance(hitArea.transform.position, transform.position);
             score = feedback.GetComponent<PlayerFeedback>().GiveFeedback(distance, correct);
             DestroyWithShockwave();
+
+            if (correct) {
+                sendParticles(score);
+            }
         }
 
         Destroy(gameObject);
 
         return score;
+    }
+
+
+    private void sendParticles(int damage) {
+        GameObject particles = Instantiate(particlesObj, this.transform.localPosition, Quaternion.identity);
+        particles.GetComponentInChildren<noteAttractor>().damage = damage;
+
+        //Change for different animation types
+        //particles.GetComponentInChildren<Animation>().Play("");
+
+        //Change Below for revive phase
+        //particles.GetComponentInChildren<noteAttractor>().target
+
     }
 
     private void DestroyWithShockwave() {

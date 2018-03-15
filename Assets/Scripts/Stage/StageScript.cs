@@ -203,7 +203,7 @@ public class StageScript : MonoBehaviour
         // regular phase just finished
         else
         {
-            boss.giveDamage(1);
+            //boss.giveDamage(1);
             currentPhase++;
             if (bossAnimator != null)
             {
@@ -428,10 +428,10 @@ public class StageScript : MonoBehaviour
 
                 //print("hit successfully");
                 noteHitIndex++;
-                int dealtDamage = headNote.destroyWithFeedback(player.getHitArea(headNote.key), true);
-                player.updateComboCount(true);
+                int score = headNote.destroyWithFeedback(player.getHitArea(headNote.key), true);
+                player.updateComboCount(true, score);
 
-                if (dealtDamage == 0)
+                if (score == 0)
                 {
                     player.resetCombo();
 
@@ -477,7 +477,7 @@ public class StageScript : MonoBehaviour
                     {
                         player.skillController.petHelp();
                     }
-                    player.updateComboCount(false);
+                    player.updateComboCount(false, 0);
                 }
                 else
                 {
@@ -492,7 +492,7 @@ public class StageScript : MonoBehaviour
             {
                 noteHitIndex++;
                 headNote.destroyWithFeedback(player.getHitArea(headNote.key), false);
-                player.updateComboCount(false);
+                player.updateComboCount(false, 0);
                 player.activeNotes.Remove(noteObj);
                 player.resetCombo();
 
@@ -638,8 +638,8 @@ public class StageScript : MonoBehaviour
                 int damage = teamAttackController.unleashTeamAttack();
                 if (damage == 0)
                 {
-                    team.player1.updateComboCount(false);
-                    team.player2.updateComboCount(false);
+                    team.player1.updateComboCount(false, 0);
+                    team.player2.updateComboCount(false, 0);
                 }
                 else
                 {

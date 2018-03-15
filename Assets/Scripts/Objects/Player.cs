@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
 
     [Header("UI Elements")]
     public Text comboText;
+    public Text scoreText;
 
     [Header("Other")]
     public PlayerStats stats;
@@ -153,11 +154,13 @@ public class Player : MonoBehaviour
     }
 
     //Success indicates correct hit, if false then reset combo counter
-    public void updateComboCount (bool success) {
+    public void updateComboCount (bool success, int score) {
 
         comboCount = (success) ? comboCount+ 1 : 0;
         comboText.text = "x" + comboCount;
+        scoreText.text = (System.Int32.Parse(scoreText.text) + score).ToString();
         stats.updateMaxCombo(comboCount);
+        stats.updateScore(score);
     }
 
     public GameObject getHitArea(string key) {

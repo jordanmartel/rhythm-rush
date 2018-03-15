@@ -6,11 +6,13 @@ using UnityEngine.UI;
 
 public class TeamAttack : MonoBehaviour {
 
+    [Header("Boss Stats")]
     public bool isActive;
     public int numberOfHits;
     public int maximumNumberOfHits = 60;
     public int attackHits = 50;
     public int recoverHits = 60;
+    public int damagePerHit = 10;
 
     public float allotedTime = 5f;
     private float remainingTime = 0f;
@@ -75,8 +77,8 @@ public class TeamAttack : MonoBehaviour {
         // 40 hits: 100 * 40 * 2^4-1 = 100 * 40 * 8 = 32,000
         // 50 hits: 100 * 50 * 2^5-1 = 100 * 50 * 16 = 80,000
 
-        //int damageDone = Mathf.Min(numberOfHits, maximumNumberOfHits) * damagePerHit * 
-        //    (int) Math.Pow(2, (Mathf.Min(numberOfHits, maximumNumberOfHits) / 10) - 1);
+        int damageDone = Mathf.Min(numberOfHits, maximumNumberOfHits) * damagePerHit;
+           // * (int) Math.Pow(2, (Mathf.Min(numberOfHits, maximumNumberOfHits) / 10) - 1);
 
         //Debug.Log("num hits: " + (Mathf.Min(numberOfHits, maximumNumberOfHits)));
         //Debug.Log("damage per hit: " + damagePerHit);
@@ -84,7 +86,6 @@ public class TeamAttack : MonoBehaviour {
 
         // reset
 
-        int damageDone = 2;
         if (numberOfHits >= recoverHits)
         {
             FindObjectOfType<Team>().recoverHealth();
@@ -106,8 +107,8 @@ public class TeamAttack : MonoBehaviour {
 
     private void displayFeedback() {
         //Debug.Log("NumHits" + numberOfHits);
-        player1Feedback.giveTeamAttackFeedback(numberOfHits);
-        player2Feedback.giveTeamAttackFeedback(numberOfHits);
+       // player1Feedback.giveTeamAttackFeedback(numberOfHits);
+       // player2Feedback.giveTeamAttackFeedback(numberOfHits);
     }
 
     public bool timerExpired()
