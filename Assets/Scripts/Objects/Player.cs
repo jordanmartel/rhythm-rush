@@ -45,8 +45,8 @@ public class Player : MonoBehaviour
     public List<GameObject> activeNotes;
 
     private int comboCount = 0;
-    private int pUpCombo = 0;
-    private bool pUpAvailable = false;
+    public int pUpCombo = 0;
+    public bool pUpAvailable = false;
     private bool isDown = false;
 
 
@@ -107,14 +107,19 @@ public class Player : MonoBehaviour
 
     public void updateCombo() {
         combo++;
-        if (!pUpAvailable)  pUpCombo++;
-        pUpAvailable = PowerUpHandler.checkAvailablePower(powerUp, pUpCombo);
-        skillController.triggerSkill(pUpAvailable);
-        if (pUpAvailable)
+        if (!pUpAvailable)
         {
-            pUpCombo = 0;
+            pUpCombo++;
+            pUpAvailable = PowerUpHandler.checkAvailablePower(powerUp, pUpCombo);
         }
-    } 
+    }
+    
+    public void triggerSkill()
+    {
+        skillController.triggerSkill(pUpAvailable);
+        pUpAvailable = false;
+        pUpCombo = 0;
+    }
 
 
     public int calculateComboDamage(int comboThreshold)

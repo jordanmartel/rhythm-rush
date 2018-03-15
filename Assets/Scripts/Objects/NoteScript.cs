@@ -147,6 +147,7 @@ public class NoteScript : MonoBehaviour {
     private void DestroyWithShockwave() {
         GameObject shockwaveInst = Instantiate(shockwave, this.transform.localPosition, Quaternion.identity);
         Destroy(shockwaveInst, 1f);
+        player.activeNotes.Remove(gameObject);
         Destroy(gameObject);
     }
 

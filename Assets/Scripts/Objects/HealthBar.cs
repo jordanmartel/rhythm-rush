@@ -9,7 +9,6 @@ public class HealthBar : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        //team = FindObjectOfType<Team>();
 	}
 	
 	// Update is called once per frame

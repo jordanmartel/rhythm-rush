@@ -2083,6 +2083,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   P1Indicator: {fileID: 424734591}
   P2Indicator: {fileID: 1893595627}
+  firstLevel: GrassStage
   UIRange: {fileID: 122201289}
   UIPet: {fileID: 581200414}
   UIBomb: {fileID: 1810238722}

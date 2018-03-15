@@ -10,6 +10,7 @@ public class PowerUpSelectStage : MonoBehaviour {
     public GameObject P1Indicator;
     public GameObject P2Indicator;
 
+    public string firstLevel;
     [Header("Selections")]
     public GameObject UIRange;
     public GameObject UIPet;
@@ -17,6 +18,7 @@ public class PowerUpSelectStage : MonoBehaviour {
     public GameObject UIAnyKey;
 
     private List<GameObject> UIOptionList = new List<GameObject>();
+
     private int currP1Pos = 0;
     private int currP2Pos = 0;
 
@@ -57,7 +59,7 @@ public class PowerUpSelectStage : MonoBehaviour {
 
     private IEnumerator changeScene() {
         yield return new WaitForSeconds(1.5f);
-        SceneManager.LoadScene("GrassStage");
+        SceneManager.LoadScene(firstLevel);
     }
 
     private void updatePlayer1() {

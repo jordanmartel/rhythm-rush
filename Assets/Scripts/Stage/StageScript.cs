@@ -403,6 +403,13 @@ public class StageScript : MonoBehaviour
             }
         }
 
+        //powerup used // Note: R1 button
+        if (player.pUpAvailable && Input.GetKeyDown("joystick " + player.joystick + " button 5"))
+        {
+            Debug.Log("skill triggered");
+            player.triggerSkill();
+        }
+
         string keyToHit = stringToKey(headNote.key, player.joystick);
         if (headNote.canHit || headNote.canMiss)
         {
@@ -478,12 +485,6 @@ public class StageScript : MonoBehaviour
                 }
 
                 player.activeNotes.Remove(noteObj);
-
-            }
-
-            //powerup used // Note: R1 button
-            else if (Input.GetKeyDown("joystick " + player.joystick + " button 5")) {
-                PowerUpHandler.powerUp pUp = player.powerUp;
 
             }
 
