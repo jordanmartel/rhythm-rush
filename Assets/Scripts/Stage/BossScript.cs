@@ -29,6 +29,25 @@ public class BossScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        // quit on esc
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("ConnectController");
+
+        }
+
+        // skip to the next scene on N
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            SceneManager.LoadScene(nextStage);
+        }
+
+        // restart the scene on R
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
         if (animator != null)
         {
             // every 4 seconds, there is a chance to play a random idle animation
