@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class Team : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class Team : MonoBehaviour
     public bool hasEnded = false;
     public Canvas losing;
     public TeamStats stats;
+
+    private double loseTimer = 4;
 
     // Use this for initialization
     void Awake()
@@ -32,6 +36,17 @@ public class Team : MonoBehaviour
                 //FindObjectOfType<Ranking>().enabled = false;
                 FindObjectOfType<StageScript>().enabled = false;
             }
+        }
+
+        else
+        {
+            loseTimer -= Time.deltaTime;
+
+            if (loseTimer <= 0)
+            {
+                SceneManager.LoadScene("ConnectController");
+            }
+
         }
     }
 
