@@ -167,6 +167,8 @@ public class BossScript : MonoBehaviour {
             hp -= dmg;
         }
         healthBar.value = (1.0f * hp / maxhp);
+        Animator animator = GetComponent<Animator>();
+        animator.SetBool("Damaged", true);
         //StartCoroutine("FlickerDamage");
     }
 
@@ -176,8 +178,13 @@ public class BossScript : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-       // if (other.tag == "laser") {
-       //     StartCoroutine("FlickerDamage");
-      //  }
+        // if (other.tag == "laser") {
+        //     StartCoroutine("FlickerDamage");
+        //  }
+        if (other.tag == "particle hit") {
+            noteAttractor nA = other.GetComponentInChildren<noteAttractor>();
+            giveDamage(nA.damage);
+        }
+
     }
 }

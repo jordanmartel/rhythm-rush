@@ -10,6 +10,13 @@ public class PowerUpSelectStage : MonoBehaviour {
     public GameObject P1Indicator;
     public GameObject P2Indicator;
 
+    [Header("Selections")]
+    public GameObject UIRange;
+    public GameObject UIPet;
+    public GameObject UIBomb;
+    public GameObject UIAnyKey;
+
+    private List<GameObject> UIOptionList = new List<GameObject>();
     private int currP1Pos = 0;
     private int currP2Pos = 0;
 
@@ -30,7 +37,12 @@ public class PowerUpSelectStage : MonoBehaviour {
         Joystick1 = Metadata.player1Joystick;
         Joystick2 = Metadata.player2Joystick;
 
-	}
+        UIOptionList.Add(UIRange);
+        UIOptionList.Add(UIPet);
+        UIOptionList.Add(UIBomb);
+        UIOptionList.Add(UIAnyKey);
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -38,8 +50,7 @@ public class PowerUpSelectStage : MonoBehaviour {
         if (P1selectedPower == PowerUpHandler.powerUp.None || P2selectedPower == PowerUpHandler.powerUp.None) {
             updatePlayer1();
             updatePlayer2();
-        } else {
-            Debug.Log("New Scene");
+        } else { 
             StartCoroutine(changeScene());
         }
     }
@@ -50,7 +61,6 @@ public class PowerUpSelectStage : MonoBehaviour {
     }
 
     private void updatePlayer1() {
-        float mvmnt = 0;
 
         if (P1selectedPower == PowerUpHandler.powerUp.None) {
             if (Input.GetKeyDown("joystick " + Joystick1 + " button 1")){
@@ -60,16 +70,15 @@ public class PowerUpSelectStage : MonoBehaviour {
             }
 
             if (p1InputReset)
-                mvmnt = checkPlayerInput(P1Indicator, currP1Pos, Joystick1);
+                checkPlayerInput(P1Indicator, currP1Pos, Joystick1);
 
             float dpadVertical = Input.GetAxis("Controller Axis-Joystick" + Joystick1 + "-Axis8");
-            moveIndicator(P1Indicator, mvmnt);
+            moveIndicator(P1Indicator, currP1Pos);
             if (dpadVertical == 0) { p1InputReset = true; }
         }
     }
 
     private void updatePlayer2() {
-        float mvmnt = 0;
 
         if (P2selectedPower == PowerUpHandler.powerUp.None) {
             if (Input.GetKeyDown("joystick " + Joystick2 + " button 1")){
@@ -79,16 +88,16 @@ public class PowerUpSelectStage : MonoBehaviour {
             }
 
             if (p2InputReset)
-                mvmnt = checkPlayerInput(P2Indicator, currP2Pos, Joystick2);
+                checkPlayerInput(P2Indicator, currP2Pos, Joystick2);
 
             //Reset input so that you can't hold down/up
             float dpadVertical2 = Input.GetAxis("Controller Axis-Joystick" + Joystick2 + "-Axis8");
-            moveIndicator(P2Indicator, mvmnt);
+            moveIndicator(P2Indicator, currP2Pos);
             if (dpadVertical2 == 0) { p2InputReset = true; }
         }
     }
 
-    private float checkPlayerInput(GameObject indicator, int position, int joystick) {
+    private void checkPlayerInput(GameObject indicator, int position, int joystick) {
 
         float dpadVertical = Input.GetAxis("Controller Axis-Joystick" + joystick + "-Axis8");
         float vertMvmnt = 0;
@@ -111,11 +120,11 @@ public class PowerUpSelectStage : MonoBehaviour {
                 if (indicator == P2Indicator) { p2InputReset = false; currP2Pos++; }
             }
         }
-        return vertMvmnt;
     }
 
-    private void moveIndicator(GameObject indicator, float mvmnt) {
-        indicator.GetComponent<RectTransform>().transform.Translate(0, mvmnt, 0);
+    private void moveIndicator(GameObject indicator, int position) {
+        Vector3 pos = indicator.GetComponent<RectTransform>().transform.position;
+        indicator.GetComponent<RectTransform>().transform.position = new Vector3(pos.x, UIOptionList[position].transform.position.y, 0);
     }
 
 }

@@ -8,6 +8,7 @@ public class PlayerStats : MonoBehaviour {
     public int perfectCount;
     public int stunCount;
     public int reviveCount;
+    public int score;
 
 	// Use this for initialization
 	void Start () {
@@ -16,6 +17,7 @@ public class PlayerStats : MonoBehaviour {
         perfectCount = 0;
         stunCount = 0;
         reviveCount = 0;
+        score = 0;
 	}
 	
     internal void updateMaxCombo(int combo)
@@ -24,6 +26,10 @@ public class PlayerStats : MonoBehaviour {
         {
             maxCombo = combo;
         }
+    }
+
+    internal void updateScore(int score) {
+        this.score = score;
     }
 
     internal void incrementFail()

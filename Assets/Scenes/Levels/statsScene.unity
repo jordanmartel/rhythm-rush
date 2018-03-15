@@ -216,7 +216,7 @@ RectTransform:
   - {fileID: 524966081}
   - {fileID: 1610353017}
   m_Father: {fileID: 186435663}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -308,8 +308,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 1655328594}
   - {fileID: 122201290}
+  - {fileID: 1655328594}
   - {fileID: 581200415}
   - {fileID: 1810238723}
   - {fileID: 1281339015}
@@ -1689,7 +1689,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 186435663}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1655328595
 MonoBehaviour:
@@ -2083,10 +2083,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   P1Indicator: {fileID: 424734591}
   P2Indicator: {fileID: 1893595627}
-  UIRange: {fileID: 122201289}
-  UIPet: {fileID: 581200414}
-  UIBomb: {fileID: 1810238722}
-  UIAnyKey: {fileID: 1281339014}
 --- !u!1 &2045896255
 GameObject:
   m_ObjectHideFlags: 0
