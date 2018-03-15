@@ -33,6 +33,7 @@ public class StageScript : MonoBehaviour
     public double noteTravelSpeed;
     public double noteSpeedQuotient = 20;
     public bool autoPlay = false;
+    private int GSpeed = 1;
     public bool bossAttackInProgress = false;
 
     [Header("Audio")]
@@ -90,6 +91,7 @@ public class StageScript : MonoBehaviour
     {
 
         parseJson(stageName);
+        Metadata.resetStats();
         noteTravelSpeed = beatmap.bpm / noteSpeedQuotient;
         noteTravelDistance = 11.1;
         countDownOffset = 0;
@@ -381,6 +383,12 @@ public class StageScript : MonoBehaviour
         }
     }
 
+    public void copyPlayerStats() {
+        Debug.Log("Copy Start");
+        team.copyStats();
+    }
+
+
     void checkPlayerAction(Player player)
     {
         GameObject noteObj = player.activeNotes[0];
@@ -566,6 +574,9 @@ public class StageScript : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
+
+        Time.timeScale = GSpeed;
+
         if (!mainCamera.GetComponent<Animation>().isPlaying) {
 
             if (!musicPlayer.isPlaying) {
@@ -620,6 +631,14 @@ public class StageScript : MonoBehaviour
             // press space to toggle autoplay
             if (Input.GetKeyDown(KeyCode.Space)) {
                 autoPlay = !autoPlay;
+            }
+            // press Right Arrow for 2x Speed
+            if (Input.GetKeyDown(KeyCode.RightArrow)) {
+                GSpeed *= 2;
+            }
+            // pressLeft Arrow for x0.5 Speed
+            if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+                GSpeed /= 2;
             }
 
             timer += Time.deltaTime;

@@ -29,7 +29,7 @@ public class PlayerStats : MonoBehaviour {
     }
 
     internal void updateScore(int score) {
-        this.score = score;
+        this.score += score;
     }
 
     internal void incrementFail()

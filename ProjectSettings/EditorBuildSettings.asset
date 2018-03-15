@@ -35,3 +35,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/PickPowerScene.unity
     guid: 3ea20a5f2b16cfd44a63fa8d21e297a9
+  - enabled: 1
+    path: Assets/Scenes/Levels/StatsScene.unity
+    guid: 71d751c04ef5f9b4b899739a01238cd6

@@ -21,7 +21,7 @@ public class BossScript : MonoBehaviour {
     private bool preparingAttack = false;
     public Animator animator;
 
-	// Use this for initialization
+    // Use this for initialization
 	void Start () {
         hp = maxhp;
 	}
@@ -95,7 +95,13 @@ public class BossScript : MonoBehaviour {
             {
                 if (nextStage != "")
                 {
-                    SceneManager.LoadScene(nextStage);
+                    StageScript sScript = FindObjectOfType<StageScript>();
+                    sScript.copyPlayerStats();
+
+
+                    Metadata.nextStage = nextStage;
+                    Metadata.currentStage = SceneManager.GetActiveScene().name;
+                    SceneManager.LoadScene("StatsScene");
                 }
 
                 else

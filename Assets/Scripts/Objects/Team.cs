@@ -85,4 +85,20 @@ public class Team : MonoBehaviour
         }
         
     }
+
+    public void copyStats() {
+        Metadata.P1maxCombo = player1.stats.maxCombo;
+        Metadata.P1failCount = player1.stats.failCount;
+        Metadata.P1perfectCount = player1.stats.perfectCount;
+        Metadata.P1stunCount = player1.stats.stunCount;
+        Metadata.P1reviveCount = player1.stats.reviveCount;
+        Metadata.P1score = player1.stats.score;
+
+        Metadata.P2maxCombo = player2.stats.maxCombo;
+        Metadata.P2failCount = player2.stats.failCount;
+        Metadata.P2perfectCount = player2.stats.perfectCount;
+        Metadata.P2stunCount = player2.stats.stunCount;
+        Metadata.P2reviveCount = player2.stats.reviveCount;
+        Metadata.P2score = player2.stats.score;
+    }
 }
