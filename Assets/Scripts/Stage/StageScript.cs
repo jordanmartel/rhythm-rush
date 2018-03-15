@@ -49,10 +49,19 @@ public class StageScript : MonoBehaviour
     public Material dRight;
     public Material dDown;
 
+    [Header("Input Glow Materials")]
+    public Material SSJtriangle;
+    public Material SSJcircle;
+    public Material SSJsquare;
+    public Material SSJcross;
+
     private double nextPhaseStartTime;
 
     private Player revivingPlayer;
 
+    [Header("Intro Objects")]
+    public GameObject mainCamera;
+    [Header("Other")]
     public float timer;
     public float phaseTimer;
     public float positionInSongTimer;
@@ -83,7 +92,7 @@ public class StageScript : MonoBehaviour
         parseJson(stageName);
         noteTravelSpeed = beatmap.bpm / noteSpeedQuotient;
         noteTravelDistance = 11.1;
-        countDownOffset = 4;
+        countDownOffset = 0;
         phaseOffset = beatmap.getPhase(currentSection, currentPhase).offset;
         nextBeatTime = phaseOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
         beatInterval = BeatInterval(beatmap.bpm, beatmap.beat_split);
@@ -328,6 +337,19 @@ public class StageScript : MonoBehaviour
 
     Material stringToMesh(string key)
     {
+        if (bossAttackInProgress) {
+            switch (key) {
+                case "triangle":
+                    return SSJtriangle;
+                case "circle":
+                    return SSJcircle;
+                case "square":
+                    return SSJsquare;
+                case "cross":
+                    return SSJcross;
+            }
+        }
+
         switch (key)
         {
             case "triangle":
@@ -552,187 +574,167 @@ public class StageScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    { 
+    void Update() {
+        if (!mainCamera.GetComponent<Animation>().isPlaying) {
 
-        if (isRevival)
-        {
-            if (team.player1.IsDown && team.player2.IsDown)
-            {
-                team.player1.health = 0;
-                team.player2.health = 0;
-                return;
+            if (!musicPlayer.isPlaying) {
+                musicPlayer.Play();
+                countDownCanvas.gameObject.SetActive(true);
+
             }
 
-            // clear notes from the list, and destroy any that are in play
-            team.player1.activeNotes.Clear();
-            team.player1.notes.Clear();
-            team.player2.activeNotes.Clear();
-            team.player2.notes.Clear();
-
-            GameObject[] notes = GameObject.FindGameObjectsWithTag("note");
-            foreach (GameObject note in notes)
-            {
-                // nani the fuck
-                Destroy(note);
-            }
-
-            // get the revival phase
-            beatmapPhase = beatmap.getPhase(beatmap.sections.Count - 1, 0);
-            nextBeatTime = phaseOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
-            noteCreateIndex = 0;
-            phaseTimer = 0;
-
-            // set up notes for the player still alive
-            if (team.player2.IsDown)
-            {
-                team.player1.notes = new Dictionary<string, string>(beatmapPhase.revivalNotes);
-                team.player2.notes = new Dictionary<string, string>();
-            }
-            else
-            {
-                team.player2.notes = new Dictionary<string, string>(beatmapPhase.revivalNotes);
-                team.player1.notes = new Dictionary<string, string>();
-            }
-
-
-            musicPlayer.Pause();
-            revivalSoundPlayer.Play();
-    
-            isRevival = false;
-            revivalInProgress = true;
-        }
-
-        // press space to toggle autoplay
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            autoPlay = !autoPlay;
-        }
-
-        timer += Time.deltaTime;
-
-        if (timer >= 3)
-        {
-            countDownCanvas.GetComponentInChildren<Image>().sprite = countDownGo;
-        }
-        else if (timer >= 2)
-        {
-            countDownCanvas.GetComponentInChildren<Image>().sprite = countDown1;
-        }
-        else if (timer >= 1)
-        {
-            countDownCanvas.GetComponentInChildren<Image>().sprite = countDown2;
-        }
-
-        if (timer >= countDownOffset)
-        {
-            phaseTimer += Time.deltaTime;
-            positionInSongTimer += Time.deltaTime;
-            countDownCanvas.enabled = false;
-        }
-
-        if (teamAttackController.isActive)
-        {
-
-            // even though it is in the team attack stage, update the next beat time when the phase time passes the next beat in the song
-            if (phaseTimer > nextBeatTime)
-            {
-                noteCreateIndex++;
-                nextBeatTime = phaseOffset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
-            }
-
-            if (teamAttackController.timerExpired())
-            {
-                teamAttackEnding = true;
-                int damage = teamAttackController.unleashTeamAttack();
-                if (damage == 0)
-                {
-                    team.player1.updateComboCount(false, 0);
-                    team.player2.updateComboCount(false, 0);
+            if (isRevival) {
+                if (team.player1.IsDown && team.player2.IsDown) {
+                    team.player1.health = 0;
+                    team.player2.health = 0;
+                    return;
                 }
-                else
-                {
-                    boss.giveDamage(damage);
-                    if (bossAnimator != null)
-                    {
-                        bossAnimator.SetBool("Damaged", true);
+
+                // clear notes from the list, and destroy any that are in play
+                team.player1.activeNotes.Clear();
+                team.player1.notes.Clear();
+                team.player2.activeNotes.Clear();
+                team.player2.notes.Clear();
+
+                GameObject[] notes = GameObject.FindGameObjectsWithTag("note");
+                foreach (GameObject note in notes) {
+                    // nani the fuck
+                    Destroy(note);
+                }
+
+                // get the revival phase
+                beatmapPhase = beatmap.getPhase(beatmap.sections.Count - 1, 0);
+                nextBeatTime = phaseOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
+                noteCreateIndex = 0;
+                phaseTimer = 0;
+
+                // set up notes for the player still alive
+                if (team.player2.IsDown) {
+                    team.player1.notes = new Dictionary<string, string>(beatmapPhase.revivalNotes);
+                    team.player2.notes = new Dictionary<string, string>();
+                }
+                else {
+                    team.player2.notes = new Dictionary<string, string>(beatmapPhase.revivalNotes);
+                    team.player1.notes = new Dictionary<string, string>();
+                }
+
+
+                musicPlayer.Pause();
+                revivalSoundPlayer.Play();
+
+                isRevival = false;
+                revivalInProgress = true;
+            }
+
+            // press space to toggle autoplay
+            if (Input.GetKeyDown(KeyCode.Space)) {
+                autoPlay = !autoPlay;
+            }
+
+            timer += Time.deltaTime;
+
+            if (timer >= 3) {
+                countDownCanvas.GetComponentInChildren<Image>().sprite = countDownGo;
+            }
+            else if (timer >= 2) {
+                countDownCanvas.GetComponentInChildren<Image>().sprite = countDown1;
+            }
+            else if (timer >= 1) {
+                countDownCanvas.GetComponentInChildren<Image>().sprite = countDown2;
+            }
+
+            if (timer >= countDownOffset) {
+                phaseTimer += Time.deltaTime;
+                positionInSongTimer += Time.deltaTime;
+                countDownCanvas.enabled = false;
+            }
+
+            if (teamAttackController.isActive) {
+
+                // even though it is in the team attack stage, update the next beat time when the phase time passes the next beat in the song
+                if (phaseTimer > nextBeatTime) {
+                    noteCreateIndex++;
+                    nextBeatTime = phaseOffset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
+                }
+
+                if (teamAttackController.timerExpired()) {
+                    teamAttackEnding = true;
+                    int damage = teamAttackController.unleashTeamAttack();
+                    if (damage == 0) {
+                        team.player1.updateComboCount(false, 0);
+                        team.player2.updateComboCount(false, 0);
+                    }
+                    else {
+                        boss.giveDamage(damage);
+                        if (bossAnimator != null) {
+                            bossAnimator.SetBool("Damaged", true);
+                        }
+                    }
+                }
+                else {
+                    if (Input.anyKeyDown || autoPlay) {
+                        teamAttackController.buildTeamAttack();
                     }
                 }
             }
-            else
-            {
-                if (Input.anyKeyDown || autoPlay)
-                {
-                    teamAttackController.buildTeamAttack();
-                }
-            }
-        }
 
-        else
-        {   
-            // start of the next phase
-            if (!team.hasNotesLeft())
-            {
-                // after successful revive, restart the music and move to the next phase
-                if (revivalInProgress)
-                {
-                    team.revivePlayer();
-                    moveToNextPhase();
-                    revivalInProgress = false;
+            else {
+                // start of the next phase
+                if (!team.hasNotesLeft()) {
+                    // after successful revive, restart the music and move to the next phase
+                    if (revivalInProgress) {
+                        team.revivePlayer();
+                        moveToNextPhase();
+                        revivalInProgress = false;
 
-                    musicPlayer.time = (float)beatmap.getPhase(currentSection, currentPhase).startTime;
-                    musicPlayer.Play();
+                        musicPlayer.time = (float)beatmap.getPhase(currentSection, currentPhase).startTime;
+                        musicPlayer.Play();
 
-                    revivalSoundPlayer.Stop();
+                        revivalSoundPlayer.Stop();
 
-                    positionInSongTimer = (float) beatmap.getPhase(currentSection, currentPhase).startTime;
+                        positionInSongTimer = (float)beatmap.getPhase(currentSection, currentPhase).startTime;
 
-                }
+                    }
 
 
-                else if (positionInSongTimer >= nextPhaseStartTime) {
-                    moveToNextPhase();
+                    else if (positionInSongTimer >= nextPhaseStartTime) {
+                        moveToNextPhase();
+                    }
+
+                    // after a boss phase, start the next phase immediately (team attack)
+                    else if (currentPhase + 1 == beatmap.sections[currentSection].Count) {
+                        moveToNextPhase();
+                    }
                 }
 
-                // after a boss phase, start the next phase immediately (team attack)
-                else if (currentPhase + 1 == beatmap.sections[currentSection].Count)
-                {
-                    moveToNextPhase();
+                // wait for the correct phase start time after a team attack ends
+                if (teamAttackEnding) {
+                    if (positionInSongTimer >= beatmapPhase.startTime) {
+                        nextBeatTime = phaseOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
+                        noteCreateIndex = 0;
+                        phaseTimer = 0;
+                        // resets the failed phase status for both players
+                        team.nextPhaseBegin();
+                        teamAttackEnding = false;
+                    }
                 }
-            }
 
-            // wait for the correct phase start time after a team attack ends
-            if (teamAttackEnding)
-            {
-                if (positionInSongTimer >= beatmapPhase.startTime)
-                {
-                    nextBeatTime = phaseOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
-                    noteCreateIndex = 0;
-                    phaseTimer = 0;
-                    // resets the failed phase status for both players
-                    team.nextPhaseBegin();
-                    teamAttackEnding = false;
+
+                else if (phaseTimer > nextBeatTime) {
+                    createPlayerNote("left", team.player1);
+                    createPlayerNote("right", team.player2);
+
+                    noteCreateIndex++;
+                    nextBeatTime = phaseOffset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
                 }
-            }
 
+                if (team.player1.activeNotes.Count > 0) {
+                    checkPlayerAction(team.player1);
+                }
 
-            else if (phaseTimer > nextBeatTime)
-            {
-                createPlayerNote("left", team.player1);
-                createPlayerNote("right", team.player2);
-
-                noteCreateIndex++;
-                nextBeatTime = phaseOffset + playerOffset + noteCreateIndex * beatInterval - noteTravelDistance / noteTravelSpeed;
-            }
-
-            if (team.player1.activeNotes.Count > 0)
-            {
-                checkPlayerAction(team.player1);
-            }
-
-            if (team.player2.activeNotes.Count > 0)
-            {
-                checkPlayerAction(team.player2);
+                if (team.player2.activeNotes.Count > 0) {
+                    checkPlayerAction(team.player2);
+                }
             }
         }
     }

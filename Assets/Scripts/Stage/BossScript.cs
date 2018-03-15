@@ -168,7 +168,6 @@ public class BossScript : MonoBehaviour {
         }
         healthBar.value = (1.0f * hp / maxhp);
         Animator animator = GetComponent<Animator>();
-
         if (animator != null)
         {
             animator.SetBool("Damaged", true);
