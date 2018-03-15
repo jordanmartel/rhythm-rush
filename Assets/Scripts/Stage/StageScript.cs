@@ -29,7 +29,7 @@ public class StageScript : MonoBehaviour
     private BeatmapPhase beatmapPhase;
     public bool isRevival = false;
     public bool revivalInProgress = false;
-    private int currentRevivalSection = -1;
+    //private int currentRevivalSection = -1;
     public double noteTravelSpeed;
     public double noteSpeedQuotient = 20;
     public bool autoPlay = false;
