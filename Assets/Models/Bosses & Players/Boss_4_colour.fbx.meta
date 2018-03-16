@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 7a74a1561a190074fa95405794a9d6ed
-timeCreated: 1520537033
+guid: f53aff30adf69a442ba1192df56b9aed
+timeCreated: 1521221847
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -28,7 +28,12 @@ ModelImporter:
     400018: Plane.004
     400020: Plane.005
     2000000: Camera
-    2100000: No Name
+    2100000: dark grey
+    2100002: red
+    2100004: light grey
+    2100006: black
+    2100008: grey
+    2100010: light red
     2300000: Plane
     2300002: Plane.001
     2300004: Plane.002
