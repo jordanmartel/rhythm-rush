@@ -21,13 +21,32 @@ public class BossScript : MonoBehaviour {
     private bool preparingAttack = false;
     public Animator animator;
 
-	// Use this for initialization
+    // Use this for initialization
 	void Start () {
         hp = maxhp;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+        // quit on esc
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("ConnectController");
+
+        }
+
+        // skip to the next scene on N
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            SceneManager.LoadScene(nextStage);
+        }
+
+        // restart the scene on R
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
 
         if (animator != null)
         {
@@ -56,7 +75,7 @@ public class BossScript : MonoBehaviour {
                 Canvas winning = Instantiate(winningCanvas, Vector3.zero, Quaternion.identity);
                 winning.transform.Find("Status").gameObject.SetActive(true);
 
-                Ranking ranking = GameObject.FindObjectOfType<Ranking>();
+                /*Ranking ranking = GameObject.FindObjectOfType<Ranking>();
                 double time = ranking.time;
                 string rank = ranking.rankingAtTime(time);
                 switch (rank)
@@ -80,10 +99,18 @@ public class BossScript : MonoBehaviour {
                         winning.transform.Find("DRank").gameObject.SetActive(true);
                         break;
                 }
+                */
                 hasEnded = true;
-                FindObjectOfType<TeamStats>().updateRanking(rank, time);
-                FindObjectOfType<Ranking>().enabled = false;
+                //FindObjectOfType<TeamStats>().updateRanking(rank, time);
+                //FindObjectOfType<Ranking>().enabled = false;
                 FindObjectOfType<StageScript>().enabled = false;
+
+
+                GameObject[] notes = GameObject.FindGameObjectsWithTag("note");
+                foreach (GameObject note in notes)
+                {
+                    Destroy(note);
+                }
             }
         }
 
@@ -94,7 +121,13 @@ public class BossScript : MonoBehaviour {
             {
                 if (nextStage != "")
                 {
-                    SceneManager.LoadScene(nextStage);
+                    StageScript sScript = FindObjectOfType<StageScript>();
+                    sScript.copyPlayerStats();
+
+
+                    Metadata.nextStage = nextStage;
+                    Metadata.currentStage = SceneManager.GetActiveScene().name;
+                    SceneManager.LoadScene("StatsScene");
                 }
 
                 else
@@ -166,6 +199,11 @@ public class BossScript : MonoBehaviour {
             hp -= dmg;
         }
         healthBar.value = (1.0f * hp / maxhp);
+        Animator animator = GetComponent<Animator>();
+        if (animator != null)
+        {
+            animator.SetBool("Damaged", true);
+        }
         //StartCoroutine("FlickerDamage");
     }
 
@@ -175,8 +213,13 @@ public class BossScript : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-       // if (other.tag == "laser") {
-       //     StartCoroutine("FlickerDamage");
-      //  }
+        // if (other.tag == "laser") {
+        //     StartCoroutine("FlickerDamage");
+        //  }
+        if (other.tag == "particle hit") {
+            noteAttractor nA = other.GetComponentInChildren<noteAttractor>();
+            giveDamage(nA.damage);
+        }
+
     }
 }

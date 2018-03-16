@@ -21,6 +21,9 @@ TagManager:
   - ranker_C
   - ranker_D
   - laser
+  - boss
+  - player
+  - particle hit
   layers:
   - Default
   - TransparentFX

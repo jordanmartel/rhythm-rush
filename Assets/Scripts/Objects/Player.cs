@@ -6,6 +6,10 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
 
+    [Header("Player Health")]
+    public int health;
+    public int maxHealth;
+
     [Header("Music Staff References")]
     public GameObject leftTrack;
     public GameObject centreTrack;
@@ -21,6 +25,7 @@ public class Player : MonoBehaviour
 
     [Header("UI Elements")]
     public Text comboText;
+    public Text scoreText;
 
     [Header("Other")]
     public PlayerStats stats;
@@ -40,10 +45,19 @@ public class Player : MonoBehaviour
     public List<GameObject> activeNotes;
 
     private int comboCount = 0;
-    private int pUpCombo = 0;
-    private bool pUpAvailable = false;
+    public int pUpCombo = 0;
+    public bool pUpAvailable = false;
     private bool isDown = false;
 
+
+    public void attackedByBoss()
+    {
+        health = health - 1;
+    }
+    public void recoverHealth()
+    {
+        health = Mathf.Min(maxHealth, health + 1);
+    }
 
     public bool IsDown {
         get {
@@ -53,6 +67,13 @@ public class Player : MonoBehaviour
         set {
             isDown = value;
         }
+    }
+
+    public void KnockDownPlayer()
+    {
+        gameObject.GetComponent<Animation>().Play("hurt_player");
+        IsDown = true;
+        stats.incrementStun();
     }
 
     // Use this for initialization
@@ -86,14 +107,19 @@ public class Player : MonoBehaviour
 
     public void updateCombo() {
         combo++;
-        if (!pUpAvailable)  pUpCombo++;
-        pUpAvailable = PowerUpHandler.checkAvailablePower(powerUp, pUpCombo);
-        skillController.triggerSkill(pUpAvailable);
-        if (pUpAvailable)
+        if (!pUpAvailable)
         {
-            pUpCombo = 0;
+            pUpCombo++;
+            pUpAvailable = PowerUpHandler.checkAvailablePower(powerUp, pUpCombo);
         }
-    } 
+    }
+    
+    public void triggerSkill()
+    {
+        skillController.triggerSkill(pUpAvailable);
+        pUpAvailable = false;
+        pUpCombo = 0;
+    }
 
 
     public int calculateComboDamage(int comboThreshold)
@@ -128,11 +154,13 @@ public class Player : MonoBehaviour
     }
 
     //Success indicates correct hit, if false then reset combo counter
-    public void updateComboCount (bool success) {
+    public void updateComboCount (bool success, int score) {
 
         comboCount = (success) ? comboCount+ 1 : 0;
         comboText.text = "x" + comboCount;
+        scoreText.text = (System.Int32.Parse(scoreText.text) + score).ToString();
         stats.updateMaxCombo(comboCount);
+        stats.updateScore(score);
     }
 
     public GameObject getHitArea(string key) {

@@ -11,10 +11,14 @@ public class NoteScript : MonoBehaviour {
     public bool isCreator;
 
     public Player player;
+
+    [Header("Object References")]
     public GameObject feedback;
-    public GameObject stage;
+    public StageScript stage;
     public GameObject destination;
     public GameObject shockwave;
+    public GameObject particlesObj;
+
 
     public Material originalMaterial;
 
@@ -30,14 +34,14 @@ public class NoteScript : MonoBehaviour {
 
         if (collider.tag == "miss")
         {
-            player.updateComboCount(false);
+            player.updateComboCount(false, 0);
             // forcefully reset the player combo when a note is missed
             player.resetCombo();
 
             if (player.skillController.petActive)
             {
                 player.skillController.petHelp();
-                player.updateComboCount(false);
+                player.updateComboCount(false, 0);
 
                 player.resetCombo();
                 // destroy with a shockwave so that the player knows their pet saved them
@@ -47,7 +51,42 @@ public class NoteScript : MonoBehaviour {
             else
             {
                 // note was missed, so this player has failed the phase
-                player.failedPhase = true;
+
+                // if a player misses a note and the boss attack is in progress, enable the revive phase
+                if (stage.bossAttackInProgress)
+                {
+                    stage.isRevival = true;
+                    player.KnockDownPlayer();
+                    if (stage.bossAnimator != null)
+                    {
+                        stage.bossAnimator.SetBool("Attacking", true);
+                        stage.bossAnimator.SetBool("PreparingAttack", false);
+                    }
+                    stage.bossAttackInProgress = false;
+                }
+                
+                // failed a revive
+                else if (stage.revivalInProgress)
+                {
+                    stage.isRevival = true;
+
+                    // attack the opposite player that is stunned (bleeding out)
+                    if (stage.team.player1 == player)
+                    {
+                        stage.team.player2.attackedByBoss();
+                    }
+
+                    else
+                    {
+                        stage.team.player1.attackedByBoss();
+                    }
+                }
+
+                else
+                {
+                    player.attackedByBoss();
+                }
+
                 destroyWithFeedback(null, true);
             }
             
@@ -81,6 +120,10 @@ public class NoteScript : MonoBehaviour {
             float distance = Vector3.Distance(hitArea.transform.position, transform.position);
             score = feedback.GetComponent<PlayerFeedback>().GiveFeedback(distance, correct);
             DestroyWithShockwave();
+
+            if (correct) {
+                sendParticles(score);
+            }
         }
 
         Destroy(gameObject);
@@ -88,9 +131,23 @@ public class NoteScript : MonoBehaviour {
         return score;
     }
 
+
+    private void sendParticles(int damage) {
+        GameObject particles = Instantiate(particlesObj, this.transform.localPosition, Quaternion.identity);
+        particles.GetComponentInChildren<noteAttractor>().damage = damage;
+
+        //Change for different animation types
+        //particles.GetComponentInChildren<Animation>().Play("");
+
+        //Change Below for revive phase
+        //particles.GetComponentInChildren<noteAttractor>().target
+
+    }
+
     private void DestroyWithShockwave() {
         GameObject shockwaveInst = Instantiate(shockwave, this.transform.localPosition, Quaternion.identity);
         Destroy(shockwaveInst, 1f);
+        player.activeNotes.Remove(gameObject);
         Destroy(gameObject);
     }
 

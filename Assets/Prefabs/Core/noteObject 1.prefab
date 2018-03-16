@@ -73,7 +73,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1572513937974932}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.409181, y: 18.523489, z: -60.227707}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0.001}
   m_Children:
   - {fileID: 4279556566764202}
@@ -247,6 +247,8 @@ MonoBehaviour:
   stage: {fileID: 0}
   destination: {fileID: 0}
   shockwave: {fileID: 1818915138559400, guid: 4ac2ed4c21878064f89c2095b7977610, type: 2}
+  particlesObj: {fileID: 1514833635731396, guid: e1d6c650e153fe44e925e6ef3010644c,
+    type: 2}
   originalMaterial: {fileID: 0}
   anyKey: 0
 --- !u!122 &122027265114854008
