@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: fa6be4335b23175429037da6e72025d1
-timeCreated: 1520537033
+guid: ce9acce87e6411549bb57a8e532c45b9
+timeCreated: 1521221848
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -22,7 +22,11 @@ ModelImporter:
     400012: Lamp
     400014: Plane
     2000000: Camera
-    2100000: No Name
+    2100000: Dark Blue
+    2100002: Faded blue
+    2100004: Magenta
+    2100006: Light blue
+    2100008: light purple
     2300000: Cube
     2300002: Cube.001
     2300004: Plane
