@@ -137,9 +137,9 @@ public class SkillScript : MonoBehaviour {
         {
             if (player == note.GetComponent<NoteScript>().player)
             {
-                player.stats.updateScore(100);
+                player.stats.updateScore(50);
                 player.activeNotes.Remove(note);
-                FindObjectOfType<BossScript>().giveDamage(100);
+                FindObjectOfType<BossScript>().giveDamage(50);
                 note.GetComponent<NoteScript>().DestroyWithShockwave();
             }
         }
