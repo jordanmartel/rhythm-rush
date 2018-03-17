@@ -137,6 +137,7 @@ public class SkillScript : MonoBehaviour {
         {
             if (player == note.GetComponent<NoteScript>().player)
             {
+                player.stats.updateScore(100);
                 player.activeNotes.Remove(note);
                 note.SetActive(false);
             }
