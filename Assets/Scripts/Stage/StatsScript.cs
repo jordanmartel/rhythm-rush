@@ -46,6 +46,8 @@ public class StatsScript : MonoBehaviour {
     int Joystick2;
     public bool P1Proceed = false;
     public bool P2Proceed = false;
+    public Text P1ProceedText;
+    public Text P2ProceedText;
 
     string nextScene;
 
@@ -81,9 +83,11 @@ public class StatsScript : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown("joystick " + Joystick1 + " button 1")) {
             P1Proceed = true;
+            P1ProceedText.text = "READY!";
         }
         if (Input.GetKeyDown("joystick " + Joystick2 + " button 1")) { 
             P2Proceed = true;
+            P2ProceedText.text = "READY!";
         }
 
         if (P1Proceed && P2Proceed) {

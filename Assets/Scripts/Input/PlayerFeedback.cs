@@ -27,7 +27,9 @@ public class PlayerFeedback : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-
+        perfectValue = 0.5f;
+        goodValue = 1.0f;
+        okayValue = 1.5f;
     }
 
     // Update is called once per frame
@@ -42,13 +44,19 @@ public class PlayerFeedback : MonoBehaviour {
     //Sets Feedback text based on distance from perfect hit point and returns score
     public int GiveFeedback(float distance, bool correct)
     {
-        return giveTeamAttackFeedback(Mathf.Abs(distance));
+        return giveTeamAttackFeedback(Mathf.Abs(distance), correct);
     }
 
-    public int giveTeamAttackFeedback(float totalPress) {
+    public int giveTeamAttackFeedback(float totalPress, bool correct) {
 
         int value = 0;
-
+        if (!correct)
+        {
+            text.text = "MISS";
+            text.color = missColour;
+            displayTime = Time.time;
+            return 0;
+        }
         if (totalPress <= perfectValue) {
             text.text = "PERFECT!";
             text.color = perfectColour;

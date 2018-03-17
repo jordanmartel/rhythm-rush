@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -385,7 +385,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 80.8, y: -40}
+  m_AnchoredPosition: {x: 80.8, y: 140}
   m_SizeDelta: {x: 160, y: 35.51}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &377511598
@@ -4629,7 +4629,13 @@ Prefab:
       propertyPath: m_RootOrder
       value: 19
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 82323899732977524, guid: 1893ad8ddfecd8544ae200c2eb922f9b,
+        type: 2}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: dbcdc72a09eb6574dbc61edff8c5a9d0, type: 3}
+    m_RemovedComponents:
+    - {fileID: 114649791531940732, guid: 1893ad8ddfecd8544ae200c2eb922f9b, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 1893ad8ddfecd8544ae200c2eb922f9b, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &932409394
@@ -4736,7 +4742,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -79.1, y: -40}
+  m_AnchoredPosition: {x: -79.1, y: 140}
   m_SizeDelta: {x: 160, y: 34}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &965810380
@@ -8755,6 +8761,26 @@ Prefab:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 1591178216}
+    - target: {fileID: 114959063282323368, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8,
+        type: 2}
+      propertyPath: comboText
+      value: 
+      objectReference: {fileID: 1594776121}
+    - target: {fileID: 114959063282323368, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8,
+        type: 2}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 1591239313}
+    - target: {fileID: 114145833876672920, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8,
+        type: 2}
+      propertyPath: comboText
+      value: 
+      objectReference: {fileID: 1594776122}
+    - target: {fileID: 114145833876672920, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8,
+        type: 2}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 1591178216}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8, type: 2}
   m_IsPrefabParent: 0
@@ -8980,7 +9006,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 80.79999, y: 0}
+  m_AnchoredPosition: {x: 80.79999, y: 180}
   m_SizeDelta: {x: 160, y: 35.51}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1591178216
@@ -9099,7 +9125,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -79.099976, y: 0}
+  m_AnchoredPosition: {x: -79.099976, y: 180}
   m_SizeDelta: {x: 160, y: 34}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1594776121
