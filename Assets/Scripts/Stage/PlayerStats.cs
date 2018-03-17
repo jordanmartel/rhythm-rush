@@ -65,8 +65,7 @@ public class PlayerStats : MonoBehaviour {
 
     IEnumerator scoreTextJump()
     {
-        float multiplier = 1.4f;
-        scoreText.transform.localScale = new Vector3(scoreInitial.x * multiplier, scoreInitial.y * multiplier, scoreInitial.z * multiplier);
+        float multiplier = 1.5f;
         while (Mathf.Abs(multiplier - 1f) > 1e-3)
         {
             multiplier -= 0.05f;
@@ -77,8 +76,7 @@ public class PlayerStats : MonoBehaviour {
 
     IEnumerator comboTextJump()
     {
-        float multiplier = 1.4f;
-        comboText.transform.localScale = new Vector3(comboInitial.x * multiplier, comboInitial.y * multiplier, comboInitial.z * multiplier);
+        float multiplier = 1.5f;
         while (Mathf.Abs(multiplier - 1f) > 1e-3)
         {
             multiplier -= 0.05f;
