@@ -1005,6 +1005,26 @@ Prefab:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 1502286349}
+    - target: {fileID: 114959063282323368, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8,
+        type: 2}
+      propertyPath: comboText
+      value: 
+      objectReference: {fileID: 1502286350}
+    - target: {fileID: 114959063282323368, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8,
+        type: 2}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 1502286348}
+    - target: {fileID: 114145833876672920, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8,
+        type: 2}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 1502286349}
+    - target: {fileID: 114145833876672920, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8,
+        type: 2}
+      propertyPath: comboText
+      value: 
+      objectReference: {fileID: 1502286351}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8, type: 2}
   m_IsPrefabParent: 0
