@@ -630,7 +630,7 @@ public class StageScript : MonoBehaviour
                 }
 
 
-                musicPlayer.Pause();
+                musicPlayer.Stop();
                 revivalSoundPlayer.Play();
 
                 isRevival = false;
