@@ -104,7 +104,7 @@ public class BossScript : MonoBehaviour {
                 //FindObjectOfType<TeamStats>().updateRanking(rank, time);
                 //FindObjectOfType<Ranking>().enabled = false;
                 FindObjectOfType<StageScript>().enabled = false;
-
+                StartCoroutine("FadeMusic");
 
                 GameObject[] notes = GameObject.FindGameObjectsWithTag("note");
                 foreach (GameObject note in notes)
@@ -137,6 +137,20 @@ public class BossScript : MonoBehaviour {
                 }
             }
             stageCompleteTimer += Time.deltaTime;
+        }
+    }
+
+    IEnumerator FadeMusic()
+    {
+        AudioControl[] audioObjects = FindObjectsOfType<AudioControl>();
+        foreach(AudioControl audioObject in audioObjects)
+        {
+            while (audioObject.GetComponent<AudioSource>().volume != 0)
+            {
+                print(audioObject.GetComponent<AudioSource>().volume);
+                audioObject.GetComponent<AudioSource>().volume = Mathf.Max(audioObject.GetComponent<AudioSource>().volume - 0.001f,0f);
+                yield return null;
+            }
         }
     }
 
