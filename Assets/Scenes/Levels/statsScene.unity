@@ -1035,7 +1035,7 @@ GameObject:
   - component: {fileID: 621890910}
   - component: {fileID: 621890909}
   m_Layer: 5
-  m_Name: Proceed Text2
+  m_Name: Proceed TextP1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1257,7 +1257,7 @@ GameObject:
   - component: {fileID: 925780124}
   - component: {fileID: 925780123}
   m_Layer: 5
-  m_Name: Proceed Text1
+  m_Name: Proceed TextP2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1790,7 +1790,7 @@ GameObject:
   - component: {fileID: 1549186399}
   - component: {fileID: 1549186398}
   m_Layer: 5
-  m_Name: Proceed Cross Image2
+  m_Name: Proceed Cross ImageP1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2407,8 +2407,8 @@ MonoBehaviour:
   image: {fileID: 526313178}
   P1Proceed: 0
   P2Proceed: 0
-  P1ProceedText: {fileID: 925780123}
-  P2ProceedText: {fileID: 621890909}
+  P1ProceedText: {fileID: 621890909}
+  P2ProceedText: {fileID: 925780123}
 --- !u!1 &1994849609
 GameObject:
   m_ObjectHideFlags: 0
@@ -2529,7 +2529,7 @@ GameObject:
   - component: {fileID: 2092980142}
   - component: {fileID: 2092980141}
   m_Layer: 5
-  m_Name: Proceed Cross Image1
+  m_Name: Proceed Cross ImageP2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
