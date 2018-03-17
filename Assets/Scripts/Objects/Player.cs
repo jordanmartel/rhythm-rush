@@ -91,6 +91,7 @@ public class Player : MonoBehaviour
             rightHitCollider.size = new Vector3((float)rightHitCollider.size.x * 1.5f,
                 (float)rightHitCollider.size.y * 1.5f, (float)rightHitCollider.size.z * 1.5f);
         }
+        pUpAvailable = PowerUpHandler.checkAvailablePower(powerUp, pUpCombo);
     }
 
     // Update is called once per frame

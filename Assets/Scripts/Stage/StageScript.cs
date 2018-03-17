@@ -452,7 +452,7 @@ public class StageScript : MonoBehaviour
         string keyToHit = stringToKey(headNote.key, player.joystick);
         if (headNote.canHit || headNote.canMiss)
         {
-            if ((player.skillController.anyKeyActive && buttonPressed) || Input.GetKeyDown(keyToHit) || 
+            if ((headNote.anyKey && buttonPressed) || Input.GetKeyDown(keyToHit) || 
                 (((headNote.key.Equals("square") && dpadHorizontal == -1) ||
                    (headNote.key.Equals("circle") && dpadHorizontal == 1) ||
                    (headNote.key.Equals("triangle") && dpadVertical == 1) ||
