@@ -27,7 +27,9 @@ public class PlayerFeedback : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-
+        perfectValue = 0.5f;
+        goodValue = 1.0f;
+        okayValue = 1.5f;
     }
 
     // Update is called once per frame
