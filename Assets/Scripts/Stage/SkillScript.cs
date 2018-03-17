@@ -139,6 +139,7 @@ public class SkillScript : MonoBehaviour {
             {
                 player.stats.updateScore(100);
                 player.activeNotes.Remove(note);
+                FindObjectOfType<BossScript>().giveDamage(100);
                 note.GetComponent<NoteScript>().DestroyWithShockwave();
             }
         }
