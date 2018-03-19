@@ -1405,72 +1405,52 @@ Animator:
   m_PrefabParentObject: {fileID: 95552416252517298, guid: 548be79669131b84caba4e04278020a0,
     type: 2}
   m_PrefabInternal: {fileID: 285813645}
---- !u!1001 &589198118
+--- !u!1001 &635327047
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1080415088}
     m_Modifications:
-    - target: {fileID: 400000, guid: f53aff30adf69a442ba1192df56b9aed, type: 3}
+    - target: {fileID: 400000, guid: f09b029fee79ef547a709b23117c0c69, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f53aff30adf69a442ba1192df56b9aed, type: 3}
+    - target: {fileID: 400000, guid: f09b029fee79ef547a709b23117c0c69, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f53aff30adf69a442ba1192df56b9aed, type: 3}
+    - target: {fileID: 400000, guid: f09b029fee79ef547a709b23117c0c69, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f53aff30adf69a442ba1192df56b9aed, type: 3}
+    - target: {fileID: 400000, guid: f09b029fee79ef547a709b23117c0c69, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f53aff30adf69a442ba1192df56b9aed, type: 3}
+    - target: {fileID: 400000, guid: f09b029fee79ef547a709b23117c0c69, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9967085
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f53aff30adf69a442ba1192df56b9aed, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.08106876
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f53aff30adf69a442ba1192df56b9aed, type: 3}
-      propertyPath: m_LocalRotation.w
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f53aff30adf69a442ba1192df56b9aed, type: 3}
+    - target: {fileID: 400000, guid: f09b029fee79ef547a709b23117c0c69, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: f09b029fee79ef547a709b23117c0c69, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: f09b029fee79ef547a709b23117c0c69, type: 3}
       propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f53aff30adf69a442ba1192df56b9aed, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f53aff30adf69a442ba1192df56b9aed, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f53aff30adf69a442ba1192df56b9aed, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f53aff30adf69a442ba1192df56b9aed, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 9.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f53aff30adf69a442ba1192df56b9aed, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: f53aff30adf69a442ba1192df56b9aed, type: 3}
-      propertyPath: m_Name
-      value: Vala Coloured Model
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: f53aff30adf69a442ba1192df56b9aed, type: 3}
+  m_ParentPrefab: {fileID: 100100000, guid: f09b029fee79ef547a709b23117c0c69, type: 3}
   m_IsPrefabParent: 0
+--- !u!4 &635327048 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400000, guid: f09b029fee79ef547a709b23117c0c69, type: 3}
+  m_PrefabInternal: {fileID: 635327047}
 --- !u!1 &638652012 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1776515199259146, guid: cd47197a1169089488aa798c8d02f96c,
@@ -5304,6 +5284,35 @@ MonoBehaviour:
   repeatFlag: 0
   repeatTime: 0
   bossAnimator: {fileID: 551245480}
+--- !u!1 &1080415087
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: f53aff30adf69a442ba1192df56b9aed, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1080415088}
+  m_Layer: 0
+  m_Name: Vala Coloured Model
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1080415088
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: f53aff30adf69a442ba1192df56b9aed, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1080415087}
+  m_LocalRotation: {x: 0, y: 0.9967085, z: -0.08106876, w: 0}
+  m_LocalPosition: {x: 0, y: 5, z: -5}
+  m_LocalScale: {x: 30, y: 25, z: 25}
+  m_Children:
+  - {fileID: 635327048}
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 9.3, y: 180, z: 0}
 --- !u!1001 &1089445312
 Prefab:
   m_ObjectHideFlags: 0

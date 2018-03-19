@@ -49,10 +49,13 @@ public class Player : MonoBehaviour
     public bool pUpAvailable = false;
     private bool isDown = false;
 
+    public Animator anim;
+
 
     public void attackedByBoss()
     {
         health = health - 1;
+        anim.SetTrigger("Damage");
     }
     public void recoverHealth()
     {
@@ -71,7 +74,8 @@ public class Player : MonoBehaviour
 
     public void KnockDownPlayer()
     {
-        gameObject.GetComponent<Animation>().Play("hurt_player");
+        //gameObject.GetComponent<Animation>().Play("hurt_player");
+        anim.SetTrigger("Stun");
         IsDown = true;
         stats.incrementStun();
     }
@@ -79,6 +83,7 @@ public class Player : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        anim = GetComponentInChildren<Animator>();
         if (skillController.hitAreaUsed)
         {
             BoxCollider leftHitCollider = leftHitArea.gameObject.GetComponent<BoxCollider>();

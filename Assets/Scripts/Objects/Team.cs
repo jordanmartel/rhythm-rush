@@ -31,6 +31,8 @@ public class Team : MonoBehaviour
         {
             if (player1.health <= 0 || player2.health <=0)
             {
+                player1.anim.SetTrigger("Death");
+                player2.anim.SetTrigger("Death");
                 Instantiate(losing, Vector3.zero, Quaternion.identity);
                 hasEnded = true;
                 //FindObjectOfType<Ranking>().enabled = false;
@@ -88,14 +90,16 @@ public class Team : MonoBehaviour
 
         if (player1.IsDown)
         {
-            player1.GetComponent<Animation>().Play("revived_player");
+            //player1.GetComponent<Animation>().Play("revived_player");
+            player1.anim.SetTrigger("Revive");
             player2.stats.incrementRevive();
         }
         
 
         if (player2.IsDown)
         {
-            player2.GetComponent<Animation>().Play("revived_player");
+            //player2.GetComponent<Animation>().Play("revived_player");
+            player2.anim.SetTrigger("Revive");
             player1.stats.incrementRevive();
         }
         
