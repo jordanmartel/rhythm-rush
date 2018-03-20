@@ -1,0 +1,182 @@
+fileFormatVersion: 2
+guid: 70efeaa2a66c59e44b3d4032a386663a
+timeCreated: 1521501268
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: back
+    100002: full_model
+    100004: guides
+    100006: hip
+    100008: ikHandle1
+    100010: ikHandle2
+    100012: ikHandle3
+    100014: ikHandle4
+    100016: ikHandle5
+    100018: ikHandle6
+    100020: imagePlane1
+    100022: imagePlane2
+    100024: joint4
+    100026: joint5
+    100028: joint7
+    100030: joint7 1
+    100032: joint8
+    100034: joint8 1
+    100036: left
+    100038: left_arm
+    100040: left_elbow
+    100042: left_foot
+    100044: leftknee
+    100046: leftleg
+    100048: leftpaw
+    100050: QuickRigCharacter_Reference
+    100052: rig
+    100054: right_arm
+    100056: right_ear
+    100058: right_ear1
+    100060: right_elbow
+    100062: right_foot
+    100064: rightknee
+    100066: rightleg
+    100068: rightpaw
+    100070: //RootNode
+    100072: spine
+    100074: spine_head
+    100076: spine_neck
+    100078: spinechest
+    400000: back
+    400002: full_model
+    400004: guides
+    400006: hip
+    400008: ikHandle1
+    400010: ikHandle2
+    400012: ikHandle3
+    400014: ikHandle4
+    400016: ikHandle5
+    400018: ikHandle6
+    400020: imagePlane1
+    400022: imagePlane2
+    400024: joint4
+    400026: joint5
+    400028: joint7
+    400030: joint7 1
+    400032: joint8
+    400034: joint8 1
+    400036: left
+    400038: left_arm
+    400040: left_elbow
+    400042: left_foot
+    400044: leftknee
+    400046: leftleg
+    400048: leftpaw
+    400050: QuickRigCharacter_Reference
+    400052: rig
+    400054: right_arm
+    400056: right_ear
+    400058: right_ear1
+    400060: right_elbow
+    400062: right_foot
+    400064: rightknee
+    400066: rightleg
+    400068: rightpaw
+    400070: //RootNode
+    400072: spine
+    400074: spine_head
+    400076: spine_neck
+    400078: spinechest
+    2000000: back
+    2000002: left
+    2100000: lambert10
+    2100002: lambert6
+    2100004: lambert7
+    2100006: lambert11
+    2100008: lambert8
+    2100010: lambert15
+    2100012: lambert9
+    2100014: lambert4
+    2100016: lambert5
+    4300000: full_model
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: full_model
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

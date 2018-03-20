@@ -105,7 +105,10 @@ public class BossScript : MonoBehaviour {
                 //FindObjectOfType<Ranking>().enabled = false;
                 FindObjectOfType<StageScript>().enabled = false;
                 StartCoroutine("FadeMusic");
-
+                FindObjectOfType<Team>().player1.anim.SetTrigger("Vicrory");
+                FindObjectOfType<Team>().player1.anim.SetBool("Ended", true);
+                FindObjectOfType<Team>().player2.anim.SetTrigger("Victory");
+                FindObjectOfType<Team>().player2.anim.SetBool("Ended", true);
                 GameObject[] notes = GameObject.FindGameObjectsWithTag("note");
                 foreach (GameObject note in notes)
                 {

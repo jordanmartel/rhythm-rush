@@ -521,6 +521,7 @@ public class StageScript : MonoBehaviour
                 else
                 {
                     player.updateCombo();
+                    player.anim.SetTrigger("Attack");
                 }
 
                 player.activeNotes.Remove(noteObj);

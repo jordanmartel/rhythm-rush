@@ -32,7 +32,10 @@ public class Team : MonoBehaviour
             if (player1.health <= 0 || player2.health <=0)
             {
                 player1.anim.SetTrigger("Death");
+                player1.anim.SetBool("Ended", true);
                 player2.anim.SetTrigger("Death");
+                player2.anim.SetBool("Ended", true);
+                print("deaddddd!");
                 Instantiate(losing, Vector3.zero, Quaternion.identity);
                 hasEnded = true;
                 //FindObjectOfType<Ranking>().enabled = false;
