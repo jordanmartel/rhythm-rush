@@ -34,6 +34,8 @@ public class Player : MonoBehaviour
     public int accumulatedDamage;
     public int combo;
     public int joystick;
+    public AudioSource SFXPlayer;
+    public AudioClip miss;
 
     public float previousDpadHorizontal;
     public float previousDpadVertical;
@@ -162,6 +164,11 @@ public class Player : MonoBehaviour
     //Success indicates correct hit, if false then reset combo counter
     public void updateComboCount (bool success, int score) {
 
+        if (!success)
+        {
+            SFXPlayer.clip = miss;
+            SFXPlayer.Play();
+        }
         comboCount = (success) ? comboCount+ 1 : 0;
         comboText.text = "x" + comboCount;
         scoreText.text = (System.Int32.Parse(scoreText.text) + score).ToString();

@@ -425,8 +425,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   background: {fileID: 2800000, guid: c46e64c64a8bfe245a6a1335bcfd50a3, type: 3}
-  confirm: {fileID: 8300000, guid: 356880042da395e48b8da693c3fed8df, type: 3}
-  cancel: {fileID: 8300000, guid: 40b52337565da974584769c1fa5258f4, type: 3}
+  confirm: {fileID: 8300000, guid: ece94aaebb2b5ec42ab514c6c3590c0b, type: 3}
+  cancel: {fileID: 8300000, guid: 6227e173628c03146b73c1ac2d7ec3e7, type: 3}
   SFXPlayer1: {fileID: 1824830697}
   SFXPlayer2: {fileID: 1824830699}
   firstStage: PickPowerScene
