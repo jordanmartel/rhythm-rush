@@ -105,7 +105,9 @@ public class BossScript : MonoBehaviour {
                 //FindObjectOfType<Ranking>().enabled = false;
                 FindObjectOfType<StageScript>().enabled = false;
                 StartCoroutine("FadeMusic");
-                FindObjectOfType<Team>().player1.anim.SetTrigger("Vicrory");
+                StartCoroutine("Player1TurnAround");
+                StartCoroutine("Player2TurnAround");
+                FindObjectOfType<Team>().player1.anim.SetTrigger("Victory");
                 FindObjectOfType<Team>().player1.anim.SetBool("Ended", true);
                 FindObjectOfType<Team>().player2.anim.SetTrigger("Victory");
                 FindObjectOfType<Team>().player2.anim.SetBool("Ended", true);
@@ -140,6 +142,28 @@ public class BossScript : MonoBehaviour {
                 }
             }
             stageCompleteTimer += Time.deltaTime;
+        }
+    }
+
+    IEnumerator Player1TurnAround()
+    {
+        Player player1 = FindObjectOfType<Team>().player1;
+        while (player1.transform.eulerAngles.y < 180f && player1.transform.eulerAngles.y > -1800f)
+        {
+            player1.transform.Rotate(new Vector3(0f, 5f, 0f));
+            yield return null;
+        }
+    }
+
+    IEnumerator Player2TurnAround()
+    {
+        Player player2 = FindObjectOfType<Team>().player2;
+        while (Mathf.Abs(player2.transform.eulerAngles.y) < 1e-3 || player2.transform.eulerAngles.y > 180f)
+        {
+            player2.transform.Rotate(new Vector3(0f, -5f, 0f));
+            print("EULER");
+            print(player2.transform.eulerAngles.y);
+            yield return null;
         }
     }
 

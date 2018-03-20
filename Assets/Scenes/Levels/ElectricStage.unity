@@ -1695,6 +1695,22 @@ Prefab:
       propertyPath: comboText
       value: 
       objectReference: {fileID: 1502286351}
+    - target: {fileID: 4555056213312804, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4555056213312804, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4555056213312804, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4555056213312804, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8, type: 2}
   m_IsPrefabParent: 0
