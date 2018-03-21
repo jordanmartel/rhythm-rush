@@ -11,13 +11,28 @@ public class PowerUpSelectStage : MonoBehaviour {
     public GameObject P2Indicator;
 
     public string firstLevel;
+
     [Header("Selections")]
     public GameObject UIRange;
     public GameObject UIPet;
     public GameObject UIBomb;
     public GameObject UIAnyKey;
 
+    [Header("Selection Model")]
+    public GameObject UIRangeModel;
+    public GameObject UIPetModel;
+    public GameObject UIBombModel;
+    public GameObject UIAnyKeyModel;
+
+    [Header("Power Model Locations")]
+    public GameObject XyLoc;
+    public GameObject SaxLoc;
+
     private List<GameObject> UIOptionList = new List<GameObject>();
+    private List<GameObject> PowerModels = new List<GameObject>();
+
+    private GameObject P1Model;
+    private GameObject P2Model;
 
     private int currP1Pos = 0;
     private int currP2Pos = 0;
@@ -27,6 +42,9 @@ public class PowerUpSelectStage : MonoBehaviour {
 
     private bool p1InputReset = true;
     private bool p2InputReset = true;
+
+    private bool P1InputChange = false;
+    private bool P2InputChange = false;
 
     private PowerUpHandler.powerUp P1selectedPower = PowerUpHandler.powerUp.None;
     private PowerUpHandler.powerUp P2selectedPower = PowerUpHandler.powerUp.None;
@@ -47,6 +65,12 @@ public class PowerUpSelectStage : MonoBehaviour {
         UIOptionList.Add(UIPet);
         UIOptionList.Add(UIBomb);
         UIOptionList.Add(UIAnyKey);
+
+
+        PowerModels.Add(UIRangeModel);
+        PowerModels.Add(UIPetModel);
+        PowerModels.Add(UIBombModel);
+        PowerModels.Add(UIAnyKeyModel);
 
     }
 	
@@ -82,7 +106,9 @@ public class PowerUpSelectStage : MonoBehaviour {
 
             float dpadVertical = Input.GetAxis("Controller Axis-Joystick" + Joystick1 + "-Axis8");
             moveIndicator(P1Indicator, currP1Pos);
-            if (dpadVertical == 0) { p1InputReset = true; }
+            if (dpadVertical == 0) { p1InputReset = true; P1InputChange = false; } else {
+                P1InputChange = true;
+            }
         }
     }
 
@@ -103,7 +129,9 @@ public class PowerUpSelectStage : MonoBehaviour {
             //Reset input so that you can't hold down/up
             float dpadVertical2 = Input.GetAxis("Controller Axis-Joystick" + Joystick2 + "-Axis8");
             moveIndicator(P2Indicator, currP2Pos);
-            if (dpadVertical2 == 0) { p2InputReset = true; }
+            if (dpadVertical2 == 0) { p2InputReset = true; P2InputChange = false; } else {
+                P2InputChange = true;
+            }
         }
     }
 
@@ -135,6 +163,24 @@ public class PowerUpSelectStage : MonoBehaviour {
     private void moveIndicator(GameObject indicator, int position) {
         Vector3 pos = indicator.GetComponent<RectTransform>().transform.position;
         indicator.GetComponent<RectTransform>().transform.position = new Vector3(pos.x, UIOptionList[position].transform.position.y, 0);
+
+        Transform location;
+        if (indicator == P1Indicator) {
+            location = XyLoc.transform;
+            if (P1Model != null) {
+                Destroy(P1Model);
+            }
+            P1Model = Instantiate(PowerModels[position], location);
+        } else {
+            location = SaxLoc.transform;
+            if (P2Model != null) {
+                Destroy(P2Model);
+            }
+            P2Model = Instantiate(PowerModels[position], location);
+        }
+
+
+
     }
 
 }

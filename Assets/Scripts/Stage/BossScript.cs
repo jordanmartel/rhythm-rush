@@ -7,9 +7,12 @@ using UnityEngine.SceneManagement;
 
 public class BossScript : MonoBehaviour {
 
+    [Header ("stats")]
     public int maxhp = 12;
     public int dmg = 0;
     private int hp;
+
+    [Header ("Canvas Elements")]
     public Slider healthBar;
     public Canvas winningCanvas;
     public bool hasEnded = false;
@@ -20,6 +23,7 @@ public class BossScript : MonoBehaviour {
 
     private bool preparingAttack = false;
     public Animator animator;
+
 
     // Use this for initialization
 	void Start () {
@@ -230,20 +234,21 @@ public class BossScript : MonoBehaviour {
     public void giveDamage(int dmg) {
 
         // plz no negative hp
-        if (dmg > hp)
-        {
+        if (dmg > hp) {
             hp = 0;
         }
 
-        else
-        {
+        else {
             hp -= dmg;
         }
+    }
+
+    public void updateHealthScreen() { 
         healthBar.value = (1.0f * hp / maxhp);
         Animator animator = GetComponent<Animator>();
         if (animator != null)
         {
-            animator.SetBool("Damaged", true);
+            //animator.SetBool("Damaged", true);
         }
         //StartCoroutine("FlickerDamage");
     }
@@ -258,8 +263,15 @@ public class BossScript : MonoBehaviour {
         //     StartCoroutine("FlickerDamage");
         //  }
         if (other.tag == "particle hit") {
-            noteAttractor nA = other.GetComponentInChildren<noteAttractor>();
-            giveDamage(nA.damage);
+            GameObject gO = transform.Find("ShockWave").gameObject;
+            
+            if (gO.activeSelf) {
+                gO.SetActive(false);
+            }
+            gO.SetActive(true);
+            gO.GetComponent<SelfDeactivate>().resetTimer();
+            updateHealthScreen();
+            //Destroy(shockwave, 5);
         }
 
     }
