@@ -20,7 +20,8 @@ public class NoteScript : MonoBehaviour {
     public GameObject particlesObj;
 
 
-    public Material originalMaterial;
+    public Material anyKeyMaterial;
+    public Material anyKeyBossMaterial;
 
     public bool anyKey = false;
 
@@ -172,11 +173,14 @@ public class NoteScript : MonoBehaviour {
 
         if (anyKey)
         {
-            GetComponent<Light>().enabled = true;
-        }
-        else
-        {
-            GetComponent<Light>().enabled = false;
+            if (FindObjectOfType<StageScript>().bossAttackInProgress)
+            {
+                GetComponent<MeshRenderer>().material = anyKeyBossMaterial;
+            }
+            else
+            {
+                GetComponent<MeshRenderer>().material = anyKeyMaterial;
+            }
         }
 
     }
