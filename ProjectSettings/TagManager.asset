@@ -24,6 +24,7 @@ TagManager:
   - boss
   - player
   - particle hit
+  - boss_target
   layers:
   - Default
   - TransparentFX

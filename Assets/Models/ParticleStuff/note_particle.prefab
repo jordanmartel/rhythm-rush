@@ -102,7 +102,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1514833635731396}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.15, y: 13.62, z: -72.26}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4905643708367220}
@@ -155,7 +155,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1095915812210882}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speed: 0.5
+  speed: 3
   damage: 0
 --- !u!135 &135952100946453238
 SphereCollider:
@@ -283,7 +283,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -473433239
+  randomSeed: 1267370581
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3644,7 +3644,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 364916880
+  randomSeed: 1134203391
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3710,7 +3710,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0.202789, b: 0.9485294, a: 1}
+      maxColor: {r: 0.9485294, g: 0.5298681, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -7006,7 +7006,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1065758425970002}
   serializedVersion: 5
-  lengthInSec: 1.3
+  lengthInSec: 15
   simulationSpeed: 1
   stopAction: 0
   looping: 0
@@ -7059,7 +7059,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -1167411850
+  randomSeed: -1570119702
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7187,7 +7187,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.15
+      scalar: 0.5
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -7925,10 +7925,10 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.5803922, g: 0.89411765, b: 1, a: 1}
-        key1: {r: 0.1254902, g: 0.38431373, b: 1, a: 0}
-        key2: {r: 0.5137255, g: 0.24705882, b: 0.90588236, a: 0}
-        key3: {r: 0.6901961, g: 0.18431373, b: 0.38431373, a: 0}
+        key0: {r: 1, g: 0.90160924, b: 0.5803922, a: 1}
+        key1: {r: 1, g: 0.75875586, b: 0.12549019, a: 0}
+        key2: {r: 0.9191176, g: 0.14355388, b: 0.054065738, a: 0}
+        key3: {r: 1, g: 0, b: 0, a: 0}
         key4: {r: 0.7411765, g: 0.827451, b: 1, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}

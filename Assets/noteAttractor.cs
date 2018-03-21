@@ -20,7 +20,7 @@ public class noteAttractor : MonoBehaviour {
             GetComponent<Transform>();
         }
 
-        target = GameObject.FindGameObjectWithTag("boss").transform;
+        target = GameObject.FindGameObjectWithTag("boss_target").transform;
     }
     void Update() {
 

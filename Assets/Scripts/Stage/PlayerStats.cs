@@ -38,7 +38,6 @@ public class PlayerStats : MonoBehaviour {
     }
 
     internal void updateScore(int score) {
-        print("update score");
         this.score += score;
         StartCoroutine("scoreTextJump");
     }
