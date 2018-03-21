@@ -5,9 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/LoadScreenScene.unity
-    guid: 9d01f65c74713c44681d3d9ff7dfdde6
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Levels/ConnectController.unity
     guid: b5d37948b0b496548a256fa82088d98f
@@ -36,5 +36,5 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels/PickPowerScene.unity
     guid: 3ea20a5f2b16cfd44a63fa8d21e297a9
   - enabled: 1
-    path: Assets/Scenes/Levels/StatsScene.unity
+    path: Assets/Scenes/Levels/statsScene.unity
     guid: 71d751c04ef5f9b4b899739a01238cd6
