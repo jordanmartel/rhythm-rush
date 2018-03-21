@@ -5457,7 +5457,7 @@ Prefab:
     - target: {fileID: 114441057718269550, guid: 52b87283a41988842abbe37844c61c7a,
         type: 2}
       propertyPath: m_Text
-      value: Vala
+      value: VALA
       objectReference: {fileID: 0}
     - target: {fileID: 224818498938874052, guid: 52b87283a41988842abbe37844c61c7a,
         type: 2}

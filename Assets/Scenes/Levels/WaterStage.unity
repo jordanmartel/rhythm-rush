@@ -5453,11 +5453,6 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114441057718269550, guid: 52b87283a41988842abbe37844c61c7a,
-        type: 2}
-      propertyPath: m_Text
-      value: Lazuli
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 52b87283a41988842abbe37844c61c7a, type: 2}
   m_IsPrefabParent: 0
