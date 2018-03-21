@@ -3844,6 +3844,7 @@ MonoBehaviour:
   joystick: 0
   SFXPlayer: {fileID: 82310380669156086}
   miss: {fileID: 8300000, guid: a73ce35408a2e754889e975c1b5d0d5c, type: 3}
+  chargeComplete: {fileID: 8300000, guid: 40a0e37efbf9b6547b7b2792c717f429, type: 3}
   previousDpadHorizontal: 0
   previousDpadVertical: 0
   previousButton: 
@@ -3885,6 +3886,7 @@ MonoBehaviour:
   joystick: 0
   SFXPlayer: {fileID: 82413742640793130}
   miss: {fileID: 8300000, guid: a73ce35408a2e754889e975c1b5d0d5c, type: 3}
+  chargeComplete: {fileID: 8300000, guid: 40a0e37efbf9b6547b7b2792c717f429, type: 3}
   previousDpadHorizontal: 0
   previousDpadVertical: 0
   previousButton: 

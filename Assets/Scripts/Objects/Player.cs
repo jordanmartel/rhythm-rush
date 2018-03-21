@@ -36,6 +36,8 @@ public class Player : MonoBehaviour
     public int joystick;
     public AudioSource SFXPlayer;
     public AudioClip miss;
+    public AudioClip chargeComplete;
+    private bool buzzed;
 
     public float previousDpadHorizontal;
     public float previousDpadVertical;
@@ -52,7 +54,6 @@ public class Player : MonoBehaviour
     private bool isDown = false;
 
     public Animator anim;
-
 
     public void attackedByBoss()
     {
@@ -86,6 +87,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         anim = GetComponentInChildren<Animator>();
+        buzzed = false;
         if (skillController.hitAreaUsed)
         {
             BoxCollider leftHitCollider = leftHitArea.gameObject.GetComponent<BoxCollider>();
@@ -120,12 +122,22 @@ public class Player : MonoBehaviour
             pUpCombo++;
             pUpAvailable = PowerUpHandler.checkAvailablePower(powerUp, pUpCombo);
         }
+        else
+        {
+            if (!buzzed)
+            {
+                SFXPlayer.clip = chargeComplete;
+                SFXPlayer.Play();
+                buzzed = true;
+            }
+        }
     }
     
     public void triggerSkill()
     {
         skillController.triggerSkill(pUpAvailable);
         pUpAvailable = false;
+        buzzed = false;
         pUpCombo = 0;
     }
 
