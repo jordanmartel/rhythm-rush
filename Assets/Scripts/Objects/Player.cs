@@ -101,6 +101,10 @@ public class Player : MonoBehaviour
                 (float)rightHitCollider.size.y * 1.5f, (float)rightHitCollider.size.z * 1.5f);
         }
         pUpAvailable = PowerUpHandler.checkAvailablePower(powerUp, pUpCombo);
+        if (pUpAvailable)
+        {
+            buzzed = true;
+        }
     }
 
     // Update is called once per frame
@@ -122,7 +126,7 @@ public class Player : MonoBehaviour
             pUpCombo++;
             pUpAvailable = PowerUpHandler.checkAvailablePower(powerUp, pUpCombo);
         }
-        else
+        else if (!skillController.hitAreaUsed)
         {
             if (!buzzed)
             {
