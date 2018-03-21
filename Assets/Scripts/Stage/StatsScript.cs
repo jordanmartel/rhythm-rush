@@ -48,6 +48,8 @@ public class StatsScript : MonoBehaviour {
     public bool P2Proceed = false;
     public Text P1ProceedText;
     public Text P2ProceedText;
+    public AudioSource SFXPlayer1;
+    public AudioSource SFXPlayer2;
 
     string nextScene;
 
@@ -83,10 +85,12 @@ public class StatsScript : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown("joystick " + Joystick1 + " button 1")) {
             P1Proceed = true;
+            SFXPlayer1.Play();
             P1ProceedText.text = "READY!";
         }
         if (Input.GetKeyDown("joystick " + Joystick2 + " button 1")) { 
             P2Proceed = true;
+            SFXPlayer2.Play();
             P2ProceedText.text = "READY!";
         }
 
