@@ -8,6 +8,10 @@ public class ConnectController : MonoBehaviour {
     public Texture background;
 
     private int connectedControllers = 0;
+    public AudioClip confirm;
+    public AudioClip cancel;
+    public AudioSource SFXPlayer1;
+    public AudioSource SFXPlayer2;
 
     public string firstStage;
 
@@ -58,6 +62,16 @@ public class ConnectController : MonoBehaviour {
             if (Input.GetKeyDown("joystick " + Metadata.player1Joystick + " button 9"))
             {
                 player1Ready = !player1Ready;
+                if (player1Ready)
+                {
+                    SFXPlayer1.clip = confirm;
+                    SFXPlayer1.Play();
+                }
+                else
+                {
+                    SFXPlayer1.clip = cancel;
+                    SFXPlayer1.Play();
+                }
             }
         }
 
@@ -67,6 +81,16 @@ public class ConnectController : MonoBehaviour {
             if (Input.GetKeyDown("joystick " + Metadata.player2Joystick + " button 9"))
             {
                 player2Ready = !player2Ready;
+                if (player2Ready)
+                {
+                    SFXPlayer2.clip = confirm;
+                    SFXPlayer2.Play();
+                }
+                else
+                {
+                    SFXPlayer2.clip = cancel;
+                    SFXPlayer2.Play();
+                }
             }
 
         }

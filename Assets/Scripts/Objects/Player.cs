@@ -34,6 +34,10 @@ public class Player : MonoBehaviour
     public int accumulatedDamage;
     public int combo;
     public int joystick;
+    public AudioSource SFXPlayer;
+    public AudioClip miss;
+    public AudioClip chargeComplete;
+    private bool buzzed;
 
     public float previousDpadHorizontal;
     public float previousDpadVertical;
@@ -50,7 +54,6 @@ public class Player : MonoBehaviour
     private bool isDown = false;
 
     public Animator anim;
-
 
     public void attackedByBoss()
     {
@@ -84,6 +87,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         anim = GetComponentInChildren<Animator>();
+        buzzed = false;
         if (skillController.hitAreaUsed)
         {
             BoxCollider leftHitCollider = leftHitArea.gameObject.GetComponent<BoxCollider>();
@@ -118,12 +122,22 @@ public class Player : MonoBehaviour
             pUpCombo++;
             pUpAvailable = PowerUpHandler.checkAvailablePower(powerUp, pUpCombo);
         }
+        else
+        {
+            if (!buzzed)
+            {
+                SFXPlayer.clip = chargeComplete;
+                SFXPlayer.Play();
+                buzzed = true;
+            }
+        }
     }
     
     public void triggerSkill()
     {
         skillController.triggerSkill(pUpAvailable);
         pUpAvailable = false;
+        buzzed = false;
         pUpCombo = 0;
     }
 
@@ -162,6 +176,11 @@ public class Player : MonoBehaviour
     //Success indicates correct hit, if false then reset combo counter
     public void updateComboCount (bool success, int score) {
 
+        if (!success)
+        {
+            SFXPlayer.clip = miss;
+            SFXPlayer.Play();
+        }
         comboCount = (success) ? comboCount+ 1 : 0;
         comboText.text = "x" + comboCount;
         scoreText.text = (System.Int32.Parse(scoreText.text) + score).ToString();

@@ -83,6 +83,7 @@ public class StageScript : MonoBehaviour
     
     // this is used to know that a team attack just ended, even though teamAttackController.isActive is false
     private bool teamAttackEnding = false;
+    public Canvas warningSign;
 
     // ==========================
     // Use this for initialization
@@ -224,6 +225,7 @@ public class StageScript : MonoBehaviour
             // transitioning from a regular phase to a boss phase
             if (currentPhase + 1 == beatmap.sections[currentSection].Count)
             {
+                GameObject.Instantiate<Canvas>(warningSign);
                 bossAttackInProgress = true;
                 if (bossAnimator != null)
                 {
