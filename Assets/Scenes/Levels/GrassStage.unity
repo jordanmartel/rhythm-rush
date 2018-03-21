@@ -1007,6 +1007,8 @@ MonoBehaviour:
   repeatFlag: 0
   repeatTime: 0
   bossAnimator: {fileID: 45131723}
+  warningSign: {fileID: 223881207232706526, guid: 94aa97ffe7ba3564985513d8676165a3,
+    type: 2}
 --- !u!1 &780297686
 GameObject:
   m_ObjectHideFlags: 0
