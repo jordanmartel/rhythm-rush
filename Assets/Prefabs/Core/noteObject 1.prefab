@@ -249,7 +249,8 @@ MonoBehaviour:
   shockwave: {fileID: 1818915138559400, guid: 4ac2ed4c21878064f89c2095b7977610, type: 2}
   particlesObj: {fileID: 1514833635731396, guid: e1d6c650e153fe44e925e6ef3010644c,
     type: 2}
-  originalMaterial: {fileID: 0}
+  anyKeyMaterial: {fileID: 2100000, guid: 941ee5faa5de25445b92a77f360d4e6c, type: 2}
+  anyKeyBossMaterial: {fileID: 2100000, guid: 5dc2740944c85d34fa3ec3172170552d, type: 2}
   anyKey: 0
 --- !u!122 &122027265114854008
 Halo:
