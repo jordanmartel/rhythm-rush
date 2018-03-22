@@ -17,7 +17,9 @@ public class SkillScript : MonoBehaviour {
     [Header("Pet")]
     public bool petUsed = false;
     public bool petActive = false;
-    public int petHelpCount = 3;
+    public int petHelpCount = 5;
+    public Animator petAnimator;
+    public GameObject petObject;
 
     [Header("HitArea")]
     public bool hitAreaUsed = false;
@@ -111,19 +113,22 @@ public class SkillScript : MonoBehaviour {
         if (!petActive)
         {
             petActive = true;
-            petHelpCount = 3;
+            petObject.SetActive(true);
+            petHelpCount = 5;
         }
     }
 
     internal void petLeave()
     {
         petActive = false;
-        petHelpCount = 3;
+        petObject.SetActive(false);
+        petHelpCount = 5;
     }
 
     internal void petHelp()
     {
         petHelpCount -= 1;
+        petAnimator.SetTrigger("Help");
         if (petHelpCount <= 0)
         {
             petLeave();

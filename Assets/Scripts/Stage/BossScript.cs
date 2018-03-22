@@ -248,7 +248,7 @@ public class BossScript : MonoBehaviour {
         Animator animator = GetComponent<Animator>();
         if (animator != null)
         {
-            //animator.SetBool("Damaged", true);
+            animator.SetBool("Damaged", true);
         }
         //StartCoroutine("FlickerDamage");
     }
