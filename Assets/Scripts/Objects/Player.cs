@@ -56,6 +56,7 @@ public class Player : MonoBehaviour
     private bool isDown = false;
 
     public Animator anim;
+    public Canvas reviveIndicator;
 
     public void attackedByBoss()
     {
