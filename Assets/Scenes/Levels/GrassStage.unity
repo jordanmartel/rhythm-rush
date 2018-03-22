@@ -245,7 +245,6 @@ GameObject:
   - component: {fileID: 109664179}
   - component: {fileID: 109664181}
   - component: {fileID: 109664180}
-  - component: {fileID: 109664182}
   m_Layer: 0
   m_Name: magic
   m_TagString: Untagged
@@ -261,7 +260,7 @@ Transform:
   m_GameObject: {fileID: 109664178}
   m_LocalRotation: {x: -0, y: -0.9967085, z: 0.08106876, w: 0}
   m_LocalPosition: {x: 0.036, y: 0.2565056, z: 0.33329216}
-  m_LocalScale: {x: 0.027272727, y: 0.027272727, z: 0.027272727}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_Children: []
   m_Father: {fileID: 45131724}
   m_RootOrder: 8
@@ -327,18 +326,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
---- !u!114 &109664182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 109664178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfaa08dc087993745aacbb6965b5191b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  t: 1
 --- !u!1 &118340190 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1799725852211340, guid: cd47197a1169089488aa798c8d02f96c,
@@ -5084,7 +5071,7 @@ Prefab:
     - target: {fileID: 224818498938874052, guid: 52b87283a41988842abbe37844c61c7a,
         type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0.859
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224818498938874052, guid: 52b87283a41988842abbe37844c61c7a,
         type: 2}
@@ -13294,7 +13281,6 @@ GameObject:
   - component: {fileID: 1907802890}
   - component: {fileID: 1907802889}
   - component: {fileID: 1907802888}
-  - component: {fileID: 1907802891}
   m_Layer: 0
   m_Name: sword
   m_TagString: Untagged
@@ -13371,23 +13357,11 @@ Transform:
   m_GameObject: {fileID: 1907802887}
   m_LocalRotation: {x: -0, y: -0.9967085, z: 0.08106876, w: 0}
   m_LocalPosition: {x: -0.04290909, y: 0.2565056, z: 0.33329216}
-  m_LocalScale: {x: 0.027272727, y: 0.027272727, z: 0.027272727}
+  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
   m_Children: []
   m_Father: {fileID: 45131724}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1907802891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1907802887}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfaa08dc087993745aacbb6965b5191b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  t: 1
 --- !u!1001 &1912356274
 Prefab:
   m_ObjectHideFlags: 0
