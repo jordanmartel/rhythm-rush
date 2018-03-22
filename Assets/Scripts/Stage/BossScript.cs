@@ -10,6 +10,7 @@ public class BossScript : MonoBehaviour {
     [Header ("stats")]
     public int maxhp = 12;
     public int dmg = 0;
+    [SerializeField]
     private int hp;
 
     [Header ("Canvas Elements")]
@@ -232,7 +233,6 @@ public class BossScript : MonoBehaviour {
     */
 
     public void giveDamage(int dmg) {
-
         // plz no negative hp
         if (dmg > hp) {
             hp = 0;
@@ -241,6 +241,7 @@ public class BossScript : MonoBehaviour {
         else {
             hp -= dmg;
         }
+        updateHealthScreen();
     }
 
     public void updateHealthScreen() { 
@@ -248,7 +249,7 @@ public class BossScript : MonoBehaviour {
         Animator animator = GetComponent<Animator>();
         if (animator != null)
         {
-            //animator.SetBool("Damaged", true);
+            animator.SetBool("Damaged", true);
         }
         //StartCoroutine("FlickerDamage");
     }

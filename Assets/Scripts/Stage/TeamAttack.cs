@@ -23,6 +23,13 @@ public class TeamAttack : MonoBehaviour {
     public GameObject textPrompts;
     public PlayerFeedback player1Feedback;
     public PlayerFeedback player2Feedback;
+    public Sprite countDown5;
+    public Sprite countDown4;
+    public Sprite countDown3;
+    public Sprite countDown2;
+    public Sprite countDown1;
+    public Image countDownNumber;
+    public Canvas countDownCanvas;
 
     [Header("AttackChildren")]
     private GameObject mainAttractor;
@@ -130,6 +137,28 @@ public class TeamAttack : MonoBehaviour {
 	void Update () {
         if (isActive) {
             remainingTime = remainingTime - Time.deltaTime;
+            countDownCanvas.gameObject.SetActive(true);
+            if (remainingTime > 4f)
+            {
+                countDownNumber.sprite = countDown5;
+                
+            }
+            else if (remainingTime > 3f)
+            {
+                countDownNumber.sprite = countDown4;
+            }
+            else if (remainingTime > 2f)
+            {
+                countDownNumber.sprite = countDown3;
+            }
+            else if (remainingTime > 1f)
+            {
+                countDownNumber.sprite = countDown2;
+            }
+            else
+            {
+                countDownNumber.sprite = countDown1;
+            }
 
             if (numberOfHits > 0) {
                 transform.localScale = new Vector3(startSize.x + numberOfHits / 10.0f, startSize.y + numberOfHits / 10.0f, startSize.z + numberOfHits / 10.0f);

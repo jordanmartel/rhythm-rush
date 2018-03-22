@@ -218,10 +218,10 @@ public class StageScript : MonoBehaviour
         {
             //boss.giveDamage(1);
             currentPhase++;
-            if (bossAnimator != null)
+            /*if (bossAnimator != null)
             {
                 bossAnimator.SetBool("Damaged", true);
-            }
+            }*/
 
             // transitioning from a regular phase to a boss phase
             if (currentPhase + 1 == beatmap.sections[currentSection].Count)
@@ -627,10 +627,12 @@ public class StageScript : MonoBehaviour
                 // set up notes for the player still alive
                 if (team.player2.IsDown) {
                     team.player1.notes = new Dictionary<string, string>(beatmapPhase.revivalNotes);
+                    team.player1.reviveIndicator.gameObject.SetActive(true);
                     team.player2.notes = new Dictionary<string, string>();
                 }
                 else {
                     team.player2.notes = new Dictionary<string, string>(beatmapPhase.revivalNotes);
+                    team.player2.reviveIndicator.gameObject.SetActive(true);
                     team.player1.notes = new Dictionary<string, string>();
                 }
 
@@ -683,6 +685,7 @@ public class StageScript : MonoBehaviour
 
                 if (teamAttackController.timerExpired()) {
                     teamAttackEnding = true;
+                    teamAttackController.countDownCanvas.gameObject.SetActive(false);
                     int damage = teamAttackController.unleashTeamAttack();
                     if (damage == 0) {
                         team.player1.updateComboCount(false, 0);
