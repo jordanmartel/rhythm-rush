@@ -1,50 +1,53 @@
 fileFormatVersion: 2
-guid: 4aef3eac12ed04fec8973dd480d32f4b
-timeCreated: 1519779420
+guid: 3c605c3d3463f044d8d3f4da5764b147
+timeCreated: 1521692685
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: pCube1
-    100002: pCube10
-    100004: pCube7
-    100006: pCube8
-    100008: pCube9
-    100010: transform1
-    100012: transform2
-    100014: //RootNode
-    400000: pCube1
-    400002: pCube10
-    400004: pCube7
-    400006: pCube8
-    400008: pCube9
-    400010: transform1
-    400012: transform2
-    400014: //RootNode
-    2100000: lambert3
-    2100002: lambert16
-    2100004: lambert2
-    2100006: lambert13
-    2100008: lambert14
-    2100010: lambert4
-    2100012: lambert11
-    2100014: lambert8
-    2100016: lambert7
-    2100018: lambert9
-    2100020: lambert6
-    2100022: lambert10
-    2100024: lambert12
-    2100026: lambert5
-    2100028: blinn1
-    2300000: pCube10
-    2300002: pCube8
-    2300004: pCube9
-    3300000: pCube10
-    3300002: pCube8
-    3300004: pCube9
-    4300000: pCube8
-    4300002: pCube9
-    4300004: pCube10
+    100000: //RootNode
+    100002: Empty
+    100004: Empty_001
+    100006: Plane
+    100008: Plane_001
+    100010: Plane_002
+    100012: Plane_003
+    100014: Plane_004
+    100016: Plane_006
+    400000: //RootNode
+    400002: Empty
+    400004: Empty_001
+    400006: Plane
+    400008: Plane_001
+    400010: Plane_002
+    400012: Plane_003
+    400014: Plane_004
+    400016: Plane_006
+    2100000: red
+    2100002: light_grey
+    2100004: black
+    2100006: dark_grey
+    2100008: grey
+    2100010: light_red
+    2300000: Plane
+    2300002: Plane_001
+    2300004: Plane_002
+    2300006: Plane_003
+    2300008: Plane_004
+    2300010: Plane_006
+    3300000: Plane
+    3300002: Plane_001
+    3300004: Plane_002
+    3300006: Plane_003
+    3300008: Plane_004
+    3300010: Plane_006
+    4300000: Plane_006
+    4300002: Plane_003
+    4300004: Plane_004
+    4300006: Plane_002
+    4300008: Plane_001
+    4300010: Plane
+    7400000: Default Take
     9500000: //RootNode
   externalObjects: {}
   materials:
