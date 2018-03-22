@@ -96,6 +96,7 @@ public class Team : MonoBehaviour
             //player1.GetComponent<Animation>().Play("revived_player");
             player1.anim.SetTrigger("Revive");
             player2.stats.incrementRevive();
+            player2.reviveIndicator.enabled = false;
         }
         
 
@@ -104,6 +105,7 @@ public class Team : MonoBehaviour
             //player2.GetComponent<Animation>().Play("revived_player");
             player2.anim.SetTrigger("Revive");
             player1.stats.incrementRevive();
+            player1.reviveIndicator.enabled = false;
         }
         
     }
