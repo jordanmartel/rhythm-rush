@@ -10,8 +10,14 @@ public class ManaBar : MonoBehaviour
     public GameObject launchIndicator;
     public Player player;
 
-    public Color manaColor;
-    public Color fullColor;
+    //public Color manaColor;
+    //public Color fullColor;
+
+    public Sprite manabarFillSprite;
+    public Sprite manabarFilledSprite;
+
+    private bool filledColour = true;
+    private float fullTimer = 0;
 
     // Use this for initialization
     void Start()
@@ -45,15 +51,32 @@ public class ManaBar : MonoBehaviour
 
         if (manabar.value != 1)
         {
-            manabarFill.color = manaColor;
+            manabarFill.sprite = manabarFillSprite;
             launchIndicator.SetActive(false);
 
         }
 
         else
         {
-            manabarFill.color = fullColor;
             launchIndicator.SetActive(true);
+
+            fullTimer += Time.deltaTime;
+            if (fullTimer > 0.5)
+            {
+                filledColour = !filledColour;
+                fullTimer = 0;
+            }
+
+            if (filledColour)
+            {
+                manabarFill.sprite = manabarFilledSprite;
+            }
+
+            else
+            {
+                manabarFill.sprite = manabarFillSprite;
+
+            }
         }
     }
 }
