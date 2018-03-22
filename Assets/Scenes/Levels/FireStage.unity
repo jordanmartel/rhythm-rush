@@ -311,6 +311,18 @@ Prefab:
       propertyPath: player
       value: 
       objectReference: {fileID: 273970735}
+    - target: {fileID: 114875040207381894, guid: 1c33bdec5f5e954458ca9b22b3562c63,
+        type: 2}
+      propertyPath: manabarFillSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a34d9d8a92a370c4ba0d93dab47cd322,
+        type: 3}
+    - target: {fileID: 114875040207381894, guid: 1c33bdec5f5e954458ca9b22b3562c63,
+        type: 2}
+      propertyPath: manabarFilledSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0fcf21d181a9b4a4ba6270b3c8081cc7,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1c33bdec5f5e954458ca9b22b3562c63, type: 2}
   m_IsPrefabParent: 0
@@ -5676,6 +5688,18 @@ Prefab:
       propertyPath: player
       value: 
       objectReference: {fileID: 1424466541}
+    - target: {fileID: 114790760964152886, guid: e68ccacbd3c623d4fb59ec95b7fd2484,
+        type: 2}
+      propertyPath: manabarFillSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a34d9d8a92a370c4ba0d93dab47cd322,
+        type: 3}
+    - target: {fileID: 114790760964152886, guid: e68ccacbd3c623d4fb59ec95b7fd2484,
+        type: 2}
+      propertyPath: manabarFilledSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0fcf21d181a9b4a4ba6270b3c8081cc7,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e68ccacbd3c623d4fb59ec95b7fd2484, type: 2}
   m_IsPrefabParent: 0
