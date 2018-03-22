@@ -59,6 +59,13 @@ public class SkillScript : MonoBehaviour {
                 anyKeyEnd();
             }
         }
+        if (petUsed)
+        {
+            if (petAnimator.GetBool("ReallyGone"))
+            {
+                petObject.SetActive(false);
+            }
+        }
 	}
 
     internal void anyKeyOn()
@@ -121,7 +128,7 @@ public class SkillScript : MonoBehaviour {
     internal void petLeave()
     {
         petActive = false;
-        petObject.SetActive(false);
+        petAnimator.SetBool("Gone", true);
         petHelpCount = 5;
     }
 

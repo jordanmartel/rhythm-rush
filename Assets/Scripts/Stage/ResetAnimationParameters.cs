@@ -20,6 +20,10 @@ public class ResetAnimationParameters : StateMachineBehaviour {
         animator.SetBool("Damaged", false);
         animator.SetBool("Attacking", false);
         animator.SetBool("Idle 2", false);
+        if (animator.GetBool("Gone"))
+        {
+            animator.SetBool("ReallyGone", true);
+        }
 	}
 
 	// OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
