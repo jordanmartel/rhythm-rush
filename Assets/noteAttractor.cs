@@ -11,6 +11,7 @@ public class noteAttractor : MonoBehaviour {
     public float speed = 5f;
 
     public int damage = 0;
+    public string attackType = "";
 
     private bool isAttractActive = false;
     int numParticlesAlive;

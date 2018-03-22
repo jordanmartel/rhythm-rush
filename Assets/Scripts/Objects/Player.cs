@@ -31,12 +31,14 @@ public class Player : MonoBehaviour
     public PlayerStats stats;
     public PowerUpHandler.powerUp powerUp;
     public SkillScript skillController;
+    public string attackType;
     public int accumulatedDamage;
     public int combo;
     public int joystick;
     public AudioSource SFXPlayer;
     public AudioClip miss;
     public AudioClip chargeComplete;
+    public Animator weaponAnimation;
     private bool buzzed;
 
     public float previousDpadHorizontal;
