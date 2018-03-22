@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerFeedback : MonoBehaviour {
 
-    public Text text;
+    //public Image image;
     private float displayTime;
 
     [Header("Distance Limit Values")]
@@ -19,11 +19,18 @@ public class PlayerFeedback : MonoBehaviour {
     public int goodScore = 30;
     public int okayScore = 10;
 
+    /*
     [Header("Feedback Colours")]
     public Color perfectColour;
     public Color goodColour;
     public Color okayColour;
     public Color missColour;
+    */
+
+    public GameObject perfectSprite;
+    public GameObject goodSprite;
+    public GameObject okaySprite;
+    public GameObject missSprite;
 
     // Use this for initialization
     void Start() {
@@ -33,13 +40,16 @@ public class PlayerFeedback : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() { 
-		 if (Time.time - displayTime > 0.2f) {
-            text.text = "";
-            text.color = Color.white;
-            
+    void Update() {
+
+        if (Time.time - displayTime > 0.5f)
+        {
+            perfectSprite.SetActive(false);
+            goodSprite.SetActive(false);
+            okaySprite.SetActive(false);
+            missSprite.SetActive(false);
         }
-	}
+    }
 
     //Sets Feedback text based on distance from perfect hit point and returns score
     public int GiveFeedback(float distance, bool correct)
@@ -49,34 +59,38 @@ public class PlayerFeedback : MonoBehaviour {
 
     public int giveTeamAttackFeedback(float totalPress, bool correct) {
 
+        perfectSprite.SetActive(false);
+        goodSprite.SetActive(false);
+        okaySprite.SetActive(false);
+        missSprite.SetActive(false);
+
+
         int value = 0;
         if (!correct)
         {
-            text.text = "MISS";
-            text.color = missColour;
+            missSprite.SetActive(true);
             displayTime = Time.time;
             return 0;
         }
         if (totalPress <= perfectValue) {
-            text.text = "PERFECT!";
-            text.color = perfectColour;
+
+            perfectSprite.SetActive(true);
             value =  perfectScore;
         }
         else if (totalPress <= goodValue) {
-            text.text = "GOOD!";
-            text.color = goodColour;
+
+            goodSprite.SetActive(true);
             value = goodScore;
         }
         else if (totalPress <= okayValue) {
-            text.text = "OKAY!";
-            text.color = okayColour;
+
+            okaySprite.SetActive(true);
             value = okayScore;
         }
 
         else
         {
-            text.text = "BAD";
-            text.color = missColour;
+            missSprite.SetActive(true);
         }
 
         displayTime = Time.time;
@@ -86,8 +100,11 @@ public class PlayerFeedback : MonoBehaviour {
     }
 
     private IEnumerator waitforFeedback() {
-        yield return new WaitForSeconds(3f);
-        text.text = "";
-        text.color = Color.white;
+        yield return new WaitForSeconds(5f);
+
+        perfectSprite.SetActive(false);
+        goodSprite.SetActive(false);
+        okaySprite.SetActive(false);
+        missSprite.SetActive(false);
     }
 }

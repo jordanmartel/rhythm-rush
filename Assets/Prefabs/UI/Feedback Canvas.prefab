@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 224853032329675130}
   - component: {fileID: 222963818691527528}
-  - component: {fileID: 114267611199229696}
   - component: {fileID: 114147930248521576}
   m_Layer: 5
   m_Name: P1 Feedback
@@ -56,7 +55,6 @@ GameObject:
   m_Component:
   - component: {fileID: 224069932671483306}
   - component: {fileID: 222380128741357744}
-  - component: {fileID: 114835794792969384}
   - component: {fileID: 114788332884227368}
   m_Layer: 5
   m_Name: P2 Feedback
@@ -76,50 +74,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b97675e3d6e41640830e855ae7a6355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 114267611199229696}
-  perfectValue: 0.5
-  goodValue: 1
-  okayValue: 1.5
+  perfectValue: 45
+  goodValue: 40
+  okayValue: 35
   perfectScore: 50
   goodScore: 30
   okayScore: 10
-  perfectColour: {r: 0.08469757, g: 0.4611939, b: 0.8161765, a: 1}
-  goodColour: {r: 0.14509805, g: 0.39607844, b: 0, a: 1}
-  okayColour: {r: 0.8156863, g: 0.43137255, b: 0, a: 1}
-  missColour: {r: 0.89705884, g: 0.241, b: 0.07915232, a: 1}
---- !u!114 &114267611199229696
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1127314414902774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: 56cc2ab7f07683b4d92f66c6dbe3a33c, type: 3}
-    m_FontSize: 50
-    m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 0
-    m_MaxSize: 50
-    m_Alignment: 0
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: 
+  perfectSprite: {fileID: 0}
+  goodSprite: {fileID: 0}
+  okaySprite: {fileID: 0}
+  missSprite: {fileID: 0}
 --- !u!114 &114476484446063674
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -147,50 +111,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b97675e3d6e41640830e855ae7a6355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 114835794792969384}
-  perfectValue: 0.5
-  goodValue: 1
-  okayValue: 1.5
+  perfectValue: 45
+  goodValue: 40
+  okayValue: 35
   perfectScore: 50
   goodScore: 30
   okayScore: 10
-  perfectColour: {r: 0.08469757, g: 0.4611939, b: 0.8161765, a: 1}
-  goodColour: {r: 0.14509805, g: 0.39607844, b: 0, a: 1}
-  okayColour: {r: 0.8156863, g: 0.43137255, b: 0, a: 1}
-  missColour: {r: 0.89705884, g: 0.241, b: 0.07915232, a: 1}
---- !u!114 &114835794792969384
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1351871631019628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: 56cc2ab7f07683b4d92f66c6dbe3a33c, type: 3}
-    m_FontSize: 50
-    m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 0
-    m_MaxSize: 50
-    m_Alignment: 2
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: 
+  perfectSprite: {fileID: 0}
+  goodSprite: {fileID: 0}
+  okaySprite: {fileID: 0}
+  missSprite: {fileID: 0}
 --- !u!114 &114870157160179194
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -259,7 +189,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -10, y: 0}
+  m_AnchoredPosition: {x: -72.7, y: 30.4}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 1, y: 0}
 --- !u!224 &224853032329675130
@@ -277,7 +207,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 10, y: 0}
+  m_AnchoredPosition: {x: 81.6, y: 32.4}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0, y: 0}
 --- !u!224 &224959022510444638
