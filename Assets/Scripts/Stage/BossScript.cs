@@ -263,7 +263,7 @@ public class BossScript : MonoBehaviour {
         //     StartCoroutine("FlickerDamage");
         //  }
         if (other.tag == "particle hit") {
-            GameObject gO = transform.Find("ShockWave").gameObject;
+            GameObject gO = transform.Find(other.GetComponent<noteAttractor>().attackType).gameObject;
             
             if (gO.activeSelf) {
                 gO.SetActive(false);

@@ -18,6 +18,7 @@ public class NoteScript : MonoBehaviour {
     public GameObject destination;
     public GameObject shockwave;
     public GameObject particlesObj;
+    public Animator weaponAnimator;
 
 
     public Material anyKeyMaterial;
@@ -124,7 +125,9 @@ public class NoteScript : MonoBehaviour {
             DestroyWithShockwave();
 
             if (correct) {
-                sendParticles(score);
+                weaponAnimator.SetBool("Attack",true );
+                activateAttack();
+                //sendParticles(score);
             }
         }
 
@@ -133,10 +136,22 @@ public class NoteScript : MonoBehaviour {
         return score;
     }
 
+    private void activateAttack() {
+        BossScript bs = FindObjectOfType<BossScript>();
+        GameObject attackObject = FindObjectOfType<BossScript>().transform.Find(player.attackType).gameObject;
+        if (attackObject.activeSelf) {
+            attackObject.SetActive(false);
+        }
+        attackObject.SetActive(true);
+        //attackObject.GetComponent<SelfDeactivate>().resetTimer();
+        bs.updateHealthScreen();
+    }
 
     private void sendParticles(int damage) {
         GameObject particles = Instantiate(particlesObj, this.transform.localPosition, Quaternion.identity);
+        particles.GetComponentInChildren<ParticleSystem>().Pause();
         particles.GetComponentInChildren<noteAttractor>().damage = damage;
+        particles.GetComponentInChildren<noteAttractor>().attackType = player.attackType;
 
         //Change for different animation types
         //particles.GetComponentInChildren<Animation>().Play("");

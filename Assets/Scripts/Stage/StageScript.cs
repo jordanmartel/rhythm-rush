@@ -79,7 +79,8 @@ public class StageScript : MonoBehaviour
     public bool repeatFlag = false;
     public float repeatTime;
 
-    public Animator bossAnimator;    
+
+    public Animator bossAnimator;
     
     // this is used to know that a team attack just ended, even though teamAttackController.isActive is false
     private bool teamAttackEnding = false;
@@ -301,6 +302,7 @@ public class StageScript : MonoBehaviour
         newNote.GetComponent<MeshRenderer>().material = stringToMesh(note);
         newNote.GetComponent<NoteScript>().feedback = player.feedback;
         newNote.GetComponent<NoteScript>().player = player;
+        newNote.GetComponent<NoteScript>().weaponAnimator = player.weaponAnimation;
         newNote.SetActive(true);
         if (player.skillController.anyKeyActive)
         {
