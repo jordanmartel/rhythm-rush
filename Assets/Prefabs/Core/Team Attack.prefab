@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 23811483990335594}
   - component: {fileID: 114477667161188066}
   - component: {fileID: 82853861159526006}
+  - component: {fileID: 111512854639504130}
   m_Layer: 0
   m_Name: Team Attack
   m_TagString: Untagged
@@ -219,7 +220,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 57c4de35209fcf34ab1745be59ec2468, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -326,6 +327,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!111 &111512854639504130
+Animation:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1457208329261614}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 911bc62377fb3964f94db8dece110943, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 911bc62377fb3964f94db8dece110943, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!114 &114009916710190290
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -368,9 +384,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isActive: 0
   numberOfHits: 0
-  maximumNumberOfHits: 50
-  attackHits: 50
-  recoverHits: 60
+  maximumNumberOfHits: 40
+  attackHits: 35
+  recoverHits: 40
   damagePerHit: 10
   allotedTime: 3
   energyBar: {fileID: 0}
