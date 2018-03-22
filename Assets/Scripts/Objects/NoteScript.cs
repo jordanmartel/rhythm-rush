@@ -143,7 +143,7 @@ public class NoteScript : MonoBehaviour {
             attackObject.SetActive(false);
         }
         attackObject.SetActive(true);
-        attackObject.GetComponent<SelfDeactivate>().resetTimer();
+        //attackObject.GetComponent<SelfDeactivate>().resetTimer();
         bs.updateHealthScreen();
     }
 
