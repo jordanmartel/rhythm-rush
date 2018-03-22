@@ -1,54 +1,83 @@
 fileFormatVersion: 2
-guid: 4c52ddf1cb98a8341821dcb8e3cffda9
-timeCreated: 1521692749
+guid: 7d86aa4236bcba14f875e9268e65b657
+timeCreated: 1521690407
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Empty
-    100004: Empty_001
-    100006: Plane
-    100008: Plane_001
-    100010: Plane_002
-    100012: Plane_003
-    100014: Plane_004
-    100016: Plane_006
-    400000: //RootNode
-    400002: Empty
-    400004: Empty_001
-    400006: Plane
-    400008: Plane_001
-    400010: Plane_002
-    400012: Plane_003
-    400014: Plane_004
-    400016: Plane_006
-    2100000: red
-    2100002: light_grey
-    2100004: black
-    2100006: dark_grey
-    2100008: grey
-    2100010: light_red
-    2300000: Plane
-    2300002: Plane_001
-    2300004: Plane_002
-    2300006: Plane_003
-    2300008: Plane_004
-    2300010: Plane_006
-    3300000: Plane
-    3300002: Plane_001
-    3300004: Plane_002
-    3300006: Plane_003
-    3300008: Plane_004
-    3300010: Plane_006
-    4300000: Plane_006
-    4300002: Plane_003
-    4300004: Plane_004
-    4300006: Plane_002
-    4300008: Plane_001
-    4300010: Plane
+    100000: Armature
+    100002: Bone
+    100004: Bone_001
+    100006: Bone_002
+    100008: Bone_003
+    100010: Bone_004
+    100012: Bone_005
+    100014: Bone_006
+    100016: Bone_007
+    100018: Bone_008
+    100020: Bone_009
+    100022: Bone_010
+    100024: Bone_011
+    100026: Bone_012
+    100028: Bone_013
+    100030: Bone_014
+    100032: Bone_015
+    100034: Bone_016
+    100036: Bone_017
+    100038: Bone_018
+    100040: Bone_019
+    100042: Bone_020
+    100044: //RootNode
+    100046: Cube
+    100048: Cube_001
+    100050: Empty
+    100052: Empty_001
+    100054: Plane
+    400000: Armature
+    400002: Bone
+    400004: Bone_001
+    400006: Bone_002
+    400008: Bone_003
+    400010: Bone_004
+    400012: Bone_005
+    400014: Bone_006
+    400016: Bone_007
+    400018: Bone_008
+    400020: Bone_009
+    400022: Bone_010
+    400024: Bone_011
+    400026: Bone_012
+    400028: Bone_013
+    400030: Bone_014
+    400032: Bone_015
+    400034: Bone_016
+    400036: Bone_017
+    400038: Bone_018
+    400040: Bone_019
+    400042: Bone_020
+    400044: //RootNode
+    400046: Cube
+    400048: Cube_001
+    400050: Empty
+    400052: Empty_001
+    400054: Plane
+    2100000: Orange
+    2100002: Magenta
+    2100004: Faded_blue
+    2100006: Light_pink
+    2100008: light_purple
+    2100010: Dark_Blue
+    2300000: Cube
+    2300002: Cube_001
+    3300000: Cube
+    3300002: Cube_001
+    4300000: Cube_001
+    4300002: Plane
+    4300004: Cube
     7400000: Default Take
+    7400002: ArmatureAction
     9500000: //RootNode
+    13700000: Plane
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -75,35 +104,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: Default Take
-      takeName: Default Take
-      firstFrame: 0
-      lastFrame: 59
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []
