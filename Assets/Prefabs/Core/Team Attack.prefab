@@ -256,7 +256,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: dd4cb05799dab124e9b5105f893be5d5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f902f2fd16e9d1c49b32e17ac335c300, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -335,9 +335,9 @@ Animation:
   m_GameObject: {fileID: 1457208329261614}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 911bc62377fb3964f94db8dece110943, type: 2}
+  m_Animation: {fileID: 0}
   m_Animations:
-  - {fileID: 7400000, guid: 911bc62377fb3964f94db8dece110943, type: 2}
+  - {fileID: 0}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -400,6 +400,7 @@ MonoBehaviour:
   countDown1: {fileID: 21300000, guid: 860c1a6157586de44a6c61469977ddbb, type: 3}
   countDownNumber: {fileID: 114706889093082966}
   countDownCanvas: {fileID: 223825430578633828}
+  buildTeamAttackSFX: {fileID: 8300000, guid: f902f2fd16e9d1c49b32e17ac335c300, type: 3}
 --- !u!114 &114495148354618318
 MonoBehaviour:
   m_ObjectHideFlags: 1

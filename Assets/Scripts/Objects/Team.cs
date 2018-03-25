@@ -94,6 +94,7 @@ public class Team : MonoBehaviour
         if (player1.IsDown)
         {
             //player1.GetComponent<Animation>().Play("revived_player");
+            player1.anim.SetBool("Stunned", false);
             player1.anim.SetTrigger("Revive");
             player2.stats.incrementRevive();
             player2.reviveIndicator.enabled = false;
@@ -103,6 +104,7 @@ public class Team : MonoBehaviour
         if (player2.IsDown)
         {
             //player2.GetComponent<Animation>().Play("revived_player");
+            player2.anim.SetBool("Stunned", false);
             player2.anim.SetTrigger("Revive");
             player1.stats.incrementRevive();
             player1.reviveIndicator.enabled = false;

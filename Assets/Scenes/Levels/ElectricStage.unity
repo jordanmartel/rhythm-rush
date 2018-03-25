@@ -2553,6 +2553,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 111512854639504130, guid: 669cecf84bd102f459e50377ed71f4c1,
+        type: 2}
+      propertyPath: m_Animation
+      value: 
+      objectReference: {fileID: 7400000, guid: 911bc62377fb3964f94db8dece110943, type: 2}
+    - target: {fileID: 111512854639504130, guid: 669cecf84bd102f459e50377ed71f4c1,
+        type: 2}
+      propertyPath: m_Animations.Array.data[0]
+      value: 
+      objectReference: {fileID: 7400000, guid: 911bc62377fb3964f94db8dece110943, type: 2}
     - target: {fileID: 114477667161188066, guid: 669cecf84bd102f459e50377ed71f4c1,
         type: 2}
       propertyPath: energyBar
@@ -2605,8 +2615,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1695177311}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.09999, y: 1.166, z: 0.11899998}
-  m_LocalScale: {x: 0.099999994, y: 0.09999999, z: 0.10000001}
+  m_LocalPosition: {x: 0.1, y: 0.6, z: 0.11899998}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_Children: []
   m_Father: {fileID: 1574511737}
   m_RootOrder: 0

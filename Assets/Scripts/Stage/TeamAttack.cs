@@ -37,6 +37,9 @@ public class TeamAttack : MonoBehaviour {
     private GameObject sideAttractor2;
     private GameObject fireball;
 
+    [Header("Others")]
+    public AudioClip buildTeamAttackSFX;
+
 	// Use this for initialization
 	void Start () {
         energyBar.maxValue = maximumNumberOfHits;
@@ -47,6 +50,8 @@ public class TeamAttack : MonoBehaviour {
         mainAttractor = transform.GetChild(0).gameObject;
         sideAttractor1 = transform.GetChild(1).gameObject;
         sideAttractor2 = transform.GetChild(2).gameObject;
+
+        GetComponent<AudioSource>().clip = buildTeamAttackSFX;
     }
 
     public void startTeamAttack()
@@ -69,7 +74,13 @@ public class TeamAttack : MonoBehaviour {
 
     public void buildTeamAttack()
     {
+        AudioSource audioSource = GetComponent<AudioSource>();
+        audioSource.pitch = 0.5f + (float) numberOfHits * 0.1f;
+        print("Pitch");
+        print(audioSource.pitch);
+        audioSource.Play();
         numberOfHits++;
+        
     }
 
     public int unleashTeamAttack()
@@ -84,8 +95,9 @@ public class TeamAttack : MonoBehaviour {
         // 40 hits: 100 * 40 * 2^4-1 = 100 * 40 * 8 = 32,000
         // 50 hits: 100 * 50 * 2^5-1 = 100 * 50 * 16 = 80,000
 
-        int damageDone = Mathf.Min(numberOfHits, maximumNumberOfHits) * damagePerHit;
-           // * (int) Math.Pow(2, (Mathf.Min(numberOfHits, maximumNumberOfHits) / 10) - 1);
+        //int damageDone = Mathf.Min(numberOfHits, maximumNumberOfHits) * damagePerHit;
+        int damageDone = numberOfHits * damagePerHit;
+        // * (int) Math.Pow(2, (Mathf.Min(numberOfHits, maximumNumberOfHits) / 10) - 1);
 
         //Debug.Log("num hits: " + (Mathf.Min(numberOfHits, maximumNumberOfHits)));
         //Debug.Log("damage per hit: " + damagePerHit);
@@ -97,10 +109,10 @@ public class TeamAttack : MonoBehaviour {
         {
             FindObjectOfType<Team>().recoverHealth();
         }
-        if (numberOfHits < attackHits)
+        /*if (numberOfHits < attackHits)
         {
             damageDone = 0;
-        }
+        }*/
         //displayFeedback();        
         energyBar.gameObject.SetActive(false);
         isActive = false;
