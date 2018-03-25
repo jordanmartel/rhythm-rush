@@ -180,7 +180,7 @@ public class BossScript : MonoBehaviour {
             while (audioObject.GetComponent<AudioSource>().volume != 0)
             {
                 print(audioObject.GetComponent<AudioSource>().volume);
-                audioObject.GetComponent<AudioSource>().volume = Mathf.Max(audioObject.GetComponent<AudioSource>().volume - 0.001f,0f);
+                audioObject.GetComponent<AudioSource>().volume = Mathf.Max(audioObject.GetComponent<AudioSource>().volume - 0.005f,0f);
                 yield return null;
             }
         }
