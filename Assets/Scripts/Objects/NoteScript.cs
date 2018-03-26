@@ -18,6 +18,9 @@ public class NoteScript : MonoBehaviour {
     public GameObject destination;
     public GameObject shockwave;
     public GameObject particlesObj;
+    public GameObject attackObject;
+    public Vector3 attackPos;
+    public Vector3 attackSize;
     public Animator weaponAnimator;
 
 
@@ -28,8 +31,10 @@ public class NoteScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        attackObject = FindObjectOfType<BossScript>().transform.Find(player.attackType).gameObject;
+        attackPos = attackObject.transform.localPosition;
+        attackSize = attackObject.transform.localScale;
+    }
 
     void OnTriggerEnter(Collider collider)
     {
@@ -138,11 +143,12 @@ public class NoteScript : MonoBehaviour {
 
     private void activateAttack() {
         BossScript bs = FindObjectOfType<BossScript>();
-        GameObject attackObject = FindObjectOfType<BossScript>().transform.Find(player.attackType).gameObject;
         if (attackObject.activeSelf) {
             attackObject.SetActive(false);
         }
         attackObject.SetActive(true);
+        attackObject.transform.localPosition = attackPos + new Vector3(Random.Range(-0.03f, 0.03f), Random.Range(-0.03f, 0.03f), 0);
+        attackObject.transform.localScale = attackSize + new Vector3(Random.Range(-0.1f, 0.1f) * attackSize.x, Random.Range(-0.1f, 0.1f) * attackSize.y, 0);
         //attackObject.GetComponent<SelfDeactivate>().resetTimer();
         bs.updateHealthScreen();
     }

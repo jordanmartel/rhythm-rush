@@ -82,6 +82,7 @@ public class Player : MonoBehaviour
     {
         //gameObject.GetComponent<Animation>().Play("hurt_player");
         anim.SetTrigger("Stun");
+        anim.SetBool("Stunned", true);
         IsDown = true;
         stats.incrementStun();
     }
