@@ -96,6 +96,7 @@ public class PowerUpSelectStage : MonoBehaviour {
             if (Input.GetKeyDown("joystick " + Joystick1 + " button 1")){
                 P1selectedPower = powers[currP1Pos];
                 Metadata.P1PowerUp = P1selectedPower;
+                SFXPlayer1.pitch = 1;
                 SFXPlayer1.clip = confirm;
                 SFXPlayer1.Play();
                 P1Indicator.GetComponentInChildren<Animation>().Play("selectPower2");
@@ -110,6 +111,18 @@ public class PowerUpSelectStage : MonoBehaviour {
                 P1InputChange = true;
             }
         }
+        else
+        {
+            if (Input.GetKeyDown("joystick " + Joystick1 + " button 2"))
+            {
+                P1selectedPower = PowerUpHandler.powerUp.None;
+                Metadata.P2PowerUp = P2selectedPower;
+                SFXPlayer1.pitch = 1;
+                SFXPlayer1.clip = cancel;
+                SFXPlayer1.Play();
+                P1Indicator.GetComponentInChildren<Animation>().Play("powerSelectorIdle2");
+            }
+        }
     }
 
     private void updatePlayer2() {
@@ -118,6 +131,7 @@ public class PowerUpSelectStage : MonoBehaviour {
             if (Input.GetKeyDown("joystick " + Joystick2 + " button 1")){
                 P2selectedPower = powers[currP2Pos];
                 Metadata.P2PowerUp = P2selectedPower;
+                SFXPlayer2.pitch = 1;
                 SFXPlayer2.clip = confirm;
                 SFXPlayer2.Play();
                 P2Indicator.GetComponentInChildren<Animation>().Play("selectPower");
@@ -133,6 +147,18 @@ public class PowerUpSelectStage : MonoBehaviour {
                 P2InputChange = true;
             }
         }
+        else
+        {
+            if (Input.GetKeyDown("joystick " + Joystick2 + " button 2"))
+            {
+                P2selectedPower = PowerUpHandler.powerUp.None;
+                Metadata.P2PowerUp = P2selectedPower;
+                SFXPlayer2.pitch = 1;
+                SFXPlayer2.clip = cancel;
+                SFXPlayer2.Play();
+                P2Indicator.GetComponentInChildren<Animation>().Play("powerSelectorIdle");
+            }
+        }
     }
 
     private void checkPlayerInput(GameObject indicator, int position, int joystick) {
@@ -146,16 +172,39 @@ public class PowerUpSelectStage : MonoBehaviour {
         if (dpadVertical == 1) {
             if (position != 0) {
                 vertMvmnt += 90 * mult;
-                if (indicator == P1Indicator) { p1InputReset = false; currP1Pos--; SFXPlayer1.clip = change; SFXPlayer1.Play(); }
-                if (indicator == P2Indicator) { p2InputReset = false; currP2Pos--; SFXPlayer2.clip = change; SFXPlayer2.Play(); }
+                if (indicator == P1Indicator) {
+                    p1InputReset = false;
+                    currP1Pos--;
+                    SFXPlayer1.pitch = 2.5f;
+                    SFXPlayer1.clip = change;
+                    SFXPlayer1.Play();
+                }
+                if (indicator == P2Indicator) {
+                    p2InputReset = false;
+                    currP2Pos--;
+                    SFXPlayer2.pitch = 2;
+                    SFXPlayer2.clip = change;
+                    SFXPlayer2.Play();
+                }
             }
 
 
         } else if (dpadVertical == -1) {
             if (position != powers.Length - 1) {
                 vertMvmnt -= 90 * mult;
-                if (indicator == P1Indicator) { p1InputReset = false; currP1Pos++; SFXPlayer1.clip = change; SFXPlayer1.Play(); }
-                if (indicator == P2Indicator) { p2InputReset = false; currP2Pos++; SFXPlayer2.clip = change; SFXPlayer2.Play(); }
+                if (indicator == P1Indicator) {
+                    p1InputReset = false;
+                    currP1Pos++;
+                    SFXPlayer1.pitch = 2.5f;
+                    SFXPlayer1.clip = change;
+                    SFXPlayer1.Play();
+                }
+                if (indicator == P2Indicator) {
+                    p2InputReset = false;
+                    currP2Pos++;
+                    SFXPlayer2.pitch = 2f;
+                    SFXPlayer2.clip = change;
+                    SFXPlayer2.Play(); }
             }
         }
     }
