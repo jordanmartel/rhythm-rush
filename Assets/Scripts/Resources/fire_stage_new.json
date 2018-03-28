@@ -623,6 +623,43 @@
 
             }
          }
-      ]
+      ],
+	  [
+	  	  {
+		"startTime":0,
+		"endTime":10,
+		"offset": 5,
+		"revivalNotes": {
+			"3": "square",
+		    "4": "cross",
+			"5": "cross",
+		    "6": "circle",
+
+			"10": "square",
+		    "11": "cross",
+			"12": "cross",
+		    "13": "circle",
+
+			"24": "cross",
+			"26": "cross",
+			"28": "circle",
+			"30": "circle",
+			"32": "square",
+			"34": "square",
+			"36": "triangle",
+			"38": "triangle",
+			"40": "cross",
+			"42": "cross",
+			"44": "cross",
+			"46": "cross",
+			"48": "cross",
+		    "50": "cross",
+			"52": "cross",
+			"54": "cross",
+			"56": "cross",
+			"58": "cross"
+		}
+	  }
+	  ]
    ]
 }
