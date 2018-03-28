@@ -90,8 +90,12 @@ public class TeamAttack : MonoBehaviour {
     public int unleashTeamAttack()
     {
 
-        int damageDone = numberOfHits * damagePerHit;
+        if (numberOfHits > maximumNumberOfHits)
+        {
+            numberOfHits = maximumNumberOfHits;
+        }
 
+        int damageDone = numberOfHits * damagePerHit;
         if (numberOfHits >= recoverHits)
         {
             FindObjectOfType<Team>().recoverHealth();
