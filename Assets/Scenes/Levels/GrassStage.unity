@@ -933,6 +933,11 @@ GameObject:
   m_PrefabParentObject: {fileID: 1125457256982264, guid: cd47197a1169089488aa798c8d02f96c,
     type: 2}
   m_PrefabInternal: {fileID: 1306796516}
+--- !u!1 &602074032 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1351871631019628, guid: a9d9f5165469f5141b3a55acd718ce68,
+    type: 2}
+  m_PrefabInternal: {fileID: 1702439075}
 --- !u!1 &638652012 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1776515199259146, guid: cd47197a1169089488aa798c8d02f96c,
@@ -9148,7 +9153,7 @@ Prefab:
         type: 2}
       propertyPath: feedback
       value: 
-      objectReference: {fileID: 1248819865}
+      objectReference: {fileID: 602074032}
     - target: {fileID: 114468231344970944, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8,
         type: 2}
       propertyPath: comboText
@@ -13670,14 +13675,6 @@ Prefab:
     - target: {fileID: 224177440753741430, guid: 4d210515b5a309346801416fc202d0fb,
         type: 2}
       propertyPath: m_Pivot.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1551251978825406, guid: 4d210515b5a309346801416fc202d0fb, type: 2}
-      propertyPath: m_Name
-      value: ComboDisplay
-      objectReference: {fileID: 0}
-    - target: {fileID: 1551251978825406, guid: 4d210515b5a309346801416fc202d0fb, type: 2}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
