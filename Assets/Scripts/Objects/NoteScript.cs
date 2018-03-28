@@ -154,7 +154,7 @@ public class NoteScript : MonoBehaviour {
         }
         else
         {
-            float transformScale = Random.Range(-0.2f, 0.2f);
+            float transformScale = Random.Range(-0.1f, 0.1f);
             attackObject.transform.localScale = attackSize + new Vector3(transformScale * attackSize.x, transformScale * attackSize.y, 0);
         }
         //attackObject.GetComponent<SelfDeactivate>().resetTimer();
