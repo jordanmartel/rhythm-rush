@@ -148,7 +148,15 @@ public class NoteScript : MonoBehaviour {
         }
         attackObject.SetActive(true);
         attackObject.transform.localPosition = attackPos + new Vector3(Random.Range(-0.03f, 0.03f), Random.Range(-0.03f, 0.03f), 0);
-        attackObject.transform.localScale = attackSize + new Vector3(Random.Range(-0.1f, 0.1f) * attackSize.x, Random.Range(-0.1f, 0.1f) * attackSize.y, 0);
+        if (player.attackType == "sword")
+        {
+            attackObject.transform.localScale = attackSize + new Vector3(Random.Range(-0.1f, 0.1f) * attackSize.x, Random.Range(-0.1f, 0.1f) * attackSize.y, 0);
+        }
+        else
+        {
+            float transformScale = Random.Range(-0.1f, 0.1f);
+            attackObject.transform.localScale = attackSize + new Vector3(transformScale * attackSize.x, transformScale * attackSize.y, 0);
+        }
         //attackObject.GetComponent<SelfDeactivate>().resetTimer();
         bs.updateHealthScreen();
     }
