@@ -464,7 +464,7 @@ public class StageScript : MonoBehaviour
             {
 
 
-                if (autoPlay && !headNote.canHit)
+                if (autoPlay && !headNote.autoplayCloseEnough(player.getHitArea(headNote.key)))
                 {
                     return;
                 }
@@ -472,6 +472,20 @@ public class StageScript : MonoBehaviour
                 //print("hit successfully");
                 noteHitIndex++;
                 int score = headNote.destroyWithFeedback(player.getHitArea(headNote.key), true);
+
+                // bonus points to score for each perfect or good. OK gets regular points. By default, players will earn enough score
+                // equal to the damage dealt to the boss health
+                switch (score)
+                {
+                    case (50):
+                        score = score * 2;
+                        break;
+                    case (30):
+                        score = (int) (score * 1.5);
+                        break;
+                }
+                
+
                 player.updateComboCount(true, score);
 
                 if (score == 0)

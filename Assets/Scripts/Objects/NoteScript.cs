@@ -115,6 +115,11 @@ public class NoteScript : MonoBehaviour {
         }
     }
 
+    public bool autoplayCloseEnough(GameObject hitArea)
+    {
+        return 0.5f > Vector3.Distance(hitArea.transform.position, transform.position);
+    }
+
     public int destroyWithFeedback(GameObject hitArea, bool correct)
     {
         int score = 0;

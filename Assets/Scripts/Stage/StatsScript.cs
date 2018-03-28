@@ -112,75 +112,76 @@ public class StatsScript : MonoBehaviour {
     }
 
     private Sprite calculateRating(string lvlName) {
-        int rating = (P1score * P1maxCombo) + (P2score * P2maxCombo); //-(heartsLost * 100)
+        int rating = P1score + P2score; //-(heartsLost * 100)
+        Debug.Log(rating);
 
         Debug.Log(lvlName);
         switch (lvlName) {
             case "GrassStage":
-                if (rating >= 4000) {
+                if (rating >= 7800) {
                     return SS;
-                } if (rating >= 3000) {
+                } if (rating >= 7000) {
                     return S;
-                } if (rating >= 2000) {
+                } if (rating >= 6500) {
                     return A;
                 }
-                if (rating >= 1000) {
+                if (rating >= 5500) {
                     return B;
                 }
-                if (rating >= 500) {
+                if (rating >= 1) {
                     return C;
                 }
                 break;
 
             case "WaterStage":
-                if (rating >= 8000) {
+                if (rating >= 28000) {
                     return SS;
                 }
-                if (rating >= 5000) {
+                if (rating >= 25000) {
                     return S;
                 }
-                if (rating >= 3000) {
+                if (rating >= 22000) {
                     return A;
                 }
-                if (rating >= 2000) {
+                if (rating >= 16000) {
                     return B;
                 }
-                if (rating >= 1000) {
+                if (rating >= 1) {
                     return C;
                 }
                 break;
             case "FireStage":
-                if (rating >= 8000) {
+                if (rating >= 30000) {
                     return SS;
                 }
-                if (rating >= 5000) {
+                if (rating >= 25000) {
                     return S;
                 }
-                if (rating >= 3000) {
+                if (rating >= 22000) {
                     return A;
                 }
-                if (rating >= 2000) {
+                if (rating >= 20000) {
                     return B;
                 }
-                if (rating >= 1000) {
+                if (rating >= 1) {
                     return C;
                 }
                 break;
 
             case "ElectricStage":
-                if (rating >= 23000) {
+                if (rating >= 50000) {
                     return SS;
                 }
-                if (rating >= 15000) {
+                if (rating >= 45000) {
                     return S;
                 }
-                if (rating >= 10000) {
+                if (rating >= 40000) {
                     return A;
                 }
-                if (rating >= 5000) {
+                if (rating >= 35000) {
                     return B;
                 }
-                if (rating >= 2000) {
+                if (rating >= 1) {
                     return C;
                 }
                 break;
