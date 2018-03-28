@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 114838616509905142}
   - component: {fileID: 114124760974428752}
   m_Layer: 5
-  m_Name: TeamAttackCanvas 1
+  m_Name: TeamAttackCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
