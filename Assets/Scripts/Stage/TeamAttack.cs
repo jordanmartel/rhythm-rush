@@ -37,7 +37,7 @@ public class TeamAttack : MonoBehaviour {
     private GameObject sideAttractor1;
     private GameObject sideAttractor2;
     private GameObject fireball;
-    private Transform initialPosition;
+    private Vector3 initialTransform;
 
     [Header("Others")]
     public AudioClip buildTeamAttackSFX;
@@ -49,7 +49,7 @@ public class TeamAttack : MonoBehaviour {
         energyBar.maxValue = maximumNumberOfHits;
         energyBar.gameObject.SetActive(false);
         startSize = transform.localScale;
-        initialPosition = transform;
+        initialTransform = transform.position;
 
         //Child Indexes {0 = particle revolver, 1 = attractor 1, 2 = attractor 2, 3 = fireball}
         mainAttractor = transform.GetChild(0).gameObject;
@@ -121,6 +121,7 @@ public class TeamAttack : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+
         if (isActive) {
             remainingTime = remainingTime - Time.deltaTime;
             countDownCanvas.gameObject.SetActive(true);
@@ -165,7 +166,8 @@ public class TeamAttack : MonoBehaviour {
         if (other.tag.Contains("boss")){
             GetComponent<MeshRenderer>().enabled = false;
             isAttackPhase = false;
-            transform.position = initialPosition.position;
+            transform.localScale = startSize;
+            transform.position = initialTransform;
         }
     }
 }
