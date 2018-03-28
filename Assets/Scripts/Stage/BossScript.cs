@@ -149,10 +149,16 @@ public class BossScript : MonoBehaviour {
         FindObjectOfType<Team>().player2.anim.SetTrigger("Victory");
         FindObjectOfType<Team>().player2.anim.SetBool("Ended", true);
 
+        StartCoroutine(winCanvasPostpone());
+
+    }
+
+    IEnumerator winCanvasPostpone() {
+        yield return new WaitForSeconds(2);
+
         //Winning Canvas 
         Canvas winning = Instantiate(winningCanvas, Vector3.zero, Quaternion.identity);
         winning.transform.Find("Status").gameObject.SetActive(true);
-
     }
 
     IEnumerator Player1TurnAround()
