@@ -13,6 +13,7 @@ public class TeamAttack : MonoBehaviour {
     public int attackHits = 50;
     public int recoverHits = 60;
     public int damagePerHit = 10;
+    public GameObject boss;
 
     public float allotedTime = 5f;
     private float remainingTime = 0f;
@@ -36,15 +37,19 @@ public class TeamAttack : MonoBehaviour {
     private GameObject sideAttractor1;
     private GameObject sideAttractor2;
     private GameObject fireball;
+    private Transform initialPosition;
 
     [Header("Others")]
     public AudioClip buildTeamAttackSFX;
+
+    private bool isAttackPhase = false;
 
 	// Use this for initialization
 	void Start () {
         energyBar.maxValue = maximumNumberOfHits;
         energyBar.gameObject.SetActive(false);
         startSize = transform.localScale;
+        initialPosition = transform;
 
         //Child Indexes {0 = particle revolver, 1 = attractor 1, 2 = attractor 2, 3 = fireball}
         mainAttractor = transform.GetChild(0).gameObject;
@@ -62,7 +67,6 @@ public class TeamAttack : MonoBehaviour {
         mainAttractor.SetActive(true);
         sideAttractor1.SetActive(true);
         sideAttractor2.SetActive(true);
-
 
         textPrompts.SetActive(true);
         textPrompts.GetComponent<Animation>().Play();
@@ -85,49 +89,22 @@ public class TeamAttack : MonoBehaviour {
 
     public int unleashTeamAttack()
     {
-        // return team attack damage
 
-        // damage = # hits * damage per hit * 2 to the power of # hits / 10
-        // i.e, at a maximum of 50 hits: 
-        // 10 hits: 100 * 10 * 2^1-1 = 100 * 10 = 1,000
-        // 20 hits: 100 * 20 * 2^2-1 = 100 * 20 * 2 = 4,000
-        // 30 hits: 100 * 30 * 2^3-1 = 100 * 30 * 4 = 12,000
-        // 40 hits: 100 * 40 * 2^4-1 = 100 * 40 * 8 = 32,000
-        // 50 hits: 100 * 50 * 2^5-1 = 100 * 50 * 16 = 80,000
-
-        //int damageDone = Mathf.Min(numberOfHits, maximumNumberOfHits) * damagePerHit;
         int damageDone = numberOfHits * damagePerHit;
-        // * (int) Math.Pow(2, (Mathf.Min(numberOfHits, maximumNumberOfHits) / 10) - 1);
-
-        //Debug.Log("num hits: " + (Mathf.Min(numberOfHits, maximumNumberOfHits)));
-        //Debug.Log("damage per hit: " + damagePerHit);
-        //Debug.Log("pow: " + Math.Pow(2, (Mathf.Min(numberOfHits, maximumNumberOfHits) / 10) - 1));
-
-        // reset
 
         if (numberOfHits >= recoverHits)
         {
             FindObjectOfType<Team>().recoverHealth();
         }
-        /*if (numberOfHits < attackHits)
-        {
-            damageDone = 0;
-        }*/
-        //displayFeedback();        
+    
         energyBar.gameObject.SetActive(false);
         isActive = false;
         numberOfHits = 0;
-        // GetComponentInChildren<Text>().text = "";
-        //Debug.Log("Dealt Team Attack Damage to the boss: " + damageDone);
-        ActivateLazer();
+
+        DeactivateStuff();
+        isAttackPhase = true;
 
         return damageDone;
-    }
-
-    private void displayFeedback() {
-        //Debug.Log("NumHits" + numberOfHits);
-       // player1Feedback.giveTeamAttackFeedback(numberOfHits);
-       // player2Feedback.giveTeamAttackFeedback(numberOfHits);
     }
 
     public bool timerExpired()
@@ -135,13 +112,10 @@ public class TeamAttack : MonoBehaviour {
         return remainingTime <= 0;
     }
 
-    private void ActivateLazer() {
-
-        //Destroy/hide the things
+    private void DeactivateStuff () {
         mainAttractor.SetActive(false);
         sideAttractor1.SetActive(false);
         sideAttractor2.SetActive(false);
-        GetComponent<MeshRenderer>().enabled = false;
         textPrompts.SetActive(false);
     }
 
@@ -181,6 +155,17 @@ public class TeamAttack : MonoBehaviour {
                 transform.localScale = new Vector3(startSize.x, startSize.y, startSize.z);
             }
         }
+        if (isAttackPhase) {
+            transform.position = Vector3.MoveTowards(transform.position, boss.transform.position, 0.5f /*Speed*/);
+        }
         //energyBar.value = Mathf.Min(numberOfHits, maximumNumberOfHits);
+    }
+
+    public void OnTriggerEnter(Collider other) {
+        if (other.tag.Contains("boss")){
+            GetComponent<MeshRenderer>().enabled = false;
+            isAttackPhase = false;
+            transform.position = initialPosition.position;
+        }
     }
 }
