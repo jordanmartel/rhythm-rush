@@ -22,6 +22,9 @@ public class BossScript : MonoBehaviour {
     private double idleChangeTimer = 0;
     public string nextStage = "";
 
+    private float hpPercentageCounter = 0.1f;
+    private int nextHpThreshhold = 0;
+
     private bool preparingAttack = false;
     public Animator animator;
 
@@ -29,6 +32,7 @@ public class BossScript : MonoBehaviour {
     // Use this for initialization
 	void Start () {
         hp = maxhp;
+        nextHpThreshhold = hp - (int)(hp * hpPercentageCounter );
 	}
 	
 	// Update is called once per frame
@@ -76,51 +80,14 @@ public class BossScript : MonoBehaviour {
             //Update visual cue on boss
             if (hp <= 0)
             {
-                //Winning
-                Canvas winning = Instantiate(winningCanvas, Vector3.zero, Quaternion.identity);
-                winning.transform.Find("Status").gameObject.SetActive(true);
 
-                /*Ranking ranking = GameObject.FindObjectOfType<Ranking>();
-                double time = ranking.time;
-                string rank = ranking.rankingAtTime(time);
-                switch (rank)
-                {
-                    case "SS":
-                        winning.transform.Find("SSRank").gameObject.SetActive(true);
-                        break;
-                    case "S":
-                        winning.transform.Find("SRank").gameObject.SetActive(true);
-                        break;
-                    case "A":
-                        winning.transform.Find("ARank").gameObject.SetActive(true);
-                        break;
-                    case "B":
-                        winning.transform.Find("BRank").gameObject.SetActive(true);
-                        break;
-                    case "C":
-                        winning.transform.Find("CRank").gameObject.SetActive(true);
-                        break;
-                    default:
-                        winning.transform.Find("DRank").gameObject.SetActive(true);
-                        break;
-                }
-                */
-                hasEnded = true;
-                //FindObjectOfType<TeamStats>().updateRanking(rank, time);
-                //FindObjectOfType<Ranking>().enabled = false;
-                FindObjectOfType<StageScript>().enabled = false;
-                StartCoroutine("FadeMusic");
-                StartCoroutine("Player1TurnAround");
-                StartCoroutine("Player2TurnAround");
-                FindObjectOfType<Team>().player1.anim.SetTrigger("Victory");
-                FindObjectOfType<Team>().player1.anim.SetBool("Ended", true);
-                FindObjectOfType<Team>().player2.anim.SetTrigger("Victory");
-                FindObjectOfType<Team>().player2.anim.SetBool("Ended", true);
                 GameObject[] notes = GameObject.FindGameObjectsWithTag("note");
                 foreach (GameObject note in notes)
                 {
                     Destroy(note);
                 }
+
+                EndGameAnimations();
             }
         }
 
@@ -131,7 +98,9 @@ public class BossScript : MonoBehaviour {
             {
                 if (nextStage != "")
                 {
+                    Debug.Log("Stuff");
                     StageScript sScript = FindObjectOfType<StageScript>();
+                    sScript.deactivateUIElements();
                     sScript.copyPlayerStats();
 
 
@@ -148,6 +117,48 @@ public class BossScript : MonoBehaviour {
             }
             stageCompleteTimer += Time.deltaTime;
         }
+    }
+
+    void EndGameAnimations() {
+
+        //Play Game Over Camera
+        hasEnded = true;
+        StageScript sScript = FindObjectOfType<StageScript>();
+        sScript.enabled = false;
+
+        Canvas[] canvasObjects = GameObject.FindObjectsOfType<Canvas>();
+        foreach (Canvas canvas in canvasObjects) {
+            canvas.gameObject.SetActive(false);
+        }
+
+        //Forgive me father I have sinned
+        //healthBar.gameObject.transform.parent.gameObject.SetActive(false);
+
+        GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
+        Animation anim = camera.GetComponent<Animation>();
+        anim.Play("dead_boss");
+        //yield return new WaitForSeconds(anim.clip.length);
+
+        //FindObjectOfType<TeamStats>().updateRanking(rank, time);
+        //FindObjectOfType<Ranking>().enabled = false;
+        StartCoroutine("FadeMusic");
+        StartCoroutine("Player1TurnAround");
+        StartCoroutine("Player2TurnAround");
+        FindObjectOfType<Team>().player1.anim.SetTrigger("Victory");
+        FindObjectOfType<Team>().player1.anim.SetBool("Ended", true);
+        FindObjectOfType<Team>().player2.anim.SetTrigger("Victory");
+        FindObjectOfType<Team>().player2.anim.SetBool("Ended", true);
+
+        StartCoroutine(winCanvasPostpone());
+
+    }
+
+    IEnumerator winCanvasPostpone() {
+        yield return new WaitForSeconds(2);
+
+        //Winning Canvas 
+        Canvas winning = Instantiate(winningCanvas, Vector3.zero, Quaternion.identity);
+        winning.transform.Find("Status").gameObject.SetActive(true);
     }
 
     IEnumerator Player1TurnAround()
@@ -244,13 +255,16 @@ public class BossScript : MonoBehaviour {
         updateHealthScreen();
     }
 
-    public void updateHealthScreen() { 
+    public void updateHealthScreen() {
         healthBar.value = (1.0f * hp / maxhp);
         Animator animator = GetComponent<Animator>();
-        if (animator != null)
-        {
-            animator.SetBool("Damaged", true);
-        }
+            if (hp == 0) {
+                if (animator != null) { animator.SetTrigger("Death"); }
+            } else if (hp < nextHpThreshhold) {
+                hpPercentageCounter += 0.1f;
+                nextHpThreshhold = maxhp - ((int)(maxhp * hpPercentageCounter));
+                if (animator != null) { animator.SetBool("Damaged", true); }
+            }
         //StartCoroutine("FlickerDamage");
     }
 

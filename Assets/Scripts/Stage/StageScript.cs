@@ -74,6 +74,13 @@ public class StageScript : MonoBehaviour
     public Sprite countDown1;
     public Sprite countDownGo;
 
+    [Header("UI Elements")]
+    public GameObject P1Hearts;
+    public GameObject P2Hearts;
+    public GameObject P1Mana;
+    public GameObject P2Mana;
+    public GameObject comboDisplay;
+
     [Header("General Player Attributes")]
     public Team team;
     private BossScript boss;
@@ -159,6 +166,22 @@ public class StageScript : MonoBehaviour
             team.player1.notes = new Dictionary<string, string>(beatmapPhase.player1Notes);
             team.player2.notes = new Dictionary<string, string>(beatmapPhase.player2Notes);
         }
+    }
+
+    public void deactivateUIElements() {
+        P1Hearts.SetActive(false);
+        P2Hearts.SetActive(false);
+        P1Mana.SetActive(false);
+        P2Mana.SetActive(false);
+        comboDisplay.SetActive(false);
+    }
+
+    public void activateUIElements() {
+        P1Hearts.SetActive(true);
+        P2Hearts.SetActive(true);
+        P1Mana.SetActive(true);
+        P2Mana.SetActive(true);
+        comboDisplay.SetActive(true);
     }
 
     double BeatInterval(int bpm, int beat_split)
@@ -612,6 +635,7 @@ public class StageScript : MonoBehaviour
             if (!musicPlayer.isPlaying && !isRevival && !revivalInProgress) {
                 musicPlayer.Play();
                 countDownCanvas.gameObject.SetActive(true);
+                activateUIElements();
 
             }
 
