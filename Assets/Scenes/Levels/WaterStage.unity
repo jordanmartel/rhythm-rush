@@ -516,6 +516,16 @@ Prefab:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 1102137065}
+    - target: {fileID: 114468231344970944, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8,
+        type: 2}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 204258052}
+    - target: {fileID: 114240217008952556, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8,
+        type: 2}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 204258053}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8, type: 2}
   m_IsPrefabParent: 0
@@ -561,6 +571,16 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 204258044}
   m_Script: {fileID: 11500000, guid: fbe03b751f670fb499c6fd737e16413a, type: 3}
+--- !u!95 &204258052 stripped
+Animator:
+  m_PrefabParentObject: {fileID: 95667352498876732, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8,
+    type: 2}
+  m_PrefabInternal: {fileID: 204258044}
+--- !u!95 &204258053 stripped
+Animator:
+  m_PrefabParentObject: {fileID: 95986909586960348, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8,
+    type: 2}
+  m_PrefabInternal: {fileID: 204258044}
 --- !u!1 &241456922 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1077474484170660, guid: 7fe648bb8e6a7354f812e5bac022fa3b,
@@ -836,10 +856,12 @@ MonoBehaviour:
   phaseOffset: 0
   currentSection: 0
   currentPhase: 0
+  reviveBpm: 90
   isRevival: 0
   revivalInProgress: 0
   noteTravelSpeed: 0
   noteSpeedQuotient: 20
+  reviveSpeedQuotient: 14
   autoPlay: 0
   bossAttackInProgress: 0
   musicPlayer: {fileID: 391990672}
@@ -5604,7 +5626,7 @@ Prefab:
         type: 2}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: dbcdc72a09eb6574dbc61edff8c5a9d0, type: 3}
+      objectReference: {fileID: 8300000, guid: 14487e7a6a8906a47bee84751a96df9d, type: 3}
     m_RemovedComponents:
     - {fileID: 114649791531940732, guid: 1893ad8ddfecd8544ae200c2eb922f9b, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 1893ad8ddfecd8544ae200c2eb922f9b, type: 2}
