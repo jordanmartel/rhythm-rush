@@ -4477,10 +4477,12 @@ MonoBehaviour:
   phaseOffset: 0
   currentSection: 0
   currentPhase: 0
+  reviveBpm: 90
   isRevival: 0
   revivalInProgress: 0
   noteTravelSpeed: 0
   noteSpeedQuotient: 20
+  reviveSpeedQuotient: 19
   autoPlay: 0
   bossAttackInProgress: 0
   musicPlayer: {fileID: 391990672}
@@ -8181,13 +8183,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 19
       objectReference: {fileID: 0}
-    - target: {fileID: 82323899732977524, guid: 1893ad8ddfecd8544ae200c2eb922f9b,
-        type: 2}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: dbcdc72a09eb6574dbc61edff8c5a9d0, type: 3}
-    m_RemovedComponents:
-    - {fileID: 114649791531940732, guid: 1893ad8ddfecd8544ae200c2eb922f9b, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1893ad8ddfecd8544ae200c2eb922f9b, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &907465653 stripped
@@ -12734,9 +12730,29 @@ Prefab:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 2015746459}
+    - target: {fileID: 114468231344970944, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8,
+        type: 2}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 1615746245}
+    - target: {fileID: 114240217008952556, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8,
+        type: 2}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 1615746246}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8, type: 2}
   m_IsPrefabParent: 0
+--- !u!95 &1615746245 stripped
+Animator:
+  m_PrefabParentObject: {fileID: 95667352498876732, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8,
+    type: 2}
+  m_PrefabInternal: {fileID: 1615746244}
+--- !u!95 &1615746246 stripped
+Animator:
+  m_PrefabParentObject: {fileID: 95986909586960348, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8,
+    type: 2}
+  m_PrefabInternal: {fileID: 1615746244}
 --- !u!1 &1621410166
 GameObject:
   m_ObjectHideFlags: 0

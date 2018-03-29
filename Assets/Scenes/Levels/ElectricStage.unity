@@ -279,6 +279,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: 82323899732977524, guid: 1893ad8ddfecd8544ae200c2eb922f9b,
+        type: 2}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 14487e7a6a8906a47bee84751a96df9d, type: 3}
     m_RemovedComponents:
     - {fileID: 114649791531940732, guid: 1893ad8ddfecd8544ae200c2eb922f9b, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 1893ad8ddfecd8544ae200c2eb922f9b, type: 2}
@@ -594,10 +599,12 @@ MonoBehaviour:
   phaseOffset: 0
   currentSection: 0
   currentPhase: 0
+  reviveBpm: 90
   isRevival: 0
   revivalInProgress: 0
   noteTravelSpeed: 0
   noteSpeedQuotient: 30
+  reviveSpeedQuotient: 12
   autoPlay: 0
   bossAttackInProgress: 0
   musicPlayer: {fileID: 391990672}
@@ -1584,7 +1591,7 @@ Prefab:
         type: 2}
       propertyPath: anim
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1204730055}
     - target: {fileID: 114468231344970944, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8,
         type: 2}
       propertyPath: leftTrack
@@ -1649,7 +1656,7 @@ Prefab:
         type: 2}
       propertyPath: anim
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1971733972}
     - target: {fileID: 114959063282323368, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8,
         type: 2}
       propertyPath: scoreText
@@ -1868,6 +1875,11 @@ Transform:
   m_Father: {fileID: 1574511737}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1204730055 stripped
+Animator:
+  m_PrefabParentObject: {fileID: 95986909586960348, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8,
+    type: 2}
+  m_PrefabInternal: {fileID: 947824543}
 --- !u!1 &1237349992 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1721164098028880, guid: cd47197a1169089488aa798c8d02f96c,
@@ -6347,6 +6359,11 @@ GameObject:
   m_PrefabParentObject: {fileID: 1168427630153208, guid: cd47197a1169089488aa798c8d02f96c,
     type: 2}
   m_PrefabInternal: {fileID: 1306796516}
+--- !u!95 &1971733972 stripped
+Animator:
+  m_PrefabParentObject: {fileID: 95667352498876732, guid: 6bb2d1b4c13c58b46a02c209f5f8adc8,
+    type: 2}
+  m_PrefabInternal: {fileID: 947824543}
 --- !u!1 &1976456531 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1086852340513114, guid: cd47197a1169089488aa798c8d02f96c,

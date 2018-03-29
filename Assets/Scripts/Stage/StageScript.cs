@@ -26,15 +26,20 @@ public class StageScript : MonoBehaviour
     public double phaseOffset;
     public int currentSection;
     public int currentPhase;
+    public int reviveBpm = 90;
     private BeatmapPhase beatmapPhase;
     public bool isRevival = false;
     public bool revivalInProgress = false;
     //private int currentRevivalSection = -1;
     public double noteTravelSpeed;
     public double noteSpeedQuotient = 20;
+    public double reviveSpeedQuotient = 12;
     public bool autoPlay = false;
     private int GSpeed = 1;
     public bool bossAttackInProgress = false;
+
+    private double oldPlayerOffset;
+    private double oldPhaseOffset;
 
     [Header("Audio")]
     public AudioSource musicPlayer;
@@ -630,7 +635,7 @@ public class StageScript : MonoBehaviour
 
         if (!mainCamera.GetComponent<Animation>().isPlaying) {
 
-            if (!musicPlayer.isPlaying) {
+            if (!musicPlayer.isPlaying && !isRevival && !revivalInProgress) {
                 musicPlayer.Play();
                 countDownCanvas.gameObject.SetActive(true);
                 activateUIElements();
@@ -656,11 +661,22 @@ public class StageScript : MonoBehaviour
                     Destroy(note);
                 }
 
-                // get the revival phase
+                // get the revival phase. Temporarily change BPM and such
+
+                noteTravelSpeed = reviveBpm / reviveSpeedQuotient;
+                beatInterval = BeatInterval(reviveBpm, 4);
+                oldPlayerOffset = playerOffset;
+                oldPhaseOffset = phaseOffset;
+
+                phaseOffset = 2.8;
+                playerOffset = -0.2;
+
                 beatmapPhase = beatmap.getPhase(beatmap.sections.Count - 1, 0);
                 nextBeatTime = phaseOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
                 noteCreateIndex = 0;
                 phaseTimer = 0;
+
+
 
                 // set up notes for the player still alive
                 if (team.player2.IsDown) {
@@ -749,8 +765,16 @@ public class StageScript : MonoBehaviour
                     // after successful revive, restart the music and move to the next phase
                     if (revivalInProgress) {
                         team.revivePlayer();
+
+                        noteTravelSpeed = beatmap.bpm / noteSpeedQuotient;
+                        beatInterval = BeatInterval(beatmap.bpm, beatmap.beat_split);
+                        playerOffset = oldPlayerOffset;
+                        phaseOffset = oldPhaseOffset;
+
                         moveToNextPhase();
                         revivalInProgress = false;
+
+
 
                         musicPlayer.time = (float)beatmap.getPhase(currentSection, currentPhase).startTime;
                         musicPlayer.Play();

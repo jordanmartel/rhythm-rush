@@ -205,24 +205,28 @@
             }
          }
       ],
-      [
-         {
-            "startTime":0,
-            "endTime":10,
-            "offset":3,
-            "revivalNotes":{
-               "0":"square",
-               "2":"square",
-               "6":"square",
-               "10":"square",
-               "12":"square",
-               "16":"square",
-               "20":"square"
-            }
-         },
-         {
+      [{
+		"startTime":0,
+		"endTime":10,
+		"offset": 5,
+        "revivalNotes": {
+            "3": "square",
+            "6": "circle",
 
-         }
+            "10": "square",
+            "13": "circle",
+
+            "24": "cross",
+            "30": "circle",
+            "34": "circle",
+            "38": "square",
+            "42": "triangle",
+            "46": "cross",
+            "50": "cross",
+            "54": "cross",
+            "58": "cross"
+        }
+	  }
       ]
    ]
 }
