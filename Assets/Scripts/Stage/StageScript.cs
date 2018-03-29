@@ -38,6 +38,9 @@ public class StageScript : MonoBehaviour
     private int GSpeed = 1;
     public bool bossAttackInProgress = false;
 
+    private double oldPlayerOffset;
+    private double oldPhaseOffset;
+
     [Header("Audio")]
     public AudioSource musicPlayer;
     public AudioSource revivalSoundPlayer;
@@ -662,7 +665,11 @@ public class StageScript : MonoBehaviour
 
                 noteTravelSpeed = reviveBpm / reviveSpeedQuotient;
                 beatInterval = BeatInterval(reviveBpm, 4);
+                oldPlayerOffset = playerOffset;
+                oldPhaseOffset = phaseOffset;
 
+                phaseOffset = 2.8;
+                playerOffset = -0.2;
 
                 beatmapPhase = beatmap.getPhase(beatmap.sections.Count - 1, 0);
                 nextBeatTime = phaseOffset + playerOffset - noteTravelDistance / noteTravelSpeed;
@@ -761,6 +768,8 @@ public class StageScript : MonoBehaviour
 
                         noteTravelSpeed = beatmap.bpm / noteSpeedQuotient;
                         beatInterval = BeatInterval(beatmap.bpm, beatmap.beat_split);
+                        playerOffset = oldPlayerOffset;
+                        phaseOffset = oldPhaseOffset;
 
                         moveToNextPhase();
                         revivalInProgress = false;

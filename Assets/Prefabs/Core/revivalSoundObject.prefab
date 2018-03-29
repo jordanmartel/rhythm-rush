@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4819367058886266}
   - component: {fileID: 82323899732977524}
-  - component: {fileID: 114649791531940732}
   m_Layer: 0
   m_Name: revivalSoundObject
   m_TagString: Untagged
@@ -50,7 +49,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: dbcdc72a09eb6574dbc61edff8c5a9d0, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 14487e7a6a8906a47bee84751a96df9d, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -121,14 +120,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &114649791531940732
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1223141497209122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f7927f2376ac7a40bb5f95d00e4ee77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
