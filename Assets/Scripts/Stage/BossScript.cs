@@ -265,6 +265,13 @@ public class BossScript : MonoBehaviour {
                 nextHpThreshhold = maxhp - ((int)(maxhp * hpPercentageCounter));
                 if (animator != null) { animator.SetBool("Damaged", true); }
             }
+        ParticleSystem hitParticles = GetComponentInChildren<ParticleSystem>();
+        if (hitParticles != null)
+        {
+            hitParticles.Play();
+            //hitParticles.Stop(false,ParticleSystemStopBehavior.StopEmitting);
+        }
+
         //StartCoroutine("FlickerDamage");
     }
 
