@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PauseMenuScript : MonoBehaviour {
 
+    public bool paused = false;
+
     public GameObject UIResume;
     public GameObject UIRestart;
     public GameObject UIQuit;
@@ -37,7 +39,6 @@ public class PauseMenuScript : MonoBehaviour {
     public string currentScene;
 
     private int selectedJoystick;
-    private bool paused = false;
     private int currentPosition = 0;
     private GameObject activeIndicator;
     private List<GameObject> activePositions;

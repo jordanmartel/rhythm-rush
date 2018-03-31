@@ -91,6 +91,8 @@ public class StageScript : MonoBehaviour
     public bool repeatFlag = false;
     public float repeatTime;
 
+    private PauseMenuScript pauseMenu;
+
 
     public Animator bossAnimator;
     
@@ -146,6 +148,8 @@ public class StageScript : MonoBehaviour
         }
 
         nextPhaseStartTime = beatmap.getPhase(nextSection, nextPhase).startTime;
+        pauseMenu = FindObjectOfType<PauseMenuScript>();
+
     }
 
     void parseJson(string filePath)
@@ -629,8 +633,12 @@ public class StageScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate() {
+    void Update() {
 
+        if (pauseMenu.paused)
+        {
+            return;
+        }
        
         Time.timeScale = GSpeed;
 
