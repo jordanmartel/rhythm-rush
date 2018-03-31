@@ -629,7 +629,7 @@ public class StageScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update() {
+    void FixedUpdate() {
 
        
         Time.timeScale = GSpeed;
