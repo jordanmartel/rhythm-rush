@@ -3209,7 +3209,7 @@ Halo:
   m_Enabled: 1
   m_Color:
     serializedVersion: 2
-    rgba: 4294928439
+    rgba: 4294934318
   m_Size: 0.8
 --- !u!122 &122713476370257714
 Halo:
@@ -3242,7 +3242,7 @@ Halo:
   m_Enabled: 1
   m_Color:
     serializedVersion: 2
-    rgba: 4294928439
+    rgba: 4294934318
   m_Size: 0.8
 --- !u!122 &122987737835461944
 Halo:
