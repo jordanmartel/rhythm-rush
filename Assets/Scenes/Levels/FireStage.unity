@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -9608,6 +9608,116 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 204258044}
   m_Script: {fileID: 11500000, guid: 471d5aa481c780045af21dad67903911, type: 3}
+--- !u!1001 &1507900580
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 224960193953249104, guid: c94ab5eec92359a469c1771fb76fcfec,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224960193953249104, guid: c94ab5eec92359a469c1771fb76fcfec,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224960193953249104, guid: c94ab5eec92359a469c1771fb76fcfec,
+        type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224960193953249104, guid: c94ab5eec92359a469c1771fb76fcfec,
+        type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224960193953249104, guid: c94ab5eec92359a469c1771fb76fcfec,
+        type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224960193953249104, guid: c94ab5eec92359a469c1771fb76fcfec,
+        type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224960193953249104, guid: c94ab5eec92359a469c1771fb76fcfec,
+        type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224960193953249104, guid: c94ab5eec92359a469c1771fb76fcfec,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 224960193953249104, guid: c94ab5eec92359a469c1771fb76fcfec,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224960193953249104, guid: c94ab5eec92359a469c1771fb76fcfec,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224960193953249104, guid: c94ab5eec92359a469c1771fb76fcfec,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224960193953249104, guid: c94ab5eec92359a469c1771fb76fcfec,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224960193953249104, guid: c94ab5eec92359a469c1771fb76fcfec,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224960193953249104, guid: c94ab5eec92359a469c1771fb76fcfec,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224960193953249104, guid: c94ab5eec92359a469c1771fb76fcfec,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224960193953249104, guid: c94ab5eec92359a469c1771fb76fcfec,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224960193953249104, guid: c94ab5eec92359a469c1771fb76fcfec,
+        type: 2}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224960193953249104, guid: c94ab5eec92359a469c1771fb76fcfec,
+        type: 2}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114510612064163806, guid: c94ab5eec92359a469c1771fb76fcfec,
+        type: 2}
+      propertyPath: musicPlayer
+      value: 
+      objectReference: {fileID: 391990672}
+    - target: {fileID: 114510612064163806, guid: c94ab5eec92359a469c1771fb76fcfec,
+        type: 2}
+      propertyPath: currentScene
+      value: FireStage
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: c94ab5eec92359a469c1771fb76fcfec, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &1520814013
 Prefab:
   m_ObjectHideFlags: 0

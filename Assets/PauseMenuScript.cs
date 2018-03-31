@@ -25,6 +25,9 @@ public class PauseMenuScript : MonoBehaviour {
 
     public GameObject PausePanel;
 
+    public Animator P1IndicatorAnim;
+    public Animator P2IndicatorAnim;
+
     private List<GameObject> UIOptionList = new List<GameObject>();
     private List<GameObject> P1Positions = new List<GameObject>();
     private List<GameObject> P2Positions = new List<GameObject>();
@@ -38,6 +41,7 @@ public class PauseMenuScript : MonoBehaviour {
     private int currentPosition = 0;
     private GameObject activeIndicator;
     private List<GameObject> activePositions;
+    private Animator activeAnimator;
     private AudioSource activeSFX;
 
     private bool resume=false;
@@ -78,6 +82,10 @@ public class PauseMenuScript : MonoBehaviour {
         Time.timeScale = 1.0f;
         musicPlayer.Play();
         PausePanel.SetActive(false);
+        P1IndicatorAnim.Play("pauseMenuIdle");
+        P2IndicatorAnim.Play("pauseMenuIdle");
+
+
     }
 
     // Update is called once per frame
@@ -123,7 +131,6 @@ public class PauseMenuScript : MonoBehaviour {
 
                 Time.timeScale = 0f;
 
-
                 selectedJoystick = Metadata.player1Joystick;
 
                 PausePanel.SetActive(true);
@@ -132,7 +139,9 @@ public class PauseMenuScript : MonoBehaviour {
                 activeIndicator = P1;
                 activePositions = P1Positions;
                 activeSFX = SFXPlayer1;
+                activeAnimator = P1IndicatorAnim;
 
+                SFXConfirm.Play();
                 musicPlayer.Pause();
 
 
@@ -153,9 +162,9 @@ public class PauseMenuScript : MonoBehaviour {
                 activeIndicator = P2;
                 activePositions = P2Positions;
                 activeSFX = SFXPlayer2;
+                activeAnimator = P2IndicatorAnim;
 
-
-
+                SFXConfirm.Play();
                 musicPlayer.Pause();
 
 
@@ -198,6 +207,7 @@ public class PauseMenuScript : MonoBehaviour {
             if (Input.GetKeyDown("joystick " + selectedJoystick + " button 1")) {
 
                 optionSelected = true;
+                activeAnimator.Play("selectPauseMenu");
 
                 // resume
                 if (currentPosition == 0)
@@ -205,6 +215,7 @@ public class PauseMenuScript : MonoBehaviour {
 
                     SFXConfirm.Play();
                     resume = true;
+
 
                 }
 
