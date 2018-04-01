@@ -91,6 +91,8 @@ public class StageScript : MonoBehaviour
     public bool repeatFlag = false;
     public float repeatTime;
 
+    private PauseMenuScript pauseMenu;
+
 
     public Animator bossAnimator;
     
@@ -146,6 +148,8 @@ public class StageScript : MonoBehaviour
         }
 
         nextPhaseStartTime = beatmap.getPhase(nextSection, nextPhase).startTime;
+        pauseMenu = FindObjectOfType<PauseMenuScript>();
+
     }
 
     void parseJson(string filePath)
@@ -484,7 +488,7 @@ public class StageScript : MonoBehaviour
         string keyToHit = stringToKey(headNote.key, player.joystick);
         if (headNote.canHit || headNote.canMiss)
         {
-            if ((headNote.anyKey && buttonPressed) || Input.GetKeyDown(keyToHit) || 
+            if ((headNote.anyKey && buttonPressed) || Input.GetKeyDown(keyToHit) ||
                 (((headNote.key.Equals("square") && dpadHorizontal == -1) ||
                    (headNote.key.Equals("circle") && dpadHorizontal == 1) ||
                    (headNote.key.Equals("triangle") && dpadVertical == 1) ||
@@ -509,10 +513,10 @@ public class StageScript : MonoBehaviour
                         score = score * 2;
                         break;
                     case (30):
-                        score = (int) (score * 1.5);
+                        score = (int)(score * 1.5);
                         break;
                 }
-                
+
 
                 player.updateComboCount(true, score);
 
@@ -631,6 +635,11 @@ public class StageScript : MonoBehaviour
     // Update is called once per frame
     void Update() {
 
+        if (pauseMenu.paused)
+        {
+            return;
+        }
+       
         Time.timeScale = GSpeed;
 
         if (!mainCamera.GetComponent<Animation>().isPlaying) {
