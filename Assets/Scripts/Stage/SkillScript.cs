@@ -26,6 +26,8 @@ public class SkillScript : MonoBehaviour {
 
     [Header("Bomb")]
     public bool bombUsed = false;
+    public bool bombActive = false;
+    public GameObject bombObject;
 
 	// Use this for initialization
 	void Start () {
@@ -64,6 +66,17 @@ public class SkillScript : MonoBehaviour {
             if (petAnimator.GetBool("ReallyGone"))
             {
                 petObject.SetActive(false);
+            }
+        }
+        if (bombUsed)
+        {
+            if (bombActive)
+            {
+                activateBomb();
+            }
+            else
+            {
+                deactivateBomb();
             }
         }
 	}
@@ -142,8 +155,35 @@ public class SkillScript : MonoBehaviour {
         }
     }
 
+    internal void activateBomb()
+    {
+        if (bombObject != null)
+        {
+            bombObject.transform.Find("Bomb anim").gameObject.SetActive(true);
+        }
+    }
+        
+
+    internal void deactivateBomb()
+    {
+        if (bombObject != null)
+        {
+            bombObject.transform.Find("Bomb anim").gameObject.SetActive(false);
+        }
+    }
+
     internal void throwBomb()
     {
+        ParticleSystem particles = bombObject.GetComponentInChildren<ParticleSystem>();
+        if (particles != null)
+        {
+            particles.Play();
+        }
+        else
+        {
+            print("bomb particle not found");
+        }
+        bombActive = false;
         GameObject[] notes = GameObject.FindGameObjectsWithTag("note");
         foreach (GameObject note in notes)
         {

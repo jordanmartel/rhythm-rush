@@ -115,7 +115,14 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (pUpAvailable)
+        {
+            if (skillController.bombUsed)
+            {
+                skillController.bombActive = true;
+                skillController.activateBomb();
+            }
+        }
     }
 
     public void resetCombo() {
@@ -138,6 +145,10 @@ public class Player : MonoBehaviour
                 SFXPlayer.clip = chargeComplete;
                 SFXPlayer.Play();
                 buzzed = true;
+            }
+            if (skillController.bombUsed)
+            {
+                skillController.bombActive = true;
             }
         }
     }
@@ -189,6 +200,7 @@ public class Player : MonoBehaviour
         {
             SFXPlayer.clip = miss;
             SFXPlayer.Play();
+            skillController.bombActive = false;
         }
         comboCount = (success) ? comboCount+ 1 : 0;
         comboText.text = "x" + comboCount;
