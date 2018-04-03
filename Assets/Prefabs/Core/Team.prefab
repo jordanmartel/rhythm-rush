@@ -7363,6 +7363,7 @@ MonoBehaviour:
   player2: {fileID: 114240217008952556}
   hasEnded: 0
   losing: {fileID: 223552882996209598, guid: 5d0610aa236e0894fbf8bd41a4bf6067, type: 2}
+  losingClip: {fileID: 8300000, guid: 3efd4b9e8f38b6945987729933e758d6, type: 3}
   stats: {fileID: 114883151884238350}
 --- !u!114 &114667970641262632
 MonoBehaviour:

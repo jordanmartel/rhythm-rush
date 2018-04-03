@@ -12,14 +12,16 @@ public class Team : MonoBehaviour
     public Player player2;
     public bool hasEnded = false;
     public Canvas losing;
+    public AudioClip losingClip;
     public TeamStats stats;
 
-    private double loseTimer = 4;
+    private double loseTimer = 6;
 
     // Use this for initialization
     void Awake()
     {
         //health = maxHealth;
+        loseTimer = 6;
         player1.powerUp = Metadata.P1PowerUp;
         player2.powerUp = Metadata.P2PowerUp;
     }
@@ -40,6 +42,8 @@ public class Team : MonoBehaviour
                 hasEnded = true;
                 //FindObjectOfType<Ranking>().enabled = false;
                 FindObjectOfType<StageScript>().enabled = false;
+                FindObjectOfType<AudioControl>().GetComponent<AudioSource>().clip = losingClip;
+                FindObjectOfType<AudioControl>().GetComponent<AudioSource>().Play();
             }
         }
 
