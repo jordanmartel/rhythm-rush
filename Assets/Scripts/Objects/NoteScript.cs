@@ -131,7 +131,7 @@ public class NoteScript : MonoBehaviour {
         } else {
             float distance = Vector3.Distance(hitArea.transform.position, transform.position);
             score = feedback.GetComponent<PlayerFeedback>().GiveFeedback(distance, correct);
-            FindObjectOfType<BossScript>().giveDamage(score);
+            if (!FindObjectOfType<StageScript>().revivalInProgress) FindObjectOfType<BossScript>().giveDamage(score);
             DestroyWithShockwave();
 
             if (correct) {
