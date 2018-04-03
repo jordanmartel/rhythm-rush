@@ -1192,7 +1192,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.9999864, y: 126}
+  m_AnchoredPosition: {x: -0.9999864, y: 136}
   m_SizeDelta: {x: 270, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &830696343
@@ -1227,7 +1227,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.1
-  m_Text: (Active) - Hero is temporarily able to hit notes with any button
+  m_Text: '[35 note combo to activate] Hero is temporarily able to hit notes with
+    any button'
 --- !u!222 &830696344
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2024,7 +2025,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.9999616, y: 135}
+  m_AnchoredPosition: {x: -0.9999616, y: 138}
   m_SizeDelta: {x: 270, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1487209288
@@ -2059,7 +2060,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.1
-  m_Text: (Active) - Hero summons a pet that saves them from 5 missed music notes
+  m_Text: '[50 note combo to activate] Hero summons a pet that saves them from 5 missed
+    notes'
 --- !u!222 &1487209289
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2327,7 +2329,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.1
-  m_Text: (Passive) - Hero is granted a 20% larger hit range
+  m_Text: '[Passive] Hero is granted a 20% larger hit range'
 --- !u!222 &1610353019
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2542,7 +2544,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1, y: 127}
+  m_AnchoredPosition: {x: -1, y: 138}
   m_SizeDelta: {x: 270, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1722465117
@@ -2577,7 +2579,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.1
-  m_Text: (Active) - Hero throws a bomb that destroys all active notes
+  m_Text: '[40 note combo to activate] Hero throws a bomb that destroys all active
+    notes'
 --- !u!222 &1722465118
 CanvasRenderer:
   m_ObjectHideFlags: 0
