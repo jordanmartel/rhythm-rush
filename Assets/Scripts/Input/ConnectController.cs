@@ -15,6 +15,8 @@ public class ConnectController : MonoBehaviour {
 
     public Text Player1Text;
     public Text Player2Text;
+    public Image Player1Image;
+    public Image Player2Image;
 
     public string firstStage;
 
@@ -74,11 +76,13 @@ public class ConnectController : MonoBehaviour {
                 if (player1Ready)
                 {
                     SFXPlayer1.clip = confirm;
+                    Player1Image.color = Color.white;
                     StartCoroutine(playConfirm(SFXPlayer1));
                 }
                 else
                 {
                     SFXPlayer1.clip = cancel;
+                    Player1Image.color = Color.black;
                     StartCoroutine(playConfirm(SFXPlayer1));
                 }
             }
@@ -93,11 +97,13 @@ public class ConnectController : MonoBehaviour {
                 if (player2Ready)
                 {
                     SFXPlayer2.clip = confirm;
+                    Player2Image.color = Color.white;
                     StartCoroutine(playConfirm(SFXPlayer2));
                 }
                 else
                 {
                     SFXPlayer2.clip = cancel;
+                    Player2Image.color = Color.black;
                     StartCoroutine(playConfirm(SFXPlayer2));
                 }
             }
