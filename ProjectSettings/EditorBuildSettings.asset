@@ -5,21 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Levels/ConnectController.unity
     guid: b5d37948b0b496548a256fa82088d98f
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Levels/WaterStage.unity
     guid: 9f08920881344ec48b469a6a1fb0cfaa
@@ -38,3 +26,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/statsScene.unity
     guid: 71d751c04ef5f9b4b899739a01238cd6
+  - enabled: 1
+    path: Assets/Scenes/Levels/Instructions.unity
+    guid: fa98dfe9decec30479ff94b7b2794937
