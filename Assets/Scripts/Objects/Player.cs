@@ -115,6 +115,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        pUpAvailable = PowerUpHandler.checkAvailablePower(powerUp, pUpCombo);
         if (pUpAvailable)
         {
             if (skillController.bombUsed)
