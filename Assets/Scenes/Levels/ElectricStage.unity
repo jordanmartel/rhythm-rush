@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -11495,7 +11495,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771686427}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.05631447, z: 0}
+  m_LocalPosition: {x: -0.07, y: -0.141, z: 0.198}
   m_LocalScale: {x: 7.790451, y: 7.790451, z: 7.790451}
   m_Children: []
   m_Father: {fileID: 961167195}
@@ -15691,7 +15691,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 961167194}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.0955725, y: 59.529922, z: -122.56046}
+  m_LocalPosition: {x: -7.0955725, y: 58.03, z: -122.56046}
   m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children:
   - {fileID: 771686428}
@@ -25673,7 +25673,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -2041854236
+  randomSeed: -803479548
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -34031,7 +34031,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1894341472}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.9044275, y: 59.529922, z: -122.56046}
+  m_LocalPosition: {x: 11.9, y: 48, z: -112.62}
   m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children:
   - {fileID: 1094366054}
