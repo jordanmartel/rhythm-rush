@@ -17,7 +17,6 @@ public class TutorialScreen : MonoBehaviour {
     public Sprite sixthScreen;
     public Sprite seventhScreen;
     public Sprite eigthScreen;
-    public Sprite ninthScreen;
 
     public AudioSource audioSource;
     public AudioClip confirmClip;
@@ -40,7 +39,6 @@ public class TutorialScreen : MonoBehaviour {
         tutorialScreens.Add(sixthScreen);
         tutorialScreens.Add(seventhScreen);
         tutorialScreens.Add(eigthScreen);
-        tutorialScreens.Add(ninthScreen);
     }
 
 
@@ -62,8 +60,8 @@ public class TutorialScreen : MonoBehaviour {
 
         }
 
-        // square --> next button
-        else if ((Input.GetKeyDown("joystick " + Metadata.player1Joystick + " button 0") || Input.GetKeyDown("joystick " + Metadata.player2Joystick + " button 0"))) {
+        // square/except that it's circle --> next button
+        else if ((Input.GetKeyDown("joystick " + Metadata.player1Joystick + " button 2") || Input.GetKeyDown("joystick " + Metadata.player2Joystick + " button 2"))) {
 
             // any position except the final position
             if (position < tutorialScreens.Count - 1)
@@ -77,8 +75,8 @@ public class TutorialScreen : MonoBehaviour {
             }
         }
 
-        // circle --> back button
-        else if ((Input.GetKeyDown("joystick " + Metadata.player1Joystick + " button 2") || Input.GetKeyDown("joystick " + Metadata.player2Joystick + " button 2"))) {
+        // circle/except that it's square --> back button
+        else if ((Input.GetKeyDown("joystick " + Metadata.player1Joystick + " button 0") || Input.GetKeyDown("joystick " + Metadata.player2Joystick + " button 0"))) {
 
             // any position except the first position
             if (position > 0)
