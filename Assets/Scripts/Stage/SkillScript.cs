@@ -13,6 +13,7 @@ public class SkillScript : MonoBehaviour {
     public bool anyKeyActive = false;
     public double anyKeyTimer = 0;
     public double anyKeyMaxTime = 5;
+    public AudioClip anyKeyOnAudio;
 
     [Header("Pet")]
     public bool petUsed = false;
@@ -20,6 +21,7 @@ public class SkillScript : MonoBehaviour {
     public int petHelpCount = 5;
     public Animator petAnimator;
     public GameObject petObject;
+    public AudioClip petHelpAudio;
 
     [Header("HitArea")]
     public bool hitAreaUsed = false;
@@ -28,6 +30,7 @@ public class SkillScript : MonoBehaviour {
     public bool bombUsed = false;
     public bool bombActive = false;
     public GameObject bombObject;
+    public AudioClip bombAudio;
 
 	// Use this for initialization
 	void Start () {
@@ -84,6 +87,8 @@ public class SkillScript : MonoBehaviour {
     internal void anyKeyOn()
     {
         anyKeyActive = true;
+        GetComponent<AudioSource>().clip = anyKeyOnAudio;
+        GetComponent<AudioSource>().Play();
         anyKeyTimer = 0;
         GameObject[] notes = GameObject.FindGameObjectsWithTag("note");
         foreach (GameObject note in notes)
@@ -134,6 +139,8 @@ public class SkillScript : MonoBehaviour {
         {
             petActive = true;
             petObject.SetActive(true);
+            GetComponent<AudioSource>().clip = anyKeyOnAudio;
+            GetComponent<AudioSource>().Play();
             petHelpCount = 5;
         }
     }
@@ -147,6 +154,8 @@ public class SkillScript : MonoBehaviour {
 
     internal void petHelp()
     {
+        GetComponent<AudioSource>().clip = petHelpAudio;
+        GetComponent<AudioSource>().Play();
         petHelpCount -= 1;
         petAnimator.SetTrigger("Help");
         if (petHelpCount <= 0)
@@ -175,6 +184,8 @@ public class SkillScript : MonoBehaviour {
     internal void throwBomb()
     {
         ParticleSystem particles = bombObject.GetComponentInChildren<ParticleSystem>();
+        GetComponent<AudioSource>().clip = bombAudio;
+        GetComponent<AudioSource>().Play();
         if (particles != null)
         {
             particles.Play();

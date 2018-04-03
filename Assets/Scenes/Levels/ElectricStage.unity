@@ -25477,15 +25477,18 @@ MonoBehaviour:
   anyKeyActive: 0
   anyKeyTimer: 0
   anyKeyMaxTime: 5
+  anyKeyOnAudio: {fileID: 8300000, guid: 78e8f9e59fa84bc4b81a5e1a0208e625, type: 3}
   petUsed: 0
   petActive: 0
   petHelpCount: 5
   petAnimator: {fileID: 1357383150}
   petObject: {fileID: 1357383148}
+  petHelpAudio: {fileID: 8300000, guid: 9482a79ff616a7a4aaea3becae39609f, type: 3}
   hitAreaUsed: 0
   bombUsed: 0
   bombActive: 0
   bombObject: {fileID: 1894341472}
+  bombAudio: {fileID: 8300000, guid: d597ae5e9cfd07f4598171684676c71d, type: 3}
 --- !u!114 &1563631921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33940,15 +33943,18 @@ MonoBehaviour:
   anyKeyActive: 0
   anyKeyTimer: 0
   anyKeyMaxTime: 5
+  anyKeyOnAudio: {fileID: 8300000, guid: 78e8f9e59fa84bc4b81a5e1a0208e625, type: 3}
   petUsed: 0
   petActive: 0
   petHelpCount: 5
   petAnimator: {fileID: 1182172992}
   petObject: {fileID: 1182172990}
+  petHelpAudio: {fileID: 8300000, guid: 9482a79ff616a7a4aaea3becae39609f, type: 3}
   hitAreaUsed: 0
   bombUsed: 0
   bombActive: 0
   bombObject: {fileID: 961167194}
+  bombAudio: {fileID: 8300000, guid: d597ae5e9cfd07f4598171684676c71d, type: 3}
 --- !u!114 &1863242990
 MonoBehaviour:
   m_ObjectHideFlags: 0
