@@ -266,7 +266,7 @@ public class BossScript : MonoBehaviour {
                 if (animator != null) { animator.SetBool("Damaged", true); }
             }
         ParticleSystem hitParticles = GetComponentInChildren<ParticleSystem>();
-        if (hitParticles != null)
+        if (hitParticles != null && !FindObjectOfType<StageScript>().revivalInProgress)
         {
             hitParticles.Play();
             //hitParticles.Stop(false,ParticleSystemStopBehavior.StopEmitting);

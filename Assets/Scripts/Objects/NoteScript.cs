@@ -134,7 +134,7 @@ public class NoteScript : MonoBehaviour {
             if (!FindObjectOfType<StageScript>().revivalInProgress) FindObjectOfType<BossScript>().giveDamage(score);
             DestroyWithShockwave();
 
-            if (correct) {
+            if (correct && !FindObjectOfType<StageScript>().revivalInProgress) {
                 weaponAnimator.SetBool("Attack",true );
                 activateAttack();
                 //sendParticles(score);
