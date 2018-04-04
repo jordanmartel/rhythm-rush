@@ -90,7 +90,14 @@ public class Player : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        pUpCombo = Metadata.playerManaLevels[joystick];
+        try
+        {
+            pUpCombo = Metadata.playerManaLevels[joystick];
+        }
+        catch
+        {
+            pUpCombo = 0;
+        }
         anim = GetComponentInChildren<Animator>();
         buzzed = false;
         if (skillController.hitAreaUsed)
