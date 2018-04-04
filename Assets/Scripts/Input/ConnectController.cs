@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 
 public class ConnectController : MonoBehaviour {
-
-    public Texture background;
 
     private int connectedControllers = 0;
     public AudioClip confirm;
@@ -13,20 +13,31 @@ public class ConnectController : MonoBehaviour {
     public AudioSource SFXPlayer1;
     public AudioSource SFXPlayer2;
 
+    public Text Player1Text;
+    public Text Player2Text;
+    public Image Player1Image;
+    public Image Player2Image;
+
     public string firstStage;
 
     private bool player1Ready = false;
     private bool player2Ready = false;
-    GUIStyle guiStyle = new GUIStyle();
 
     // unity is super gross and randomly assigns a controller to a joystick. Will have to manually 
     // keep track of which joystick buttons belong to each player
 
     // Use this for initialization
-    void Start() {
 
-        guiStyle.fontSize = 20;
-        guiStyle.normal.textColor = Color.white;
+    IEnumerator playConfirm(AudioSource player) {
+        player.Play();
+        yield return new WaitForSeconds(1.0f);
+
+        if (player1Ready && player2Ready || Input.GetKeyDown(KeyCode.Return)) {
+            SceneManager.LoadScene(firstStage);
+        }
+    }
+
+    void Start() {
 
     }
 
@@ -65,12 +76,14 @@ public class ConnectController : MonoBehaviour {
                 if (player1Ready)
                 {
                     SFXPlayer1.clip = confirm;
-                    SFXPlayer1.Play();
+                    Player1Image.color = Color.white;
+                    StartCoroutine(playConfirm(SFXPlayer1));
                 }
                 else
                 {
                     SFXPlayer1.clip = cancel;
-                    SFXPlayer1.Play();
+                    Player1Image.color = Color.black;
+                    StartCoroutine(playConfirm(SFXPlayer1));
                 }
             }
         }
@@ -84,64 +97,46 @@ public class ConnectController : MonoBehaviour {
                 if (player2Ready)
                 {
                     SFXPlayer2.clip = confirm;
-                    SFXPlayer2.Play();
+                    Player2Image.color = Color.white;
+                    StartCoroutine(playConfirm(SFXPlayer2));
                 }
                 else
                 {
                     SFXPlayer2.clip = cancel;
-                    SFXPlayer2.Play();
+                    Player2Image.color = Color.black;
+                    StartCoroutine(playConfirm(SFXPlayer2));
                 }
             }
 
         }
 
-        if (player1Ready && player2Ready || Input.GetKeyDown(KeyCode.Return))
-        {
-            SceneManager.LoadScene(firstStage);
-        }
-
-
-    }
-
-
-    private void OnGUI()
-    {
-
-        GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), background);
-
-        GUILayout.BeginHorizontal(GUILayout.Width(Screen.width));
+        
 
         bool player1Connected = false;
         bool player2Connected = false;
 
         connectedControllers = 0;
         string[] controllerNames = Input.GetJoystickNames();
-        for (int x = 1; x < Input.GetJoystickNames().Length + 1; x++)
-        {
-            if (controllerNames[x - 1].Equals("Wireless Controller") || controllerNames[x-1].Contains("Xbox One"))
-            {
+        for (int x = 1; x < Input.GetJoystickNames().Length + 1; x++) {
+            if (controllerNames[x - 1].Equals("Wireless Controller") || controllerNames[x - 1].Contains("Xbox One")) {
 
-                if (x == Metadata.player1Joystick)
-                {
+                if (x == Metadata.player1Joystick) {
                     player1Connected = true;
                     continue;
                 }
 
-                if (x == Metadata.player2Joystick)
-                {
+                if (x == Metadata.player2Joystick) {
                     player2Connected = true;
                     continue;
                 }
 
-                if (Metadata.player1Joystick == -1)
-                {
+                if (Metadata.player1Joystick == -1) {
                     Debug.Log("Player 1 is connected to joystick number: " + x);
                     player1Connected = true;
                     Metadata.player1Joystick = x;
                 }
 
-                else if (Metadata.player2Joystick == -1)
-                {
+                else if (Metadata.player2Joystick == -1) {
                     Debug.Log("Player 2 is connected to joystick number: " + x);
                     player2Connected = true;
                     Metadata.player2Joystick = x;
@@ -151,49 +146,42 @@ public class ConnectController : MonoBehaviour {
             connectedControllers++;
         }
 
-        if (!player1Connected)
-        {
+        if (!player1Connected) {
             // if not connected, cannot be ready
             player1Ready = false;
 
             Metadata.player1Joystick = -1;
-            GUI.Label(new Rect(10, 10, 250, 20), "Player 1: Connect controller!", guiStyle);
+            Player1Text.text = "Player 1: Connect controller!";
         }
 
-        else 
-        {
-            if (!player1Ready)
-            {
-                GUI.Label(new Rect(10, 10, 250, 20), "Player 1: Press OPTIONS to start", guiStyle);
+        else {
+            if (!player1Ready) {
+                Player1Text.text =  "Player 1: Press OPTIONS to start";
             }
 
-            else
-            {
-                GUI.Label(new Rect(10, 10, 250, 20), "Player 1: Ready!", guiStyle);
+            else {
+                Player1Text.text = "Player 1: Ready!";
             }
         }
 
-        if (!player2Connected)
-        {
+        if (!player2Connected) {
             player2Ready = false;
 
             Metadata.player2Joystick = -1;
-            GUI.Label(new Rect(Screen.width - 210, 10, 250, 20), "Player 2: Connect controller!", guiStyle);
-
+            Player2Text.text = "Player 2: Connect controller!";
         }
 
-        else
-        {
-            if (!player2Ready)
-            {
-                GUI.Label(new Rect(Screen.width - 320, 10, 250, 20), "Player 2: Press OPTIONS to start", guiStyle);
+        else {
+            if (!player2Ready) {
+                Player2Text.text = "Player 2: Press OPTIONS to start";
             }
 
-            else
-            {
-                GUI.Label(new Rect(Screen.width - 320, 10, 250, 20), "Player 2: Ready!", guiStyle);
+            else {
+                Player2Text.text = "Player 2: Ready!";
             }
         }
+
+
 
     }
 }
