@@ -12,7 +12,7 @@ public class TeamAttack : MonoBehaviour {
     public int maximumNumberOfHits = 60;
     public int attackHits = 50;
     public int recoverHits = 60;
-    public int damagePerHit = 10;
+    public int damagePerHit = 20;
     public GameObject boss;
 
     public float allotedTime = 5f;
@@ -55,7 +55,7 @@ public class TeamAttack : MonoBehaviour {
         mainAttractor = transform.GetChild(0).gameObject;
         sideAttractor1 = transform.GetChild(1).gameObject;
         sideAttractor2 = transform.GetChild(2).gameObject;
-
+        damagePerHit = 20;
         GetComponent<AudioSource>().clip = buildTeamAttackSFX;
     }
 
@@ -151,7 +151,7 @@ public class TeamAttack : MonoBehaviour {
             }
 
             if (numberOfHits > 0) {
-                transform.localScale = new Vector3(startSize.x + numberOfHits / 8.0f, startSize.y + numberOfHits / 8.0f, startSize.z + numberOfHits / 8.0f);
+                transform.localScale = new Vector3(startSize.x + numberOfHits / 3.0f, startSize.y + numberOfHits / 3.0f, startSize.z + numberOfHits / 3.0f);
                 //GetComponentInChildren<Text>().text = numberOfHits.ToString();
             }
             else
