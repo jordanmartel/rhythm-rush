@@ -8351,7 +8351,7 @@ MonoBehaviour:
   isRevival: 0
   revivalInProgress: 0
   noteTravelSpeed: 0
-  noteSpeedQuotient: 20
+  noteSpeedQuotient: 30
   reviveSpeedQuotient: 12
   autoPlay: 0
   bossAttackInProgress: 0
