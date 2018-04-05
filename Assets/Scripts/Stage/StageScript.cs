@@ -755,6 +755,8 @@ public class StageScript : MonoBehaviour
                         team.player2.updateComboCount(false, 0);
                     }
                     else {
+                        team.player1.updateComboCount(true, Mathf.CeilToInt(damage));
+                        team.player2.updateComboCount(true, Mathf.CeilToInt(damage));
                         boss.giveDamage(damage);
                         if (bossAnimator != null) {
                             bossAnimator.SetBool("Damaged", true);
