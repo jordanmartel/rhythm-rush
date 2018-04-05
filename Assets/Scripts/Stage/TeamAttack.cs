@@ -151,7 +151,7 @@ public class TeamAttack : MonoBehaviour {
             }
 
             if (numberOfHits > 0) {
-                transform.localScale = new Vector3(startSize.x + numberOfHits / 3.0f, startSize.y + numberOfHits / 3.0f, startSize.z + numberOfHits / 3.0f);
+                transform.localScale = new Vector3(startSize.x + numberOfHits / 5.0f, startSize.y + numberOfHits / 5.0f, startSize.z + numberOfHits / 5.0f);
                 //GetComponentInChildren<Text>().text = numberOfHits.ToString();
             }
             else
